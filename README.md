@@ -1,5 +1,8 @@
-# Pointofsale java
-Point Of Sale Java
+# Pointofsale Restaurant
+Point Of Sale Restaurant Berbasis Java Desktop
+
+*Aplikasi penjualan yang di khususkan untuk restoran 
+
 
 ## need 
 *jdk ver 8
