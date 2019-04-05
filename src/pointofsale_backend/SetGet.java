@@ -5,6 +5,8 @@
  */
 package pointofsale_backend;
 
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Rifky <qnoy.rifky@gmail.com>
@@ -47,6 +49,13 @@ public class SetGet {
 //    }
     /*  end of method set atribut    */
     
-    
+    /*
+    * method getter atribut
+    *
+    */
+//    public static void setTableOrder(String str1,String str2,String str3,String str4) {
+//        DefaultTableModel model_tblOrder = (DefaultTableModel)jTable_input_order.getModel();
+//    }
+    /*  end of method set atribut    */
 
 }

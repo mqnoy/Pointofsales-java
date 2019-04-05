@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
 package Crud;
+import java.awt.List;
+import javax.swing.table.DefaultTableModel;
 import static pointofsale_backend.Frame_control.*;
 /**
  *
@@ -45,7 +47,7 @@ public class Form_order extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        jTable_input_order = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
         cmenu_tombolOrder1 = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JSeparator();
@@ -65,33 +67,29 @@ public class Form_order extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 204, 51));
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        jTable_input_order.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
-                "no", "item", "qty"
+                "no", "kode menu", "qty", "subtotall"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, true
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jTable2.setMinimumSize(new java.awt.Dimension(500, 96));
-        jScrollPane2.setViewportView(jTable2);
-        if (jTable2.getColumnModel().getColumnCount() > 0) {
-            jTable2.getColumnModel().getColumn(0).setResizable(false);
-            jTable2.getColumnModel().getColumn(1).setResizable(false);
-            jTable2.getColumnModel().getColumn(2).setResizable(false);
+        jTable_input_order.setMinimumSize(new java.awt.Dimension(500, 96));
+        jScrollPane2.setViewportView(jTable_input_order);
+        if (jTable_input_order.getColumnModel().getColumnCount() > 0) {
+            jTable_input_order.getColumnModel().getColumn(0).setResizable(false);
+            jTable_input_order.getColumnModel().getColumn(1).setResizable(false);
+            jTable_input_order.getColumnModel().getColumn(2).setResizable(false);
+            jTable_input_order.getColumnModel().getColumn(3).setResizable(false);
         }
 
         jLabel2.setText("Order");
@@ -287,6 +285,7 @@ public class Form_order extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
+        
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -310,7 +309,7 @@ public class Form_order extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JTable jTable2;
+    public static javax.swing.JTable jTable_input_order;
     private javax.swing.JLabel var_noMeja;
     private javax.swing.JLabel var_noOrder;
     // End of variables declaration//GEN-END:variables
