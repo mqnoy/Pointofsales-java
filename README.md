@@ -1,5 +1,5 @@
-# Pointofsales-java
-Point Of Sales Java
+# Pointofsale java
+Point Of Sale Java
 
 ## need 
 *jdk ver 8
