@@ -1,7 +1,7 @@
 # Pointofsales-java
 Point Of Sales Java
 
-#Requitment 
+## need 
 *jdk ver 8
 
 ## Author
