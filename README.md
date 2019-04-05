@@ -1,2 +1,5 @@
 # Pointofsales-java
-pos java
+Point Of Sales Java
+
+## Author
+Rifky Qnoy
