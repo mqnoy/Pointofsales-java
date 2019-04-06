@@ -18,12 +18,12 @@ public class Form_list_menu extends javax.swing.JFrame {
     /**
      * Creates new form Form_list_menu
      */
-    static public String value="";
+    static public String value = "";
+
     public Form_list_menu() {
         initComponents();
-    
-        String[] col_tbl_listmenu = {"","","",""};
-        
+
+        String[] col_tbl_listmenu = {"", "", "", ""};
 
     }
 
@@ -43,7 +43,7 @@ public class Form_list_menu extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable_list_menu = new javax.swing.JTable();
-        jComboBox1 = new javax.swing.JComboBox<String>();
+        jComboBox1 = new javax.swing.JComboBox<>();
         jTextField1 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
@@ -51,7 +51,6 @@ public class Form_list_menu extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jPanel3 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         jLabel_nmMenu = new javax.swing.JLabel();
         jLabel_Qty = new javax.swing.JLabel();
 
@@ -62,6 +61,12 @@ public class Form_list_menu extends javax.swing.JFrame {
         jDialog_inputQty.setResizable(false);
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("qty"));
+
+        jTextField_qty.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextField_qtyKeyPressed(evt);
+            }
+        });
 
         jButton_qty.setText("masukan");
         jButton_qty.addActionListener(new java.awt.event.ActionListener() {
@@ -156,7 +161,7 @@ public class Form_list_menu extends javax.swing.JFrame {
             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 375, Short.MAX_VALUE)
         );
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "makanan", "minuman" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "makanan", "minuman" }));
 
         jTextField1.setText("ketik nama menu ....");
 
@@ -178,7 +183,7 @@ public class Form_list_menu extends javax.swing.JFrame {
 
         jButton4.setText("cari menu");
 
-        jLabel1.setText("Draft menu : ");
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Draft menu"));
 
         jLabel_nmMenu.setText("nama menu?");
 
@@ -189,17 +194,15 @@ public class Form_list_menu extends javax.swing.JFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(jLabel1)
+                .addContainerGap()
+                .addComponent(jLabel_Qty, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel_nmMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel_Qty, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel_nmMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel_nmMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addComponent(jLabel_Qty, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -241,7 +244,7 @@ public class Form_list_menu extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 54, Short.MAX_VALUE)
+                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
                             .addComponent(jComboBox1))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -266,52 +269,65 @@ public class Form_list_menu extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
     public static String KdMenu;
     public static String HargaMenu;
-    public static Integer menuQty=0;
+    public static Integer menuQty = 0;
     public static String nmMenu;
 
     private void jTable_list_menuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable_list_menuMouseClicked
         // TODO add your handling code here:
         jDialog_inputQty.setVisible(true);
-        int column =1;
+        int column = 1;
         int row = jTable_list_menu.getSelectedRow();
         Form_list_menu.KdMenu = jTable_list_menu.getModel().getValueAt(row, 1).toString();
         Form_list_menu.nmMenu = jTable_list_menu.getModel().getValueAt(row, 2).toString();
 //        Form_list_menu.HargaMenu = Double.parseDouble(String.valueOf(jTable_list_menu.getValueAt(row, 5)));
         Form_list_menu.HargaMenu = jTable_list_menu.getModel().getValueAt(row, 4).toString();
 //        String str_qty = menuQty.toString();
-        
-        
-        
-        
-        System.out.println("harganya "+HargaMenu);
+
+        System.out.println("harganya " + HargaMenu);
     }//GEN-LAST:event_jTable_list_menuMouseClicked
-  
+
     private void tbl_tambah_keOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbl_tambah_keOrderActionPerformed
         // TODO add your handling code here:
         int a = 1, room = 301;
         List li = new List();
 //        Form_list_menu list_menu = new Form_list_menu();
         DefaultTableModel model = (DefaultTableModel) jTable_input_order.getModel();
-        model.addRow(new Object[]{a++,KdMenu,menuQty,"4",HargaMenu});
+        model.addRow(new Object[]{a++, KdMenu, menuQty, "4", HargaMenu});
 
         li.setVisible(true);
-        jLabel_Qty.setText("");
-        jLabel_nmMenu.setText("");
-        menuQty=0;
+        jLabel_nmMenu.setText("nama menu?");
+        jLabel_Qty.setText("qty?");
+        menuQty = 0;
     }//GEN-LAST:event_tbl_tambah_keOrderActionPerformed
-    
+
     private void jButton_qtyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_qtyActionPerformed
         // TODO add your handling code here:
         menuQty = Integer.parseInt(jTextField_qty.getText());
-        if (menuQty>0) {
+        if (menuQty > 0) {
             jLabel_Qty.setText(menuQty.toString());
             jLabel_nmMenu.setText(nmMenu);
             jDialog_inputQty.setVisible(false);
 
-        }else{
-            menuQty=0;
+        } else {
+            menuQty = 0;
         }
     }//GEN-LAST:event_jButton_qtyActionPerformed
+
+    private void jTextField_qtyKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_qtyKeyPressed
+        // TODO add your handling code here:
+        String str_key = evt.getKeyText(evt.getKeyCode());
+//        System.out.println(str_key);
+        if (str_key.equals("Enter")) {
+            if (menuQty > 0) {
+                jLabel_Qty.setText(menuQty.toString());
+                jLabel_nmMenu.setText(nmMenu);
+                jDialog_inputQty.setVisible(false);
+
+            } else {
+                menuQty = 0;
+            }
+        }
+    }//GEN-LAST:event_jTextField_qtyKeyPressed
 
     /**
      * @param args the command line arguments
@@ -354,7 +370,6 @@ public class Form_list_menu extends javax.swing.JFrame {
     private javax.swing.JButton jButton_qty;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JDialog jDialog_inputQty;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel_Qty;
     private javax.swing.JLabel jLabel_nmMenu;
     private javax.swing.JPanel jPanel1;
