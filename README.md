@@ -14,7 +14,7 @@ Point Of Sale Restaurant Berbasis Java Desktop ,Aplikasi penjualan yang di khusu
 import database
 
 ```
-mysql -u yourusername -p pointofsale < pointofsale.sql
+mysql -u yourusername -p pointofsale < [databases/pointofsale.sql]
 ```
 
 import project 
@@ -25,5 +25,9 @@ with netbeans
 
 ## Author
 * Rifky Qnoy - [imzazmi](https://imzazmi.com)
+
+## License
+
+This project is licensed under the ???? - see the [LICENSE.md](LICENSE.md) file for details
 
 
