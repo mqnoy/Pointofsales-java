@@ -71,7 +71,7 @@ public class Form_crud_userAplikasi extends javax.swing.JFrame {
                 {null, null, null, null, null}
             },
             new String [] {
-                "id user", "Nip", "username", "level", "blokir"
+                "id user", "Nip", "nama pegawai", "level", "blokir"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
