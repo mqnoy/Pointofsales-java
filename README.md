@@ -1,5 +1,7 @@
 # Point of sale Restaurant App
-Point Of Sale Restaurant Berbasis Java Desktop ,Aplikasi penjualan yang di khususkan untuk restoran
+Point Of Sale Restaurant Berbasis Java Desktop 
+
+Aplikasi penjualan yang di khususkan untuk restoran
 
 
 ## Built With
