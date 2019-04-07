@@ -24,7 +24,7 @@ import database
 
 pointofsale.sql in databases folder
 ```
-mysql -u yourusername -p pointofsale < [pointofsale.sql]
+mysql -u yourusername -p pointofsale < [pointofsale.sql](https://github.com/mqnoy/Pointofsales-java/blob/master/databases/pointofsale.sql)
 ```
 
 import project 
