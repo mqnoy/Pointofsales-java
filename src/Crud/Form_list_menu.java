@@ -55,6 +55,7 @@ public class Form_list_menu extends javax.swing.JFrame {
         jLabel_Qty = new javax.swing.JLabel();
 
         jDialog_inputQty.setTitle("Input jumlah item");
+        jDialog_inputQty.setAlwaysOnTop(true);
         jDialog_inputQty.setMaximumSize(new java.awt.Dimension(260, 145));
         jDialog_inputQty.setMinimumSize(new java.awt.Dimension(260, 145));
         jDialog_inputQty.setPreferredSize(new java.awt.Dimension(260, 145));
@@ -117,6 +118,7 @@ public class Form_list_menu extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Daftar menu");
+        setResizable(false);
 
         jTable_list_menu.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -162,6 +164,11 @@ public class Form_list_menu extends javax.swing.JFrame {
         );
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "makanan", "minuman" }));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
 
         jTextField1.setText("ketik nama menu ....");
 
@@ -274,6 +281,8 @@ public class Form_list_menu extends javax.swing.JFrame {
 
     private void jTable_list_menuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable_list_menuMouseClicked
         // TODO add your handling code here:
+        jDialog_inputQty.pack();
+        jDialog_inputQty.setLocationRelativeTo(null);
         jDialog_inputQty.setVisible(true);
         int column = 1;
         int row = jTable_list_menu.getSelectedRow();
@@ -328,6 +337,10 @@ public class Form_list_menu extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_jTextField_qtyKeyPressed
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox1ActionPerformed
 
     /**
      * @param args the command line arguments

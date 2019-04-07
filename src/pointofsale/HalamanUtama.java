@@ -47,13 +47,13 @@ public class HalamanUtama extends javax.swing.JFrame {
         jButton12 = new javax.swing.JButton();
         jToggleButton2 = new javax.swing.JToggleButton();
         jToggleButton3 = new javax.swing.JToggleButton();
-        jButton13 = new javax.swing.JButton();
+        jButton14 = new javax.swing.JButton();
         layout_footer = new javax.swing.JSplitPane();
         jPanel_footer_kiri = new javax.swing.JPanel();
         jPanel_footer_kanan = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
+        jMenu1 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Point Of Sale");
@@ -64,7 +64,7 @@ public class HalamanUtama extends javax.swing.JFrame {
         jpanel_header.setPreferredSize(new java.awt.Dimension(0, 100));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel1.setText("jLabel1");
+        jLabel1.setText("Restauran {name}");
 
         javax.swing.GroupLayout jpanel_headerLayout = new javax.swing.GroupLayout(jpanel_header);
         jpanel_header.setLayout(jpanel_headerLayout);
@@ -146,7 +146,7 @@ public class HalamanUtama extends javax.swing.JFrame {
         jpanel_menu_kanan.setMinimumSize(new java.awt.Dimension(205, 436));
         jpanel_menu_kanan.setPreferredSize(new java.awt.Dimension(205, 436));
 
-        jButton11.setText("Laporan");
+        jButton11.setText("Laporan penjualan");
         jButton11.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton11ActionPerformed(evt);
@@ -154,17 +154,27 @@ public class HalamanUtama extends javax.swing.JFrame {
         });
 
         jToggleButton1.setText("keluar");
+        jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton1ActionPerformed(evt);
+            }
+        });
 
-        jButton12.setText("Tambah Menu");
+        jButton12.setText("Manajemen Menu");
+        jButton12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton12ActionPerformed(evt);
+            }
+        });
 
         jToggleButton2.setText("keluar");
 
         jToggleButton3.setText("keluar");
 
-        jButton13.setText("Cari tagihan");
-        jButton13.addActionListener(new java.awt.event.ActionListener() {
+        jButton14.setText("Manajemen Meja");
+        jButton14.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton13ActionPerformed(evt);
+                jButton14ActionPerformed(evt);
             }
         });
 
@@ -182,40 +192,26 @@ public class HalamanUtama extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jToggleButton2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jToggleButton1)))
+                        .addComponent(jToggleButton1))
+                    .addComponent(jButton14, javax.swing.GroupLayout.DEFAULT_SIZE, 199, Short.MAX_VALUE)
+                    .addComponent(jButton12, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE))
                 .addContainerGap())
-            .addGroup(jpanel_menu_kananLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jpanel_menu_kananLayout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(jButton12, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
-                    .addContainerGap()))
-            .addGroup(jpanel_menu_kananLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jpanel_menu_kananLayout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(jButton13, javax.swing.GroupLayout.DEFAULT_SIZE, 199, Short.MAX_VALUE)
-                    .addContainerGap()))
         );
         jpanel_menu_kananLayout.setVerticalGroup(
             jpanel_menu_kananLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpanel_menu_kananLayout.createSequentialGroup()
-                .addGap(138, 138, 138)
+                .addGap(20, 20, 20)
+                .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton14, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 232, Short.MAX_VALUE)
                 .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 222, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(jpanel_menu_kananLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jToggleButton1)
                     .addComponent(jToggleButton2)
                     .addComponent(jToggleButton3))
                 .addContainerGap())
-            .addGroup(jpanel_menu_kananLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jpanel_menu_kananLayout.createSequentialGroup()
-                    .addGap(21, 21, 21)
-                    .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(373, Short.MAX_VALUE)))
-            .addGroup(jpanel_menu_kananLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jpanel_menu_kananLayout.createSequentialGroup()
-                    .addGap(81, 81, 81)
-                    .addComponent(jButton13, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(313, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -267,11 +263,16 @@ public class HalamanUtama extends javax.swing.JFrame {
 
         layout_footer.setRightComponent(jPanel_footer_kanan);
 
-        jMenu1.setText("Pengaturan");
-        jMenuBar1.add(jMenu1);
-
         jMenu2.setText("Bantuan");
         jMenuBar1.add(jMenu2);
+
+        jMenu1.setText("Manajemen user");
+        jMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu1MouseClicked(evt);
+            }
+        });
+        jMenuBar1.add(jMenu1);
 
         setJMenuBar(jMenuBar1);
 
@@ -312,7 +313,6 @@ public class HalamanUtama extends javax.swing.JFrame {
         int no_meja = 1;
         setNoMeja(no_meja);
         tampil_Popup_pilMeja();
-        
         System.out.println("nomeja @hal utama = "+noMeja);
     }//GEN-LAST:event_jButton3ActionPerformed
 
@@ -326,12 +326,27 @@ public class HalamanUtama extends javax.swing.JFrame {
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
         // TODO add your handling code here:
-        tampil_formCrtagihan();
+        tampilForm_LapPenjualan();
     }//GEN-LAST:event_jButton11ActionPerformed
 
-    private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
+    private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton13ActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_jToggleButton1ActionPerformed
+
+    private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
+        // TODO add your handling code here:
+        tampil_formCrudMenu();
+    }//GEN-LAST:event_jButton12ActionPerformed
+
+    private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton14ActionPerformed
+
+    private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked
+        // TODO add your handling code here:
+        tampilCrud_UserApp();
+    }//GEN-LAST:event_jMenu1MouseClicked
 
     /**
      * @param args the command line arguments
@@ -377,7 +392,7 @@ public class HalamanUtama extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
-    private javax.swing.JButton jButton13;
+    private javax.swing.JButton jButton14;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;

@@ -64,6 +64,7 @@ public class Form_order extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Form Order");
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(255, 204, 51));
 
