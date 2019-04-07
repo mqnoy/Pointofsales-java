@@ -13,6 +13,13 @@ Aplikasi penjualan yang di khususkan untuk restoran
 
 ### Installing
 
+clone the repository
+
+```
+git clone https://github.com/mqnoy/Pointofsales-java.git
+```
+
+
 import database
 
 pointofsale.sql in databases folder
@@ -23,7 +30,7 @@ mysql -u yourusername -p pointofsale < [pointofsale.sql]
 import project 
 
 ```
-with netbeans
+locate to folder Pointofsales ,with NetBeans
 ```
 
 ## Author
