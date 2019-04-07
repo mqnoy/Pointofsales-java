@@ -10,6 +10,7 @@ Point Of Sale Restaurant Berbasis Java Desktop
 
 ## database information
 database name : pointofsale
+<br/>
 file location : databases/pointofsale.sql
 
 ## dependencies
