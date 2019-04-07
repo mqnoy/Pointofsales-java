@@ -12,6 +12,7 @@ Point Of Sale Restaurant Berbasis Java Desktop ,Aplikasi penjualan yang di khusu
 ### Installing
 
 import database
+
 pointofsale.sql in databases folder
 ```
 mysql -u yourusername -p pointofsale < [pointofsale.sql]
