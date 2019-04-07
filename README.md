@@ -12,7 +12,7 @@ Point Of Sale Restaurant Berbasis Java Desktop
 database name : pointofsale
 file location : databases/pointofsale.sql
 
-##dependencies
+## dependencies
 1.jcallendar-1.4
 2.
 
