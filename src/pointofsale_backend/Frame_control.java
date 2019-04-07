@@ -6,6 +6,7 @@
 package pointofsale_backend;
 
 import Crud.*;
+import pointofsale.NotAvailable;
 import pointofsale.Popup_pilihan_meja;
 
 /**
@@ -83,4 +84,15 @@ public class Frame_control extends SetGet{
         //munculin framenya
         form_list_menu.setVisible(true);
     }
+    
+    //method untuk tampil dialog NotAvailable
+    public static void tampil_NotAvailable() {
+        NotAvailable dialogNotAvailable = new NotAvailable();
+        //set biar di tengah         
+        dialogNotAvailable.pack();
+        dialogNotAvailable.setLocationRelativeTo(null);
+        //munculin framenya
+        dialogNotAvailable.setVisible(true);
+    }
+    
 }
