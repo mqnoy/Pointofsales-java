@@ -8,6 +8,7 @@ package Crud;
 import static Crud.Form_order.jTable_input_order;
 import java.awt.List;
 import javax.swing.table.DefaultTableModel;
+import static pointofsale_backend.Frame_control.tampil_NotAvailable;
 
 /**
  *
@@ -173,6 +174,11 @@ public class Form_list_menu extends javax.swing.JFrame {
         jTextField1.setText("ketik nama menu ....");
 
         jButton1.setText("menu paket");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("kembali");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -341,6 +347,12 @@ public class Form_list_menu extends javax.swing.JFrame {
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        tampil_NotAvailable();
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
