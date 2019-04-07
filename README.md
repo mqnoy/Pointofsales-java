@@ -22,9 +22,9 @@ git clone https://github.com/mqnoy/Pointofsales-java.git
 
 import database
 
-pointofsale.sql in databases folder
+[pointofsale.sql](https://github.com/mqnoy/Pointofsales-java/blob/master/databases/pointofsale.sql) in databases folder
 ```
-mysql -u yourusername -p pointofsale < [pointofsale.sql](https://github.com/mqnoy/Pointofsales-java/blob/master/databases/pointofsale.sql)
+mysql -u yourusername -p pointofsale < pointofsale.sql
 ```
 
 import project 
