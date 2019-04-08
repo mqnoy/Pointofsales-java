@@ -13,7 +13,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author digitized
+ * @author rifky
  */
 public class ConfigDatabase {
     private static String host;
@@ -65,8 +65,7 @@ public class ConfigDatabase {
     
     public static void main(String[] args) throws ClassNotFoundException {
         try {
-            ConfigDatabase confDB = new ConfigDatabase();
-            confDB.beginCon();
+            ConfigDatabase.beginCon();
         } catch (SQLException ex) {
             Logger.getLogger(ConfigDatabase.class.getName()).log(Level.SEVERE, null, ex);
         }
