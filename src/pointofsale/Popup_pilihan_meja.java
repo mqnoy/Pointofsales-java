@@ -30,29 +30,31 @@ public class Popup_pilihan_meja extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        btn_ppm_order = new javax.swing.JButton();
-        btn_ppm_bayar = new javax.swing.JButton();
-        btn_ppm_cetakstruk = new javax.swing.JButton();
-        btn_ppm_cetakstruk1 = new javax.swing.JButton();
+        btn_ppmBayar = new javax.swing.JButton();
+        btn_ppmOrder = new javax.swing.JButton();
+        btn_ppmBack = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Pilihan");
 
-        btn_ppm_order.setText("CETAK STRUK");
-
-        btn_ppm_bayar.setText("ORDER");
-        btn_ppm_bayar.addActionListener(new java.awt.event.ActionListener() {
+        btn_ppmBayar.setText("BAYAR");
+        btn_ppmBayar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_ppm_bayarActionPerformed(evt);
+                btn_ppmBayarActionPerformed(evt);
             }
         });
 
-        btn_ppm_cetakstruk.setText("BAYAR");
-
-        btn_ppm_cetakstruk1.setText("KEMBALI");
-        btn_ppm_cetakstruk1.addActionListener(new java.awt.event.ActionListener() {
+        btn_ppmOrder.setText("ORDER");
+        btn_ppmOrder.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_ppm_cetakstruk1ActionPerformed(evt);
+                btn_ppmOrderActionPerformed(evt);
+            }
+        });
+
+        btn_ppmBack.setText("KEMBALI");
+        btn_ppmBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_ppmBackActionPerformed(evt);
             }
         });
 
@@ -63,23 +65,20 @@ public class Popup_pilihan_meja extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(79, 79, 79)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btn_ppm_cetakstruk1, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_ppm_order, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_ppm_cetakstruk, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_ppm_bayar, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btn_ppmBack, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_ppmBayar, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_ppmOrder, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(79, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(46, 46, 46)
-                .addComponent(btn_ppm_bayar, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btn_ppmOrder, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btn_ppm_order, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btn_ppmBayar, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btn_ppm_cetakstruk, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btn_ppm_cetakstruk1, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btn_ppmBack, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(46, Short.MAX_VALUE))
         );
 
@@ -99,14 +98,19 @@ public class Popup_pilihan_meja extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btn_ppm_bayarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ppm_bayarActionPerformed
+    private void btn_ppmOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ppmOrderActionPerformed
         tampil_formOrder();
-    }//GEN-LAST:event_btn_ppm_bayarActionPerformed
+    }//GEN-LAST:event_btn_ppmOrderActionPerformed
 
-    private void btn_ppm_cetakstruk1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ppm_cetakstruk1ActionPerformed
+    private void btn_ppmBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ppmBackActionPerformed
         // TODO add your handling code here:
         this.setVisible(false);
-    }//GEN-LAST:event_btn_ppm_cetakstruk1ActionPerformed
+    }//GEN-LAST:event_btn_ppmBackActionPerformed
+
+    private void btn_ppmBayarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ppmBayarActionPerformed
+        // TODO add your handling code here:
+        tampilForm_bayar();
+    }//GEN-LAST:event_btn_ppmBayarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -144,10 +148,9 @@ public class Popup_pilihan_meja extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn_ppm_bayar;
-    private javax.swing.JButton btn_ppm_cetakstruk;
-    private javax.swing.JButton btn_ppm_cetakstruk1;
-    private javax.swing.JButton btn_ppm_order;
+    private javax.swing.JButton btn_ppmBack;
+    private javax.swing.JButton btn_ppmBayar;
+    private javax.swing.JButton btn_ppmOrder;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }

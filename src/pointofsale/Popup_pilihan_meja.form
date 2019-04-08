@@ -45,10 +45,9 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="79" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="btn_ppm_cetakstruk1" min="-2" pref="229" max="-2" attributes="0"/>
-                      <Component id="btn_ppm_order" min="-2" pref="229" max="-2" attributes="0"/>
-                      <Component id="btn_ppm_cetakstruk" min="-2" pref="229" max="-2" attributes="0"/>
-                      <Component id="btn_ppm_bayar" min="-2" pref="229" max="-2" attributes="0"/>
+                      <Component id="btn_ppmBack" min="-2" pref="229" max="-2" attributes="0"/>
+                      <Component id="btn_ppmBayar" min="-2" pref="229" max="-2" attributes="0"/>
+                      <Component id="btn_ppmOrder" min="-2" pref="229" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="79" max="32767" attributes="0"/>
               </Group>
@@ -58,43 +57,39 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
-                  <Component id="btn_ppm_bayar" min="-2" pref="61" max="-2" attributes="0"/>
+                  <Component id="btn_ppmOrder" min="-2" pref="61" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="btn_ppm_order" min="-2" pref="61" max="-2" attributes="0"/>
+                  <Component id="btn_ppmBayar" min="-2" pref="61" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="btn_ppm_cetakstruk" min="-2" pref="61" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="btn_ppm_cetakstruk1" min="-2" pref="61" max="-2" attributes="0"/>
+                  <Component id="btn_ppmBack" min="-2" pref="61" max="-2" attributes="0"/>
                   <EmptySpace pref="46" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JButton" name="btn_ppm_order">
+        <Component class="javax.swing.JButton" name="btn_ppmBayar">
           <Properties>
-            <Property name="text" type="java.lang.String" value="CETAK STRUK"/>
+            <Property name="text" type="java.lang.String" value="BAYAR"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_ppmBayarActionPerformed"/>
+          </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="btn_ppm_bayar">
+        <Component class="javax.swing.JButton" name="btn_ppmOrder">
           <Properties>
             <Property name="text" type="java.lang.String" value="ORDER"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_ppm_bayarActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_ppmOrderActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="btn_ppm_cetakstruk">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="BAYAR"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JButton" name="btn_ppm_cetakstruk1">
+        <Component class="javax.swing.JButton" name="btn_ppmBack">
           <Properties>
             <Property name="text" type="java.lang.String" value="KEMBALI"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_ppm_cetakstruk1ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_ppmBackActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

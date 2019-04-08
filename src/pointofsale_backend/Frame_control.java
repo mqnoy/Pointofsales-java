@@ -6,6 +6,7 @@
 package pointofsale_backend;
 
 import Crud.*;
+import pointofsale.NotAvailable;
 import pointofsale.Popup_pilihan_meja;
 
 /**
@@ -14,8 +15,30 @@ import pointofsale.Popup_pilihan_meja;
  */
 public class Frame_control extends SetGet{
     
+    // method untuk tampil crud user aplikasi
+    public static void tampilCrud_UserApp(){
+        Form_crud_userAplikasi form_CrudUserApp = new Form_crud_userAplikasi();
+        form_CrudUserApp.pack();
+        form_CrudUserApp.setLocationRelativeTo(null);
+        form_CrudUserApp.setVisible(true);
+    }
     
-    //method untuk tampil form cari tagihan
+    // method untuk tampil form laporan penjualan
+    public static void tampilForm_LapPenjualan(){
+        Form_laporan_penjualan form_laporanPenjualan = new Form_laporan_penjualan();
+        form_laporanPenjualan.pack();
+        form_laporanPenjualan.setLocationRelativeTo(null);
+        form_laporanPenjualan.setVisible(true);
+    }
+    
+    // method untuk tampil form bayar
+    public static void tampilForm_bayar(){
+        Form_bayar_tagihan form_bayar = new Form_bayar_tagihan();
+        form_bayar.pack();
+        form_bayar.setLocationRelativeTo(null);
+        form_bayar.setVisible(true);
+    }
+    //method untuk tampil popup pilihan meja
     public static void tampil_Popup_pilMeja() {
         Popup_pilihan_meja PopupPilMeja = new Popup_pilihan_meja();
         //set biar di tengah         
@@ -37,17 +60,19 @@ public class Frame_control extends SetGet{
         form_menu.setNo_meja(noMeja);
 //        System.out.println("no meja @form order="+noMeja);
         System.out.println("no meja @form order="+noMeja);
+        form_menu.pack();
+        form_menu.setLocationRelativeTo(null);
         form_menu.setVisible(true);
     }
     
-    //method untuk tampil form cari tagihan    
-    public static void tampil_formCrtagihan(){
-        Form_cari_tagihan form_cr_tagihan = new Form_cari_tagihan();
+    //method untuk tampil form crud menu    
+    public static void tampil_formCrudMenu(){
+        Form_crud_menu form_crud_menu = new Form_crud_menu();
         //set biar di tengah         
-        form_cr_tagihan.pack();
-        form_cr_tagihan.setLocationRelativeTo(null);
+        form_crud_menu.pack();
+        form_crud_menu.setLocationRelativeTo(null);
         //munculin framenya
-        form_cr_tagihan.setVisible(true);
+        form_crud_menu.setVisible(true);
     }
     
     //method untuk tampil list menu
@@ -59,4 +84,15 @@ public class Frame_control extends SetGet{
         //munculin framenya
         form_list_menu.setVisible(true);
     }
+    
+    //method untuk tampil dialog NotAvailable
+    public static void tampil_NotAvailable() {
+        NotAvailable dialogNotAvailable = new NotAvailable();
+        //set biar di tengah         
+        dialogNotAvailable.pack();
+        dialogNotAvailable.setLocationRelativeTo(null);
+        //munculin framenya
+        dialogNotAvailable.setVisible(true);
+    }
+    
 }
