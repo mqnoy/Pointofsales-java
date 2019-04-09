@@ -7,7 +7,7 @@ package pointofsale_backend;
 
 /**
  *
- * @author digitized
+ * @author Rifky <qnoy.rifky@gmail.com>
  */
 import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
