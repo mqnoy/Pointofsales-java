@@ -6,13 +6,17 @@
 package Crud;
 
 import static databases.CrudModel.getUserapp_listDB;
-import java.sql.*;
+
 /**
  *
  * @author Rifky <qnoy.rifky@gmail.com>
  */
 public class Form_crud_userAplikasi extends javax.swing.JFrame {
-    private static Connection conn;
+
+    public static String valNip;
+    public static String valNmPegawai;
+    public static String valLevel;
+    public static String valBlokir;
 
     /**
      * Creates new form Form_crud_userAplikasi
@@ -22,8 +26,6 @@ public class Form_crud_userAplikasi extends javax.swing.JFrame {
         getUserapp_listDB();
 
     }
-
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -45,15 +47,15 @@ public class Form_crud_userAplikasi extends javax.swing.JFrame {
         jPasswordField1 = new javax.swing.JPasswordField();
         jLabel3 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<String>();
-        jLabel_nip = new javax.swing.JLabel();
+        txt_idPengguna = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jRadioButton1 = new javax.swing.JRadioButton();
         jRadioButton2 = new javax.swing.JRadioButton();
         jPanel5 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
-        jTextField_nip = new javax.swing.JTextField();
+        txt_nip = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        txt_npPegawai = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jComboBox2 = new javax.swing.JComboBox<String>();
         jPanel3 = new javax.swing.JPanel();
@@ -81,6 +83,11 @@ public class Form_crud_userAplikasi extends javax.swing.JFrame {
                 "id user", "Nip", "nama pegawai", "level", "blokir"
             }
         ));
+        JTBL_userapp.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                JTBL_userappMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(JTBL_userapp);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -107,15 +114,13 @@ public class Form_crud_userAplikasi extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel2.setText("Kata sandi :");
 
-        jPasswordField1.setText("12345");
-
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel3.setText("Level akses :");
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-pilih-", "operator", "superadmin" }));
 
-        jLabel_nip.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel_nip.setText("..........");
+        txt_idPengguna.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txt_idPengguna.setText("..........");
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel8.setText("Blokir akses :");
@@ -133,7 +138,7 @@ public class Form_crud_userAplikasi extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jLabel_nip, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txt_idPengguna, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPasswordField1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -157,7 +162,7 @@ public class Form_crud_userAplikasi extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel_nip, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txt_idPengguna, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -180,18 +185,18 @@ public class Form_crud_userAplikasi extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel5.setText("Nip : ");
 
-        jTextField_nip.setPreferredSize(new java.awt.Dimension(41, 20));
-        jTextField_nip.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                jTextField_nipKeyReleased(evt);
+        txt_nip.setPreferredSize(new java.awt.Dimension(41, 20));
+        txt_nip.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txt_nipKeyTyped(evt);
             }
         });
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel6.setText("Nama pegawai : ");
 
-        jTextField2.setText("inputan nama pegawai");
-        jTextField2.setPreferredSize(new java.awt.Dimension(41, 20));
+        txt_npPegawai.setText("inputan nama pegawai");
+        txt_npPegawai.setPreferredSize(new java.awt.Dimension(41, 20));
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel7.setText("Jabatan : ");
@@ -206,9 +211,9 @@ public class Form_crud_userAplikasi extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jComboBox2, 0, 203, Short.MAX_VALUE)
-                    .addComponent(jTextField_nip, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txt_nip, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txt_npPegawai, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -219,11 +224,11 @@ public class Form_crud_userAplikasi extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField_nip, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txt_nip, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txt_npPegawai, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -331,11 +336,27 @@ public class Form_crud_userAplikasi extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jTextField_nipKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_nipKeyReleased
+    private void JTBL_userappMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JTBL_userappMouseClicked
         // TODO add your handling code here:
-        String i_nip = jTextField_nip.getText();
-        jLabel_nip.setText(i_nip);
-    }//GEN-LAST:event_jTextField_nipKeyReleased
+        int column = 1;
+        int row = JTBL_userapp.getSelectedRow();
+        valNip = JTBL_userapp.getModel().getValueAt(row, 1).toString();
+        valNmPegawai = JTBL_userapp.getModel().getValueAt(row, 2).toString();
+        valLevel = JTBL_userapp.getModel().getValueAt(row, 3).toString();
+        valBlokir = JTBL_userapp.getModel().getValueAt(row, 4).toString();
+        
+        txt_idPengguna.setText(valNip);
+//        System.out.println("row a " + valNip);
+        
+        txt_nip.setText(valNip);
+        txt_npPegawai.setText(valNmPegawai);
+    }//GEN-LAST:event_JTBL_userappMouseClicked
+
+    private void txt_nipKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_nipKeyTyped
+        // TODO add your handling code here:
+        String i_nip = txt_nip.getText();
+        txt_idPengguna.setText(i_nip);
+    }//GEN-LAST:event_txt_nipKeyTyped
 
     /**
      * @param args the command line arguments
@@ -388,7 +409,6 @@ public class Form_crud_userAplikasi extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel_nip;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -398,7 +418,8 @@ public class Form_crud_userAplikasi extends javax.swing.JFrame {
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField_nip;
+    private javax.swing.JLabel txt_idPengguna;
+    private javax.swing.JTextField txt_nip;
+    private javax.swing.JTextField txt_npPegawai;
     // End of variables declaration//GEN-END:variables
 }

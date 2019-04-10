@@ -7,6 +7,7 @@ package databases;
 
 import Crud.Form_crud_userAplikasi;
 import static Crud.Form_crud_userAplikasi.JTBL_userapp;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -19,7 +20,7 @@ import javax.swing.table.DefaultTableModel;
  * @author Rifky <qnoy.rifky@gmail.com>
  */
 public class CrudModel extends ConfigDatabase {
-    
+    private static Connection conn = new ConfigDatabase().connect();
     /*
     * method untuk select data user aplikasi dan data pegawai
     */
@@ -31,7 +32,7 @@ public class CrudModel extends ConfigDatabase {
         try {    
             //query area
             String sql ="SELECT msp.pegawai_nama ,msp.pegawai_nip ,mup.level,mup.blokir from tbl_master_pegawai msp LEFT JOIN tbl_master_user_application mup on msp.user_id=mup.id_user";
-            PreparedStatement ps = koneksi.prepareStatement(sql);
+            PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet hasil = ps.executeQuery();
             int NUMBERS = 1;
             while (hasil.next()) {
