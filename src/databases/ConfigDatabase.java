@@ -28,9 +28,9 @@ public class ConfigDatabase {
 //        connect();
 //    }
     protected static void setConf() {
-        ConfigDatabase.host = "localhost";
-        ConfigDatabase.username = "root";
-        ConfigDatabase.password = "123456";
+        ConfigDatabase.host = "imzazmi.com";
+        ConfigDatabase.username = "dev_imza";
+        ConfigDatabase.password = "dev_imza";
         ConfigDatabase.driver = "mysql";
         ConfigDatabase.database = "pointofsale";
         ConfigDatabase.port = 3306;
