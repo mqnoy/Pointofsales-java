@@ -49,6 +49,38 @@ public class CrudModel extends ConfigDatabase {
             Logger.getLogger(Form_crud_userAplikasi.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    /* end of method untuk select data user aplikasi dan data pegawai */
+    
+    /*
+    * method untuk select data master menu
+    */
+    public static void getMenulistDB() {
+            DefaultTableModel tabmode;
+            Object[] baris = {"no","Nama menu", "harga", "kode menu", "Kategory"};
+            tabmode = new DefaultTableModel(null, baris);
+            JTBL_userapp.setModel(tabmode);
+        try {    
+            //query area
+            String sql ="SELECT * from tbl_master_item_menu";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet hasil = ps.executeQuery();
+            int NUMBERS = 1;
+            while (hasil.next()) {
+                String col1 = hasil.getString("item_menu_nama");
+                String col2 = hasil.getString("item_menu_harga");
+                String col3 = hasil.getString("kd_menu");
+                String col4 = hasil.getString("menu_kategory");
+                Object[] data = {NUMBERS,col1, col2, col3 ,col4};
+                tabmode.addRow(data);
+                NUMBERS++;
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Form_crud_userAplikasi.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    /* end of method untuk select data master menu */
+    
     
 }
 
