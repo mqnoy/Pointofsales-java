@@ -22,8 +22,11 @@ public class ConfigDatabase {
     static String database;
     static Integer port;
     static String urldb;
-    private Connection koneksi;
+    static Connection koneksi;
 
+//    ConfigDatabase (){
+//    
+//    }
     static void setConf() {
         ConfigDatabase.host = "localhost";
         ConfigDatabase.username = "root";

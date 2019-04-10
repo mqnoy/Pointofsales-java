@@ -5,11 +5,8 @@
  */
 package Crud;
 
-import databases.ConfigDatabase;
+import static databases.CrudModel.getUserapp_listDB;
 import java.sql.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author Rifky <qnoy.rifky@gmail.com>
@@ -21,39 +18,12 @@ public class Form_crud_userAplikasi extends javax.swing.JFrame {
      * Creates new form Form_crud_userAplikasi
      */
     public Form_crud_userAplikasi() {
-        this.conn = new ConfigDatabase().connect();
-
         initComponents();
         getUserapp_listDB();
 
     }
 
-    public static void getUserapp_listDB() {
-        
-            DefaultTableModel tabmode;
-            Object[] baris = {"no","Nip", "Nama pegawai", "level", "blokir"};
-            tabmode = new DefaultTableModel(null, baris);
-            JTBL_userapp.setModel(tabmode);
-        try {    
-            //query area
-            String sql ="SELECT msp.pegawai_nama ,msp.pegawai_nip ,mup.level,mup.blokir from tbl_master_pegawai msp LEFT JOIN tbl_master_user_application mup on msp.user_id=mup.id_user";
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ResultSet hasil = ps.executeQuery();
-            int NUMBERS = 1;
-            while (hasil.next()) {
-                String col1 = hasil.getString("msp.pegawai_nip");
-                String col2 = hasil.getString("msp.pegawai_nama");
-                String col3 = hasil.getString("mup.level");
-                String col4 = hasil.getString("mup.blokir");
-                Object[] data = {NUMBERS,col1, col2, col3 ,col4};
-                tabmode.addRow(data);
-                NUMBERS++;
-            }
-
-        } catch (SQLException ex) {
-            Logger.getLogger(Form_crud_userAplikasi.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.

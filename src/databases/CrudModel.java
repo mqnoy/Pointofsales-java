@@ -5,10 +5,11 @@
  */
 package databases;
 
+import Crud.Form_crud_userAplikasi;
 import static Crud.Form_crud_userAplikasi.JTBL_userapp;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
@@ -18,60 +19,36 @@ import javax.swing.table.DefaultTableModel;
  * @author Rifky <qnoy.rifky@gmail.com>
  */
 public class CrudModel extends ConfigDatabase {
-
-//    public CrudModel() throws SQLException {
-//        try {
-//            beginCon();
-//        } catch (SQLException ex) {
-//            Logger.getLogger(CrudModel.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//
-//    }
-
-    /*public static void getUserapp_listDB2() {
-        
-     //set datatable meta
-            
-            
-     try {
-            
-            
-     PreparedStatement ps = getConnection().prepareStatement(sql);
-     ResultSet records = ps.executeQuery();
-     while (records.next()) {
-     //                System.out.println(records.getString("id_user") + "  " + records.getString("idaccess") + "  " + records.getString("level"));
-     modelTbl_userapp.addRow(new Object[]{records.getString("id_user"),records.getString("idaccess"),records.getString("level")});
-     }
-     JTBL_userapp.setModel(tablemodel);
-     } catch (SQLException ex) {
-     Logger.getLogger(CrudModel.class.getName()).log(Level.SEVERE, null, ex);
-     }
-        
-     }*/
-    public static void getUserapp_listDB() throws SQLException {
-        //query area
-        String sql = "SELECT * FROM tbl_master_user_application";
-        try {
-            Statement st = getConnection().createStatement();
-            ResultSet hasil = st.executeQuery(sql);
+    
+    /*
+    * method untuk select data user aplikasi dan data pegawai
+    */
+    public static void getUserapp_listDB() {
+            DefaultTableModel tabmode;
+            Object[] baris = {"no","Nip", "Nama pegawai", "level", "blokir"};
+            tabmode = new DefaultTableModel(null, baris);
+            JTBL_userapp.setModel(tabmode);
+        try {    
+            //query area
+            String sql ="SELECT msp.pegawai_nama ,msp.pegawai_nip ,mup.level,mup.blokir from tbl_master_pegawai msp LEFT JOIN tbl_master_user_application mup on msp.user_id=mup.id_user";
+            PreparedStatement ps = koneksi.prepareStatement(sql);
+            ResultSet hasil = ps.executeQuery();
+            int NUMBERS = 1;
             while (hasil.next()) {
-                System.out.println(hasil.getString("id_user") + "  " + hasil.getString("idaccess") + "  " + hasil.getString("level"));
-                
+                String col1 = hasil.getString("msp.pegawai_nip");
+                String col2 = hasil.getString("msp.pegawai_nama");
+                String col3 = hasil.getString("mup.level");
+                String col4 = hasil.getString("mup.blokir");
+                Object[] data = {NUMBERS,col1, col2, col3 ,col4};
+                tabmode.addRow(data);
+                NUMBERS++;
             }
-        } catch (SQLException e) {
-            System.out.println(e);
-        }
-    }
 
-    public static void main(String[] args) throws SQLException {
-        try {
-            beginCon();
-            getUserapp_listDB();
         } catch (SQLException ex) {
-            Logger.getLogger(ConfigDatabase.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Form_crud_userAplikasi.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }
+    
 }
 
 /*
