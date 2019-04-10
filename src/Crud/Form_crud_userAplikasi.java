@@ -39,12 +39,8 @@ public class Form_crud_userAplikasi extends javax.swing.JFrame {
             String sql ="SELECT msp.pegawai_nama ,msp.pegawai_nip ,mup.level,mup.blokir from tbl_master_pegawai msp LEFT JOIN tbl_master_user_application mup on msp.user_id=mup.id_user";
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet hasil = ps.executeQuery();
-            boolean go = true;
-            int i = 1;
             int NUMBERS = 1;
-
             while (hasil.next()) {
-//                System.out.println(hasil.getString("id_user") + "  " + hasil.getString("idaccess") + "  " + hasil.getString("level"));
                 String col1 = hasil.getString("msp.pegawai_nip");
                 String col2 = hasil.getString("msp.pegawai_nama");
                 String col3 = hasil.getString("mup.level");
@@ -54,29 +50,6 @@ public class Form_crud_userAplikasi extends javax.swing.JFrame {
                 NUMBERS++;
             }
 
-//        DefaultTableModel modelTbl_userapp;
-//        modelTbl_userapp = new DefaultTableModel();
-//        Object columnData[] = {"id_user", "idaccess", "level", "blokirss"};
-//        modelTbl_userapp.setColumnIdentifiers(columnData);
-//
-//        //query area
-//        String sql = "SELECT * FROM tbl_master_user_application";
-//        
-//        try {
-//            PreparedStatement ps = getConnection().prepareStatement(sql);
-//            ResultSet hasil = ps.executeQuery();
-//            while (hasil.next()) {
-//                modelTbl_userapp.addRow(new Object[]{
-//                    hasil.getString("id_user"),
-//                    hasil.getString("idaccess"),
-//                    hasil.getString("level"),
-//                    hasil.getString("blokirs")
-//                });
-//            }
-//            JTBL_userapp.setModel(modelTbl_userapp);
-//        } catch (Exception e) {
-//            System.out.print(e);
-//        }
         } catch (SQLException ex) {
             Logger.getLogger(Form_crud_userAplikasi.class.getName()).log(Level.SEVERE, null, ex);
         }
