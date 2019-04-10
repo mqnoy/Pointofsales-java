@@ -31,27 +31,27 @@ public class Form_crud_userAplikasi extends javax.swing.JFrame {
     public static void getUserapp_listDB() {
         
             DefaultTableModel tabmode;
-            Object[] baris = {"id_user", "idaccess", "level", "blokir"};
+            Object[] baris = {"no","Nip", "Nama pegawai", "level", "blokir"};
             tabmode = new DefaultTableModel(null, baris);
             JTBL_userapp.setModel(tabmode);
         try {    
             //query area
-            String sql = "SELECT * FROM tbl_master_user_application";
+            String sql ="SELECT msp.pegawai_nama ,msp.pegawai_nip ,mup.level,mup.blokir from tbl_master_pegawai msp LEFT JOIN tbl_master_user_application mup on msp.user_id=mup.id_user";
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet hasil = ps.executeQuery();
             boolean go = true;
             int i = 1;
+            int NUMBERS = 1;
+
             while (hasil.next()) {
 //                System.out.println(hasil.getString("id_user") + "  " + hasil.getString("idaccess") + "  " + hasil.getString("level"));
-                String col1 = hasil.getString("id_user");
-                String col2 = hasil.getString("idaccess");
-                String col3 = hasil.getString("level");
-                String col4 = hasil.getString("blokir");
-                String[] data = {col1, col2, col3 ,col4};
+                String col1 = hasil.getString("msp.pegawai_nip");
+                String col2 = hasil.getString("msp.pegawai_nama");
+                String col3 = hasil.getString("mup.level");
+                String col4 = hasil.getString("mup.blokir");
+                Object[] data = {NUMBERS,col1, col2, col3 ,col4};
                 tabmode.addRow(data);
-                
-                i++;
-                
+                NUMBERS++;
             }
 
 //        DefaultTableModel modelTbl_userapp;
