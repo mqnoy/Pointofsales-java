@@ -6,6 +6,7 @@
 package Crud;
 
 import static databases.CrudModel.getUserapp_listDB;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -47,11 +48,11 @@ public class Form_crud_userAplikasi extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jPasswordField1 = new javax.swing.JPasswordField();
         jLabel3 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        cb_levelAkses = new javax.swing.JComboBox<>();
         txt_idPengguna = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
+        rdBlokir_yes = new javax.swing.JRadioButton();
+        rdBlokir_no = new javax.swing.JRadioButton();
         jPanel5 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         txt_nip = new javax.swing.JTextField();
@@ -66,9 +67,7 @@ public class Form_crud_userAplikasi extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Manajemen User aplikasi");
-        setMaximumSize(new java.awt.Dimension(840, 690));
-        setPreferredSize(new java.awt.Dimension(840, 690));
+        setTitle("User aplikasi");
         setResizable(false);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("List data"));
@@ -82,7 +81,7 @@ public class Form_crud_userAplikasi extends javax.swing.JFrame {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                true, false, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -126,7 +125,7 @@ public class Form_crud_userAplikasi extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel3.setText("Level akses :");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-pilih-", "operator", "superadmin" }));
+        cb_levelAkses.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-pilih-", "operator", "superadmin" }));
 
         txt_idPengguna.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         txt_idPengguna.setText("..........");
@@ -134,11 +133,11 @@ public class Form_crud_userAplikasi extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel8.setText("Blokir akses :");
 
-        buttonGroup_blokAkses.add(jRadioButton1);
-        jRadioButton1.setText("yes");
+        buttonGroup_blokAkses.add(rdBlokir_yes);
+        rdBlokir_yes.setText("yes");
 
-        buttonGroup_blokAkses.add(jRadioButton2);
-        jRadioButton2.setText("no");
+        buttonGroup_blokAkses.add(rdBlokir_no);
+        rdBlokir_no.setText("no");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -154,14 +153,14 @@ public class Form_crud_userAplikasi extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.Alignment.LEADING, 0, 133, Short.MAX_VALUE))
+                            .addComponent(cb_levelAkses, javax.swing.GroupLayout.Alignment.LEADING, 0, 133, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(jRadioButton1)
+                                .addComponent(rdBlokir_yes)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jRadioButton2)
+                                .addComponent(rdBlokir_no)
                                 .addGap(0, 55, Short.MAX_VALUE)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -182,10 +181,10 @@ public class Form_crud_userAplikasi extends javax.swing.JFrame {
                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(6, 6, 6)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jComboBox1)
+                    .addComponent(cb_levelAkses)
                     .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jRadioButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jRadioButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(rdBlokir_yes, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(rdBlokir_no, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -210,7 +209,7 @@ public class Form_crud_userAplikasi extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel7.setText("Jabatan : ");
 
-        cb_jabatan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "- pilih -", "pelayan", "kepala koki", "kasir" }));
+        cb_jabatan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "- pilih -", "pelayan", "kepalakoki", "kasir" }));
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -266,6 +265,11 @@ public class Form_crud_userAplikasi extends javax.swing.JFrame {
         );
 
         jButton1.setText("Tambah");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Menu utama");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -275,8 +279,18 @@ public class Form_crud_userAplikasi extends javax.swing.JFrame {
         });
 
         jButton3.setText("Ubah");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton4.setText("Hapus");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -338,20 +352,32 @@ public class Form_crud_userAplikasi extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        this.setVisible(false);
+         int result = JOptionPane.showConfirmDialog(this, "Kembali ke halaman utama ?", this.getTitle(), JOptionPane.YES_NO_OPTION);
+                if (result == JOptionPane.YES_OPTION){               
+                    this.setVisible(false);
+                }else if (result == JOptionPane.NO_OPTION)   {
+                    this.setDefaultCloseOperation(this.DO_NOTHING_ON_CLOSE);
+            }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void JTBL_userappMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JTBL_userappMouseClicked
         // TODO add your handling code here:
-        int column = 1;
         int row = JTBL_userapp.getSelectedRow();
         valNip = JTBL_userapp.getModel().getValueAt(row, 1).toString();
         valNmPegawai = JTBL_userapp.getModel().getValueAt(row, 2).toString();
-        valLevel = JTBL_userapp.getModel().getValueAt(row, 3).toString();
-        valBlokir = JTBL_userapp.getModel().getValueAt(row, 4).toString();
+        valJabatan = JTBL_userapp.getModel().getValueAt(row, 3).toString();
+        valLevel = JTBL_userapp.getModel().getValueAt(row, 4).toString();
+        valBlokir = JTBL_userapp.getModel().getValueAt(row, 5).toString();
         
-//        valJabatan = cb_jabatan.getSelectedItem().toString();
-//        String value2 = cb_jabatan.getSelectedItem().toString();
+        cb_jabatan.setSelectedItem(valJabatan);
+        cb_levelAkses.setSelectedItem(valLevel);
+        if (valBlokir.equals("n")) {
+            rdBlokir_no.setSelected(true);
+        }else if(valBlokir.equals("y")){
+            rdBlokir_yes.setSelected(true);
+        }else{
+            JOptionPane.showMessageDialog(null, "error no valBlokir");
+        }
         
         txt_idPengguna.setText(valNip);
 //        System.out.println("row a " + valNip);
@@ -364,6 +390,21 @@ public class Form_crud_userAplikasi extends javax.swing.JFrame {
         String i_nip = txt_nip.getText();
         txt_idPengguna.setText(i_nip);
     }//GEN-LAST:event_txt_nipKeyTyped
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        JOptionPane.showMessageDialog(null, "tambah");
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        JOptionPane.showMessageDialog(null, "ubah");
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        JOptionPane.showMessageDialog(null, "hapus");
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -404,11 +445,11 @@ public class Form_crud_userAplikasi extends javax.swing.JFrame {
     public static javax.swing.JTable JTBL_userapp;
     private javax.swing.ButtonGroup buttonGroup_blokAkses;
     private javax.swing.JComboBox<String> cb_jabatan;
+    private javax.swing.JComboBox<String> cb_levelAkses;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -422,9 +463,9 @@ public class Form_crud_userAplikasi extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JRadioButton rdBlokir_no;
+    private javax.swing.JRadioButton rdBlokir_yes;
     private javax.swing.JLabel txt_idPengguna;
     private javax.swing.JTextField txt_nip;
     private javax.swing.JTextField txt_npPegawai;

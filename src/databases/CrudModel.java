@@ -5,9 +5,9 @@
  */
 package databases;
 
-import Crud.Form_crud_userAplikasi;
-import static Crud.Form_crud_userAplikasi.JTBL_userapp;
+import static Crud.Form_crud_menu.JTBL_listMenu_crud;
 import static Crud.Form_list_menu.JTBL_listMenu;
+import Crud.Form_crud_userAplikasi;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -17,7 +17,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import static Crud.Form_crud_menu.JTBL_listMenu_crud;
+import static Crud.Form_crud_userAplikasi.JTBL_userapp;
 
 /**
  *
@@ -26,15 +26,17 @@ import static Crud.Form_crud_menu.JTBL_listMenu_crud;
 public class CrudModel extends ConfigDatabase {
     private static Connection conn = new ConfigDatabase().connect();
     public static JTable tableName;
-
     
-    
-    
+    /*
+    * method untuk query select all data 
+    */
     public static ResultSet SQLselectAll(String query) throws SQLException{
         Statement stmt = conn.createStatement();
         ResultSet data = stmt.executeQuery(query);
         return data;
     }
+    /* end of method untuk query select all data  */
+    
     /*
     * method untuk select data user aplikasi dan data pegawai
     */
@@ -66,33 +68,8 @@ public class CrudModel extends ConfigDatabase {
     /* end of method untuk select data user aplikasi dan data pegawai */
     
     /*
-    * method untuk select data master menu
+    * method untuk query select data master menu
     */
-//    public static void getMenulistDB2() {
-//            DefaultTableModel tabmode;
-//            Object[] baris = {"no","Nama menu", "harga", "kode menu", "Kategory"};
-//            tabmode = new DefaultTableModel(null, baris);
-//            JTBL_listMenu.setModel(tabmode);
-//        try {    
-//            //query area
-//            String sql ="SELECT * from tbl_master_item_menu";
-//            ResultSet hasil = SQLselectAll(sql);
-//            int NUMBERS = 1;
-//            while (hasil.next()) {
-//                String col1 = hasil.getString("item_menu_nama");
-//                String col2 = hasil.getString("item_menu_harga");
-//                String col3 = hasil.getString("kd_menu");
-//                String col4 = hasil.getString("menu_kategory");
-//                Object[] data = {NUMBERS,col1, col2, col3 ,col4};
-//                tabmode.addRow(data);
-//                NUMBERS++;
-//            }
-//
-//        } catch (SQLException ex) {
-//            Logger.getLogger(Form_crud_userAplikasi.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//    }
-//    /* end of method untuk select data master menu */
     public static void getMenulistDB() {
             
             DefaultTableModel tabmode = getDatatabel();
@@ -121,13 +98,12 @@ public class CrudModel extends ConfigDatabase {
     
     public static DefaultTableModel getDatatabel(){
         DefaultTableModel tabmode = null;
-        
         if (tableName.equals(JTBL_listMenu)) {
             Object[] baris = {"No", "kd menu", "Nama menu", "kategory menu", "harga(Rp)"};
             tabmode = new DefaultTableModel(null, baris);
             JTBL_listMenu.setModel(tabmode);
             
-        } else if (tableName.equals(JTBL_listMenu_crud)) {
+        } else  if (tableName.equals(JTBL_listMenu_crud)) {
             Object[] baris = {"No", "kd menu", "Nama menu", "kategory menu", "harga(Rp)"};
             tabmode = new DefaultTableModel(null, baris);
             JTBL_listMenu_crud.setModel(tabmode);

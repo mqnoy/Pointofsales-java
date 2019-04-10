@@ -5,6 +5,7 @@
  */
 package Crud;
 import java.awt.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import static pointofsale_backend.Frame_control.*;
 /**
@@ -240,8 +241,12 @@ public class Form_order extends javax.swing.JFrame {
 
     private void cmenu_tombolBatalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmenu_tombolBatalActionPerformed
         // TODO add your handling code here:
-        this.dispose();
-        
+        int result = JOptionPane.showConfirmDialog(this, "Batalkan order ?", this.getTitle(), JOptionPane.YES_NO_OPTION);
+                if (result == JOptionPane.YES_OPTION){               
+                    this.dispose();
+                }else if (result == JOptionPane.NO_OPTION)   {
+                    this.setDefaultCloseOperation(this.DO_NOTHING_ON_CLOSE);
+            }
     }//GEN-LAST:event_cmenu_tombolBatalActionPerformed
 
     private void cmenu_tombolOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmenu_tombolOrderActionPerformed
