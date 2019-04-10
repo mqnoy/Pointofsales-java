@@ -5,10 +5,13 @@
  */
 package databases;
 
-import java.sql.PreparedStatement;
+import static Crud.Form_crud_userAplikasi.JTBL_userapp;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -16,35 +19,51 @@ import java.util.logging.Logger;
  */
 public class CrudModel extends ConfigDatabase {
 
-    private static String sql;
-    private static PreparedStatement ps;
-            
-    public CrudModel() throws SQLException {
-        try {
-            beginCon();
-        } catch (SQLException ex) {
-            Logger.getLogger(CrudModel.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//    public CrudModel() throws SQLException {
+//        try {
+//            beginCon();
+//        } catch (SQLException ex) {
+//            Logger.getLogger(CrudModel.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//
+//    }
 
+    /*public static void getUserapp_listDB2() {
+        
+     //set datatable meta
+            
+            
+     try {
+            
+            
+     PreparedStatement ps = getConnection().prepareStatement(sql);
+     ResultSet records = ps.executeQuery();
+     while (records.next()) {
+     //                System.out.println(records.getString("id_user") + "  " + records.getString("idaccess") + "  " + records.getString("level"));
+     modelTbl_userapp.addRow(new Object[]{records.getString("id_user"),records.getString("idaccess"),records.getString("level")});
+     }
+     JTBL_userapp.setModel(tablemodel);
+     } catch (SQLException ex) {
+     Logger.getLogger(CrudModel.class.getName()).log(Level.SEVERE, null, ex);
+     }
+        
+     }*/
+    public static void getUserapp_listDB() throws SQLException {
+        //query area
+        String sql = "SELECT * FROM tbl_master_user_application";
+        try {
+            Statement st = getConnection().createStatement();
+            ResultSet hasil = st.executeQuery(sql);
+            while (hasil.next()) {
+                System.out.println(hasil.getString("id_user") + "  " + hasil.getString("idaccess") + "  " + hasil.getString("level"));
+                
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
     }
 
-    public static prepareStatement getUserapp_listDB() {
-        try {
-            sql = "SELECT * FROM tbl_master_user_application";
-            ps = getConnection().prepareStatement(sql);
-//            rs = ps.executeQuery();
-            
-            return ps;
-//              while (rs.next()) {
-//              System.out.println(rs.getString("id_user") + "  " + rs.getString("idaccess") + "  " + rs.getString("level"));
-//              }
-        } catch (SQLException ex) {
-            Logger.getLogger(CrudModel.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
-    }
-
-    public static void main(String[] args) throws ClassNotFoundException {
+    public static void main(String[] args) throws SQLException {
         try {
             beginCon();
             getUserapp_listDB();

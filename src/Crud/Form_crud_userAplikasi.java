@@ -5,20 +5,81 @@
  */
 package Crud;
 
-import static pointofsale_backend.SetGet_datatable.*;
-
+import databases.ConfigDatabase;
+import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author Rifky <qnoy.rifky@gmail.com>
  */
 public class Form_crud_userAplikasi extends javax.swing.JFrame {
+    private static Connection conn;
 
     /**
      * Creates new form Form_crud_userAplikasi
      */
     public Form_crud_userAplikasi() {
+        this.conn = new ConfigDatabase().connect();
+
         initComponents();
-        LoadDataTabel_Userapp();
+        getUserapp_listDB();
+
+    }
+
+    public static void getUserapp_listDB() {
+        
+            DefaultTableModel tabmode;
+            Object[] baris = {"id_user", "idaccess", "level", "blokir"};
+            tabmode = new DefaultTableModel(null, baris);
+            JTBL_userapp.setModel(tabmode);
+        try {    
+            //query area
+            String sql = "SELECT * FROM tbl_master_user_application";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet hasil = ps.executeQuery();
+            boolean go = true;
+            int i = 1;
+            while (hasil.next()) {
+//                System.out.println(hasil.getString("id_user") + "  " + hasil.getString("idaccess") + "  " + hasil.getString("level"));
+                String col1 = hasil.getString("id_user");
+                String col2 = hasil.getString("idaccess");
+                String col3 = hasil.getString("level");
+                String col4 = hasil.getString("blokir");
+                String[] data = {col1, col2, col3 ,col4};
+                tabmode.addRow(data);
+                
+                i++;
+                
+            }
+
+//        DefaultTableModel modelTbl_userapp;
+//        modelTbl_userapp = new DefaultTableModel();
+//        Object columnData[] = {"id_user", "idaccess", "level", "blokirss"};
+//        modelTbl_userapp.setColumnIdentifiers(columnData);
+//
+//        //query area
+//        String sql = "SELECT * FROM tbl_master_user_application";
+//        
+//        try {
+//            PreparedStatement ps = getConnection().prepareStatement(sql);
+//            ResultSet hasil = ps.executeQuery();
+//            while (hasil.next()) {
+//                modelTbl_userapp.addRow(new Object[]{
+//                    hasil.getString("id_user"),
+//                    hasil.getString("idaccess"),
+//                    hasil.getString("level"),
+//                    hasil.getString("blokirs")
+//                });
+//            }
+//            JTBL_userapp.setModel(modelTbl_userapp);
+//        } catch (Exception e) {
+//            System.out.print(e);
+//        }
+        } catch (SQLException ex) {
+            Logger.getLogger(Form_crud_userAplikasi.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

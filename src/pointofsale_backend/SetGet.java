@@ -5,6 +5,7 @@
  */
 package pointofsale_backend;
 
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -17,7 +18,7 @@ public class SetGet {
     public static String tanggalSkrg;
     public static String orderCode;
     public static String no_Order;
-//    public static Integer kdmeja;
+    public static JTable Jtablename;
 //    public static Integer kdmeja;
 //    public static Integer kdmeja;
 
@@ -57,5 +58,12 @@ public class SetGet {
 //        DefaultTableModel model_tblOrder = (DefaultTableModel)jTable_input_order.getModel();
 //    }
     /*  end of method set atribut    */
-
+    /*
+    * method getter atribut
+    *
+    */
+    public static JTable getTableName() {
+        return Jtablename;
+    }
+    /*  end of method set atribut    */
 }
