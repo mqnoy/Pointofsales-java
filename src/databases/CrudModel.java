@@ -7,6 +7,7 @@ package databases;
 
 import Crud.Form_crud_userAplikasi;
 import static Crud.Form_crud_userAplikasi.JTBL_userapp;
+import static Crud.Form_list_menu.JTBL_listMenu;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -58,7 +59,7 @@ public class CrudModel extends ConfigDatabase {
             DefaultTableModel tabmode;
             Object[] baris = {"no","Nama menu", "harga", "kode menu", "Kategory"};
             tabmode = new DefaultTableModel(null, baris);
-            JTBL_userapp.setModel(tabmode);
+            JTBL_listMenu.setModel(tabmode);
         try {    
             //query area
             String sql ="SELECT * from tbl_master_item_menu";

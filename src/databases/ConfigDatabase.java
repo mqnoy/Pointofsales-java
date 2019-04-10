@@ -48,7 +48,7 @@ public class ConfigDatabase {
         }
 
         try {
-            koneksi = DriverManager.getConnection(urldb, "root", "123456");
+            koneksi = DriverManager.getConnection(urldb, username, password);
             System.out.println("Berhasil Koneksi Database");
         } catch (SQLException ex) {
             System.out.println("Gagal Koneksi Database" + ex);

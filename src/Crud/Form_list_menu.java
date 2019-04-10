@@ -6,6 +6,7 @@
 package Crud;
 
 import static Crud.Form_order.jTable_input_order;
+import static databases.CrudModel.getMenulistDB;
 import java.awt.List;
 import javax.swing.table.DefaultTableModel;
 import static pointofsale_backend.Frame_control.tampil_NotAvailable;
@@ -23,7 +24,7 @@ public class Form_list_menu extends javax.swing.JFrame {
 
     public Form_list_menu() {
         initComponents();
-
+        getMenulistDB();
         String[] col_tbl_listmenu = {"", "", "", ""};
 
     }
@@ -43,7 +44,7 @@ public class Form_list_menu extends javax.swing.JFrame {
         jButton_qty = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable_list_menu = new javax.swing.JTable();
+        JTBL_listMenu = new javax.swing.JTable();
         jComboBox1 = new javax.swing.JComboBox<>();
         jTextField1 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
@@ -121,7 +122,7 @@ public class Form_list_menu extends javax.swing.JFrame {
         setTitle("Daftar menu");
         setResizable(false);
 
-        jTable_list_menu.setModel(new javax.swing.table.DefaultTableModel(
+        JTBL_listMenu.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"1", "menu001", "ayam bakar", "makanan", "20.000"},
                 {"2", "menu002", "aqua 300ml", "minuman", "5.000"},
@@ -140,15 +141,15 @@ public class Form_list_menu extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jTable_list_menu.addMouseListener(new java.awt.event.MouseAdapter() {
+        JTBL_listMenu.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTable_list_menuMouseClicked(evt);
+                JTBL_listMenuMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(jTable_list_menu);
-        if (jTable_list_menu.getColumnModel().getColumnCount() > 0) {
-            jTable_list_menu.getColumnModel().getColumn(0).setResizable(false);
-            jTable_list_menu.getColumnModel().getColumn(4).setResizable(false);
+        jScrollPane1.setViewportView(JTBL_listMenu);
+        if (JTBL_listMenu.getColumnModel().getColumnCount() > 0) {
+            JTBL_listMenu.getColumnModel().getColumn(0).setResizable(false);
+            JTBL_listMenu.getColumnModel().getColumn(4).setResizable(false);
         }
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -285,21 +286,21 @@ public class Form_list_menu extends javax.swing.JFrame {
     public static Integer menuQty = 0;
     public static String nmMenu;
 
-    private void jTable_list_menuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable_list_menuMouseClicked
+    private void JTBL_listMenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JTBL_listMenuMouseClicked
         // TODO add your handling code here:
         jDialog_inputQty.pack();
         jDialog_inputQty.setLocationRelativeTo(null);
         jDialog_inputQty.setVisible(true);
         int column = 1;
-        int row = jTable_list_menu.getSelectedRow();
-        Form_list_menu.KdMenu = jTable_list_menu.getModel().getValueAt(row, 1).toString();
-        Form_list_menu.nmMenu = jTable_list_menu.getModel().getValueAt(row, 2).toString();
+        int row = JTBL_listMenu.getSelectedRow();
+        Form_list_menu.KdMenu = JTBL_listMenu.getModel().getValueAt(row, 1).toString();
+        Form_list_menu.nmMenu = JTBL_listMenu.getModel().getValueAt(row, 2).toString();
 //        Form_list_menu.HargaMenu = Double.parseDouble(String.valueOf(jTable_list_menu.getValueAt(row, 5)));
-        Form_list_menu.HargaMenu = jTable_list_menu.getModel().getValueAt(row, 4).toString();
+        Form_list_menu.HargaMenu = JTBL_listMenu.getModel().getValueAt(row, 4).toString();
 //        String str_qty = menuQty.toString();
 
         System.out.println("harganya " + HargaMenu);
-    }//GEN-LAST:event_jTable_list_menuMouseClicked
+    }//GEN-LAST:event_JTBL_listMenuMouseClicked
 
     private void tbl_tambah_keOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbl_tambah_keOrderActionPerformed
         // TODO add your handling code here:
@@ -389,6 +390,7 @@ public class Form_list_menu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public static javax.swing.JTable JTBL_listMenu;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;
@@ -402,7 +404,6 @@ public class Form_list_menu extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTable jTable_list_menu;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField_qty;
     private javax.swing.JButton tbl_tambah_keOrder;
