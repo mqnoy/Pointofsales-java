@@ -22,11 +22,12 @@ public class ConfigDatabase {
     static String database;
     static Integer port;
     static String urldb;
-    private Connection koneksi;
+    private static Connection koneksi;
 
-//    ConfigDatabase (){
-//        connect();
-//    }
+    ConfigDatabase() {
+        setConf();
+    }
+
     protected static void setConf() {
         ConfigDatabase.host = "imzazmi.com";
         ConfigDatabase.username = "dev_imza";
@@ -38,8 +39,6 @@ public class ConfigDatabase {
     }
 
     public Connection connect() {
-        setConf();
-
         try {
             Class.forName("com.mysql.jdbc.Driver");
         } catch (ClassNotFoundException ex) {

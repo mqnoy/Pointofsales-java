@@ -12,9 +12,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import static Crud.Form_crud_menu.JTBL_listMenu_crud;
 
 /**
  *
@@ -22,26 +25,36 @@ import javax.swing.table.DefaultTableModel;
  */
 public class CrudModel extends ConfigDatabase {
     private static Connection conn = new ConfigDatabase().connect();
+    public static JTable tableName;
+
+    
+    
+    
+    public static ResultSet SQLselectAll(String query) throws SQLException{
+        Statement stmt = conn.createStatement();
+        ResultSet data = stmt.executeQuery(query);
+        return data;
+    }
     /*
     * method untuk select data user aplikasi dan data pegawai
     */
     public static void getUserapp_listDB() {
             DefaultTableModel tabmode;
-            Object[] baris = {"no","Nip", "Nama pegawai", "level", "blokir"};
+            Object[] baris = {"no","Nip", "Nama pegawai","Jabatan", "level", "blokir"};
             tabmode = new DefaultTableModel(null, baris);
             JTBL_userapp.setModel(tabmode);
         try {    
             //query area
-            String sql ="SELECT msp.pegawai_nama ,msp.pegawai_nip ,mup.level,mup.blokir from tbl_master_pegawai msp LEFT JOIN tbl_master_user_application mup on msp.user_id=mup.id_user";
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ResultSet hasil = ps.executeQuery();
+            String sql ="SELECT msp.pegawai_nama ,msp.pegawai_nip ,msp.pegawai_jabatan ,mup.level,mup.blokir from tbl_master_pegawai msp LEFT JOIN tbl_master_user_application mup on msp.user_id=mup.id_user";
+            ResultSet hasil = SQLselectAll(sql);
             int NUMBERS = 1;
             while (hasil.next()) {
                 String col1 = hasil.getString("msp.pegawai_nip");
                 String col2 = hasil.getString("msp.pegawai_nama");
-                String col3 = hasil.getString("mup.level");
-                String col4 = hasil.getString("mup.blokir");
-                Object[] data = {NUMBERS,col1, col2, col3 ,col4};
+                String col3 = hasil.getString("msp.pegawai_jabatan");
+                String col4 = hasil.getString("mup.level");
+                String col5 = hasil.getString("mup.blokir");
+                Object[] data = {NUMBERS,col1, col2, col3 ,col4,col5};
                 tabmode.addRow(data);
                 NUMBERS++;
             }
@@ -55,22 +68,45 @@ public class CrudModel extends ConfigDatabase {
     /*
     * method untuk select data master menu
     */
+//    public static void getMenulistDB2() {
+//            DefaultTableModel tabmode;
+//            Object[] baris = {"no","Nama menu", "harga", "kode menu", "Kategory"};
+//            tabmode = new DefaultTableModel(null, baris);
+//            JTBL_listMenu.setModel(tabmode);
+//        try {    
+//            //query area
+//            String sql ="SELECT * from tbl_master_item_menu";
+//            ResultSet hasil = SQLselectAll(sql);
+//            int NUMBERS = 1;
+//            while (hasil.next()) {
+//                String col1 = hasil.getString("item_menu_nama");
+//                String col2 = hasil.getString("item_menu_harga");
+//                String col3 = hasil.getString("kd_menu");
+//                String col4 = hasil.getString("menu_kategory");
+//                Object[] data = {NUMBERS,col1, col2, col3 ,col4};
+//                tabmode.addRow(data);
+//                NUMBERS++;
+//            }
+//
+//        } catch (SQLException ex) {
+//            Logger.getLogger(Form_crud_userAplikasi.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//    }
+//    /* end of method untuk select data master menu */
     public static void getMenulistDB() {
-            DefaultTableModel tabmode;
-            Object[] baris = {"no","Nama menu", "harga", "kode menu", "Kategory"};
-            tabmode = new DefaultTableModel(null, baris);
-            JTBL_listMenu.setModel(tabmode);
+            
+            DefaultTableModel tabmode = getDatatabel();
+//            JTBL_listMenu.setModel(tabmode);
         try {    
             //query area
             String sql ="SELECT * from tbl_master_item_menu";
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ResultSet hasil = ps.executeQuery();
+            ResultSet hasil = SQLselectAll(sql);
             int NUMBERS = 1;
             while (hasil.next()) {
-                String col1 = hasil.getString("item_menu_nama");
-                String col2 = hasil.getString("item_menu_harga");
-                String col3 = hasil.getString("kd_menu");
-                String col4 = hasil.getString("menu_kategory");
+                String col1 = hasil.getString("kd_menu");
+                String col2 = hasil.getString("item_menu_nama");
+                String col3 = hasil.getString("menu_kategory");
+                String col4 = hasil.getString("item_menu_harga");
                 Object[] data = {NUMBERS,col1, col2, col3 ,col4};
                 tabmode.addRow(data);
                 NUMBERS++;
@@ -82,6 +118,23 @@ public class CrudModel extends ConfigDatabase {
     }
     /* end of method untuk select data master menu */
     
+    
+    public static DefaultTableModel getDatatabel(){
+        DefaultTableModel tabmode = null;
+        
+        if (tableName.equals(JTBL_listMenu)) {
+            Object[] baris = {"No", "kd menu", "Nama menu", "kategory menu", "harga(Rp)"};
+            tabmode = new DefaultTableModel(null, baris);
+            JTBL_listMenu.setModel(tabmode);
+            
+        } else if (tableName.equals(JTBL_listMenu_crud)) {
+            Object[] baris = {"No", "kd menu", "Nama menu", "kategory menu", "harga(Rp)"};
+            tabmode = new DefaultTableModel(null, baris);
+            JTBL_listMenu_crud.setModel(tabmode);
+            
+        }
+        return tabmode;
+    }
     
 }
 

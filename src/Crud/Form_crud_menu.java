@@ -5,6 +5,9 @@
  */
 package Crud;
 
+import static databases.CrudModel.getMenulistDB;
+import static databases.CrudModel.tableName;
+
 /**
  *
  * @author Rifky <qnoy.rifky@gmail.com>
@@ -16,6 +19,8 @@ public class Form_crud_menu extends javax.swing.JFrame {
      */
     public Form_crud_menu() {
         initComponents();
+        tableName = JTBL_listMenu_crud;
+        getMenulistDB();
     }
 
     /**
@@ -55,7 +60,7 @@ public class Form_crud_menu extends javax.swing.JFrame {
         jLabel20 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        JTBL_listMenu_crud = new javax.swing.JTable();
         jToggleButton1 = new javax.swing.JToggleButton();
         jPanel4 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
@@ -237,18 +242,15 @@ public class Form_crud_menu extends javax.swing.JFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Data menu"));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        JTBL_listMenu_crud.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "No", "kd menu", "Nama menu", "kategory menu", "harga(Rp)"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(JTBL_listMenu_crud);
 
         jToggleButton1.setText("Kembali");
         jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -371,6 +373,7 @@ public class Form_crud_menu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public static javax.swing.JTable JTBL_listMenu_crud;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -400,7 +403,6 @@ public class Form_crud_menu extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField4;

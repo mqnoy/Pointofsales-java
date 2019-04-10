@@ -7,6 +7,7 @@ package Crud;
 
 import static Crud.Form_order.jTable_input_order;
 import static databases.CrudModel.getMenulistDB;
+import static databases.CrudModel.tableName;
 import java.awt.List;
 import javax.swing.table.DefaultTableModel;
 import static pointofsale_backend.Frame_control.tampil_NotAvailable;
@@ -24,7 +25,9 @@ public class Form_list_menu extends javax.swing.JFrame {
 
     public Form_list_menu() {
         initComponents();
+        tableName = JTBL_listMenu;
         getMenulistDB();
+
         String[] col_tbl_listmenu = {"", "", "", ""};
 
     }
@@ -352,7 +355,7 @@ public class Form_list_menu extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         tampil_NotAvailable();
-        
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

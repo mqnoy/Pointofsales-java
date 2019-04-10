@@ -17,6 +17,7 @@ public class Form_crud_userAplikasi extends javax.swing.JFrame {
     public static String valNmPegawai;
     public static String valLevel;
     public static String valBlokir;
+    public static String valJabatan;
 
     /**
      * Creates new form Form_crud_userAplikasi
@@ -46,7 +47,7 @@ public class Form_crud_userAplikasi extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jPasswordField1 = new javax.swing.JPasswordField();
         jLabel3 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<String>();
+        jComboBox1 = new javax.swing.JComboBox<>();
         txt_idPengguna = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jRadioButton1 = new javax.swing.JRadioButton();
@@ -57,7 +58,7 @@ public class Form_crud_userAplikasi extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         txt_npPegawai = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox<String>();
+        cb_jabatan = new javax.swing.JComboBox<>();
         jPanel3 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
@@ -74,21 +75,29 @@ public class Form_crud_userAplikasi extends javax.swing.JFrame {
 
         JTBL_userapp.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
-                "id user", "Nip", "nama pegawai", "level", "blokir"
+                "No", "id user", "Nip", "nama pegawai", "Jabatan", "level", "blokir"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                true, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         JTBL_userapp.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 JTBL_userappMouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(JTBL_userapp);
+        if (JTBL_userapp.getColumnModel().getColumnCount() > 0) {
+            JTBL_userapp.getColumnModel().getColumn(6).setResizable(false);
+        }
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -117,7 +126,7 @@ public class Form_crud_userAplikasi extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel3.setText("Level akses :");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-pilih-", "operator", "superadmin" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-pilih-", "operator", "superadmin" }));
 
         txt_idPengguna.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         txt_idPengguna.setText("..........");
@@ -201,7 +210,7 @@ public class Form_crud_userAplikasi extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel7.setText("Jabatan : ");
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "- pilih -", "pelayan", "kepala koki", "kasir" }));
+        cb_jabatan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "- pilih -", "pelayan", "kepala koki", "kasir" }));
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -210,7 +219,7 @@ public class Form_crud_userAplikasi extends javax.swing.JFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jComboBox2, 0, 203, Short.MAX_VALUE)
+                    .addComponent(cb_jabatan, 0, 203, Short.MAX_VALUE)
                     .addComponent(txt_nip, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txt_npPegawai, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -232,7 +241,7 @@ public class Form_crud_userAplikasi extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBox2, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
+                .addComponent(cb_jabatan, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -315,17 +324,13 @@ public class Form_crud_userAplikasi extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addGap(158, 158, 158)
-                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(15, Short.MAX_VALUE))))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(11, 11, 11)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         pack();
@@ -345,10 +350,12 @@ public class Form_crud_userAplikasi extends javax.swing.JFrame {
         valLevel = JTBL_userapp.getModel().getValueAt(row, 3).toString();
         valBlokir = JTBL_userapp.getModel().getValueAt(row, 4).toString();
         
+//        valJabatan = cb_jabatan.getSelectedItem().toString();
+//        String value2 = cb_jabatan.getSelectedItem().toString();
+        
         txt_idPengguna.setText(valNip);
 //        System.out.println("row a " + valNip);
         
-        txt_nip.setText(valNip);
         txt_npPegawai.setText(valNmPegawai);
     }//GEN-LAST:event_JTBL_userappMouseClicked
 
@@ -396,12 +403,12 @@ public class Form_crud_userAplikasi extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JTable JTBL_userapp;
     private javax.swing.ButtonGroup buttonGroup_blokAkses;
+    private javax.swing.JComboBox<String> cb_jabatan;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
