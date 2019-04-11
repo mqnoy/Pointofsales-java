@@ -1,4 +1,5 @@
 #/src/databases/ConfigDatabase.java
 /build/
 /dist/
-/nbproject/private/*
+/nbproject/private/*.properties
+/nbproject/private/*.xml
