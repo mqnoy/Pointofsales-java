@@ -16,7 +16,8 @@ public class HalamanUtama extends javax.swing.JFrame {
      * Creates new form CobaLayout
      */
     public HalamanUtama() {
-        if (giveAccess==true) {
+        giveAccess = true;
+        if (giveAccess) {
             initComponents();
         }else{
             int result = JOptionPane.showConfirmDialog(this, "anda belum login !", this.getTitle(), JOptionPane.YES_NO_OPTION);
@@ -73,7 +74,7 @@ public class HalamanUtama extends javax.swing.JFrame {
         jpanel_header.setPreferredSize(new java.awt.Dimension(0, 100));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel1.setText("Restauran {name}");
+        jLabel1.setText("{name}");
 
         javax.swing.GroupLayout jpanel_headerLayout = new javax.swing.GroupLayout(jpanel_header);
         jpanel_header.setLayout(jpanel_headerLayout);

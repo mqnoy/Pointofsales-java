@@ -259,7 +259,7 @@ public class HalamanLogin extends javax.swing.JFrame {
                 if (result == JOptionPane.YES_OPTION){               
                     System.exit(0);
                 }else if (result == JOptionPane.NO_OPTION)   {
-                    this.setDefaultCloseOperation(this.DO_NOTHING_ON_CLOSE);
+                    this.setDefaultCloseOperation(HalamanLogin.DO_NOTHING_ON_CLOSE);
             }
     }//GEN-LAST:event_jButton13ActionPerformed
 
