@@ -18,6 +18,7 @@ import java.util.logging.Logger;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import static Crud.Form_crud_userAplikasi.JTBL_userapp;
+import static pointofsale_backend.SetGet.*;
 
 /**
  *
@@ -34,6 +35,36 @@ public class CrudModel extends ConfigDatabase {
         Statement stmt = conn.createStatement();
         ResultSet data = stmt.executeQuery(query);
         return data;
+    }
+    /* end of method untuk query select all data  */
+    
+    /*
+    * method untuk query select user akses aplikasi 
+    */
+    public static void getUserapp_accessDB(String idaccess,String password) throws SQLException{
+        String sql = "SELECT * FROM tbl_master_user_application WHERE idaccess=? AND password=?";
+        PreparedStatement ps = conn.prepareStatement(sql);
+        ps.setString(1, idaccess);
+        ps.setString(2, password);
+        ResultSet rs = ps.executeQuery();
+        
+        if (rs.next()) {
+            String is_blocked = rs.getString("blokir");
+            
+            if (is_blocked.equals("y")) {
+                System.out.println("akun di blokir !");
+            }else{
+                System.out.println("akun valid ");
+                //seter untuk menggunakan aplikasi dengan idakses yang validr
+                userApp_idaccess = rs.getString("idaccess");
+                userApp_level=rs.getString("level");
+                userApp_blokir=rs.getString("blokir");
+                giveAccess=true;
+            }
+            
+        }else{
+            System.out.println("id access atau password salah !");
+        }
     }
     /* end of method untuk query select all data  */
     
@@ -97,6 +128,7 @@ public class CrudModel extends ConfigDatabase {
     
     
     public static DefaultTableModel getDatatabel(){
+        
         DefaultTableModel tabmode = null;
         if (tableName.equals(JTBL_listMenu)) {
             Object[] baris = {"No", "kd menu", "Nama menu", "kategory menu", "harga(Rp)"};

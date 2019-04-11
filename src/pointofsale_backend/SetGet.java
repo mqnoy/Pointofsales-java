@@ -19,8 +19,12 @@ public class SetGet {
     public static String orderCode;
     public static String no_Order;
     public static JTable Jtablename;
-//    public static Integer kdmeja;
-//    public static Integer kdmeja;
+    
+    /*atribut user access aplikasi*/
+    public static String userApp_idaccess=null;
+    public static String userApp_level=null;
+    public static String userApp_blokir=null;
+    public static boolean giveAccess=false;
 
     //constructor
     public static void SetGet() {

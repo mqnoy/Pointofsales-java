@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package pointofsale;
+import javax.swing.JOptionPane;
 import static pointofsale_backend.Frame_control.*;
 /**
  *
@@ -15,8 +16,16 @@ public class HalamanUtama extends javax.swing.JFrame {
      * Creates new form CobaLayout
      */
     public HalamanUtama() {
-        initComponents();
-        
+        if (giveAccess==true) {
+            initComponents();
+        }else{
+            int result = JOptionPane.showConfirmDialog(this, "anda belum login !", this.getTitle(), JOptionPane.YES_NO_OPTION);
+                if (result == JOptionPane.YES_OPTION){               
+                    tampilLogin_UserApp();
+                }else if (result == JOptionPane.NO_OPTION)   {
+                    System.exit(0);
+            }
+        }
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -336,7 +345,12 @@ public class HalamanUtama extends javax.swing.JFrame {
 
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
         // TODO add your handling code here:
-        System.exit(0);
+        this.dispose();
+        userApp_idaccess=null;
+        userApp_level=null;
+        userApp_blokir=null;
+        giveAccess=false;
+        tampilLogin_UserApp();
     }//GEN-LAST:event_jToggleButton1ActionPerformed
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed

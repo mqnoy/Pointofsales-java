@@ -6,6 +6,8 @@
 package pointofsale_backend;
 
 import Crud.*;
+import pointofsale.HalamanLogin;
+import pointofsale.HalamanUtama;
 import pointofsale.NotAvailable;
 import pointofsale.Popup_pilihan_meja;
 
@@ -14,6 +16,17 @@ import pointofsale.Popup_pilihan_meja;
  * @author Rifky <qnoy.rifky@gmail.com>
  */
 public class Frame_control extends SetGet{
+    
+    // method untuk tampil halaman login user aplikasi
+    public static void tampilLogin_UserApp(){
+        HalamanLogin frame_loginApp = new HalamanLogin();
+        frame_loginApp.setVisible(true);
+    }
+    // method untuk tampil halaman utama aplikasi
+    public static void tampilhalUtama_UserApp(){
+        HalamanUtama frame_halUtama = new HalamanUtama();
+        frame_halUtama.setVisible(true);
+    }
     
     // method untuk tampil crud user aplikasi
     public static void tampilCrud_UserApp(){
