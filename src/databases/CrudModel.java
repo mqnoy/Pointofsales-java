@@ -24,7 +24,7 @@ import static Crud.Form_crud_userAplikasi.JTBL_userapp;
  * @author Rifky <qnoy.rifky@gmail.com>
  */
 public class CrudModel extends ConfigDatabase {
-    private static Connection conn = new ConfigDatabase().connect();
+    private static final Connection conn = new ConfigDatabase().connect();
     public static JTable tableName;
     
     /*
