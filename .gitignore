@@ -1,4 +1,4 @@
 #/src/databases/ConfigDatabase.java
 /build/
 /dist/
-/nbproject/
+/nbproject/private/*
