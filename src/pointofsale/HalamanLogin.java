@@ -11,7 +11,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import static pointofsale_backend.Frame_control.tampilhalUtama_UserApp;
 import static pointofsale_backend.SetGet.giveAccess;
-import static pointofsale_backend.SetGet.strGive_access;
+import static pointofsale_backend.SetGet.strError_code;
 /**
  *
  * @author Rifky <qnoy.rifky@gmail.com>
@@ -241,9 +241,9 @@ public class HalamanLogin extends javax.swing.JFrame {
                 if (giveAccess==true) {
                     tampilhalUtama_UserApp();
                     this.dispose();
-                }else if(strGive_access.equals("error801")){
+                }else if(strError_code.equals("error801")){
                     JOptionPane.showMessageDialog(this, "error801 id access atau password salah !");
-                }else if(strGive_access.equals("error800")){
+                }else if(strError_code.equals("error800")){
                     JOptionPane.showMessageDialog(this, "error800 akun di blokir !");
                 }
             }

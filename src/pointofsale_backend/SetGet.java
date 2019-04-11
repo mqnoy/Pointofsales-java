@@ -24,7 +24,9 @@ public class SetGet {
     public static String userApp_level = null;
     public static String userApp_blokir = null;
     public static boolean giveAccess = false;
-    public static String strGive_access = null;
+    
+    //error definisi
+    public static String strError_code = null;
 
     //constructor
     public static void SetGet() {
