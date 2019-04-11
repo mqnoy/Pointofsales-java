@@ -162,12 +162,12 @@ public class CrudModel extends ConfigDatabase {
         ps.setString(3, txt_menukode.getText());
         ps.setString(4, cb_menukategory.getSelectedItem().toString());
         
-        
-        
-//        double anuan = Double.parseDouble(txt_menuharga.getText());
-//        System.out.println("harga = "+anuan);
-
-        ps.executeUpdate();
+        int executeUpdate = ps.executeUpdate();
+        if (executeUpdate > 0) {
+            notif_ins_menulist = true;
+        }else{
+            notif_ins_menulist = false;
+        }
         
     }
     

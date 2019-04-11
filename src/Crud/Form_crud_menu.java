@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import static pointofsale_backend.SetGet.notif_ins_menulist;
 
 /**
  *
@@ -374,6 +375,21 @@ public class Form_crud_menu extends javax.swing.JFrame {
             } else {
 
                 insert_MenulistDB();
+                if (notif_ins_menulist) {
+                    JOptionPane.showMessageDialog(this, "insert data success");
+                    txt_menunama.setText("");
+                    txt_menukode.setText("");
+                    cb_menukategory.setSelectedIndex(0);
+                    txt_menuharga.setText("0");
+                    
+                    lbl_menukode.setText("?");
+                    lbl_menuharga.setText("?");
+                    lbl_ktgrymenu.setText("?");
+                    lbl_namamenu.setText("?");
+                    getMenulistDB();
+                } else {
+                    JOptionPane.showMessageDialog(this, "insert data failed");
+                }
             }
         } catch (SQLException ex) {
             Logger.getLogger(Form_crud_menu.class.getName()).log(Level.SEVERE, null, ex);

@@ -22,6 +22,9 @@ public class SetGet {
     public static String tanggalSkrg;
     public static String no_Order;
     
+    //atribut untuk notifikasi query
+    public static boolean notif_ins_menulist;
+    
     //Jtable
     public static JTable Jtablename;
 
