@@ -348,10 +348,7 @@ public class HalamanUtama extends javax.swing.JFrame {
         int result = JOptionPane.showConfirmDialog(this, "Logout ?", this.getTitle(), JOptionPane.YES_NO_OPTION);
                 if (result == JOptionPane.YES_OPTION){               
                     this.dispose();
-                    userApp_idaccess=null;
-                    userApp_level=null;
-                    userApp_blokir=null;
-                    giveAccess=false;
+                    setClean_sesi();//clean atribut value
                     tampilLogin_UserApp();
                 }else if (result == JOptionPane.NO_OPTION)   {
                     this.setDefaultCloseOperation(this.DO_NOTHING_ON_CLOSE);

@@ -234,14 +234,18 @@ public class HalamanLogin extends javax.swing.JFrame {
             // TODO add your handling code here:
             String val_idaccess = txt_idaccess.getText();
             String val_password = new String(txt_password.getPassword());
-            getUserapp_accessDB(val_idaccess,val_password);
-            if (giveAccess==true) {
-                tampilhalUtama_UserApp();
-                this.dispose();
-            }else if(strGive_access.equals("error801")){
-                JOptionPane.showMessageDialog(this, "error801 id access atau password salah !");
-            }else if(strGive_access.equals("error800")){
-                JOptionPane.showMessageDialog(this, "error800 akun di blokir !");
+            if (val_idaccess.isEmpty() || val_password.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "errorxxx harus di isi !");
+            }else{
+                getUserapp_accessDB(val_idaccess,val_password);
+                if (giveAccess==true) {
+                    tampilhalUtama_UserApp();
+                    this.dispose();
+                }else if(strGive_access.equals("error801")){
+                    JOptionPane.showMessageDialog(this, "error801 id access atau password salah !");
+                }else if(strGive_access.equals("error800")){
+                    JOptionPane.showMessageDialog(this, "error800 akun di blokir !");
+                }
             }
             
         } catch (SQLException ex) {
