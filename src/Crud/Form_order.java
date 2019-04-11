@@ -4,9 +4,7 @@
  * and open the template in the editor.
  */
 package Crud;
-import java.awt.List;
 import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
 import static pointofsale_backend.Frame_control.*;
 /**
  *
@@ -17,26 +15,13 @@ public class Form_order extends javax.swing.JFrame {
     /**
      * Creates new form C_menu
      */
-    public String fo_varNoOrder;
-    public Integer fo_varNoMeja;
 
     public Form_order() {
         initComponents();
+        lbl_kodemeja.setText(mejaOrder_kdMeja);        
+        lbl_kodeOrder.setText(mejaOrder_kdOrder);
 
     }
-    public void setNo_order(String v_noOrder){
-        this.fo_varNoOrder = v_noOrder;
-        System.out.println("no meja kosong?"+v_noOrder);
-        System.out.println("no meja kosong??"+this.fo_varNoOrder);
-        var_noOrder.setText(fo_varNoOrder);
-
-    }
-    public void setNo_meja(Integer v_nomeja){
-        this.fo_varNoMeja = v_nomeja;
-        var_noMeja.setText(fo_varNoMeja.toString());
-    }
-    
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -59,15 +44,13 @@ public class Form_order extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        var_noMeja = new javax.swing.JLabel();
-        var_noOrder = new javax.swing.JLabel();
+        lbl_kodemeja = new javax.swing.JLabel();
+        lbl_kodeOrder = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Form Order");
         setResizable(false);
-
-        jPanel1.setBackground(new java.awt.Color(255, 204, 51));
 
         jTable_input_order.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -138,8 +121,6 @@ public class Form_order extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jPanel2.setBackground(new java.awt.Color(51, 204, 255));
-
         cmenu_tombolOrder.setText("Order");
         cmenu_tombolOrder.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -158,15 +139,15 @@ public class Form_order extends javax.swing.JFrame {
 
         jLabel3.setText("No Order ");
 
-        jLabel4.setText("No Meja ");
+        jLabel4.setText("Kd Meja");
 
         jLabel6.setText(":");
 
         jLabel7.setText(":");
 
-        var_noMeja.setText("?");
+        lbl_kodemeja.setText("?");
 
-        var_noOrder.setText("?");
+        lbl_kodeOrder.setText("?");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -179,13 +160,13 @@ public class Form_order extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(var_noOrder))
+                        .addComponent(lbl_kodeOrder))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(var_noMeja)))
+                        .addComponent(lbl_kodemeja)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 131, Short.MAX_VALUE)
                 .addComponent(cmenu_tombolBatal, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -204,12 +185,12 @@ public class Form_order extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(jLabel7)
-                    .addComponent(var_noOrder))
+                    .addComponent(lbl_kodeOrder))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(jLabel6)
-                    .addComponent(var_noMeja))
+                    .addComponent(lbl_kodemeja))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
@@ -252,7 +233,7 @@ public class Form_order extends javax.swing.JFrame {
     private void cmenu_tombolOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmenu_tombolOrderActionPerformed
         // TODO add your handling code here:
         System.out.println("order");
-        System.out.println("no meja="+this.fo_varNoMeja);
+        System.out.println("no meja="+mejaOrder_kdMeja);
     }//GEN-LAST:event_cmenu_tombolOrderActionPerformed
 
     private void cmenu_tombolOrder1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmenu_tombolOrder1ActionPerformed
@@ -316,8 +297,8 @@ public class Form_order extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     public static javax.swing.JTable jTable_input_order;
-    private javax.swing.JLabel var_noMeja;
-    private javax.swing.JLabel var_noOrder;
+    private javax.swing.JLabel lbl_kodeOrder;
+    private javax.swing.JLabel lbl_kodemeja;
     // End of variables declaration//GEN-END:variables
 
     

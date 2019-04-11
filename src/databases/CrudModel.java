@@ -38,6 +38,31 @@ public class CrudModel extends ConfigDatabase {
     }
     /* end of method untuk query select all data  */
     
+    
+    //--------------------------------------------------------------------------
+    /*
+    * method untuk query select meja order berdasarkan id/nomor meja yg didefinisi 
+    * di halaman utama
+    * @param id_orderMeja
+    * @return kd_meja
+    */
+    public static String getMeja_kode(int id_orderMeja) throws SQLException{
+        String sql = "SELECT * FROM tbl_master_meja WHERE id_meja=?";
+        String kd_meja = "",ktg_meja="";
+
+        PreparedStatement ps = conn.prepareStatement(sql);
+        ps.setInt(1, id_orderMeja);
+        ResultSet rs = ps.executeQuery();
+        
+        if (rs.next()) {
+            kd_meja = rs.getString("kd_meja");
+            ktg_meja = rs.getString("kategori_meja");
+            setId_meja(rs.getInt("id_meja"));
+        }
+        return kd_meja;
+    }
+    /* end of method query select meja order */
+    
     /*
     * method untuk query select user akses aplikasi 
     */

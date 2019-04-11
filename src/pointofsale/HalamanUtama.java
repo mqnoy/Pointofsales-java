@@ -4,6 +4,10 @@
  * and open the template in the editor.
  */
 package pointofsale;
+import static databases.CrudModel.getMeja_kode;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import static pointofsale_backend.Frame_control.*;
 /**
@@ -41,15 +45,15 @@ public class HalamanUtama extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         layout_meja_dan_menu = new javax.swing.JSplitPane();
         jpanel_meja = new javax.swing.JPanel();
-        jButton3 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btn_meja1 = new javax.swing.JButton();
+        btn_meja2 = new javax.swing.JButton();
+        btn_meja3 = new javax.swing.JButton();
+        btn_meja4 = new javax.swing.JButton();
+        btn_meja5 = new javax.swing.JButton();
+        btn_meja6 = new javax.swing.JButton();
+        btn_meja7 = new javax.swing.JButton();
+        btn_meja8 = new javax.swing.JButton();
+        btn_meja9 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jpanel_menu_kanan = new javax.swing.JPanel();
         jButton11 = new javax.swing.JButton();
@@ -101,52 +105,52 @@ public class HalamanUtama extends javax.swing.JFrame {
         jpanel_meja.setPreferredSize(new java.awt.Dimension(800, 400));
         jpanel_meja.setLayout(new java.awt.GridLayout(3, 3));
 
-        jButton3.setText("MEJA1");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btn_meja1.setText("MEJA1");
+        btn_meja1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btn_meja1ActionPerformed(evt);
             }
         });
-        jpanel_meja.add(jButton3);
+        jpanel_meja.add(btn_meja1);
 
-        jButton2.setText("MEJA2");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btn_meja2.setText("MEJA2");
+        btn_meja2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btn_meja2ActionPerformed(evt);
             }
         });
-        jpanel_meja.add(jButton2);
+        jpanel_meja.add(btn_meja2);
 
-        jButton9.setText("MEJA3");
-        jpanel_meja.add(jButton9);
+        btn_meja3.setText("MEJA3");
+        jpanel_meja.add(btn_meja3);
 
-        jButton7.setText("MEJA4");
-        jpanel_meja.add(jButton7);
+        btn_meja4.setText("MEJA4");
+        jpanel_meja.add(btn_meja4);
 
-        jButton8.setText("MEJA5");
-        jpanel_meja.add(jButton8);
+        btn_meja5.setText("MEJA5");
+        jpanel_meja.add(btn_meja5);
 
-        jButton6.setText("MEJA6");
-        jpanel_meja.add(jButton6);
+        btn_meja6.setText("MEJA6");
+        jpanel_meja.add(btn_meja6);
 
-        jButton5.setText("MEJA7");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        btn_meja7.setText("MEJA7");
+        btn_meja7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                btn_meja7ActionPerformed(evt);
             }
         });
-        jpanel_meja.add(jButton5);
+        jpanel_meja.add(btn_meja7);
 
-        jButton4.setText("MEJA8");
-        jpanel_meja.add(jButton4);
+        btn_meja8.setText("MEJA8");
+        jpanel_meja.add(btn_meja8);
 
-        jButton1.setText("MEJA9");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btn_meja9.setText("MEJA9");
+        btn_meja9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btn_meja9ActionPerformed(evt);
             }
         });
-        jpanel_meja.add(jButton1);
+        jpanel_meja.add(btn_meja9);
 
         layout_meja_dan_menu.setLeftComponent(jpanel_meja);
 
@@ -319,25 +323,64 @@ public class HalamanUtama extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btn_meja9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_meja9ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+        try {
+            // TODO add your handling code here:
+            String val_kodeMeja = getMeja_kode(9);//get kode meja id=1
+            mejaOrder_kdMeja = val_kodeMeja;//set kd meja order
+            getKodeOrder();
+            System.out.println(mejaOrder_kdOrder);
+            tampil_Popup_pilMeja();
+            System.out.println("kdmeja @hal utama = "+val_kodeMeja);
+        } catch (SQLException ex) {
+            Logger.getLogger(HalamanUtama.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btn_meja9ActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-        int no_meja = 1;
-        setNoMeja(no_meja);
-        tampil_Popup_pilMeja();
-        System.out.println("nomeja @hal utama = "+noMeja);
-    }//GEN-LAST:event_jButton3ActionPerformed
+    private void btn_meja1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_meja1ActionPerformed
+        try {
+            // TODO add your handling code here:
+            String val_kodeMeja = getMeja_kode(1);//get kode meja id=1
+            mejaOrder_kdMeja = val_kodeMeja;//set kd meja order
+            getKodeOrder();
+            System.out.println(mejaOrder_kdOrder);
+            tampil_Popup_pilMeja();
+            System.out.println("kdmeja @hal utama = "+val_kodeMeja);
+        } catch (SQLException ex) {
+            Logger.getLogger(HalamanUtama.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btn_meja1ActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+    private void btn_meja7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_meja7ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton5ActionPerformed
+        try {
+            // TODO add your handling code here:
+            String val_kodeMeja = getMeja_kode(7);//get kode meja id=1
+            mejaOrder_kdMeja = val_kodeMeja;//set kd meja order
+            getKodeOrder();
+            System.out.println(mejaOrder_kdOrder);
+            tampil_Popup_pilMeja();
+            System.out.println("kdmeja @hal utama = "+val_kodeMeja);
+        } catch (SQLException ex) {
+            Logger.getLogger(HalamanUtama.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btn_meja7ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btn_meja2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_meja2ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+        try {
+            // TODO add your handling code here:
+            String val_kodeMeja = getMeja_kode(2);//get kode meja id=1
+            mejaOrder_kdMeja = val_kodeMeja;//set kd meja order
+            getKodeOrder();
+            System.out.println(mejaOrder_kdOrder);
+            tampil_Popup_pilMeja();
+            System.out.println("kdmeja @hal utama = "+val_kodeMeja);
+        } catch (SQLException ex) {
+            Logger.getLogger(HalamanUtama.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btn_meja2ActionPerformed
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
         // TODO add your handling code here:
@@ -417,18 +460,18 @@ public class HalamanUtama extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btn_meja1;
+    private javax.swing.JButton btn_meja2;
+    private javax.swing.JButton btn_meja3;
+    private javax.swing.JButton btn_meja4;
+    private javax.swing.JButton btn_meja5;
+    private javax.swing.JButton btn_meja6;
+    private javax.swing.JButton btn_meja7;
+    private javax.swing.JButton btn_meja8;
+    private javax.swing.JButton btn_meja9;
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton14;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;

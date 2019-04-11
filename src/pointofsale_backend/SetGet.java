@@ -6,17 +6,23 @@
 package pointofsale_backend;
 
 import javax.swing.JTable;
+import static pointofsale_backend.Library.*;
 
 /**
  *
  * @author Rifky <qnoy.rifky@gmail.com>
  */
 public class SetGet {
+    //atribut untuk aktifitas order
+    public static String mejaOrder_kdMeja;
+    public static Integer mejaOrder_idMeja;
+    public static String mejaOrder_kdOrder;
 
-    public static Integer noMeja;
+        
     public static String tanggalSkrg;
-    public static String orderCode;
     public static String no_Order;
+    
+    //Jtable
     public static JTable Jtablename;
 
     /*atribut user access aplikasi*/
@@ -30,10 +36,19 @@ public class SetGet {
 
     //constructor
     public static void SetGet() {
-        Library pustaka = new Library();
-        pustaka.tanggalan();//generate tanggal sekarang 
-        SetGet.tanggalSkrg = pustaka.tanggalwaktu;
+               
+        
     }
+    
+    public static void setId_meja(int val_idMeja){
+        mejaOrder_idMeja = val_idMeja;
+    }
+    public static void getKodeOrder(){
+        tanggalan();//generate tanggal sekarang 
+        generateOrder(tanggalwaktu, mejaOrder_idMeja);
+        mejaOrder_kdOrder = KodeOrder;
+    }
+    
     /*
      * method setter atribut login frame
      * alias : logout
@@ -46,38 +61,10 @@ public class SetGet {
         giveAccess = false;
     }
     /*  end of method logout    */
-
+    
+    
     /*
-     * method setter atribut
-     *
-     */
-    /*
-     * @param noMeja 
-     */
-    public static void setNoMeja(Integer noMeja) {
-        SetGet.noMeja = noMeja;
-        System.out.println("no meja @setNoMeja()" + noMeja);
-    }
-    /* end of method set atribut    */
-
-    /*
-     * method getter atribut
-     *
-     */
-//    public static Integer getNoMeja() {
-//        return noMeja;
-//    }
-    /*  end of method set atribut    */
-    /*
-     * method getter atribut
-     *
-     */
-//    public static void setTableOrder(String str1,String str2,String str3,String str4) {
-//        DefaultTableModel model_tblOrder = (DefaultTableModel)jTable_input_order.getModel();
-//    }
-    /*  end of method set atribut    */
-    /*
-     * method getter atribut
+     * method getter untuk pencocokan variabel JTable
      *
      */
     public static JTable getTableName() {

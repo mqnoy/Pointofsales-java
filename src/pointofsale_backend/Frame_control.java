@@ -69,10 +69,8 @@ public class Frame_control extends SetGet{
 //        pustaka.generateOrder(tanggalSkrg, noMeja);//generate no order
 //        SetGet.no_Order = pustaka.orderCode;
 
-//        form_menu.setNo_order(no_Order);
-        form_menu.setNo_meja(noMeja);
-//        System.out.println("no meja @form order="+noMeja);
-        System.out.println("no meja @form order="+noMeja);
+        System.out.println("no meja @form order="+mejaOrder_kdMeja);
+        System.out.println("no meja @form order="+mejaOrder_kdMeja);
         form_menu.pack();
         form_menu.setLocationRelativeTo(null);
         form_menu.setVisible(true);

@@ -20,10 +20,14 @@ import java.util.TimeZone;
  */
 public class Library {
 
-    public String orderCode;
-    public String tanggalwaktu;
-
-    public void generateOrder(String dateOrder, Integer noMeja) {
+    public static String KodeOrder;
+    public static String tanggalwaktu;
+    
+//    public Library(){
+//        tanggalan();//generate tanggal sekarang 
+//    }
+    
+    public static void generateOrder(String dateOrder, Integer idMeja) {
         String orderPrefix = "ODR";
         String digitMeja = "";
         String[] arrOfStr = dateOrder.split(" ", -2);
@@ -37,33 +41,31 @@ public class Library {
         buffer.append(raw_dateOrder.substring(2));
         buffer.append(nilai_detik);
         buffer.append(digitMeja);
-        buffer.append(noMeja);
+        buffer.append(idMeja);
 
         //System.out.println(buffer.toString()); 
         String codeOrder = buffer.toString();
-        this.orderCode = codeOrder;
+        Library.KodeOrder = codeOrder;
     }
 
-    public void tanggalan() {
+    public static void tanggalan() {
         TimeZone tz = TimeZone.getTimeZone("Asia/Jakarta");
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         dateFormat.setTimeZone(tz);
+        
         //get current date time with Date()
         Date datetime = new Date();
         Calendar calendar = Calendar.getInstance();
         String strDate = dateFormat.format(datetime);
-        //System.out.println(strDate);
-        this.tanggalwaktu = strDate;
+        Library.tanggalwaktu = strDate;
 
     }
 
 
     public static void main(String[] args) {
-        Library lib = new Library();
-        lib.tanggalan();
-        String datetime = lib.tanggalwaktu;
-        Integer nomeja = 1;
-        lib.generateOrder(datetime, nomeja);
-        
+        tanggalan();
+        Integer val_idMeja = 1;
+        generateOrder(tanggalwaktu, val_idMeja);
+        System.out.println(KodeOrder);
     }
 }
