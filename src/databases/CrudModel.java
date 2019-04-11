@@ -53,6 +53,7 @@ public class CrudModel extends ConfigDatabase {
             
             if (is_blocked.equals("y")) {
                 System.out.println("akun di blokir !");
+                strGive_access ="error800";
             }else{
                 System.out.println("akun valid ");
                 //seter untuk menggunakan aplikasi dengan idakses yang validr
@@ -64,6 +65,7 @@ public class CrudModel extends ConfigDatabase {
             
         }else{
             System.out.println("id access atau password salah !");
+            strGive_access ="error801";
         }
     }
     /* end of method untuk query select all data  */
