@@ -10,7 +10,6 @@ package pointofsale_backend;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Base64;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
@@ -65,10 +64,6 @@ public class Library {
         String datetime = lib.tanggalwaktu;
         Integer nomeja = 1;
         lib.generateOrder(datetime, nomeja);
-        byte[] encodedBytes = Base64.getEncoder().withoutPadding().encode("".getBytes());
-        System.out.println("encodedBytes " + new String(encodedBytes));
-        byte[] decodedBytes = Base64.getDecoder().decode(encodedBytes);
-        System.out.println("decodedBytes " + new String(decodedBytes));
-//        System.out.println("currentmilis = " + rand);
+        
     }
 }
