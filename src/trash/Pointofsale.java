@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pointofsale;
+package trash;
 
 /**
  *
@@ -16,7 +16,7 @@ public class Pointofsale {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        new HalamanLogin().setVisible(true);
+//        new HalamanLogin().setVisible(true);
     }
     
 }
