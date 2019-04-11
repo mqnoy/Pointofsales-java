@@ -9,7 +9,6 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import static pointofsale_backend.Frame_control.tampilLogin_UserApp;
 import static pointofsale_backend.Frame_control.tampilhalUtama_UserApp;
 import static pointofsale_backend.SetGet.giveAccess;
 /**
@@ -22,7 +21,12 @@ public class HalamanLogin extends javax.swing.JFrame {
      * Creates new form HalamanLogin
      */
     public HalamanLogin() {
-        initComponents();
+        if (giveAccess ==false) {
+            initComponents();
+        }else{
+            System.exit(0);
+        }
+        
     }
 
     /**

@@ -345,12 +345,17 @@ public class HalamanUtama extends javax.swing.JFrame {
 
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
         // TODO add your handling code here:
-        this.dispose();
-        userApp_idaccess=null;
-        userApp_level=null;
-        userApp_blokir=null;
-        giveAccess=false;
-        tampilLogin_UserApp();
+        int result = JOptionPane.showConfirmDialog(this, "Logout ?", this.getTitle(), JOptionPane.YES_NO_OPTION);
+                if (result == JOptionPane.YES_OPTION){               
+                    this.dispose();
+                    userApp_idaccess=null;
+                    userApp_level=null;
+                    userApp_blokir=null;
+                    giveAccess=false;
+                    tampilLogin_UserApp();
+                }else if (result == JOptionPane.NO_OPTION)   {
+                    this.setDefaultCloseOperation(this.DO_NOTHING_ON_CLOSE);
+            }
     }//GEN-LAST:event_jToggleButton1ActionPerformed
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
