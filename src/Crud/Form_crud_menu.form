@@ -75,22 +75,22 @@
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jTextField1" min="-2" pref="109" max="-2" attributes="0"/>
+                          <Component id="txt_menukode" min="-2" pref="109" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jTextField2" min="-2" pref="109" max="-2" attributes="0"/>
+                          <Component id="txt_menunama" min="-2" pref="109" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jComboBox_ktgrMenu" max="32767" attributes="0"/>
+                          <Component id="cb_menukategory" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jTextField4" min="-2" pref="109" max="-2" attributes="0"/>
+                          <Component id="txt_menuharga" min="-2" pref="109" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -106,13 +106,13 @@
                   <EmptySpace max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel1" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
-                      <Component id="jTextField1" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                      <Component id="txt_menukode" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                       <Component id="jLabel2" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel3" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
-                      <Component id="jTextField2" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                      <Component id="txt_menunama" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                       <Component id="jLabel4" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -121,12 +121,12 @@
                           <Component id="jLabel5" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                           <Component id="jLabel6" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="jComboBox_ktgrMenu" alignment="0" min="-2" pref="40" max="-2" attributes="0"/>
+                      <Component id="cb_menukategory" alignment="0" min="-2" pref="40" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel7" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
-                      <Component id="jTextField4" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                      <Component id="txt_menuharga" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                       <Component id="jLabel8" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -135,10 +135,13 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JTextField" name="jTextField1">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="input kode menu"/>
-          </Properties>
+        <Component class="javax.swing.JTextField" name="txt_menukode">
+          <Events>
+            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txt_menukodeKeyReleased"/>
+          </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
+          </AuxValues>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel1">
           <Properties>
@@ -160,10 +163,13 @@
             <Property name="text" type="java.lang.String" value=":"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="jTextField2">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="input nama menu"/>
-          </Properties>
+        <Component class="javax.swing.JTextField" name="txt_menunama">
+          <Events>
+            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txt_menunamaKeyReleased"/>
+          </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
+          </AuxValues>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel5">
           <Properties>
@@ -185,12 +191,18 @@
             <Property name="text" type="java.lang.String" value=":"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="jTextField4">
+        <Component class="javax.swing.JTextField" name="txt_menuharga">
           <Properties>
-            <Property name="text" type="java.lang.String" value="input harga menu"/>
+            <Property name="text" type="java.lang.String" value="0"/>
           </Properties>
+          <Events>
+            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txt_menuhargaKeyReleased"/>
+          </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
+          </AuxValues>
         </Component>
-        <Component class="javax.swing.JComboBox" name="jComboBox_ktgrMenu">
+        <Component class="javax.swing.JComboBox" name="cb_menukategory">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="3">
@@ -200,8 +212,12 @@
               </StringArray>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="cb_menukategoryItemStateChanged"/>
+          </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
           </AuxValues>
         </Component>
         <Container class="javax.swing.JPanel" name="jPanel3">
@@ -233,19 +249,19 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
-                              <Component id="jLabel17" pref="93" max="32767" attributes="0"/>
+                              <Component id="lbl_menukode" pref="93" max="32767" attributes="0"/>
                               <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
-                              <Component id="jLabel18" max="32767" attributes="0"/>
+                              <Component id="lbl_namamenu" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
-                              <Component id="jLabel19" max="32767" attributes="0"/>
+                              <Component id="lbl_ktgrymenu" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
-                              <Component id="jLabel15" min="-2" pref="98" max="-2" attributes="0"/>
+                              <Component id="lbl_menuharga" min="-2" pref="98" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
                           </Group>
                       </Group>
@@ -258,25 +274,25 @@
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel9" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                           <Component id="jLabel10" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
-                          <Component id="jLabel17" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                          <Component id="lbl_menukode" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel11" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                           <Component id="jLabel12" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
-                          <Component id="jLabel18" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                          <Component id="lbl_namamenu" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel13" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                           <Component id="jLabel14" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
-                          <Component id="jLabel19" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                          <Component id="lbl_ktgrymenu" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jLabel20" alignment="1" min="-2" pref="35" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jLabel15" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                              <Component id="lbl_menuharga" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                               <Component id="jLabel16" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -291,9 +307,9 @@
                 <Property name="text" type="java.lang.String" value="Nama menu"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabel15">
+            <Component class="javax.swing.JLabel" name="lbl_menuharga">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Harga menu"/>
+                <Property name="text" type="java.lang.String" value="?"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel10">
@@ -326,19 +342,19 @@
                 <Property name="text" type="java.lang.String" value=":"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabel17">
+            <Component class="javax.swing.JLabel" name="lbl_menukode">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Kode menu"/>
+                <Property name="text" type="java.lang.String" value="?"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabel18">
+            <Component class="javax.swing.JLabel" name="lbl_namamenu">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Nama menu"/>
+                <Property name="text" type="java.lang.String" value="?"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabel19">
+            <Component class="javax.swing.JLabel" name="lbl_ktgrymenu">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Kategory menu"/>
+                <Property name="text" type="java.lang.String" value="?"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel20">
@@ -486,6 +502,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Tambah"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jButton3">
           <Properties>

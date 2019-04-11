@@ -5,6 +5,7 @@
  */
 package databases;
 
+import static Crud.Form_crud_menu.*;
 import static Crud.Form_crud_menu.JTBL_listMenu_crud;
 import static Crud.Form_list_menu.JTBL_listMenu;
 import Crud.Form_crud_userAplikasi;
@@ -153,7 +154,28 @@ public class CrudModel extends ConfigDatabase {
     }
     /* end of method untuk select data master menu */
     
+    public static void insert_MenulistDB() throws SQLException{
+        String sql = "INSERT INTO tbl_master_item_menu (item_menu_nama,item_menu_harga,kd_menu,menu_kategory) VALUES (?,?,?,?)";
+        PreparedStatement ps = conn.prepareStatement(sql);
+        ps.setString(1, txt_menunama.getText());
+        ps.setDouble(2,Double.parseDouble(txt_menuharga.getText()));
+        ps.setString(3, txt_menukode.getText());
+        ps.setString(4, cb_menukategory.getSelectedItem().toString());
+        
+        
+        
+//        double anuan = Double.parseDouble(txt_menuharga.getText());
+//        System.out.println("harga = "+anuan);
+
+        ps.executeUpdate();
+        
+    }
     
+    
+    //--------------------------------------------------------------------------
+    /*
+    * method untuk mengambil dan mencocokan variabel JTable
+    */
     public static DefaultTableModel getDatatabel(){
         
         DefaultTableModel tabmode = null;
