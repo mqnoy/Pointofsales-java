@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Apr 13, 2019 at 01:45 AM
+-- Generation Time: Apr 13, 2019 at 01:47 AM
 -- Server version: 10.2.13-MariaDB-10.2.13+maria~xenial
 -- PHP Version: 5.6.37-1+ubuntu16.04.1+deb.sury.org+1
 
@@ -315,7 +315,8 @@ ALTER TABLE `tbl_master_user_application`
 -- Indexes for table `tbl_order_customer`
 --
 ALTER TABLE `tbl_order_customer`
-  ADD PRIMARY KEY (`id_order_cust`);
+  ADD PRIMARY KEY (`id_order_cust`),
+  ADD UNIQUE KEY `kd_order` (`kd_order`);
 
 --
 -- Indexes for table `tbl_struk`
