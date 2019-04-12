@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Apr 12, 2019 at 03:51 PM
+-- Generation Time: Apr 12, 2019 at 04:50 PM
 -- Server version: 10.2.13-MariaDB-10.2.13+maria~xenial
 -- PHP Version: 5.6.37-1+ubuntu16.04.1+deb.sury.org+1
 
@@ -54,15 +54,16 @@ CREATE TABLE `tbl_master_item_menu` (
   `item_menu_nama` text NOT NULL,
   `item_menu_harga` double NOT NULL,
   `kd_menu` varchar(50) NOT NULL,
-  `menu_kategory` enum('makanan','minuman') NOT NULL
+  `menu_kategory` enum('makanan','minuman') NOT NULL,
+  `hide_menu` enum('y','n') NOT NULL DEFAULT 'n'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbl_master_item_menu`
 --
 
-INSERT INTO `tbl_master_item_menu` (`id_item_menu`, `item_menu_nama`, `item_menu_harga`, `kd_menu`, `menu_kategory`) VALUES
-(1, 'MENU SATU', 100000, 'MENU1', 'makanan');
+INSERT INTO `tbl_master_item_menu` (`id_item_menu`, `item_menu_nama`, `item_menu_harga`, `kd_menu`, `menu_kategory`, `hide_menu`) VALUES
+(1, 'menu1', 60000, 'kdmenu1', 'minuman', 'n');
 
 -- --------------------------------------------------------
 
@@ -312,7 +313,7 @@ ALTER TABLE `tbl_struk_for_koki`
 -- AUTO_INCREMENT for table `tbl_master_item_menu`
 --
 ALTER TABLE `tbl_master_item_menu`
-  MODIFY `id_item_menu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_item_menu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `tbl_master_meja`
 --
