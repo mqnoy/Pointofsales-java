@@ -48,6 +48,7 @@ public class Form_crud_userAplikasi extends javax.swing.JFrame {
     private void initComponents() {
 
         buttonGroup_blokAkses = new javax.swing.ButtonGroup();
+        jDialog1 = new javax.swing.JDialog();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         JTBL_userapp = new javax.swing.JTable();
@@ -74,6 +75,17 @@ public class Form_crud_userAplikasi extends javax.swing.JFrame {
         btn_mainmenu = new javax.swing.JButton();
         btn_ubah = new javax.swing.JButton();
         btn_hapus = new javax.swing.JButton();
+
+        javax.swing.GroupLayout jDialog1Layout = new javax.swing.GroupLayout(jDialog1.getContentPane());
+        jDialog1.getContentPane().setLayout(jDialog1Layout);
+        jDialog1Layout.setHorizontalGroup(
+            jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        jDialog1Layout.setVerticalGroup(
+            jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("User aplikasi");
@@ -472,6 +484,7 @@ public class Form_crud_userAplikasi extends javax.swing.JFrame {
     public static javax.swing.ButtonGroup buttonGroup_blokAkses;
     public static javax.swing.JComboBox<String> cb_userapp_jabatan;
     public static javax.swing.JComboBox<String> cb_userapp_levelakses;
+    private javax.swing.JDialog jDialog1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
