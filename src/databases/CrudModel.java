@@ -128,7 +128,7 @@ public class CrudModel extends ConfigDatabase {
 
     /*
      * method untuk query select data master menu
-     * overloading getMenulistDB()
+     * overloading getMenulistDB() - check kd_me duplicate or not
      * @param var_kdmenu
      * @return ditemukan
      */
