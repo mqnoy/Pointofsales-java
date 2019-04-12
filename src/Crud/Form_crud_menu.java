@@ -5,6 +5,7 @@
  */
 package Crud;
 
+import static databases.CrudModel.delete_MenulistDB;
 import static databases.CrudModel.getMenulistDB;
 import static databases.CrudModel.insert_MenulistDB;
 import static databases.CrudModel.tableName;
@@ -13,6 +14,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import static pointofsale_backend.SetGet.notif_del_menulist;
 import static pointofsale_backend.SetGet.notif_ins_found_menulist;
 import static pointofsale_backend.SetGet.notif_ins_menulist;
 import static pointofsale_backend.SetGet.notif_updt_menulist;
@@ -22,11 +24,11 @@ import static pointofsale_backend.SetGet.notif_updt_menulist;
  * @author Rifky <qnoy.rifky@gmail.com>
  */
 public class Form_crud_menu extends javax.swing.JFrame {
+
     public static String val_menunama;
     public static String val_menukode;
     public static String val_cb_menukategory;
     public static String val_menuharga;
-            
 
     /**
      * Creates new form Form_crud_menu
@@ -77,7 +79,7 @@ public class Form_crud_menu extends javax.swing.JFrame {
         JTBL_listMenu_crud = new javax.swing.JTable();
         jToggleButton1 = new javax.swing.JToggleButton();
         jPanel4 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        btn_hapusmenu = new javax.swing.JButton();
         btn_tambahmenu = new javax.swing.JButton();
         btn_updatemenu = new javax.swing.JButton();
 
@@ -313,7 +315,12 @@ public class Form_crud_menu extends javax.swing.JFrame {
                 .addComponent(jToggleButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE))
         );
 
-        jButton1.setText("Hapus");
+        btn_hapusmenu.setText("Hapus");
+        btn_hapusmenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_hapusmenuActionPerformed(evt);
+            }
+        });
 
         btn_tambahmenu.setText("Tambah");
         btn_tambahmenu.addActionListener(new java.awt.event.ActionListener() {
@@ -335,7 +342,7 @@ public class Form_crud_menu extends javax.swing.JFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btn_hapusmenu, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btn_updatemenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
@@ -347,7 +354,7 @@ public class Form_crud_menu extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_hapusmenu, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_updatemenu, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_tambahmenu, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
@@ -378,7 +385,7 @@ public class Form_crud_menu extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    private void refresh(){
+    private void refresh() {
         txt_menunama.setText("");
         txt_menukode.setText("");
         cb_menukategory.setSelectedIndex(0);
@@ -401,15 +408,15 @@ public class Form_crud_menu extends javax.swing.JFrame {
             if (txt_menunama.getText().isEmpty() || txt_menukode.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(this, "tidak boleh kosong!");
             } else {
-                
+
                 insert_MenulistDB();
                 if (notif_ins_menulist) {
                     JOptionPane.showMessageDialog(this, "insert data success");
                     refresh();
                     getMenulistDB();
-                }else if (notif_ins_found_menulist=true) {
+                } else if (notif_ins_found_menulist = true) {
                     JOptionPane.showMessageDialog(this, "cant insert ,duplicated kd menu!");
-                }else {
+                } else {
                     JOptionPane.showMessageDialog(this, "insert data failed");
                 }
             }
@@ -448,11 +455,11 @@ public class Form_crud_menu extends javax.swing.JFrame {
     private void JTBL_listMenu_crudMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JTBL_listMenu_crudMouseClicked
         // TODO add your handling code here:
         int row = JTBL_listMenu_crud.getSelectedRow();
-        val_menunama = JTBL_listMenu_crud.getModel().getValueAt(row,2).toString();
+        val_menunama = JTBL_listMenu_crud.getModel().getValueAt(row, 2).toString();
         val_menukode = JTBL_listMenu_crud.getModel().getValueAt(row, 1).toString();
         val_cb_menukategory = JTBL_listMenu_crud.getModel().getValueAt(row, 3).toString();
         val_menuharga = (String) JTBL_listMenu_crud.getModel().getValueAt(row, 4);
-        
+
         txt_menunama.setText(val_menunama);
         txt_menukode.setText(val_menukode);
         cb_menukategory.setSelectedItem(val_cb_menukategory);
@@ -467,13 +474,30 @@ public class Form_crud_menu extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "update data sucess");
                 refresh();
                 getMenulistDB();
-            }else{
+            } else {
                 JOptionPane.showMessageDialog(this, "update data failed");
             }
         } catch (SQLException ex) {
             Logger.getLogger(Form_crud_menu.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btn_updatemenuActionPerformed
+
+    private void btn_hapusmenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_hapusmenuActionPerformed
+        try {
+            // TODO add your handling code here:
+            delete_MenulistDB(val_menukode);
+            if (notif_del_menulist) {
+                JOptionPane.showMessageDialog(this, "delete data sucess");
+                refresh();
+                getMenulistDB();
+            } else {
+                JOptionPane.showMessageDialog(this, "delete data failed");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Form_crud_menu.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }//GEN-LAST:event_btn_hapusmenuActionPerformed
 
     /**
      * @param args the command line arguments
@@ -512,10 +536,10 @@ public class Form_crud_menu extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JTable JTBL_listMenu_crud;
+    private javax.swing.JButton btn_hapusmenu;
     private javax.swing.JButton btn_tambahmenu;
     private javax.swing.JButton btn_updatemenu;
     public static javax.swing.JComboBox<String> cb_menukategory;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

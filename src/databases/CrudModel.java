@@ -207,7 +207,6 @@ public class CrudModel extends ConfigDatabase {
                 notif_ins_menulist = false;
             }
         }
-
     }
     /* end of method untuk insert data menu */
     
@@ -231,6 +230,23 @@ public class CrudModel extends ConfigDatabase {
         }
     }
     /* end of method untuk ubah data menu */
+    
+    /*
+     * method untuk hapus 1 data menu
+     */
+    public static void delete_MenulistDB(String var_kd_menu) throws SQLException {
+        int val_menuid = getMenulistDB(true,var_kd_menu);
+        String sql = "DELETE FROM tbl_master_item_menu WHERE id_item_menu="+val_menuid;
+        PreparedStatement ps = conn.prepareStatement(sql);
+       
+        int executeUpdate = ps.executeUpdate();
+        if (executeUpdate > 0) {
+            notif_del_menulist = true;
+        } else {
+            notif_del_menulist = false;
+        }
+    }
+    /* end of method untuk hapus 1 data menu */
     
     
 
