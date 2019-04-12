@@ -356,7 +356,7 @@ public class Form_crud_userAplikasi extends javax.swing.JFrame {
                 if (result == JOptionPane.YES_OPTION){               
                     this.setVisible(false);
                 }else if (result == JOptionPane.NO_OPTION)   {
-                    this.setDefaultCloseOperation(this.DO_NOTHING_ON_CLOSE);
+                    this.setDefaultCloseOperation(Form_crud_userAplikasi.DO_NOTHING_ON_CLOSE);
             }
     }//GEN-LAST:event_jButton2ActionPerformed
 

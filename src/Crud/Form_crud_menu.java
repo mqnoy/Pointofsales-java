@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import static pointofsale_backend.SetGet.notif_ins_found_menulist;
 import static pointofsale_backend.SetGet.notif_ins_menulist;
 
 /**
@@ -19,6 +20,11 @@ import static pointofsale_backend.SetGet.notif_ins_menulist;
  * @author Rifky <qnoy.rifky@gmail.com>
  */
 public class Form_crud_menu extends javax.swing.JFrame {
+    public static String val_menunama;
+    public static String val_menukode;
+    public static String val_cb_menukategory;
+    public static String val_menuharga;
+            
 
     /**
      * Creates new form Form_crud_menu
@@ -274,6 +280,11 @@ public class Form_crud_menu extends javax.swing.JFrame {
                 "No", "kd menu", "Nama menu", "kategory menu", "harga(Rp)"
             }
         ));
+        JTBL_listMenu_crud.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                JTBL_listMenu_crudMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(JTBL_listMenu_crud);
 
         jToggleButton1.setText("Kembali");
@@ -310,6 +321,11 @@ public class Form_crud_menu extends javax.swing.JFrame {
         });
 
         jButton3.setText("Ubah");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -373,7 +389,7 @@ public class Form_crud_menu extends javax.swing.JFrame {
             if (txt_menunama.getText().isEmpty() || txt_menukode.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(this, "tidak boleh kosong!");
             } else {
-
+                
                 insert_MenulistDB();
                 if (notif_ins_menulist) {
                     JOptionPane.showMessageDialog(this, "insert data success");
@@ -387,7 +403,9 @@ public class Form_crud_menu extends javax.swing.JFrame {
                     lbl_ktgrymenu.setText("?");
                     lbl_namamenu.setText("?");
                     getMenulistDB();
-                } else {
+                }else if (notif_ins_found_menulist=true) {
+                    JOptionPane.showMessageDialog(this, "cant insert ,duplicated kd menu!");
+                }else {
                     JOptionPane.showMessageDialog(this, "insert data failed");
                 }
             }
@@ -422,6 +440,25 @@ public class Form_crud_menu extends javax.swing.JFrame {
         // TODO add your handling code here:
         lbl_menukode.setText(txt_menukode.getText());
     }//GEN-LAST:event_txt_menukodeKeyReleased
+
+    private void JTBL_listMenu_crudMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JTBL_listMenu_crudMouseClicked
+        // TODO add your handling code here:
+        int row = JTBL_listMenu_crud.getSelectedRow();
+        val_menunama = JTBL_listMenu_crud.getModel().getValueAt(row,2).toString();
+        val_menukode = JTBL_listMenu_crud.getModel().getValueAt(row, 1).toString();
+        val_cb_menukategory = JTBL_listMenu_crud.getModel().getValueAt(row, 3).toString();
+        val_menuharga = (String) JTBL_listMenu_crud.getModel().getValueAt(row, 4);
+        
+        txt_menunama.setText(val_menunama);
+        txt_menukode.setText(val_menukode);
+        cb_menukategory.setSelectedItem(val_cb_menukategory);
+        txt_menuharga.setText(val_menuharga);
+    }//GEN-LAST:event_JTBL_listMenu_crudMouseClicked
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
