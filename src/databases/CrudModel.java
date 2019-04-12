@@ -138,7 +138,7 @@ public class CrudModel extends ConfigDatabase {
 //            JTBL_listMenu.setModel(tabmode);
         try {
             //query area
-            String sql = "SELECT * from tbl_master_item_menu";
+            String sql = "SELECT * from tbl_master_item_menu WHERE hide_menu='n'";
             ResultSet hasil = SQLselectAll(sql);
             int NUMBERS = 1;
             while (hasil.next()) {
