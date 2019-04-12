@@ -10,6 +10,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import static pointofsale_backend.Frame_control.tampilhalUtama_UserApp;
+import static pointofsale_backend.Library.strTo_MD5;
 import static pointofsale_backend.SetGet.giveAccess;
 import static pointofsale_backend.SetGet.strError_code;
 /**
@@ -233,12 +234,12 @@ public class HalamanLogin extends javax.swing.JFrame {
         try {
             // TODO add your handling code here:
             String val_idaccess = txt_idaccess.getText();
-            String val_password = new String(txt_password.getPassword());
+            String val_password = strTo_MD5( new String(txt_password.getPassword()) );
             if (val_idaccess.isEmpty() || val_password.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "errorxxx harus di isi !");
             }else{
                 getUserapp_accessDB(val_idaccess,val_password);
-                if (giveAccess==true) {
+                if (giveAccess) {
                     tampilhalUtama_UserApp();
                     this.dispose();
                 }else if(strError_code.equals("error801")){
