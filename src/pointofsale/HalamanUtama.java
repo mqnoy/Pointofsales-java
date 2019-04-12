@@ -74,7 +74,6 @@ public class HalamanUtama extends javax.swing.JFrame {
         setName("frame_hal_utama"); // NOI18N
         setResizable(false);
 
-        jpanel_header.setBackground(new java.awt.Color(51, 255, 204));
         jpanel_header.setPreferredSize(new java.awt.Dimension(0, 100));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
@@ -156,7 +155,6 @@ public class HalamanUtama extends javax.swing.JFrame {
 
         jPanel2.setPreferredSize(new java.awt.Dimension(200, 472));
 
-        jpanel_menu_kanan.setBackground(new java.awt.Color(204, 0, 51));
         jpanel_menu_kanan.setMinimumSize(new java.awt.Dimension(205, 436));
         jpanel_menu_kanan.setPreferredSize(new java.awt.Dimension(205, 436));
 
