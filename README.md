@@ -8,6 +8,7 @@ Aplikasi penjualan yang di khususkan untuk restoran
 * [Jdk8](https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html) - jdk8
 * [Mysql server](https://dev.mysql.com/downloads/mysql/) - Database server
 * [jcallendar-1.4](https://toedter.com/jcalendar/) - Input date
+* [commons-codec-1.12](http://archive.apache.org/dist/commons/codec/binaries/) - MD5
 
 
 
