@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Apr 13, 2019 at 01:47 AM
+-- Generation Time: Apr 13, 2019 at 02:02 AM
 -- Server version: 10.2.13-MariaDB-10.2.13+maria~xenial
 -- PHP Version: 5.6.37-1+ubuntu16.04.1+deb.sury.org+1
 
@@ -204,8 +204,6 @@ INSERT INTO `tbl_master_user_application` (`id_user`, `idaccess`, `password`, `l
 CREATE TABLE `tbl_order_customer` (
   `id_order_cust` int(11) NOT NULL,
   `kd_order` varchar(50) NOT NULL,
-  `payment_type_id` int(11) NOT NULL,
-  `lunas` enum('y','n') NOT NULL DEFAULT 'n',
   `detail_order_kd` varchar(50) NOT NULL,
   `meja_id` int(11) NOT NULL,
   `tanggal_transaksi` datetime NOT NULL
@@ -215,33 +213,8 @@ CREATE TABLE `tbl_order_customer` (
 -- Dumping data for table `tbl_order_customer`
 --
 
-INSERT INTO `tbl_order_customer` (`id_order_cust`, `kd_order`, `payment_type_id`, `lunas`, `detail_order_kd`, `meja_id`, `tanggal_transaksi`) VALUES
-(1, 'ODR20190402001', 1, 'n', 'ODRD001040819', 1, '2019-04-08 00:00:00');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tbl_struk`
---
-
-CREATE TABLE `tbl_struk` (
-  `id_struk` int(11) NOT NULL,
-  `order_cust_id` int(11) NOT NULL,
-  `total_tagihan_pajak` double NOT NULL,
-  `total_tagihan` double NOT NULL,
-  `nominal_pembayaran` double NOT NULL,
-  `kembalian` double NOT NULL,
-  `pos_computer_id` int(11) NOT NULL,
-  `id_pegawai` int(11) NOT NULL,
-  `cetakan_tgl_struk` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `tbl_struk`
---
-
-INSERT INTO `tbl_struk` (`id_struk`, `order_cust_id`, `total_tagihan_pajak`, `total_tagihan`, `nominal_pembayaran`, `kembalian`, `pos_computer_id`, `id_pegawai`, `cetakan_tgl_struk`) VALUES
-(1, 1, 22000, 22000, 100000, 78000, 1, 1, '2019-04-08 00:00:00');
+INSERT INTO `tbl_order_customer` (`id_order_cust`, `kd_order`, `detail_order_kd`, `meja_id`, `tanggal_transaksi`) VALUES
+(1, 'ODR20190402001', 'ODRD001040819', 1, '2019-04-08 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -260,6 +233,33 @@ CREATE TABLE `tbl_struk_for_koki` (
 
 INSERT INTO `tbl_struk_for_koki` (`id_struk_for_koki`, `order_cust_id`) VALUES
 (1, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_transaksi_pesanan`
+--
+
+CREATE TABLE `tbl_transaksi_pesanan` (
+  `id_struk` int(11) NOT NULL,
+  `order_cust_id` int(11) NOT NULL,
+  `total_tagihan_pajak` double NOT NULL,
+  `total_tagihan` double NOT NULL,
+  `nominal_pembayaran` double NOT NULL,
+  `kembalian` double NOT NULL,
+  `payment_type_id` int(11) NOT NULL,
+  `lunas` enum('y','n') NOT NULL DEFAULT 'n',
+  `pos_computer_id` int(11) NOT NULL,
+  `id_pegawai` int(11) NOT NULL,
+  `cetakan_tgl_struk` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tbl_transaksi_pesanan`
+--
+
+INSERT INTO `tbl_transaksi_pesanan` (`id_struk`, `order_cust_id`, `total_tagihan_pajak`, `total_tagihan`, `nominal_pembayaran`, `kembalian`, `payment_type_id`, `lunas`, `pos_computer_id`, `id_pegawai`, `cetakan_tgl_struk`) VALUES
+(1, 1, 22000, 22000, 100000, 78000, 0, 'n', 1, 1, '2019-04-08 00:00:00');
 
 --
 -- Indexes for dumped tables
@@ -319,16 +319,16 @@ ALTER TABLE `tbl_order_customer`
   ADD UNIQUE KEY `kd_order` (`kd_order`);
 
 --
--- Indexes for table `tbl_struk`
---
-ALTER TABLE `tbl_struk`
-  ADD PRIMARY KEY (`id_struk`);
-
---
 -- Indexes for table `tbl_struk_for_koki`
 --
 ALTER TABLE `tbl_struk_for_koki`
   ADD PRIMARY KEY (`id_struk_for_koki`);
+
+--
+-- Indexes for table `tbl_transaksi_pesanan`
+--
+ALTER TABLE `tbl_transaksi_pesanan`
+  ADD PRIMARY KEY (`id_struk`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -370,15 +370,15 @@ ALTER TABLE `tbl_master_user_application`
 ALTER TABLE `tbl_order_customer`
   MODIFY `id_order_cust` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
--- AUTO_INCREMENT for table `tbl_struk`
---
-ALTER TABLE `tbl_struk`
-  MODIFY `id_struk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
---
 -- AUTO_INCREMENT for table `tbl_struk_for_koki`
 --
 ALTER TABLE `tbl_struk_for_koki`
   MODIFY `id_struk_for_koki` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `tbl_transaksi_pesanan`
+--
+ALTER TABLE `tbl_transaksi_pesanan`
+  MODIFY `id_struk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
