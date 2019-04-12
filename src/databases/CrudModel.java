@@ -20,6 +20,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import static Crud.Form_crud_userAplikasi.JTBL_userapp;
 import static Crud.Form_crud_userAplikasi.*;
+import static pointofsale_backend.Library.strTo_MD5;
 import static pointofsale_backend.Library.tanggalan;
 import static pointofsale_backend.Library.tanggalwaktu;
 import static pointofsale_backend.SetGet.*;
@@ -130,7 +131,7 @@ public class CrudModel extends ConfigDatabase {
 
     /* end of method untuk select data user aplikasi dan data pegawai */
 
- /*
+    /*
      * method untuk insert user aplikasi dan data pegawai
      */
     public static void insertUserapp_listDB() throws SQLException {
@@ -140,10 +141,12 @@ public class CrudModel extends ConfigDatabase {
         String str_blokir = buttonGroup_blokAkses.getSelection().getActionCommand();
                 
         //make password makePassword(var pass)
+        String val_paswd_userapp = strTo_MD5(new String(txt_userapp_passwd.getPassword()));
+        
         String sql = "INSERT INTO tbl_master_user_application (idaccess, password, level, blokir, date_registered) VALUES (?,?,?,?,?)";
         PreparedStatement ps = conn.prepareStatement(sql);
         ps.setString(1, txt_userapp_nip.getText());
-        ps.setString(2, new String(txt_userapp_passwd.getPassword()));
+        ps.setString(2, val_paswd_userapp);
         ps.setString(3, cb_userapp_levelakses.getSelectedItem().toString());
         ps.setString(4, str_blokir);
         ps.setString(5, tanggalwaktu);
