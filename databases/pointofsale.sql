@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Apr 12, 2019 at 12:16 AM
+-- Generation Time: Apr 12, 2019 at 03:51 PM
 -- Server version: 10.2.13-MariaDB-10.2.13+maria~xenial
 -- PHP Version: 5.6.37-1+ubuntu16.04.1+deb.sury.org+1
 
@@ -62,17 +62,7 @@ CREATE TABLE `tbl_master_item_menu` (
 --
 
 INSERT INTO `tbl_master_item_menu` (`id_item_menu`, `item_menu_nama`, `item_menu_harga`, `kd_menu`, `menu_kategory`) VALUES
-(1, 'NASI BAKAR', 10000, 'MENU001', 'makanan'),
-(2, 'makanan lah', 1000000, 'menu000', 'makanan'),
-(3, 'menukd', 10000, 'kdmenu01', 'makanan'),
-(4, 'namamenu01', 9000, 'kdmenu01', 'minuman'),
-(5, 'fff', 4, '22', 'makanan'),
-(6, 'fff', 4, '22', 'makanan'),
-(7, 'menu20', 1000, 'kd20', 'makanan'),
-(8, 'nama', 5000, 'gg1', 'minuman'),
-(9, 'ghgh', 1880, 'ghgh11', 'makanan'),
-(10, 'fgfgf', 1990, 'fgfgf99', 'makanan'),
-(11, 'ghgh', 1990, 'ghg88', 'minuman');
+(1, 'MENU SATU', 100000, 'MENU1', 'makanan');
 
 -- --------------------------------------------------------
 
@@ -261,7 +251,8 @@ INSERT INTO `tbl_struk_for_koki` (`id_struk_for_koki`, `order_cust_id`) VALUES
 -- Indexes for table `tbl_master_item_menu`
 --
 ALTER TABLE `tbl_master_item_menu`
-  ADD PRIMARY KEY (`id_item_menu`);
+  ADD PRIMARY KEY (`id_item_menu`),
+  ADD UNIQUE KEY `kd_menu` (`kd_menu`);
 
 --
 -- Indexes for table `tbl_master_meja`
@@ -321,7 +312,7 @@ ALTER TABLE `tbl_struk_for_koki`
 -- AUTO_INCREMENT for table `tbl_master_item_menu`
 --
 ALTER TABLE `tbl_master_item_menu`
-  MODIFY `id_item_menu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id_item_menu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `tbl_master_meja`
 --
