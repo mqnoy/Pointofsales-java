@@ -28,6 +28,8 @@ public class SetGet {
     public static boolean notif_updt_menulist;
     public static boolean notif_del_menulist;
     
+    public static boolean notif_ins_userapp;
+    
     //Jtable
     public static JTable Jtablename;
 

@@ -19,6 +19,9 @@ import java.util.logging.Logger;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import static Crud.Form_crud_userAplikasi.JTBL_userapp;
+import static Crud.Form_crud_userAplikasi.*;
+import static pointofsale_backend.Library.tanggalan;
+import static pointofsale_backend.Library.tanggalwaktu;
 import static pointofsale_backend.SetGet.*;
 
 /**
@@ -38,6 +41,7 @@ public class CrudModel extends ConfigDatabase {
         ResultSet data = stmt.executeQuery(query);
         return data;
     }
+
     /* end of method untuk query select all data  */
 
     //--------------------------------------------------------------------------
@@ -62,9 +66,10 @@ public class CrudModel extends ConfigDatabase {
         }
         return kd_meja;
     }
+
     /* end of method query select meja order */
 
-    /*
+ /*
      * method untuk query select user akses aplikasi 
      */
     public static void getUserapp_accessDB(String idaccess, String password) throws SQLException {
@@ -94,17 +99,17 @@ public class CrudModel extends ConfigDatabase {
             strError_code = "error801";
         }
     }
+
     /* end of method untuk query select all data  */
 
-    /*
+ /*
      * method untuk select data user aplikasi dan data pegawai
      */
-    public static void getUserapp_listDB() {
+    public static void getUserapp_listDB() throws SQLException {
         DefaultTableModel tabmode;
         Object[] baris = {"no", "Nip", "Nama pegawai", "Jabatan", "level", "blokir"};
         tabmode = new DefaultTableModel(null, baris);
         JTBL_userapp.setModel(tabmode);
-        try {
             //query area
             String sql = "SELECT msp.pegawai_nama ,msp.pegawai_nip ,msp.pegawai_jabatan ,mup.level,mup.blokir from tbl_master_pegawai msp LEFT JOIN tbl_master_user_application mup on msp.user_id=mup.id_user";
             ResultSet hasil = SQLselectAll(sql);
@@ -120,13 +125,65 @@ public class CrudModel extends ConfigDatabase {
                 NUMBERS++;
             }
 
-        } catch (SQLException ex) {
-            Logger.getLogger(Form_crud_userAplikasi.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        
     }
+
     /* end of method untuk select data user aplikasi dan data pegawai */
 
-    /*
+ /*
+     * method untuk insert user aplikasi dan data pegawai
+     */
+    public static void insertUserapp_listDB() throws SQLException {
+        boolean check_kdmenu;
+        int last_insert_id,id_user_app;
+        tanggalan();
+        String str_blokir = buttonGroup_blokAkses.getSelection().getActionCommand();
+                
+        //make password makePassword(var pass)
+        String sql = "INSERT INTO tbl_master_user_application (idaccess, password, level, blokir, date_registered) VALUES (?,?,?,?,?)";
+        PreparedStatement ps = conn.prepareStatement(sql);
+        ps.setString(1, txt_userapp_nip.getText());
+        ps.setString(2, new String(txt_userapp_passwd.getPassword()));
+        ps.setString(3, cb_userapp_levelakses.getSelectedItem().toString());
+        ps.setString(4, str_blokir);
+        ps.setString(5, tanggalwaktu);
+
+        int executeIns_userapp_user = ps.executeUpdate();
+        if (executeIns_userapp_user > 0 ) {
+            id_user_app = getUserapp_listDB(txt_userapp_nip.getText());
+
+            String sql2="INSERT INTO tbl_master_pegawai (pegawai_nip, pegawai_nama, pegawai_jabatan,user_id ) VALUES (?, ?, ?, ?)";
+            PreparedStatement ps2 = conn.prepareStatement(sql2);
+            ps2.setString(1, txt_userapp_nip.getText());
+            ps2.setString(2, txt_userapp_nmpegawai.getText());
+            ps2.setString(3, cb_userapp_jabatan.getSelectedItem().toString());
+            ps2.setInt(4, id_user_app);
+            
+            int executeIns_userapp_pegawai = ps2.executeUpdate() ;
+            boolean ano =  executeIns_userapp_pegawai  > 0 ? true : false;
+            
+            notif_ins_userapp = ano;
+        } else {
+            notif_ins_userapp = false;
+        }
+    }
+    public static int getUserapp_listDB(String var_idaccess) throws SQLException {
+        int val_id_userapp = 0;
+        String sql = "SELECT id_user FROM tbl_master_user_application WHERE idaccess=?";
+        PreparedStatement ps = conn.prepareStatement(sql);
+        ps.setString(1, var_idaccess);
+        ResultSet rs = ps.executeQuery();
+        if (rs.next()) {
+            val_id_userapp = rs.getInt("id_user");
+        }
+        return val_id_userapp;
+    }
+    
+
+    /* end of method untuk insert data user aplikasi dan data pegawai */
+
+
+ /*
      * method untuk query select data master menu
      * overloading getMenulistDB() - check kd_me duplicate or not
      * @param var_kdmenu
@@ -155,7 +212,7 @@ public class CrudModel extends ConfigDatabase {
             Logger.getLogger(Form_crud_userAplikasi.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public static boolean getMenulistDB(String var_kdmenu) throws SQLException {
         boolean ditemukan = false;
         String sql = "SELECT kd_menu FROM tbl_master_item_menu WHERE kd_menu=?";
@@ -170,7 +227,8 @@ public class CrudModel extends ConfigDatabase {
         }
         return ditemukan;
     }
-    public static int getMenulistDB(boolean bool_getidmenu ,String var_kdmenu) throws SQLException {
+
+    public static int getMenulistDB(boolean bool_getidmenu, String var_kdmenu) throws SQLException {
         int val_id_item_menu = 0;
         String sql = "SELECT id_item_menu FROM tbl_master_item_menu WHERE kd_menu=?";
         PreparedStatement ps = conn.prepareStatement(sql);
@@ -179,12 +237,13 @@ public class CrudModel extends ConfigDatabase {
         ResultSet rs = ps.executeQuery();
         if (rs.next() && bool_getidmenu) {
             val_id_item_menu = rs.getInt("id_item_menu");
-        } 
+        }
         return val_id_item_menu;
     }
+
     /* end of method untuk select data master menu */
-    
-    /*
+
+ /*
      * method untuk insert data menu
      */
     public static void insert_MenulistDB() throws SQLException {
@@ -198,7 +257,7 @@ public class CrudModel extends ConfigDatabase {
 
         check_kdmenu = getMenulistDB(txt_menukode.getText());
         if (check_kdmenu) {
-            notif_ins_found_menulist=true;
+            notif_ins_found_menulist = true;
         } else {
             int executeUpdate = ps.executeUpdate();
             if (executeUpdate > 0) {
@@ -208,20 +267,21 @@ public class CrudModel extends ConfigDatabase {
             }
         }
     }
+
     /* end of method untuk insert data menu */
-    
-    /*
+
+ /*
      * method untuk ubah data menu
      */
     public static void update_MenulistDB(String var_kd_menu) throws SQLException {
-        int val_menuid = getMenulistDB(true,var_kd_menu);
-        String sql = "UPDATE tbl_master_item_menu SET item_menu_nama=?,item_menu_harga=?,kd_menu=?,menu_kategory=? WHERE id_item_menu="+val_menuid;
+        int val_menuid = getMenulistDB(true, var_kd_menu);
+        String sql = "UPDATE tbl_master_item_menu SET item_menu_nama=?,item_menu_harga=?,kd_menu=?,menu_kategory=? WHERE id_item_menu=" + val_menuid;
         PreparedStatement ps = conn.prepareStatement(sql);
         ps.setString(1, txt_menunama.getText());
         ps.setDouble(2, Double.parseDouble(txt_menuharga.getText()));
         ps.setString(3, txt_menukode.getText());
         ps.setString(4, cb_menukategory.getSelectedItem().toString());
-       
+
         int executeUpdate = ps.executeUpdate();
         if (executeUpdate > 0) {
             notif_updt_menulist = true;
@@ -229,16 +289,17 @@ public class CrudModel extends ConfigDatabase {
             notif_updt_menulist = false;
         }
     }
+
     /* end of method untuk ubah data menu */
-    
-    /*
+
+ /*
      * method untuk hapus 1 data menu
      */
     public static void delete_MenulistDB(String var_kd_menu) throws SQLException {
-        int val_menuid = getMenulistDB(true,var_kd_menu);
-        String sql = "UPDATE tbl_master_item_menu SET hide_menu='y' WHERE id_item_menu="+val_menuid;
+        int val_menuid = getMenulistDB(true, var_kd_menu);
+        String sql = "UPDATE tbl_master_item_menu SET hide_menu='y' WHERE id_item_menu=" + val_menuid;
         PreparedStatement ps = conn.prepareStatement(sql);
-       
+
         int executeUpdate = ps.executeUpdate();
         if (executeUpdate > 0) {
             notif_del_menulist = true;
@@ -246,9 +307,8 @@ public class CrudModel extends ConfigDatabase {
             notif_del_menulist = false;
         }
     }
+
     /* end of method untuk hapus 1 data menu */
-    
-    
 
     //--------------------------------------------------------------------------
     /*

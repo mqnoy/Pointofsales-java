@@ -64,8 +64,8 @@ public class Library {
 
     public static void main(String[] args) {
         tanggalan();
-        Integer val_idMeja = 1;
-        generateOrder(tanggalwaktu, val_idMeja);
-        System.out.println(KodeOrder);
+//        Integer val_idMeja = 1;
+//        generateOrder(tanggalwaktu, val_idMeja);
+        System.out.println(tanggalwaktu);
     }
 }

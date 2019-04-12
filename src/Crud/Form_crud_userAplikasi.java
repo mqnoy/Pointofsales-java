@@ -6,7 +6,12 @@
 package Crud;
 
 import static databases.CrudModel.getUserapp_listDB;
+import static databases.CrudModel.insertUserapp_listDB;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import static pointofsale_backend.SetGet.notif_ins_userapp;
 
 /**
  *
@@ -24,8 +29,12 @@ public class Form_crud_userAplikasi extends javax.swing.JFrame {
      * Creates new form Form_crud_userAplikasi
      */
     public Form_crud_userAplikasi() {
-        initComponents();
-        getUserapp_listDB();
+        try {
+            initComponents();
+            getUserapp_listDB();
+        } catch (SQLException ex) {
+            Logger.getLogger(Form_crud_userAplikasi.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }
 
@@ -46,25 +55,25 @@ public class Form_crud_userAplikasi extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        txt_userapp_passwd = new javax.swing.JPasswordField();
         jLabel3 = new javax.swing.JLabel();
-        cb_levelAkses = new javax.swing.JComboBox<>();
+        cb_userapp_levelakses = new javax.swing.JComboBox<>();
         txt_idPengguna = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         rdBlokir_yes = new javax.swing.JRadioButton();
         rdBlokir_no = new javax.swing.JRadioButton();
         jPanel5 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
-        txt_nip = new javax.swing.JTextField();
+        txt_userapp_nip = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        txt_npPegawai = new javax.swing.JTextField();
+        txt_userapp_nmpegawai = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        cb_jabatan = new javax.swing.JComboBox<>();
+        cb_userapp_jabatan = new javax.swing.JComboBox<>();
         jPanel3 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        btn_tambah = new javax.swing.JButton();
+        btn_mainmenu = new javax.swing.JButton();
+        btn_ubah = new javax.swing.JButton();
+        btn_hapus = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("User aplikasi");
@@ -125,7 +134,7 @@ public class Form_crud_userAplikasi extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel3.setText("Level akses :");
 
-        cb_levelAkses.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-pilih-", "operator", "superadmin" }));
+        cb_userapp_levelakses.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-pilih-", "operator", "superadmin" }));
 
         txt_idPengguna.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         txt_idPengguna.setText("..........");
@@ -135,9 +144,12 @@ public class Form_crud_userAplikasi extends javax.swing.JFrame {
 
         buttonGroup_blokAkses.add(rdBlokir_yes);
         rdBlokir_yes.setText("yes");
+        rdBlokir_yes.setActionCommand("y");
 
         buttonGroup_blokAkses.add(rdBlokir_no);
         rdBlokir_no.setText("no");
+        rdBlokir_no.setToolTipText("");
+        rdBlokir_no.setActionCommand("n");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -149,11 +161,11 @@ public class Form_crud_userAplikasi extends javax.swing.JFrame {
                     .addComponent(txt_idPengguna, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPasswordField1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt_userapp_passwd, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(cb_levelAkses, javax.swing.GroupLayout.Alignment.LEADING, 0, 133, Short.MAX_VALUE))
+                            .addComponent(cb_userapp_levelakses, javax.swing.GroupLayout.Alignment.LEADING, 0, 133, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -174,14 +186,14 @@ public class Form_crud_userAplikasi extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txt_userapp_passwd, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(6, 6, 6)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(cb_levelAkses)
+                    .addComponent(cb_userapp_levelakses)
                     .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(rdBlokir_yes, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(rdBlokir_no, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -193,23 +205,23 @@ public class Form_crud_userAplikasi extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel5.setText("Nip : ");
 
-        txt_nip.setPreferredSize(new java.awt.Dimension(41, 20));
-        txt_nip.addKeyListener(new java.awt.event.KeyAdapter() {
+        txt_userapp_nip.setPreferredSize(new java.awt.Dimension(41, 20));
+        txt_userapp_nip.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                txt_nipKeyTyped(evt);
+                txt_userapp_nipKeyTyped(evt);
             }
         });
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel6.setText("Nama pegawai : ");
 
-        txt_npPegawai.setText("inputan nama pegawai");
-        txt_npPegawai.setPreferredSize(new java.awt.Dimension(41, 20));
+        txt_userapp_nmpegawai.setText("inputan nama pegawai");
+        txt_userapp_nmpegawai.setPreferredSize(new java.awt.Dimension(41, 20));
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel7.setText("Jabatan : ");
 
-        cb_jabatan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "- pilih -", "pelayan", "kepalakoki", "kasir" }));
+        cb_userapp_jabatan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "- pilih -", "pelayan", "kepalakoki", "kasir" }));
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -218,10 +230,10 @@ public class Form_crud_userAplikasi extends javax.swing.JFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(cb_jabatan, 0, 203, Short.MAX_VALUE)
-                    .addComponent(txt_nip, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cb_userapp_jabatan, 0, 203, Short.MAX_VALUE)
+                    .addComponent(txt_userapp_nip, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt_npPegawai, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txt_userapp_nmpegawai, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -232,15 +244,15 @@ public class Form_crud_userAplikasi extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txt_nip, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txt_userapp_nip, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txt_npPegawai, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txt_userapp_nmpegawai, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cb_jabatan, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
+                .addComponent(cb_userapp_jabatan, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -264,31 +276,31 @@ public class Form_crud_userAplikasi extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jButton1.setText("Tambah");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btn_tambah.setText("Tambah");
+        btn_tambah.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btn_tambahActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Menu utama");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btn_mainmenu.setText("Menu utama");
+        btn_mainmenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btn_mainmenuActionPerformed(evt);
             }
         });
 
-        jButton3.setText("Ubah");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btn_ubah.setText("Ubah");
+        btn_ubah.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btn_ubahActionPerformed(evt);
             }
         });
 
-        jButton4.setText("Hapus");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        btn_hapus.setText("Hapus");
+        btn_hapus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                btn_hapusActionPerformed(evt);
             }
         });
 
@@ -299,12 +311,12 @@ public class Form_crud_userAplikasi extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btn_ubah, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btn_hapus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 199, Short.MAX_VALUE))
+                    .addComponent(btn_tambah, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btn_mainmenu, javax.swing.GroupLayout.DEFAULT_SIZE, 199, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -312,12 +324,12 @@ public class Form_crud_userAplikasi extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(26, 26, 26)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btn_tambah, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_ubah, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btn_mainmenu, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_hapus, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -350,7 +362,7 @@ public class Form_crud_userAplikasi extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btn_mainmenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_mainmenuActionPerformed
         // TODO add your handling code here:
          int result = JOptionPane.showConfirmDialog(this, "Kembali ke halaman utama ?", this.getTitle(), JOptionPane.YES_NO_OPTION);
                 if (result == JOptionPane.YES_OPTION){               
@@ -358,7 +370,7 @@ public class Form_crud_userAplikasi extends javax.swing.JFrame {
                 }else if (result == JOptionPane.NO_OPTION)   {
                     this.setDefaultCloseOperation(Form_crud_userAplikasi.DO_NOTHING_ON_CLOSE);
             }
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btn_mainmenuActionPerformed
 
     private void JTBL_userappMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JTBL_userappMouseClicked
         // TODO add your handling code here:
@@ -369,8 +381,8 @@ public class Form_crud_userAplikasi extends javax.swing.JFrame {
         valLevel = JTBL_userapp.getModel().getValueAt(row, 4).toString();
         valBlokir = JTBL_userapp.getModel().getValueAt(row, 5).toString();
         
-        cb_jabatan.setSelectedItem(valJabatan);
-        cb_levelAkses.setSelectedItem(valLevel);
+        cb_userapp_jabatan.setSelectedItem(valJabatan);
+        cb_userapp_levelakses.setSelectedItem(valLevel);
         if (valBlokir.equals("n")) {
             rdBlokir_no.setSelected(true);
         }else if(valBlokir.equals("y")){
@@ -382,29 +394,39 @@ public class Form_crud_userAplikasi extends javax.swing.JFrame {
         txt_idPengguna.setText(valNip);
 //        System.out.println("row a " + valNip);
         
-        txt_npPegawai.setText(valNmPegawai);
+        txt_userapp_nmpegawai.setText(valNmPegawai);
     }//GEN-LAST:event_JTBL_userappMouseClicked
 
-    private void txt_nipKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_nipKeyTyped
+    private void txt_userapp_nipKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_userapp_nipKeyTyped
         // TODO add your handling code here:
-        String i_nip = txt_nip.getText();
+        String i_nip = txt_userapp_nip.getText();
         txt_idPengguna.setText(i_nip);
-    }//GEN-LAST:event_txt_nipKeyTyped
+    }//GEN-LAST:event_txt_userapp_nipKeyTyped
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        JOptionPane.showMessageDialog(null, "tambah");
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void btn_tambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_tambahActionPerformed
+        try {
+            // TODO add your handling code here:
+            insertUserapp_listDB();
+            if (notif_ins_userapp) {
+                getUserapp_listDB();
+                JOptionPane.showMessageDialog(null, "insert data success");
+            }else{
+                JOptionPane.showMessageDialog(null, "insert data failed");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Form_crud_userAplikasi.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btn_tambahActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void btn_ubahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ubahActionPerformed
         // TODO add your handling code here:
         JOptionPane.showMessageDialog(null, "ubah");
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_btn_ubahActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void btn_hapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_hapusActionPerformed
         // TODO add your handling code here:
         JOptionPane.showMessageDialog(null, "hapus");
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_btn_hapusActionPerformed
 
     /**
      * @param args the command line arguments
@@ -443,13 +465,13 @@ public class Form_crud_userAplikasi extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JTable JTBL_userapp;
-    private javax.swing.ButtonGroup buttonGroup_blokAkses;
-    private javax.swing.JComboBox<String> cb_jabatan;
-    private javax.swing.JComboBox<String> cb_levelAkses;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton btn_hapus;
+    private javax.swing.JButton btn_mainmenu;
+    private javax.swing.JButton btn_tambah;
+    private javax.swing.JButton btn_ubah;
+    public static javax.swing.ButtonGroup buttonGroup_blokAkses;
+    public static javax.swing.JComboBox<String> cb_userapp_jabatan;
+    public static javax.swing.JComboBox<String> cb_userapp_levelakses;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -462,12 +484,12 @@ public class Form_crud_userAplikasi extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JRadioButton rdBlokir_no;
-    private javax.swing.JRadioButton rdBlokir_yes;
+    public static javax.swing.JRadioButton rdBlokir_no;
+    public static javax.swing.JRadioButton rdBlokir_yes;
     private javax.swing.JLabel txt_idPengguna;
-    private javax.swing.JTextField txt_nip;
-    private javax.swing.JTextField txt_npPegawai;
+    public static javax.swing.JTextField txt_userapp_nip;
+    public static javax.swing.JTextField txt_userapp_nmpegawai;
+    public static javax.swing.JPasswordField txt_userapp_passwd;
     // End of variables declaration//GEN-END:variables
 }
