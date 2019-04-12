@@ -14,10 +14,12 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import static pointofsale_backend.Frame_control.tampilLogin_UserApp;
 import static pointofsale_backend.SetGet.notif_del_menulist;
 import static pointofsale_backend.SetGet.notif_ins_found_menulist;
 import static pointofsale_backend.SetGet.notif_ins_menulist;
 import static pointofsale_backend.SetGet.notif_updt_menulist;
+import static pointofsale_backend.SetGet.setClean_sesi;
 
 /**
  *
@@ -483,19 +485,25 @@ public class Form_crud_menu extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_updatemenuActionPerformed
 
     private void btn_hapusmenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_hapusmenuActionPerformed
-        try {
-            // TODO add your handling code here:
-            delete_MenulistDB(val_menukode);
-            if (notif_del_menulist) {
-                JOptionPane.showMessageDialog(this, "delete data sucess");
-                refresh();
-                getMenulistDB();
-            } else {
-                JOptionPane.showMessageDialog(this, "delete data failed");
+        int result = JOptionPane.showConfirmDialog(this, "Hapus menu " +val_menunama +" ?", this.getTitle(), JOptionPane.YES_NO_OPTION);
+        if (result == JOptionPane.YES_OPTION) {
+            try {
+                // TODO add your handling code here:
+                delete_MenulistDB(val_menukode);
+                if (notif_del_menulist) {
+                    refresh();
+                    getMenulistDB();
+                    JOptionPane.showMessageDialog(this, "delete data sucess");
+                } else {
+                    JOptionPane.showMessageDialog(this, "delete data failed");
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(Form_crud_menu.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(Form_crud_menu.class.getName()).log(Level.SEVERE, null, ex);
+        } else if (result == JOptionPane.NO_OPTION) {
+            this.setDefaultCloseOperation(this.DO_NOTHING_ON_CLOSE);
         }
+
 
     }//GEN-LAST:event_btn_hapusmenuActionPerformed
 
