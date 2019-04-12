@@ -13,6 +13,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
+import org.apache.commons.codec.digest.DigestUtils;
 
 /**
  *
@@ -60,6 +61,16 @@ public class Library {
         Library.tanggalwaktu = strDate;
 
     }
+    
+    /*
+     * method untuk konvert text ke MD5
+     * thx for  : https://stackoverflow.com/questions/415953/how-can-i-generate-an-md5-hash
+     */
+    
+    public static String strTo_MD5(String var_text){
+        return DigestUtils.md5Hex(var_text);
+    }
+    /* end of method untuk konvert text ke MD5 */
 
 
     public static void main(String[] args) {
@@ -67,5 +78,10 @@ public class Library {
 //        Integer val_idMeja = 1;
 //        generateOrder(tanggalwaktu, val_idMeja);
         System.out.println(tanggalwaktu);
+        strTo_MD5("password");
+        String cocokan = "5f4dcc3b5aa765d61d8327deb882cf99";
+        System.out.println("5f4dcc3b5aa765d61d8327deb882cf99");
+//        System.out.println(val_text2md5);
+        
     }
 }
