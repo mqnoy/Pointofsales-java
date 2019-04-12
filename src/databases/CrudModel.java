@@ -236,7 +236,7 @@ public class CrudModel extends ConfigDatabase {
      */
     public static void delete_MenulistDB(String var_kd_menu) throws SQLException {
         int val_menuid = getMenulistDB(true,var_kd_menu);
-        String sql = "DELETE FROM tbl_master_item_menu WHERE id_item_menu="+val_menuid;
+        String sql = "UPDATE tbl_master_item_menu SET hide_menu='y' WHERE id_item_menu="+val_menuid;
         PreparedStatement ps = conn.prepareStatement(sql);
        
         int executeUpdate = ps.executeUpdate();
