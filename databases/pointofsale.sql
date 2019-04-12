@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Apr 12, 2019 at 11:19 PM
+-- Generation Time: Apr 13, 2019 at 01:24 AM
 -- Server version: 10.2.13-MariaDB-10.2.13+maria~xenial
 -- PHP Version: 5.6.37-1+ubuntu16.04.1+deb.sury.org+1
 
@@ -138,7 +138,9 @@ CREATE TABLE `tbl_master_pegawai` (
 
 INSERT INTO `tbl_master_pegawai` (`id_pegawai`, `pegawai_nip`, `pegawai_nama`, `pegawai_jabatan`, `user_id`) VALUES
 (1, '201643502057', 'rifky azmi', 'kepalakoki', 1),
-(2, '201643502058', 'rifky qnoy', 'kasir', 2);
+(2, '201643502058', 'rifky qnoy', 'kasir', 2),
+(3, '5656', 'rr', 'pelayan', 4),
+(4, '123123', 'rifky azmi123', 'pelayan', 11);
 
 -- --------------------------------------------------------
 
@@ -181,7 +183,15 @@ CREATE TABLE `tbl_master_user_application` (
 
 INSERT INTO `tbl_master_user_application` (`id_user`, `idaccess`, `password`, `level`, `blokir`, `date_registered`) VALUES
 (1, '201643502057', '3627e7e6b1136675a6b6b04f9c60323f', 'superadmin', 'y', '2019-04-08 00:00:00'),
-(2, '2057', '1234', 'operator', 'n', '2019-04-08 00:00:00');
+(2, '2057', '1234', 'operator', 'n', '2019-04-08 00:00:00'),
+(3, '1870', '81dc9bdb52d04dc20036dbd8313ed055', 'superadmin', 'n', '2019-04-12 00:00:00'),
+(4, '2019', '[C@bea1a79', 'superadmin', 'n', '2019-04-12 23:59:24'),
+(5, '5678', 'rifky azmi2pass', 'superadmin', 'y', '2019-04-13 00:07:06'),
+(6, '9090', 'rifky9090@', 'superadmin', 'y', '2019-04-13 00:35:58'),
+(7, '209', '209pass', 'operator', 'n', '2019-04-13 00:43:11'),
+(8, '1212', '1212password', 'operator', 'n', '2019-04-13 00:47:24'),
+(10, '1313', '1313', 'operator', 'n', '2019-04-13 00:51:14'),
+(11, '123123', '123123', 'operator', 'n', '2019-04-13 01:01:02');
 
 -- --------------------------------------------------------
 
@@ -277,8 +287,7 @@ ALTER TABLE `tbl_master_payment_type`
 --
 ALTER TABLE `tbl_master_pegawai`
   ADD PRIMARY KEY (`id_pegawai`),
-  ADD KEY `user_id` (`user_id`),
-  ADD KEY `pegawai_nip` (`pegawai_nip`);
+  ADD UNIQUE KEY `pegawai_nip` (`pegawai_nip`);
 
 --
 -- Indexes for table `tbl_master_pos_computer`
@@ -334,7 +343,7 @@ ALTER TABLE `tbl_master_payment_type`
 -- AUTO_INCREMENT for table `tbl_master_pegawai`
 --
 ALTER TABLE `tbl_master_pegawai`
-  MODIFY `id_pegawai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_pegawai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `tbl_master_pos_computer`
 --
@@ -344,7 +353,7 @@ ALTER TABLE `tbl_master_pos_computer`
 -- AUTO_INCREMENT for table `tbl_master_user_application`
 --
 ALTER TABLE `tbl_master_user_application`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT for table `tbl_order_customer`
 --
