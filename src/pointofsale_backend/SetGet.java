@@ -25,6 +25,7 @@ public class SetGet {
     //atribut untuk notifikasi query
     public static boolean notif_ins_menulist;
     public static boolean notif_ins_found_menulist;
+    public static boolean notif_updt_menulist;
     
     //Jtable
     public static JTable Jtablename;

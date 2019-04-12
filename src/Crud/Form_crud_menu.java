@@ -8,12 +8,14 @@ package Crud;
 import static databases.CrudModel.getMenulistDB;
 import static databases.CrudModel.insert_MenulistDB;
 import static databases.CrudModel.tableName;
+import static databases.CrudModel.update_MenulistDB;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import static pointofsale_backend.SetGet.notif_ins_found_menulist;
 import static pointofsale_backend.SetGet.notif_ins_menulist;
+import static pointofsale_backend.SetGet.notif_updt_menulist;
 
 /**
  *
@@ -76,8 +78,8 @@ public class Form_crud_menu extends javax.swing.JFrame {
         jToggleButton1 = new javax.swing.JToggleButton();
         jPanel4 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btn_tambahmenu = new javax.swing.JButton();
+        btn_updatemenu = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Crud menu");
@@ -313,17 +315,17 @@ public class Form_crud_menu extends javax.swing.JFrame {
 
         jButton1.setText("Hapus");
 
-        jButton2.setText("Tambah");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btn_tambahmenu.setText("Tambah");
+        btn_tambahmenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btn_tambahmenuActionPerformed(evt);
             }
         });
 
-        jButton3.setText("Ubah");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btn_updatemenu.setText("Ubah");
+        btn_updatemenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btn_updatemenuActionPerformed(evt);
             }
         });
 
@@ -335,9 +337,9 @@ public class Form_crud_menu extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btn_updatemenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btn_tambahmenu, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -346,8 +348,8 @@ public class Form_crud_menu extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(btn_updatemenu, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_tambahmenu, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -376,14 +378,24 @@ public class Form_crud_menu extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    private void refresh(){
+        txt_menunama.setText("");
+        txt_menukode.setText("");
+        cb_menukategory.setSelectedIndex(0);
+        txt_menuharga.setText("0");
 
+        lbl_menukode.setText("?");
+        lbl_menuharga.setText("?");
+        lbl_ktgrymenu.setText("?");
+        lbl_namamenu.setText("?");
+    }
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
         // TODO add your handling code here:
         this.setVisible(false);
     }//GEN-LAST:event_jToggleButton1ActionPerformed
 
     public static double hargamenu_final;
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btn_tambahmenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_tambahmenuActionPerformed
         try {
             // TODO add your handling code here:
             if (txt_menunama.getText().isEmpty() || txt_menukode.getText().isEmpty()) {
@@ -393,15 +405,7 @@ public class Form_crud_menu extends javax.swing.JFrame {
                 insert_MenulistDB();
                 if (notif_ins_menulist) {
                     JOptionPane.showMessageDialog(this, "insert data success");
-                    txt_menunama.setText("");
-                    txt_menukode.setText("");
-                    cb_menukategory.setSelectedIndex(0);
-                    txt_menuharga.setText("0");
-                    
-                    lbl_menukode.setText("?");
-                    lbl_menuharga.setText("?");
-                    lbl_ktgrymenu.setText("?");
-                    lbl_namamenu.setText("?");
+                    refresh();
                     getMenulistDB();
                 }else if (notif_ins_found_menulist=true) {
                     JOptionPane.showMessageDialog(this, "cant insert ,duplicated kd menu!");
@@ -412,7 +416,7 @@ public class Form_crud_menu extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(Form_crud_menu.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btn_tambahmenuActionPerformed
 
     private void txt_menuhargaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_menuhargaKeyReleased
         // TODO add your handling code here:
@@ -455,10 +459,21 @@ public class Form_crud_menu extends javax.swing.JFrame {
         txt_menuharga.setText(val_menuharga);
     }//GEN-LAST:event_JTBL_listMenu_crudMouseClicked
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-        
-    }//GEN-LAST:event_jButton3ActionPerformed
+    private void btn_updatemenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_updatemenuActionPerformed
+        try {
+            // TODO add your handling code here:
+            update_MenulistDB(val_menukode);
+            if (notif_updt_menulist) {
+                JOptionPane.showMessageDialog(this, "update data sucess");
+                refresh();
+                getMenulistDB();
+            }else{
+                JOptionPane.showMessageDialog(this, "update data failed");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Form_crud_menu.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btn_updatemenuActionPerformed
 
     /**
      * @param args the command line arguments
@@ -497,10 +512,10 @@ public class Form_crud_menu extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JTable JTBL_listMenu_crud;
+    private javax.swing.JButton btn_tambahmenu;
+    private javax.swing.JButton btn_updatemenu;
     public static javax.swing.JComboBox<String> cb_menukategory;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

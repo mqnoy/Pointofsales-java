@@ -155,7 +155,7 @@ public class CrudModel extends ConfigDatabase {
             Logger.getLogger(Form_crud_userAplikasi.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
     public static boolean getMenulistDB(String var_kdmenu) throws SQLException {
         boolean ditemukan = false;
         String sql = "SELECT kd_menu FROM tbl_master_item_menu WHERE kd_menu=?";
@@ -170,8 +170,23 @@ public class CrudModel extends ConfigDatabase {
         }
         return ditemukan;
     }
+    public static int getMenulistDB(boolean bool_getidmenu ,String var_kdmenu) throws SQLException {
+        int val_id_item_menu = 0;
+        String sql = "SELECT id_item_menu FROM tbl_master_item_menu WHERE kd_menu=?";
+        PreparedStatement ps = conn.prepareStatement(sql);
+        ps.setString(1, var_kdmenu);
+        //ResultSet rs = ps.getGeneratedKeys();
+        ResultSet rs = ps.executeQuery();
+        if (rs.next() && bool_getidmenu) {
+            val_id_item_menu = rs.getInt("id_item_menu");
+        } 
+        return val_id_item_menu;
+    }
     /* end of method untuk select data master menu */
-
+    
+    /*
+     * method untuk insert data menu
+     */
     public static void insert_MenulistDB() throws SQLException {
         boolean check_kdmenu;
         String sql = "INSERT INTO tbl_master_item_menu (item_menu_nama,item_menu_harga,kd_menu,menu_kategory) VALUES (?,?,?,?)";
@@ -194,6 +209,30 @@ public class CrudModel extends ConfigDatabase {
         }
 
     }
+    /* end of method untuk insert data menu */
+    
+    /*
+     * method untuk ubah data menu
+     */
+    public static void update_MenulistDB(String var_kd_menu) throws SQLException {
+        int val_menuid = getMenulistDB(true,var_kd_menu);
+        String sql = "UPDATE tbl_master_item_menu SET item_menu_nama=?,item_menu_harga=?,kd_menu=?,menu_kategory=? WHERE id_item_menu="+val_menuid;
+        PreparedStatement ps = conn.prepareStatement(sql);
+        ps.setString(1, txt_menunama.getText());
+        ps.setDouble(2, Double.parseDouble(txt_menuharga.getText()));
+        ps.setString(3, txt_menukode.getText());
+        ps.setString(4, cb_menukategory.getSelectedItem().toString());
+       
+        int executeUpdate = ps.executeUpdate();
+        if (executeUpdate > 0) {
+            notif_updt_menulist = true;
+        } else {
+            notif_updt_menulist = false;
+        }
+    }
+    /* end of method untuk ubah data menu */
+    
+    
 
     //--------------------------------------------------------------------------
     /*
