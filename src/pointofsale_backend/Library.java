@@ -10,6 +10,7 @@ package pointofsale_backend;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
@@ -30,20 +31,29 @@ public class Library {
     
     public static void generateOrder(String dateOrder, Integer idMeja) {
         String orderPrefix = "ODR";
-        String digitMeja = "";
+        String kodeMejaDB = "MJ";
+        //2019-04-15 00:42:34
         String[] arrOfStr = dateOrder.split(" ", -2);
         String raw_dateOrder = arrOfStr[0].replace("-", "");
         String raw_timeOrder = arrOfStr[1].replace(":", "");
         int nilai_detik;
+        
+        //ambil dari database select 1 row order desc terus ambil idnya . jika belum ada
+        //maka bernilai 1 ,jika ada akan di tambah 1
+        int urutan_order=1;
+        
         Calendar calendar = Calendar.getInstance();
         nilai_detik = calendar.get(Calendar.SECOND);
+        //http://www.java2s.com/Code/JavaAPI/java.util/CalendarMILLISECOND.htm
+        //int  nilai_millisecon = calendar.get(Calendar.MILLISECOND);
         StringBuilder buffer = new StringBuilder();
         buffer.append(orderPrefix);
-        buffer.append(raw_dateOrder.substring(2));
-        buffer.append(nilai_detik);
-        buffer.append(digitMeja);
-        buffer.append(idMeja);
+        buffer.append(raw_dateOrder);
+        //buffer.append(nilai_millisecon);//.substring(2)
+        buffer.append(kodeMejaDB);
+        buffer.append(urutan_order);
 
+        
         //System.out.println(buffer.toString()); 
         String codeOrder = buffer.toString();
         Library.KodeOrder = codeOrder;
@@ -51,7 +61,7 @@ public class Library {
 
     public static void tanggalan() {
         TimeZone tz = TimeZone.getTimeZone("Asia/Jakarta");
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SS");
         dateFormat.setTimeZone(tz);
         
         //get current date time with Date()
@@ -75,12 +85,18 @@ public class Library {
 
     public static void main(String[] args) {
         tanggalan();
-//        Integer val_idMeja = 1;
-//        generateOrder(tanggalwaktu, val_idMeja);
+        Integer val_idMeja = 18;
+        generateOrder(tanggalwaktu, val_idMeja);
         System.out.println(tanggalwaktu);
-        strTo_MD5("password");
-        String cocokan = "5f4dcc3b5aa765d61d8327deb882cf99";
-        System.out.println("5f4dcc3b5aa765d61d8327deb882cf99");
+        System.out.println(KodeOrder);
+        
+        
+        System.out.println(tanggalwaktu);
+        generateOrder("2018-04-15 anu 00:42:34", 1);
+        System.out.println(KodeOrder);
+//        strTo_MD5("password");
+//        String cocokan = "5f4dcc3b5aa765d61d8327deb882cf99";
+//        System.out.println("5f4dcc3b5aa765d61d8327deb882cf99");
 //        System.out.println(val_text2md5);
         
     }
