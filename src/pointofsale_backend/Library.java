@@ -73,15 +73,9 @@ public class Library {
         //buffer.append(nilai_millisecon);//.substring(2)
         buffer.append(kodeMejaDB);
         buffer.append(order_idDB);
-
         
-        if (generateFor.equals("generate_order")) {
-            String codeOrder = buffer.toString();
-            Library.lib_KodeOrder = codeOrder;
-        } else if (generateFor.equals("generate_detail_order")) {
-            String codeOrder = buffer.toString();
-            Library.lib_KodeOrder_detail = codeOrder;
-        }
+        String codeOrder = buffer.toString();
+        Library.lib_KodeOrder = codeOrder;
 
     }
 
@@ -115,7 +109,7 @@ public class Library {
         System.out.println(lib_tanggalwaktu);
         System.out.println("nomor order = " + lib_KodeOrder);
         generateOrder(lib_tanggalwaktu, val_idMeja, "generate_detail_order");
-        System.out.println("nomor detail order = " + lib_KodeOrder_detail);
+        System.out.println("nomor detail order = " + lib_KodeOrder);
 //        strTo_MD5("password");
 //        String cocokan = "5f4dcc3b5aa765d61d8327deb882cf99";
 //        System.out.println("5f4dcc3b5aa765d61d8327deb882cf99");

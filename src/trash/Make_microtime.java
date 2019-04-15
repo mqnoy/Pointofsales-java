@@ -6,8 +6,6 @@
 package trash;
 
 import java.text.SimpleDateFormat;
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
 
@@ -35,6 +33,6 @@ public class Make_microtime {
         String timeStamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime());
         
         System.out.println(timeStamp);
-        System.out.println(ZonedDateTime.now());
+//        System.out.println(ZonedDateTime.now());
     }
 }

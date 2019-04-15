@@ -61,7 +61,7 @@ public class SetGet {
     public static void getKodeOrder_detail(){
         tanggalan();//generate tanggal sekarang 
         generateOrder(lib_tanggalwaktu, mejaOrder_idMeja,"generate_detail_order");
-        mejaOrder_kdOrder_detail = lib_KodeOrder_detail;
+        mejaOrder_kdOrder_detail = lib_KodeOrder;
     }
     
     /*
