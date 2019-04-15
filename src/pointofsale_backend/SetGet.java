@@ -14,9 +14,11 @@ import static pointofsale_backend.Library.*;
  */
 public class SetGet {
     //atribut untuk aktifitas order
-    public static String mejaOrder_kdMeja;
     public static Integer mejaOrder_idMeja;
+    public static String mejaOrder_kdMeja;
     public static String mejaOrder_kdOrder;
+    public static String mejaOrder_kdOrder_detail;
+    public static Integer idorderDB;
 
         
     public static String tanggalSkrg;
@@ -53,8 +55,13 @@ public class SetGet {
     }
     public static void getKodeOrder(){
         tanggalan();//generate tanggal sekarang 
-        generateOrder(tanggalwaktu, mejaOrder_idMeja);
-        mejaOrder_kdOrder = KodeOrder;
+        generateOrder(lib_tanggalwaktu, mejaOrder_idMeja,"generate_order");
+        mejaOrder_kdOrder = lib_KodeOrder;
+    }
+    public static void getKodeOrder_detail(){
+        tanggalan();//generate tanggal sekarang 
+        generateOrder(lib_tanggalwaktu, mejaOrder_idMeja,"generate_detail_order");
+        mejaOrder_kdOrder_detail = lib_KodeOrder_detail;
     }
     
     /*

@@ -263,7 +263,7 @@
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="jToggleButton2" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jToggleButton1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="tbl_keluar_sesi_1" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <Component id="jButton14" alignment="0" pref="199" max="32767" attributes="0"/>
                               <Component id="jButton12" alignment="0" pref="204" max="32767" attributes="0"/>
@@ -283,9 +283,9 @@
                           <Component id="jButton11" min="-2" pref="42" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jToggleButton1" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jToggleButton2" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jToggleButton3" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="tbl_keluar_sesi_1" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -299,14 +299,6 @@
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton11ActionPerformed"/>
-                  </Events>
-                </Component>
-                <Component class="javax.swing.JToggleButton" name="jToggleButton1">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="keluar"/>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jToggleButton1ActionPerformed"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JButton" name="jButton12">
@@ -333,6 +325,14 @@
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton14ActionPerformed"/>
+                  </Events>
+                </Component>
+                <Component class="javax.swing.JButton" name="tbl_keluar_sesi_1">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="keluar"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tbl_keluar_sesi_1ActionPerformed"/>
                   </Events>
                 </Component>
               </SubComponents>

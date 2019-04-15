@@ -18,11 +18,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import static Crud.Form_crud_userAplikasi.JTBL_userapp;
 import static Crud.Form_crud_userAplikasi.*;
 import static pointofsale_backend.Library.strTo_MD5;
 import static pointofsale_backend.Library.tanggalan;
-import static pointofsale_backend.Library.tanggalwaktu;
+import static pointofsale_backend.Library.lib_tanggalwaktu;
 import static pointofsale_backend.SetGet.*;
 
 /**
@@ -149,7 +148,7 @@ public class CrudModel extends ConfigDatabase {
         ps.setString(2, val_paswd_userapp);
         ps.setString(3, cb_userapp_levelakses.getSelectedItem().toString());
         ps.setString(4, str_blokir);
-        ps.setString(5, tanggalwaktu);
+        ps.setString(5, lib_tanggalwaktu);
 
         int executeIns_userapp_user = ps.executeUpdate();
         if (executeIns_userapp_user > 0 ) {
@@ -312,6 +311,21 @@ public class CrudModel extends ConfigDatabase {
     }
 
     /* end of method untuk hapus 1 data menu */
+    
+    /*
+     * here for interact to library (SELECT * FROM `tbl_order_customer` order by id_order_cust DESC limit 1)
+    */
+    public static boolean select_lastOrderId() throws SQLException{
+//        int idorderDB = 0;
+        String query = "SELECT id_order_cust FROM tbl_order_customer order by id_order_cust DESC limit 1";
+        Statement stmt = conn.createStatement();
+        ResultSet data = stmt.executeQuery(query);
+        if (data.next()) {
+            idorderDB =  data.getInt("id_order_cust");
+        }
+        return false;
+    }
+    /*end of here for interact to library*/
 
     //--------------------------------------------------------------------------
     /*

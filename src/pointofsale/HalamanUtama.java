@@ -32,6 +32,21 @@ public class HalamanUtama extends javax.swing.JFrame {
             }
         }
     }
+    public static void mulaiOrder(int var_id_meja){
+        try {
+            mejaOrder_idMeja = var_id_meja;//set id meja order
+            mejaOrder_kdMeja = getMeja_kode(mejaOrder_idMeja);//get kode meja order
+            getKodeOrder();
+            getKodeOrder_detail();
+            System.out.println("kode order"+mejaOrder_kdOrder);
+            System.out.println("kode detail order "+mejaOrder_kdOrder_detail);
+            System.out.println("kdmeja @hal utama = "+mejaOrder_kdMeja);
+            tampil_Popup_pilMeja();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(HalamanUtama.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -57,11 +72,11 @@ public class HalamanUtama extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jpanel_menu_kanan = new javax.swing.JPanel();
         jButton11 = new javax.swing.JButton();
-        jToggleButton1 = new javax.swing.JToggleButton();
         jButton12 = new javax.swing.JButton();
         jToggleButton2 = new javax.swing.JToggleButton();
         jToggleButton3 = new javax.swing.JToggleButton();
         jButton14 = new javax.swing.JButton();
+        tbl_keluar_sesi_1 = new javax.swing.JButton();
         layout_footer = new javax.swing.JSplitPane();
         jPanel_footer_kiri = new javax.swing.JPanel();
         jPanel_footer_kanan = new javax.swing.JPanel();
@@ -165,13 +180,6 @@ public class HalamanUtama extends javax.swing.JFrame {
             }
         });
 
-        jToggleButton1.setText("keluar");
-        jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton1ActionPerformed(evt);
-            }
-        });
-
         jButton12.setText("Manajemen Menu");
         jButton12.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -190,6 +198,13 @@ public class HalamanUtama extends javax.swing.JFrame {
             }
         });
 
+        tbl_keluar_sesi_1.setText("keluar");
+        tbl_keluar_sesi_1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tbl_keluar_sesi_1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jpanel_menu_kananLayout = new javax.swing.GroupLayout(jpanel_menu_kanan);
         jpanel_menu_kanan.setLayout(jpanel_menu_kananLayout);
         jpanel_menu_kananLayout.setHorizontalGroup(
@@ -204,7 +219,7 @@ public class HalamanUtama extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jToggleButton2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jToggleButton1))
+                        .addComponent(tbl_keluar_sesi_1))
                     .addComponent(jButton14, javax.swing.GroupLayout.DEFAULT_SIZE, 199, Short.MAX_VALUE)
                     .addComponent(jButton12, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE))
                 .addContainerGap())
@@ -220,9 +235,9 @@ public class HalamanUtama extends javax.swing.JFrame {
                 .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jpanel_menu_kananLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jToggleButton1)
                     .addComponent(jToggleButton2)
-                    .addComponent(jToggleButton3))
+                    .addComponent(jToggleButton3)
+                    .addComponent(tbl_keluar_sesi_1))
                 .addContainerGap())
         );
 
@@ -320,82 +335,30 @@ public class HalamanUtama extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+    
     private void btn_meja9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_meja9ActionPerformed
         // TODO add your handling code here:
-        try {
-            // TODO add your handling code here:
-            String val_kodeMeja = getMeja_kode(9);//get kode meja id=1
-            mejaOrder_kdMeja = val_kodeMeja;//set kd meja order
-            getKodeOrder();
-            System.out.println(mejaOrder_kdOrder);
-            tampil_Popup_pilMeja();
-            System.out.println("kdmeja @hal utama = "+val_kodeMeja);
-        } catch (SQLException ex) {
-            Logger.getLogger(HalamanUtama.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        
     }//GEN-LAST:event_btn_meja9ActionPerformed
 
     private void btn_meja1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_meja1ActionPerformed
-        try {
-            // TODO add your handling code here:
-            String val_kodeMeja = getMeja_kode(1);//get kode meja id=1
-            mejaOrder_kdMeja = val_kodeMeja;//set kd meja order
-            getKodeOrder();
-            System.out.println(mejaOrder_kdOrder);
-            tampil_Popup_pilMeja();
-            System.out.println("kdmeja @hal utama = "+val_kodeMeja);
-        } catch (SQLException ex) {
-            Logger.getLogger(HalamanUtama.class.getName()).log(Level.SEVERE, null, ex);
-        }
+       mulaiOrder(1);
     }//GEN-LAST:event_btn_meja1ActionPerformed
 
     private void btn_meja7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_meja7ActionPerformed
         // TODO add your handling code here:
-        try {
-            // TODO add your handling code here:
-            String val_kodeMeja = getMeja_kode(7);//get kode meja id=1
-            mejaOrder_kdMeja = val_kodeMeja;//set kd meja order
-            getKodeOrder();
-            System.out.println(mejaOrder_kdOrder);
-            tampil_Popup_pilMeja();
-            System.out.println("kdmeja @hal utama = "+val_kodeMeja);
-        } catch (SQLException ex) {
-            Logger.getLogger(HalamanUtama.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        
     }//GEN-LAST:event_btn_meja7ActionPerformed
 
     private void btn_meja2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_meja2ActionPerformed
         // TODO add your handling code here:
-        try {
-            // TODO add your handling code here:
-            String val_kodeMeja = getMeja_kode(2);//get kode meja id=1
-            mejaOrder_kdMeja = val_kodeMeja;//set kd meja order
-            getKodeOrder();
-            System.out.println(mejaOrder_kdOrder);
-            tampil_Popup_pilMeja();
-            System.out.println("kdmeja @hal utama = "+val_kodeMeja);
-        } catch (SQLException ex) {
-            Logger.getLogger(HalamanUtama.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        mulaiOrder(2);
     }//GEN-LAST:event_btn_meja2ActionPerformed
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
         // TODO add your handling code here:
         tampilForm_LapPenjualan();
     }//GEN-LAST:event_jButton11ActionPerformed
-
-    private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
-        // TODO add your handling code here:
-        int result = JOptionPane.showConfirmDialog(this, "Logout ?", this.getTitle(), JOptionPane.YES_NO_OPTION);
-                if (result == JOptionPane.YES_OPTION){               
-                    this.dispose();
-                    setClean_sesi();//clean atribut value
-                    tampilLogin_UserApp();
-                }else if (result == JOptionPane.NO_OPTION)   {
-                    this.setDefaultCloseOperation(this.DO_NOTHING_ON_CLOSE);
-            }
-    }//GEN-LAST:event_jToggleButton1ActionPerformed
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
         // TODO add your handling code here:
@@ -416,6 +379,18 @@ public class HalamanUtama extends javax.swing.JFrame {
         // TODO add your handling code here:
         tampil_NotAvailable();
     }//GEN-LAST:event_jMenu2MouseClicked
+
+    private void tbl_keluar_sesi_1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbl_keluar_sesi_1ActionPerformed
+        // TODO add your handling code here:
+        int result = JOptionPane.showConfirmDialog(this, "Logout ?", this.getTitle(), JOptionPane.YES_NO_OPTION);
+                if (result == JOptionPane.YES_OPTION){               
+                    this.dispose();
+                    setClean_sesi();//clean atribut value
+                    tampilLogin_UserApp();
+                }else if (result == JOptionPane.NO_OPTION)   {
+                    this.setDefaultCloseOperation(this.DO_NOTHING_ON_CLOSE);
+            }
+    }//GEN-LAST:event_tbl_keluar_sesi_1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -477,7 +452,6 @@ public class HalamanUtama extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel_footer_kanan;
     private javax.swing.JPanel jPanel_footer_kiri;
-    private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JToggleButton jToggleButton2;
     private javax.swing.JToggleButton jToggleButton3;
     private javax.swing.JPanel jpanel_header;
@@ -485,5 +459,6 @@ public class HalamanUtama extends javax.swing.JFrame {
     private javax.swing.JPanel jpanel_menu_kanan;
     private javax.swing.JSplitPane layout_footer;
     private javax.swing.JSplitPane layout_meja_dan_menu;
+    private javax.swing.JButton tbl_keluar_sesi_1;
     // End of variables declaration//GEN-END:variables
 }
