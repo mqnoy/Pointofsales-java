@@ -162,9 +162,9 @@ public class CrudModel extends ConfigDatabase {
             ps2.setInt(4, id_user_app);
             
             int executeIns_userapp_pegawai = ps2.executeUpdate() ;
-            boolean ano =  executeIns_userapp_pegawai  > 0 ? true : false;
+            boolean successed =  executeIns_userapp_pegawai  > 0 ? true : false;
             
-            notif_ins_userapp = ano;
+            notif_ins_userapp = successed;
         } else {
             notif_ins_userapp = false;
         }
@@ -311,6 +311,58 @@ public class CrudModel extends ConfigDatabase {
     }
 
     /* end of method untuk hapus 1 data menu */
+    
+    /*
+     * method untuk insert data ke table tbl_order_customer
+     */
+    public static void insert_OrderCustomer() throws SQLException {
+        String sql = "INSERT INTO tbl_order_customer (kd_order, detail_order_kd, meja_id, tanggal_transaksi) VALUES (?,?,?,?)";
+        String query_insert_detail_order = "INSERT INTO tbl_detail_order_customer (kd_detail_order, item_menu_id, siap_disantap, qty, subtotal) VALUES (?,?,?,?,?)";
+        PreparedStatement ps = conn.prepareStatement(sql);
+        ps.setString(1, mejaOrder_kdOrder);
+        ps.setString(2, mejaOrder_kdOrder_detail);
+        ps.setInt(3, mejaOrder_idMeja);
+        ps.setString(4, lib_tanggalwaktu);
+        
+        int executeUpdate = ps.executeUpdate();
+        if (executeUpdate > 0) {
+            PreparedStatement ps2 = conn.prepareStatement(query_insert_detail_order);
+            ps2.setString(1, mejaOrder_kdOrder_detail);
+            ps2.setInt(2, 0);
+            ps2.setString(3, "n");
+            ps2.setInt(4, 0);
+            ps2.setDouble(5, 0);
+            
+            int executeUpdate2 = ps2.executeUpdate();
+            notif_ins_order_customer = executeUpdate2 > 0 ? true:false;
+        } else {
+            notif_ins_order_customer = false;
+        }
+    }
+
+    /* end of method untuk insert data ke table tbl_order_customer */
+    
+    /*
+     * method untuk delete data ke table tbl_order_customer
+     */
+    public static void delete_OrderCustomer() throws SQLException {
+        String sql = "DELETE FROM tbl_order_customer WHERE kd_order=? ";
+        String query_delete_detail_order = "DELETE FROM tbl_detail_order_customer WHERE kd_detail_order=? ";
+        PreparedStatement ps = conn.prepareStatement(sql);
+        ps.setString(1, mejaOrder_kdOrder);
+
+        int executeUpdate = ps.executeUpdate();
+        if (executeUpdate > 0) {
+            PreparedStatement ps2 = conn.prepareStatement(query_delete_detail_order);
+            ps2.setString(1, mejaOrder_kdOrder_detail);
+            int executeUpdate2 = ps.executeUpdate();
+            notif_del_order_customer = executeUpdate2 > 0 ? true:false;
+        } else {
+            notif_del_order_customer = false;
+        }
+    }
+
+    /* end of method delete insert data ke table tbl_order_customer */
     
     /*
      * here for interact to library (SELECT * FROM `tbl_order_customer` order by id_order_cust DESC limit 1)

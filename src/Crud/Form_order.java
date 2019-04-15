@@ -4,6 +4,10 @@
  * and open the template in the editor.
  */
 package Crud;
+import static databases.CrudModel.delete_OrderCustomer;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import static pointofsale_backend.Frame_control.*;
 /**
@@ -52,7 +56,7 @@ public class Form_order extends javax.swing.JFrame {
         jTable_input_order = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         btn_Order = new javax.swing.JButton();
-        btn_batal = new javax.swing.JButton();
+        btn_batal_order = new javax.swing.JButton();
         btn_hapus = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -197,12 +201,12 @@ public class Form_order extends javax.swing.JFrame {
             }
         });
 
-        btn_batal.setText("Batalkan");
-        btn_batal.setMaximumSize(new java.awt.Dimension(61, 23));
-        btn_batal.setMinimumSize(new java.awt.Dimension(61, 23));
-        btn_batal.addActionListener(new java.awt.event.ActionListener() {
+        btn_batal_order.setText("Batalkan");
+        btn_batal_order.setMaximumSize(new java.awt.Dimension(61, 23));
+        btn_batal_order.setMinimumSize(new java.awt.Dimension(61, 23));
+        btn_batal_order.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_batalActionPerformed(evt);
+                btn_batal_orderActionPerformed(evt);
             }
         });
 
@@ -220,7 +224,7 @@ public class Form_order extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addComponent(btn_hapus, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btn_batal, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btn_batal_order, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn_Order, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(2, 2, 2))
@@ -229,7 +233,7 @@ public class Form_order extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btn_batal, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_batal_order, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_Order, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 1, Short.MAX_VALUE))
             .addComponent(btn_hapus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -287,15 +291,25 @@ public class Form_order extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btn_batalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_batalActionPerformed
+    private void btn_batal_orderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_batal_orderActionPerformed
         // TODO add your handling code here:
         int result = JOptionPane.showConfirmDialog(this, "Batalkan order ?", this.getTitle(), JOptionPane.YES_NO_OPTION);
-                if (result == JOptionPane.YES_OPTION){               
-                    this.dispose();
+                if (result == JOptionPane.YES_OPTION){ 
+                    try {
+                        delete_OrderCustomer();
+                        if (notif_del_order_customer) {
+                            JOptionPane.showMessageDialog(null,"berhasil hapus order");
+                            this.dispose();
+                        }else{
+                            JOptionPane.showMessageDialog(null,"gagal hapus order");
+                        }
+                    } catch (SQLException ex) {
+                        Logger.getLogger(Form_order.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }else if (result == JOptionPane.NO_OPTION)   {
                     this.setDefaultCloseOperation(this.DO_NOTHING_ON_CLOSE);
             }
-    }//GEN-LAST:event_btn_batalActionPerformed
+    }//GEN-LAST:event_btn_batal_orderActionPerformed
 
     private void btn_OrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_OrderActionPerformed
         // TODO add your handling code here:
@@ -355,7 +369,7 @@ public class Form_order extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_Order;
-    private javax.swing.JButton btn_batal;
+    private javax.swing.JButton btn_batal_order;
     private javax.swing.JButton btn_hapus;
     private javax.swing.JButton cmenu_tombolOrder1;
     private javax.swing.JLabel jLabel1;

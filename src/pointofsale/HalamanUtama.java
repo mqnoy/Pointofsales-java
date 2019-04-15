@@ -5,6 +5,7 @@
  */
 package pointofsale;
 import static databases.CrudModel.getMeja_kode;
+import static databases.CrudModel.insert_OrderCustomer;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -41,6 +42,8 @@ public class HalamanUtama extends javax.swing.JFrame {
             System.out.println("kode order"+mejaOrder_kdOrder);
             System.out.println("kode detail order "+mejaOrder_kdOrder_detail);
             System.out.println("kdmeja @hal utama = "+mejaOrder_kdMeja);
+            //insert data order now
+            insert_OrderCustomer();
             tampil_Popup_pilMeja();
 
         } catch (SQLException ex) {
