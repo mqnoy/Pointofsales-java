@@ -19,6 +19,8 @@ import java.util.logging.Logger;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import static Crud.Form_crud_userAplikasi.*;
+import static Crud.Form_order.lbl_kodeOrder;
+import static Crud.Form_order.lbl_kodeOrder_detail;
 import static pointofsale_backend.Library.strTo_MD5;
 import static pointofsale_backend.Library.tanggalan;
 import static pointofsale_backend.Library.lib_tanggalwaktu;
@@ -317,7 +319,7 @@ public class CrudModel extends ConfigDatabase {
      */
     public static void insert_OrderCustomer() throws SQLException {
         String sql = "INSERT INTO tbl_order_customer (kd_order, detail_order_kd, meja_id, tanggal_transaksi) VALUES (?,?,?,?)";
-        String query_insert_detail_order = "INSERT INTO tbl_detail_order_customer (kd_detail_order, item_menu_id, siap_disantap, qty, subtotal) VALUES (?,?,?,?,?)";
+        String query_insert_detail_order = "INSERT INTO tbl_detail_order_customer (kd_detail_order, item_menu_id, qty, subtotal) VALUES (?,?,?,?)";
         PreparedStatement ps = conn.prepareStatement(sql);
         ps.setString(1, mejaOrder_kdOrder);
         ps.setString(2, mejaOrder_kdOrder_detail);
@@ -329,9 +331,8 @@ public class CrudModel extends ConfigDatabase {
             PreparedStatement ps2 = conn.prepareStatement(query_insert_detail_order);
             ps2.setString(1, mejaOrder_kdOrder_detail);
             ps2.setInt(2, 0);
-            ps2.setString(3, "n");
-            ps2.setInt(4, 0);
-            ps2.setDouble(5, 0);
+            ps2.setInt(3, 0);
+            ps2.setDouble(4, 0);
             
             int executeUpdate2 = ps2.executeUpdate();
             notif_ins_order_customer = executeUpdate2 > 0 ? true:false;
@@ -349,12 +350,12 @@ public class CrudModel extends ConfigDatabase {
         String sql = "DELETE FROM tbl_order_customer WHERE kd_order=? ";
         String query_delete_detail_order = "DELETE FROM tbl_detail_order_customer WHERE kd_detail_order=? ";
         PreparedStatement ps = conn.prepareStatement(sql);
-        ps.setString(1, mejaOrder_kdOrder);
+        ps.setString(1, lbl_kodeOrder.getText());
 
         int executeUpdate = ps.executeUpdate();
         if (executeUpdate > 0) {
             PreparedStatement ps2 = conn.prepareStatement(query_delete_detail_order);
-            ps2.setString(1, mejaOrder_kdOrder_detail);
+            ps2.setString(1, lbl_kodeOrder_detail.getText());
             int executeUpdate2 = ps.executeUpdate();
             notif_del_order_customer = executeUpdate2 > 0 ? true:false;
         } else {
@@ -363,19 +364,53 @@ public class CrudModel extends ConfigDatabase {
     }
 
     /* end of method delete insert data ke table tbl_order_customer */
-    
+      /*
+
+ SELECT *
+ from tbl_order_customer tb_ordercust
+ INNER join tbl_master_meja tb_meja
+ ON tb_ordercust.meja_kd = tb_meja.kd_meja
+
+
+
+ */  
+    /*
+     * here for check ketersediaan meja 
+    */
+    public static boolean select_checkAvailibleMeja(int var_idmeja) throws SQLException{
+        boolean return_str = false;
+        String query = "SELECT * FROM tbl_order_customer tb_ordercust LEFT JOIN tbl_master_meja tb_meja on tb_ordercust.meja_id=tb_meja.id_meja WHERE tb_ordercust.meja_id="+var_idmeja+" AND tb_ordercust.sedang_dipakai='n'";
+        Statement stmt = conn.createStatement();
+        ResultSet data = stmt.executeQuery(query);
+        if (data.next()) {
+            mejaOrder_idMeja =  data.getInt("id_meja");
+            mejaOrder_kdOrder = data.getString("tb_ordercust.kd_order");
+            mejaOrder_kdOrder_detail = data.getString("tb_ordercust.detail_order_kd");
+            mejaOrder_kdMeja = data.getString("tb_meja.kd_meja");
+            return_str = true;
+        }else {
+            return_str = false;
+        }
+        return return_str;
+    }
+    /*end of here for check ketersediaan meja  */
+
+
     /*
      * here for interact to library (SELECT * FROM `tbl_order_customer` order by id_order_cust DESC limit 1)
     */
     public static boolean select_lastOrderId() throws SQLException{
-//        int idorderDB = 0;
-        String query = "SELECT id_order_cust FROM tbl_order_customer order by id_order_cust DESC limit 1";
+        boolean return_str = false;
+        String query = "SELECT id_order_cust FROM tbl_order_customer  order by id_order_cust DESC limit 1";
         Statement stmt = conn.createStatement();
         ResultSet data = stmt.executeQuery(query);
         if (data.next()) {
             idorderDB =  data.getInt("id_order_cust");
+            return_str = true;
+        }else {
+            return_str = false;
         }
-        return false;
+        return return_str;
     }
     /*end of here for interact to library*/
 

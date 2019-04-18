@@ -6,6 +6,7 @@
 package pointofsale;
 import static databases.CrudModel.getMeja_kode;
 import static databases.CrudModel.insert_OrderCustomer;
+import static databases.CrudModel.select_checkAvailibleMeja;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -35,15 +36,16 @@ public class HalamanUtama extends javax.swing.JFrame {
     }
     public static void mulaiOrder(int var_id_meja){
         try {
-            mejaOrder_idMeja = var_id_meja;//set id meja order
-            mejaOrder_kdMeja = getMeja_kode(mejaOrder_idMeja);//get kode meja order
-            getKodeOrder();
-            getKodeOrder_detail();
-            System.out.println("kode order"+mejaOrder_kdOrder);
-            System.out.println("kode detail order "+mejaOrder_kdOrder_detail);
-            System.out.println("kdmeja @hal utama = "+mejaOrder_kdMeja);
-            //insert data order now
-            insert_OrderCustomer();
+            System.out.println(select_checkAvailibleMeja(var_id_meja));
+//            mejaOrder_idMeja = var_id_meja;//set id meja order
+//            mejaOrder_kdMeja = getMeja_kode(mejaOrder_idMeja);//get kode meja order
+//            getKodeOrder();
+//            getKodeOrder_detail();
+//            System.out.println("kode order"+mejaOrder_kdOrder);
+//            System.out.println("kode detail order "+mejaOrder_kdOrder_detail);
+//            System.out.println("kdmeja @hal utama = "+mejaOrder_kdMeja);
+//            //insert data order now
+//            insert_OrderCustomer();
             tampil_Popup_pilMeja();
 
         } catch (SQLException ex) {

@@ -41,15 +41,12 @@ public class Form_order extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        lbl_kodeOrder = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        lbl_kodemeja = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         lbl_total_rp_order = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        lbl_kodeOrder_detail = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -387,9 +384,9 @@ public class Form_order extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator2;
     public static javax.swing.JTable jTable_input_order;
-    private javax.swing.JLabel lbl_kodeOrder;
-    private javax.swing.JLabel lbl_kodeOrder_detail;
-    private javax.swing.JLabel lbl_kodemeja;
+    public static final javax.swing.JLabel lbl_kodeOrder = new javax.swing.JLabel();
+    public static final javax.swing.JLabel lbl_kodeOrder_detail = new javax.swing.JLabel();
+    public static final javax.swing.JLabel lbl_kodemeja = new javax.swing.JLabel();
     private javax.swing.JLabel lbl_total_rp_order;
     // End of variables declaration//GEN-END:variables
 
