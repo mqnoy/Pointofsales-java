@@ -45,7 +45,7 @@ public class Library {
             //ambil dari database select 1 row order desc terus ambil idnya . jika belum ada
             //maka bernilai 1 ,jika ada akan di tambah 1
             select_lastOrderId();
-            if (select_lastOrderId()) {
+            if (!select_lastOrderId()) {
                 order_idDB = idorderDB + 1;
             } else {
                 order_idDB = 1;
@@ -115,7 +115,7 @@ public class Library {
 //        System.out.println("5f4dcc3b5aa765d61d8327deb882cf99");
 //        System.out.println(val_text2md5);
         try {
-            System.out.println("last order meja ="+select_lastOrderId());
+            System.out.println("kode meja ="+getMeja_kode(val_idMeja));
         } catch (SQLException ex) {
             Logger.getLogger(Library.class.getName()).log(Level.SEVERE, null, ex);
         }
