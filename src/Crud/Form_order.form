@@ -332,7 +332,7 @@
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="btn_hapus" min="-2" pref="120" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
-                      <Component id="btn_batal_order" min="-2" pref="108" max="-2" attributes="0"/>
+                      <Component id="btn_batal" min="-2" pref="108" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="btn_Order" min="-2" pref="108" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
@@ -343,7 +343,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="btn_batal_order" alignment="3" min="-2" pref="78" max="-2" attributes="0"/>
+                          <Component id="btn_batal" alignment="3" min="-2" pref="78" max="-2" attributes="0"/>
                           <Component id="btn_Order" alignment="3" min="-2" pref="78" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="0" pref="1" max="32767" attributes="0"/>
@@ -361,7 +361,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_OrderActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="btn_batal_order">
+            <Component class="javax.swing.JButton" name="btn_batal">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Batalkan"/>
                 <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
@@ -372,7 +372,7 @@
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_batal_orderActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_batalActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btn_hapus">

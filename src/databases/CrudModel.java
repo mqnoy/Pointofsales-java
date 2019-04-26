@@ -164,9 +164,9 @@ public class CrudModel extends ConfigDatabase {
             ps2.setInt(4, id_user_app);
             
             int executeIns_userapp_pegawai = ps2.executeUpdate() ;
-            boolean successed =  executeIns_userapp_pegawai  > 0 ? true : false;
+            boolean ano =  executeIns_userapp_pegawai  > 0 ? true : false;
             
-            notif_ins_userapp = successed;
+            notif_ins_userapp = ano;
         } else {
             notif_ins_userapp = false;
         }
@@ -315,6 +315,7 @@ public class CrudModel extends ConfigDatabase {
     /* end of method untuk hapus 1 data menu */
     
     /*
+<<<<<<< HEAD
      * method untuk insert data ke table tbl_order_customer
      */
     public static void insert_OrderCustomer() throws SQLException {
@@ -397,6 +398,8 @@ public class CrudModel extends ConfigDatabase {
 
 
     /*
+=======
+>>>>>>> parent of 349bfe7... working kode order and detail kode order insert method @bug when no record
      * here for interact to library (SELECT * FROM `tbl_order_customer` order by id_order_cust DESC limit 1)
     */
     public static boolean select_lastOrderId() throws SQLException{

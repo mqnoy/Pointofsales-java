@@ -5,8 +5,11 @@
  */
 package pointofsale;
 import static databases.CrudModel.getMeja_kode;
+<<<<<<< HEAD
 import static databases.CrudModel.insert_OrderCustomer;
 import static databases.CrudModel.select_checkAvailibleMeja;
+=======
+>>>>>>> parent of 349bfe7... working kode order and detail kode order insert method @bug when no record
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -36,6 +39,7 @@ public class HalamanUtama extends javax.swing.JFrame {
     }
     public static void mulaiOrder(int var_id_meja){
         try {
+<<<<<<< HEAD
             System.out.println(select_checkAvailibleMeja(var_id_meja));
 //            mejaOrder_idMeja = var_id_meja;//set id meja order
 //            mejaOrder_kdMeja = getMeja_kode(mejaOrder_idMeja);//get kode meja order
@@ -46,6 +50,15 @@ public class HalamanUtama extends javax.swing.JFrame {
 //            System.out.println("kdmeja @hal utama = "+mejaOrder_kdMeja);
 //            //insert data order now
 //            insert_OrderCustomer();
+=======
+            mejaOrder_idMeja = var_id_meja;//set id meja order
+            mejaOrder_kdMeja = getMeja_kode(mejaOrder_idMeja);//get kode meja order
+            getKodeOrder();
+            getKodeOrder_detail();
+            System.out.println("kode order"+mejaOrder_kdOrder);
+            System.out.println("kode detail order "+mejaOrder_kdOrder_detail);
+            System.out.println("kdmeja @hal utama = "+mejaOrder_kdMeja);
+>>>>>>> parent of 349bfe7... working kode order and detail kode order insert method @bug when no record
             tampil_Popup_pilMeja();
 
         } catch (SQLException ex) {

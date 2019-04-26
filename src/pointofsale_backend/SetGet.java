@@ -19,10 +19,6 @@ public class SetGet {
     public static String mejaOrder_kdOrder;
     public static String mejaOrder_kdOrder_detail;
     public static Integer idorderDB;
-    public static boolean notif_ins_order_customer;
-    public static boolean notif_del_order_customer;
-    public static boolean notif_ins_order_detail_customer;
-    
 
         
     public static String tanggalSkrg;
