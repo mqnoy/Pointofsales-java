@@ -9,8 +9,8 @@ Aplikasi penjualan yang di khususkan untuk restoran
 * [Mysql server](https://dev.mysql.com/downloads/mysql/) - Database server
 * [jcallendar-1.4](https://toedter.com/jcalendar/) - Input date
 * [commons-codec-1.12](http://archive.apache.org/dist/commons/codec/binaries/) - MD5
-
-
+* iReport
+* Jasper
 
 ### Installing
 
