@@ -4,7 +4,12 @@
  * and open the template in the editor.
  */
 package Crud;
+import static databases.CrudModel.delete_OrderCustomer;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import pointofsale.Popup_pilihan_meja;
 import static pointofsale_backend.Frame_control.*;
 /**
  *
@@ -18,9 +23,7 @@ public class Form_order extends javax.swing.JFrame {
 
     public Form_order() {
         initComponents();
-        lbl_kodemeja.setText(mejaOrder_kdMeja);        
-        lbl_kodeOrder.setText(mejaOrder_kdOrder);
-        lbl_kodeOrder_detail.setText(mejaOrder_kdOrder_detail);
+        
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -54,6 +57,7 @@ public class Form_order extends javax.swing.JFrame {
         btn_Order = new javax.swing.JButton();
         btn_batal = new javax.swing.JButton();
         btn_hapus = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Form Order");
@@ -235,6 +239,13 @@ public class Form_order extends javax.swing.JFrame {
             .addComponent(btn_hapus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
+        jButton1.setText("kembali");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -248,21 +259,25 @@ public class Form_order extends javax.swing.JFrame {
                         .addGap(4, 4, 4)
                         .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cmenu_tombolOrder1, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(cmenu_tombolOrder1, javax.swing.GroupLayout.DEFAULT_SIZE, 96, Short.MAX_VALUE)
+                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addComponent(cmenu_tombolOrder1, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(cmenu_tombolOrder1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -290,8 +305,18 @@ public class Form_order extends javax.swing.JFrame {
     private void btn_batalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_batalActionPerformed
         // TODO add your handling code here:
         int result = JOptionPane.showConfirmDialog(this, "Batalkan order ?", this.getTitle(), JOptionPane.YES_NO_OPTION);
-                if (result == JOptionPane.YES_OPTION){               
-                    this.dispose();
+                if (result == JOptionPane.YES_OPTION){    
+                    try {
+                        delete_OrderCustomer(lbl_kodeOrder.getText(), lbl_kodeOrder_detail.getText());
+                        if (notif_del_order_customer) {
+                            JOptionPane.showMessageDialog(this,"delete order berhasil");
+                        }else{
+                            JOptionPane.showMessageDialog(this,"delete order gagal");
+                        }
+                        this.dispose();
+                    } catch (SQLException ex) {
+                        Logger.getLogger(Form_order.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }else if (result == JOptionPane.NO_OPTION)   {
                     this.setDefaultCloseOperation(this.DO_NOTHING_ON_CLOSE);
             }
@@ -300,7 +325,6 @@ public class Form_order extends javax.swing.JFrame {
     private void btn_OrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_OrderActionPerformed
         // TODO add your handling code here:
         System.out.println("order");
-        System.out.println("no meja="+mejaOrder_kdMeja);
     }//GEN-LAST:event_btn_OrderActionPerformed
 
     private void cmenu_tombolOrder1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmenu_tombolOrder1ActionPerformed
@@ -315,6 +339,11 @@ public class Form_order extends javax.swing.JFrame {
     private void btn_hapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_hapusActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btn_hapusActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -358,6 +387,7 @@ public class Form_order extends javax.swing.JFrame {
     private javax.swing.JButton btn_batal;
     private javax.swing.JButton btn_hapus;
     private javax.swing.JButton cmenu_tombolOrder1;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -373,10 +403,10 @@ public class Form_order extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator2;
     public static javax.swing.JTable jTable_input_order;
-    private javax.swing.JLabel lbl_kodeOrder;
-    private javax.swing.JLabel lbl_kodeOrder_detail;
-    private javax.swing.JLabel lbl_kodemeja;
-    private javax.swing.JLabel lbl_total_rp_order;
+    public javax.swing.JLabel lbl_kodeOrder;
+    public javax.swing.JLabel lbl_kodeOrder_detail;
+    public javax.swing.JLabel lbl_kodemeja;
+    public javax.swing.JLabel lbl_total_rp_order;
     // End of variables declaration//GEN-END:variables
 
     

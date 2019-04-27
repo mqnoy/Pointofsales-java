@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Apr 13, 2019 at 02:02 AM
+-- Generation Time: Apr 28, 2019 at 02:08 AM
 -- Server version: 10.2.13-MariaDB-10.2.13+maria~xenial
 -- PHP Version: 5.6.37-1+ubuntu16.04.1+deb.sury.org+1
 
@@ -30,18 +30,22 @@ CREATE TABLE `tbl_detail_order_customer` (
   `id_detail_order` int(11) NOT NULL,
   `kd_detail_order` varchar(50) NOT NULL,
   `item_menu_id` int(11) NOT NULL,
-  `siap_disantap` enum('no','yes') NOT NULL DEFAULT 'no',
   `qty` int(11) NOT NULL,
-  `subtotal` double NOT NULL
+  `subtotal` int(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbl_detail_order_customer`
 --
 
-INSERT INTO `tbl_detail_order_customer` (`id_detail_order`, `kd_detail_order`, `item_menu_id`, `siap_disantap`, `qty`, `subtotal`) VALUES
-(1, 'ODRD001040819', 1, 'no', 1, 20000),
-(2, 'ODRD001040819', 1, 'no', 2, 50000);
+INSERT INTO `tbl_detail_order_customer` (`id_detail_order`, `kd_detail_order`, `item_menu_id`, `qty`, `subtotal`) VALUES
+(1, 'DTL20190428MJ0011', 0, 0, 0),
+(2, 'DTL20190428MJ0012', 0, 0, 0),
+(3, 'DTL20190428MJ0023', 0, 0, 0),
+(4, 'DTL20190428MJ0014', 0, 0, 0),
+(5, 'DTL20190428MJ0025', 0, 0, 0),
+(20, 'DTL20190428MJ0016', 0, 0, 0),
+(21, 'DTL20190428MJ00221', 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -68,7 +72,8 @@ INSERT INTO `tbl_master_item_menu` (`id_item_menu`, `item_menu_nama`, `item_menu
 (6, 'ff', 110, '23', 'minuman', 'y'),
 (7, 'nasi bakar ', 60000, 'kdmenu2', 'makanan', 'n'),
 (8, 'nasi bakar daging', 50000, 'kdmenu23', 'makanan', 'n'),
-(9, 'nasi bakar ayam', 60000, 'kdmenu24', 'makanan', 'n');
+(9, 'nasi bakar ayam', 60000, 'kdmenu25', 'makanan', 'n'),
+(10, 'nasi bakar ayam', 6, 'kdmenu26', 'makanan', 'n');
 
 -- --------------------------------------------------------
 
@@ -214,7 +219,13 @@ CREATE TABLE `tbl_order_customer` (
 --
 
 INSERT INTO `tbl_order_customer` (`id_order_cust`, `kd_order`, `detail_order_kd`, `meja_id`, `tanggal_transaksi`) VALUES
-(1, 'ODR20190402001', 'ODRD001040819', 1, '2019-04-08 00:00:00');
+(1, 'ODR20190428MJ0011', 'DTL20190428MJ0011', 1, '2019-04-28 00:13:24'),
+(2, 'ODR20190428MJ0012', 'DTL20190428MJ0012', 1, '2019-04-28 00:13:53'),
+(3, 'ODR20190428MJ0023', 'DTL20190428MJ0023', 2, '2019-04-28 00:15:40'),
+(4, 'ODR20190428MJ0014', 'DTL20190428MJ0014', 1, '2019-04-28 00:42:37'),
+(5, 'ODR20190428MJ0025', 'DTL20190428MJ0025', 2, '2019-04-28 00:46:47'),
+(20, 'ODR20190428MJ0016', 'DTL20190428MJ0016', 1, '2019-04-28 01:26:30'),
+(21, 'ODR20190428MJ00221', 'DTL20190428MJ00221', 2, '2019-04-28 01:50:38');
 
 -- --------------------------------------------------------
 
@@ -224,15 +235,8 @@ INSERT INTO `tbl_order_customer` (`id_order_cust`, `kd_order`, `detail_order_kd`
 
 CREATE TABLE `tbl_struk_for_koki` (
   `id_struk_for_koki` int(11) NOT NULL,
-  `order_cust_id` int(11) NOT NULL
+  `order_kd` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `tbl_struk_for_koki`
---
-
-INSERT INTO `tbl_struk_for_koki` (`id_struk_for_koki`, `order_cust_id`) VALUES
-(1, 1);
 
 -- --------------------------------------------------------
 
@@ -242,13 +246,13 @@ INSERT INTO `tbl_struk_for_koki` (`id_struk_for_koki`, `order_cust_id`) VALUES
 
 CREATE TABLE `tbl_transaksi_pesanan` (
   `id_struk` int(11) NOT NULL,
-  `order_cust_id` int(11) NOT NULL,
-  `total_tagihan_pajak` double NOT NULL,
-  `total_tagihan` double NOT NULL,
-  `nominal_pembayaran` double NOT NULL,
-  `kembalian` double NOT NULL,
+  `order_kd` varchar(50) NOT NULL,
+  `total_tagihan` int(20) NOT NULL,
+  `nominal_pembayaran` int(20) NOT NULL,
+  `kembalian` int(20) NOT NULL,
   `payment_type_id` int(11) NOT NULL,
   `lunas` enum('y','n') NOT NULL DEFAULT 'n',
+  `bungkus` enum('y','n') NOT NULL DEFAULT 'n',
   `pos_computer_id` int(11) NOT NULL,
   `id_pegawai` int(11) NOT NULL,
   `cetakan_tgl_struk` datetime NOT NULL
@@ -258,8 +262,14 @@ CREATE TABLE `tbl_transaksi_pesanan` (
 -- Dumping data for table `tbl_transaksi_pesanan`
 --
 
-INSERT INTO `tbl_transaksi_pesanan` (`id_struk`, `order_cust_id`, `total_tagihan_pajak`, `total_tagihan`, `nominal_pembayaran`, `kembalian`, `payment_type_id`, `lunas`, `pos_computer_id`, `id_pegawai`, `cetakan_tgl_struk`) VALUES
-(1, 1, 22000, 22000, 100000, 78000, 0, 'n', 1, 1, '2019-04-08 00:00:00');
+INSERT INTO `tbl_transaksi_pesanan` (`id_struk`, `order_kd`, `total_tagihan`, `nominal_pembayaran`, `kembalian`, `payment_type_id`, `lunas`, `bungkus`, `pos_computer_id`, `id_pegawai`, `cetakan_tgl_struk`) VALUES
+(1, 'ODR20190428MJ0011', 0, 0, 0, -1, 'y', 'n', 1, 1, '2019-04-28 00:13:24'),
+(2, 'ODR20190428MJ0012', 100000, 0, 0, -1, 'n', 'n', 1, 1, '2019-04-28 00:13:53'),
+(3, 'ODR20190428MJ0023', 0, 0, 0, -1, 'y', 'n', 1, 1, '2019-04-28 00:15:40'),
+(4, 'ODR20190428MJ0014', 0, 0, 0, -1, 'y', 'n', 1, 1, '2019-04-28 00:42:37'),
+(5, 'ODR20190428MJ0025', 0, 0, 0, -1, 'y', 'n', 1, 1, '2019-04-28 00:46:47'),
+(20, 'ODR20190428MJ0016', 0, 0, 0, -1, 'y', 'n', 1, 1, '2019-04-28 01:26:30'),
+(21, 'ODR20190428MJ00221', 0, 0, 0, -1, 'n', 'n', 1, 1, '2019-04-28 01:50:38');
 
 --
 -- Indexes for dumped tables
@@ -269,8 +279,7 @@ INSERT INTO `tbl_transaksi_pesanan` (`id_struk`, `order_cust_id`, `total_tagihan
 -- Indexes for table `tbl_detail_order_customer`
 --
 ALTER TABLE `tbl_detail_order_customer`
-  ADD PRIMARY KEY (`id_detail_order`),
-  ADD KEY `kd_detail_order` (`kd_detail_order`);
+  ADD PRIMARY KEY (`id_detail_order`);
 
 --
 -- Indexes for table `tbl_master_item_menu`
@@ -335,10 +344,15 @@ ALTER TABLE `tbl_transaksi_pesanan`
 --
 
 --
+-- AUTO_INCREMENT for table `tbl_detail_order_customer`
+--
+ALTER TABLE `tbl_detail_order_customer`
+  MODIFY `id_detail_order` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+--
 -- AUTO_INCREMENT for table `tbl_master_item_menu`
 --
 ALTER TABLE `tbl_master_item_menu`
-  MODIFY `id_item_menu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_item_menu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT for table `tbl_master_meja`
 --
@@ -363,22 +377,22 @@ ALTER TABLE `tbl_master_pos_computer`
 -- AUTO_INCREMENT for table `tbl_master_user_application`
 --
 ALTER TABLE `tbl_master_user_application`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 --
 -- AUTO_INCREMENT for table `tbl_order_customer`
 --
 ALTER TABLE `tbl_order_customer`
-  MODIFY `id_order_cust` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_order_cust` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 --
 -- AUTO_INCREMENT for table `tbl_struk_for_koki`
 --
 ALTER TABLE `tbl_struk_for_koki`
-  MODIFY `id_struk_for_koki` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_struk_for_koki` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `tbl_transaksi_pesanan`
 --
 ALTER TABLE `tbl_transaksi_pesanan`
-  MODIFY `id_struk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_struk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

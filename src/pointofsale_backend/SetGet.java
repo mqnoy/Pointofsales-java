@@ -5,6 +5,13 @@
  */
 package pointofsale_backend;
 
+import static databases.CrudModel.cek_Kode_orderanMeja;
+import static databases.CrudModel.cek_Status_orderanMeja;
+import static databases.CrudModel.getMeja_kode;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JTable;
 import static pointofsale_backend.Library.*;
 
@@ -14,17 +21,12 @@ import static pointofsale_backend.Library.*;
  */
 public class SetGet {
     //atribut untuk aktifitas order
-    public static Integer mejaOrder_idMeja;
-    public static String mejaOrder_kdMeja;
-    public static String mejaOrder_kdOrder;
-    public static String mejaOrder_kdOrder_detail;
-    public static Integer idorderDB;
-    
     public static boolean notif_ins_order_customer;
     public static boolean notif_del_order_customer;
+    public static boolean notif_cek_order_tdklunas;
+    public static boolean notif_cek_order_mejakode;
         
     public static String tanggalSkrg;
-    public static String no_Order;
     
     //atribut untuk notifikasi query
     public static boolean notif_ins_menulist;
@@ -52,20 +54,53 @@ public class SetGet {
         
     }
     
-    public static void setId_meja(int val_idMeja){
-        mejaOrder_idMeja = val_idMeja;
+    public static String getKodeMeja(int idmeja){
+        String kdmeja = null;
+        try {
+            kdmeja = getMeja_kode(idmeja);
+        } catch (SQLException ex) {
+            Logger.getLogger(SetGet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return kdmeja;
     }
-    public static void getKodeOrder(){
-        tanggalan();//generate tanggal sekarang 
-        generateOrder(lib_tanggalwaktu, mejaOrder_idMeja,"generate_order");
-        mejaOrder_kdOrder = lib_KodeOrder;
+    public static boolean checkExists_kdorder(String kd_order){
+        boolean kodeorder_ada = false;
+        try {
+            kodeorder_ada = cek_Kode_orderanMeja(kd_order);
+        } catch (SQLException ex) {
+            Logger.getLogger(SetGet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return kodeorder_ada;
     }
-    public static void getKodeOrder_detail(){
-        tanggalan();//generate tanggal sekarang 
-        generateOrder(lib_tanggalwaktu, mejaOrder_idMeja,"generate_detail_order");
-        mejaOrder_kdOrder_detail = lib_KodeOrder;
+   
+    public static void getStatusMejaorder(String kd_meja){
+        try {
+            cek_Status_orderanMeja(kd_meja);
+        } catch (SQLException ex) {
+            Logger.getLogger(SetGet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
+    
+    public static String get_existsRow_order(String kd_meja,String str_order){
+        String getrow = null;
+        try {
+            Object[] cek_Status_orderanMeja = cek_Status_orderanMeja(kd_meja);
+            if (str_order.equalsIgnoreCase("kode_order")) {
+                getrow = cek_Status_orderanMeja[0].toString();
+            }else if (str_order.equalsIgnoreCase("kode_orderdetail")) {
+                getrow = cek_Status_orderanMeja[1].toString();
+            }else if (str_order.equalsIgnoreCase("rp_total")) {
+                getrow = cek_Status_orderanMeja[2].toString();
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(SetGet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return getrow;
+    }
+    
+        
     /*
      * method setter atribut login frame
      * alias : logout

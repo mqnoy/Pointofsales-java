@@ -4,9 +4,7 @@
  * and open the template in the editor.
  */
 package pointofsale;
-import static databases.CrudModel.getMeja_kode;
 import static databases.CrudModel.insert_OrderCustomer;
-
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,7 +20,7 @@ public class HalamanUtama extends javax.swing.JFrame {
      * Creates new form CobaLayout
      */
     public HalamanUtama() {
-        giveAccess = true;
+        giveAccess = true;//for testing set to true ,live pls comment with //
         if (giveAccess) {
             initComponents();
         }else{
@@ -35,32 +33,41 @@ public class HalamanUtama extends javax.swing.JFrame {
         }
     }
     public static void mulaiOrder(int var_id_meja){
-        try {
-//            System.out.println(select_checkAvailibleMeja(var_id_meja));
-//            mejaOrder_idMeja = var_id_meja;//set id meja order
-//            mejaOrder_kdMeja = getMeja_kode(mejaOrder_idMeja);//get kode meja order
-//            getKodeOrder();
-//            getKodeOrder_detail();
-//            System.out.println("kode order"+mejaOrder_kdOrder);
-//            System.out.println("kode detail order "+mejaOrder_kdOrder_detail);
-//            System.out.println("kdmeja @hal utama = "+mejaOrder_kdMeja);
-//            //insert data order now
-//            insert_OrderCustomer();
-
-            mejaOrder_idMeja = var_id_meja;//set id meja order
-            mejaOrder_kdMeja = getMeja_kode(mejaOrder_idMeja);//get kode meja order
-            getKodeOrder();
-            getKodeOrder_detail();
-            System.out.println("kode order"+mejaOrder_kdOrder);
-            System.out.println("kode detail order "+mejaOrder_kdOrder_detail);
-            System.out.println("kdmeja @hal utama = "+mejaOrder_kdMeja);
-
-            //insert data order now
-            insert_OrderCustomer();
-            tampil_Popup_pilMeja();
-
-        } catch (SQLException ex) {
-            Logger.getLogger(HalamanUtama.class.getName()).log(Level.SEVERE, null, ex);
+        String val_kodemeja = getKodeMeja(var_id_meja);
+        String val_kodeorder = null;
+        String val_kodeorderDetail = null;
+        String _existsKodeOrder;
+        String _existsKodeOrderdetail;
+        String _existsRp_tagihan ;
+        String set_text_tombol;
+        boolean set_tombol_bayar;
+        
+        getStatusMejaorder(val_kodemeja);
+        if (notif_cek_order_tdklunas) {
+            //ditemukan kode meja dan tidak lunas
+            _existsKodeOrder = get_existsRow_order(val_kodemeja,"kode_order");
+            _existsKodeOrderdetail = get_existsRow_order(val_kodemeja,"kode_orderdetail");
+            _existsRp_tagihan = get_existsRow_order(val_kodemeja,"rp_total");
+            System.out.println("kode order"+_existsKodeOrder);
+            System.out.println("kode detail order "+_existsKodeOrderdetail);
+            System.out.println("kdmeja @hal utama = "+val_kodemeja);
+            set_text_tombol ="Edit order" ;
+            set_tombol_bayar = true;
+            tampil_Popup_pilMeja(val_kodemeja ,_existsKodeOrder,_existsKodeOrderdetail,_existsRp_tagihan,set_text_tombol,set_tombol_bayar);
+        }else{
+            try {
+                //order di buat
+                insert_OrderCustomer(var_id_meja);
+            } catch (SQLException ex) {
+                Logger.getLogger(HalamanUtama.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            _existsKodeOrder = get_existsRow_order(val_kodemeja,"kode_order");
+            _existsKodeOrderdetail = get_existsRow_order(val_kodemeja,"kode_orderdetail");
+            _existsRp_tagihan = get_existsRow_order(val_kodemeja,"rp_total");
+            set_text_tombol ="Mulai order" ;
+            set_tombol_bayar = false;
+            tampil_Popup_pilMeja(val_kodemeja ,_existsKodeOrder,_existsKodeOrderdetail,_existsRp_tagihan,set_text_tombol,set_tombol_bayar);
+            
         }
     }
     /**
@@ -95,6 +102,8 @@ public class HalamanUtama extends javax.swing.JFrame {
         tbl_keluar_sesi_1 = new javax.swing.JButton();
         layout_footer = new javax.swing.JSplitPane();
         jPanel_footer_kiri = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
         jPanel_footer_kanan = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu2 = new javax.swing.JMenu();
@@ -277,18 +286,37 @@ public class HalamanUtama extends javax.swing.JFrame {
         layout_footer.setMinimumSize(new java.awt.Dimension(1024, 150));
         layout_footer.setPreferredSize(new java.awt.Dimension(1024, 150));
 
+        jPanel_footer_kiri.setBorder(javax.swing.BorderFactory.createTitledBorder("Daftar pesanan"));
         jPanel_footer_kiri.setMinimumSize(new java.awt.Dimension(700, 100));
         jPanel_footer_kiri.setPreferredSize(new java.awt.Dimension(700, 174));
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {"MJ001", "ORD0001", "azmi", "kasir1"}
+            },
+            new String [] {
+                "Kode meja", "Kode order", "Pelayan", "Kasir"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, true, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(jTable1);
 
         javax.swing.GroupLayout jPanel_footer_kiriLayout = new javax.swing.GroupLayout(jPanel_footer_kiri);
         jPanel_footer_kiri.setLayout(jPanel_footer_kiriLayout);
         jPanel_footer_kiriLayout.setHorizontalGroup(
             jPanel_footer_kiriLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 700, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 688, Short.MAX_VALUE)
         );
         jPanel_footer_kiriLayout.setVerticalGroup(
             jPanel_footer_kiriLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 148, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
         );
 
         layout_footer.setLeftComponent(jPanel_footer_kiri);
@@ -468,6 +496,8 @@ public class HalamanUtama extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel_footer_kanan;
     private javax.swing.JPanel jPanel_footer_kiri;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
     private javax.swing.JToggleButton jToggleButton2;
     private javax.swing.JToggleButton jToggleButton3;
     private javax.swing.JPanel jpanel_header;

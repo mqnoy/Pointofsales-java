@@ -62,7 +62,7 @@ public class Form_crud_menu extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         txt_menuharga = new javax.swing.JTextField();
-        cb_menukategory = new javax.swing.JComboBox<String>();
+        cb_menukategory = new javax.swing.JComboBox<>();
         jPanel3 = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
         lbl_menuharga = new javax.swing.JLabel();
@@ -126,7 +126,7 @@ public class Form_crud_menu extends javax.swing.JFrame {
             }
         });
 
-        cb_menukategory.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "- pilih -", "makanan", "minuman" }));
+        cb_menukategory.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "- pilih -", "makanan", "minuman" }));
         cb_menukategory.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cb_menukategoryItemStateChanged(evt);
@@ -286,7 +286,15 @@ public class Form_crud_menu extends javax.swing.JFrame {
             new String [] {
                 "No", "kd menu", "Nama menu", "kategory menu", "harga(Rp)"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         JTBL_listMenu_crud.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 JTBL_listMenu_crudMouseClicked(evt);

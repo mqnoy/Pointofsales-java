@@ -18,6 +18,12 @@ public class Popup_pilihan_meja extends javax.swing.JFrame {
      */
     public Popup_pilihan_meja() {
         initComponents();
+        lbl_ppm_rp_total.setVisible(false);
+        lbl_ppm_kdmeja.setVisible(false);        
+        lbl_ppm_kode_order.setVisible(false);        
+        lbl_ppm_kode_orderdetail.setVisible(false);
+
+
     }
 
     /**
@@ -30,24 +36,28 @@ public class Popup_pilihan_meja extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        btn_ppmBayar = new javax.swing.JButton();
-        btn_ppmOrder = new javax.swing.JButton();
+        btn_ppm_Bayar = new javax.swing.JButton();
+        btn_ppm_Order = new javax.swing.JButton();
         btn_ppmBack = new javax.swing.JButton();
+        lbl_ppm_kode_order = new javax.swing.JLabel();
+        lbl_ppm_kdmeja = new javax.swing.JLabel();
+        lbl_ppm_kode_orderdetail = new javax.swing.JLabel();
+        lbl_ppm_rp_total = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Pilihan");
 
-        btn_ppmBayar.setText("BAYAR");
-        btn_ppmBayar.addActionListener(new java.awt.event.ActionListener() {
+        btn_ppm_Bayar.setText("BAYAR");
+        btn_ppm_Bayar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_ppmBayarActionPerformed(evt);
+                btn_ppm_BayarActionPerformed(evt);
             }
         });
 
-        btn_ppmOrder.setText("ORDER");
-        btn_ppmOrder.addActionListener(new java.awt.event.ActionListener() {
+        btn_ppm_Order.setText("...");
+        btn_ppm_Order.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_ppmOrderActionPerformed(evt);
+                btn_ppm_OrderActionPerformed(evt);
             }
         });
 
@@ -58,28 +68,55 @@ public class Popup_pilihan_meja extends javax.swing.JFrame {
             }
         });
 
+        lbl_ppm_kode_order.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        lbl_ppm_kode_order.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbl_ppm_kode_order.setText("?");
+
+        lbl_ppm_kdmeja.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        lbl_ppm_kdmeja.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbl_ppm_kdmeja.setText("?");
+
+        lbl_ppm_kode_orderdetail.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        lbl_ppm_kode_orderdetail.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbl_ppm_kode_orderdetail.setText("?");
+
+        lbl_ppm_rp_total.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbl_ppm_rp_total.setText("0");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(79, 79, 79)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(54, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lbl_ppm_rp_total, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbl_ppm_kode_orderdetail, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbl_ppm_kdmeja, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbl_ppm_kode_order, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_ppmBack, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_ppmBayar, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_ppmOrder, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(79, Short.MAX_VALUE))
+                    .addComponent(btn_ppm_Bayar, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_ppm_Order, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(54, 54, 54))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(46, 46, 46)
-                .addComponent(btn_ppmOrder, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lbl_ppm_kdmeja, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btn_ppmBayar, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lbl_ppm_kode_order, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(1, 1, 1)
+                .addComponent(lbl_ppm_kode_orderdetail, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btn_ppm_Order, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btn_ppm_Bayar, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn_ppmBack, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(46, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+                .addComponent(lbl_ppm_rp_total)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -92,25 +129,28 @@ public class Popup_pilihan_meja extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btn_ppmOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ppmOrderActionPerformed
-        tampil_formOrder();
-    }//GEN-LAST:event_btn_ppmOrderActionPerformed
+    private void btn_ppm_OrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ppm_OrderActionPerformed
+        tampil_formOrder(lbl_ppm_kdmeja.getText() ,lbl_ppm_kode_order.getText(),lbl_ppm_kode_orderdetail.getText(),lbl_ppm_rp_total.getText());
+        this.setVisible(false);
+    }//GEN-LAST:event_btn_ppm_OrderActionPerformed
 
     private void btn_ppmBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ppmBackActionPerformed
         // TODO add your handling code here:
         this.setVisible(false);
     }//GEN-LAST:event_btn_ppmBackActionPerformed
 
-    private void btn_ppmBayarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ppmBayarActionPerformed
+    private void btn_ppm_BayarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ppm_BayarActionPerformed
         // TODO add your handling code here:
-        tampilForm_bayar();
-    }//GEN-LAST:event_btn_ppmBayarActionPerformed
+        tampilForm_bayar(lbl_ppm_kdmeja.getText() ,lbl_ppm_kode_order.getText(),lbl_ppm_kode_orderdetail.getText(),lbl_ppm_rp_total.getText());
+    }//GEN-LAST:event_btn_ppm_BayarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -139,6 +179,7 @@ public class Popup_pilihan_meja extends javax.swing.JFrame {
         }
         //</editor-fold>
 
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -149,8 +190,12 @@ public class Popup_pilihan_meja extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_ppmBack;
-    private javax.swing.JButton btn_ppmBayar;
-    private javax.swing.JButton btn_ppmOrder;
+    public javax.swing.JButton btn_ppm_Bayar;
+    public javax.swing.JButton btn_ppm_Order;
     private javax.swing.JPanel jPanel1;
+    public javax.swing.JLabel lbl_ppm_kdmeja;
+    public javax.swing.JLabel lbl_ppm_kode_order;
+    public javax.swing.JLabel lbl_ppm_kode_orderdetail;
+    public javax.swing.JLabel lbl_ppm_rp_total;
     // End of variables declaration//GEN-END:variables
 }

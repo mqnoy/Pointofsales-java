@@ -411,11 +411,11 @@
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                   <Table columnCount="5" rowCount="0">
-                    <Column editable="true" title="No" type="java.lang.Object"/>
-                    <Column editable="true" title="kd menu" type="java.lang.Object"/>
-                    <Column editable="true" title="Nama menu" type="java.lang.Object"/>
-                    <Column editable="true" title="kategory menu" type="java.lang.Object"/>
-                    <Column editable="true" title="harga(Rp)" type="java.lang.Object"/>
+                    <Column editable="false" title="No" type="java.lang.Object"/>
+                    <Column editable="false" title="kd menu" type="java.lang.Object"/>
+                    <Column editable="false" title="Nama menu" type="java.lang.Object"/>
+                    <Column editable="false" title="kategory menu" type="java.lang.Object"/>
+                    <Column editable="false" title="harga(Rp)" type="java.lang.Object"/>
                   </Table>
                 </Property>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">

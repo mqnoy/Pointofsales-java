@@ -19,7 +19,6 @@ import java.util.TimeZone;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.commons.codec.digest.DigestUtils;
-import static pointofsale_backend.SetGet.idorderDB;
 
 /**
  *
@@ -27,14 +26,12 @@ import static pointofsale_backend.SetGet.idorderDB;
  */
 public class Library {
 
-    public static String lib_KodeOrder;
-    public static String lib_KodeOrder_detail;
     public static String lib_tanggalwaktu;
 
 //    public Library(){
 //        tanggalan();//generate tanggal sekarang 
 //    }
-    public static void generateOrder(String dateOrder, Integer idMeja, String generateFor) {
+    public static String generateOrder(String dateOrder, Integer idMeja, String generateFor) {
         int order_idDB = 0;
         String orderPrefix = "", kodeMejaDB = "";
         StringBuilder buffer = new StringBuilder();
@@ -44,9 +41,9 @@ public class Library {
 
             //ambil dari database select 1 row order desc terus ambil idnya . jika belum ada
             //maka bernilai 1 ,jika ada akan di tambah 1
-            select_lastOrderId();
-            if (!select_lastOrderId()) {
-                order_idDB = idorderDB + 1;
+            int lastOrderid = select_lastOrderId();
+            if (lastOrderid != -1) {
+                order_idDB = lastOrderid + 1;
             } else {
                 order_idDB = 1;
             }
@@ -63,7 +60,7 @@ public class Library {
         String raw_dateOrder = arrOfStr[0].replace("-", "");
         String raw_timeOrder = arrOfStr[1].replace(":", "");
 
-            //http://www.java2s.com/Code/JavaAPI/java.util/CalendarMILLISECOND.htm
+        //http://www.java2s.com/Code/JavaAPI/java.util/CalendarMILLISECOND.htm
         //int nilai_detik;
         //Calendar calendar = Calendar.getInstance();
         //nilai_detik = calendar.get(Calendar.SECOND);
@@ -75,13 +72,16 @@ public class Library {
         buffer.append(order_idDB);
         
         String codeOrder = buffer.toString();
-        Library.lib_KodeOrder = codeOrder;
+
+        //Library.lib_KodeOrder = codeOrder;
+        return codeOrder;
 
     }
 
     public static void tanggalan() {
         TimeZone tz = TimeZone.getTimeZone("Asia/Jakarta");
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SS");
+        //DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SS");
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         dateFormat.setTimeZone(tz);
 
         //get current date time with Date()
@@ -100,25 +100,12 @@ public class Library {
         return DigestUtils.md5Hex(var_text);
     }
     /* end of method untuk konvert text ke MD5 */
+    
 
     public static void main(String[] args) {
-
         tanggalan();
-        Integer val_idMeja = 9;
-        generateOrder(lib_tanggalwaktu, val_idMeja, "generate_order");
-        System.out.println(lib_tanggalwaktu);
-        System.out.println("nomor order = " + lib_KodeOrder);
-        generateOrder(lib_tanggalwaktu, val_idMeja, "generate_detail_order");
-        System.out.println("nomor detail order = " + lib_KodeOrder);
-//        strTo_MD5("password");
-//        String cocokan = "5f4dcc3b5aa765d61d8327deb882cf99";
-//        System.out.println("5f4dcc3b5aa765d61d8327deb882cf99");
-//        System.out.println(val_text2md5);
-        try {
-            System.out.println("kode meja ="+getMeja_kode(val_idMeja));
-        } catch (SQLException ex) {
-            Logger.getLogger(Library.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        String generateOrder = generateOrder(lib_tanggalwaktu, 1,"generate_order");
+        System.out.println(generateOrder);
 
     }
 

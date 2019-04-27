@@ -19,9 +19,10 @@ import java.util.logging.Logger;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import static Crud.Form_crud_userAplikasi.*;
-import static pointofsale_backend.Library.strTo_MD5;
+import static pointofsale_backend.Library.generateOrder;
 import static pointofsale_backend.Library.tanggalan;
 import static pointofsale_backend.Library.lib_tanggalwaktu;
+import static pointofsale_backend.Library.strTo_MD5;
 import static pointofsale_backend.SetGet.*;
 
 /**
@@ -48,28 +49,26 @@ public class CrudModel extends ConfigDatabase {
     /*
      * method untuk query select meja order berdasarkan id/nomor meja yg didefinisi 
      * di halaman utama
-     * @param id_orderMeja
+     * @param idmeja
      * @return kd_meja
      */
-    public static String getMeja_kode(int id_orderMeja) throws SQLException {
+    public static String getMeja_kode(int idmeja) throws SQLException {
         String sql = "SELECT * FROM tbl_master_meja WHERE id_meja=?";
         String kd_meja = "", ktg_meja = "";
 
         PreparedStatement ps = conn.prepareStatement(sql);
-        ps.setInt(1, id_orderMeja);
+        ps.setInt(1, idmeja);
         ResultSet rs = ps.executeQuery();
 
         if (rs.next()) {
             kd_meja = rs.getString("kd_meja");
-            ktg_meja = rs.getString("kategori_meja");
-            setId_meja(rs.getInt("id_meja"));
         }
         return kd_meja;
     }
 
     /* end of method query select meja order */
 
- /*
+    /*
      * method untuk query select user akses aplikasi 
      */
     public static void getUserapp_accessDB(String idaccess, String password) throws SQLException {
@@ -93,7 +92,6 @@ public class CrudModel extends ConfigDatabase {
                 userApp_blokir = rs.getString("blokir");
                 giveAccess = true;
             }
-
         } else {
             System.out.println("id access atau password salah !");
             strError_code = "error801";
@@ -272,7 +270,7 @@ public class CrudModel extends ConfigDatabase {
 
     /* end of method untuk insert data menu */
 
- /*
+    /*
      * method untuk ubah data menu
      */
     public static void update_MenulistDB(String var_kd_menu) throws SQLException {
@@ -311,53 +309,150 @@ public class CrudModel extends ConfigDatabase {
     }
 
     /* end of method untuk hapus 1 data menu */
-    
-    /*
-<<<<<<< HEAD
-     * method untuk insert data ke table tbl_order_customer
-     */
-    public static void insert_OrderCustomer() throws SQLException {
-        String sql = "INSERT INTO tbl_order_customer (kd_order, detail_order_kd, meja_id, tanggal_transaksi) VALUES (?,?,?,?)";
-        String query_insert_detail_order = "INSERT INTO tbl_detail_order_customer (kd_detail_order, item_menu_id, siap_disantap, qty, subtotal) VALUES (?,?,?,?,?)";
-        PreparedStatement ps = conn.prepareStatement(sql);
-        ps.setString(1, mejaOrder_kdOrder);
-        ps.setString(2, mejaOrder_kdOrder_detail);
-        ps.setInt(3, mejaOrder_idMeja);
-        ps.setString(4, lib_tanggalwaktu);
-        
-        int executeUpdate = ps.executeUpdate();
-        if (executeUpdate > 0) {
-            PreparedStatement ps2 = conn.prepareStatement(query_insert_detail_order);
-            ps2.setString(1, mejaOrder_kdOrder_detail);
-            ps2.setInt(2, 0);
-            ps2.setString(3, "n");
-            ps2.setInt(4, 0);
-            ps2.setDouble(5, 0);
-            
-            int executeUpdate2 = ps2.executeUpdate();
-            notif_ins_order_customer = executeUpdate2 > 0 ? true:false;
+    public static boolean cek_Kode_orderanMeja(String kd_order) throws SQLException{
+        boolean ditemukan;
+        String query = "SELECT kd_order FROM tbl_order_customer WHERE kd_order='"+kd_order+"'";
+        Statement stmt = conn.createStatement();
+        ResultSet rs = stmt.executeQuery(query);
+        if (rs.next()) {
+            ditemukan = true;
         } else {
-            notif_ins_order_customer = false;
+            ditemukan = false;
+        }
+        return ditemukan;
+    }
+    public static String getDB_Kode_orderanMeja(String kd_order) throws SQLException{
+        String str_kd_order = null;
+        String query = "SELECT kd_order FROM tbl_order_customer WHERE kd_order='"+kd_order+"'";
+        Statement stmt = conn.createStatement();
+        ResultSet rs = stmt.executeQuery(query);
+        if (rs.next()) {
+            str_kd_order = rs.getString("kd_order");
+        } 
+        return str_kd_order;
+    }
+    
+    
+    //jika belum lunas dan kdmeja ditemukan akan tampil kd ordernya
+    public static Object[] cek_Status_orderanMeja(String kd_meja) throws SQLException{
+        String lunas = "n";
+        String db_kd_order = null;
+        String db_kd_orderdetail = null;        
+        int db_rp_total = 0;
+
+        String query = "SELECT c.kd_meja,a.lunas,a.total_tagihan,b.kd_order,b.detail_order_kd FROM tbl_transaksi_pesanan a \n" +
+                        "LEFT JOIN tbl_order_customer b on a.order_kd = b.kd_order\n" +
+                        "LEFT JOIN tbl_master_meja c ON b.meja_id = c.id_meja\n" +
+                        "WHERE c.kd_meja ='"+kd_meja+"' AND a.lunas ='"+lunas+"'";
+        System.out.println(query);
+        Statement stmt = conn.createStatement();
+        ResultSet data = stmt.executeQuery(query);
+
+        if (data.next()) {
+                //ditemukan kode meja dan tidak lunas
+                notif_cek_order_tdklunas = true;
+                notif_cek_order_mejakode = true;
+                db_rp_total = data.getInt("a.total_tagihan");   
+                db_kd_order = data.getString("b.kd_order");                 
+                db_kd_orderdetail = data.getString("b.detail_order_kd");
+                System.out.println("ditemukan : "+db_kd_order);
+
+        }else{
+            notif_cek_order_mejakode = false;
+            notif_cek_order_tdklunas = false;
+            System.out.println("tidak ditemukan");
+        }
+        
+        Object [] arr_data = {db_kd_order,db_kd_orderdetail,db_rp_total};
+        return arr_data;
+    }
+    /*
+     * method untuk insert data transaksi
+     */
+    public static void insert_OrderCustomer(int mejaid) throws SQLException {
+        int computerPOS_id =1 ; 
+        int order_idDB = 0;
+        int pegawai_id =1 ;
+        String bungkus = "n";        
+        String lunas = "n";
+        String kd_order = null;
+        String kd_orderdetail= null;
+        boolean go_insert = true;
+        
+        if(go_insert){
+            tanggalan();
+            kd_order = generateOrder(lib_tanggalwaktu, mejaid,"generate_order");
+            kd_orderdetail = generateOrder(lib_tanggalwaktu, mejaid,"generate_detail_order");
+            
+            String sql = "INSERT INTO tbl_order_customer (kd_order, detail_order_kd, meja_id, tanggal_transaksi) VALUES (?,?,?,?)";
+            String query_insert_detail_order = "INSERT INTO tbl_detail_order_customer (kd_detail_order, item_menu_id, qty, subtotal) VALUES (?,?,?,?)";
+            String query_insert_transaksi= "INSERT INTO tbl_transaksi_pesanan (order_kd, total_tagihan, nominal_pembayaran, kembalian, payment_type_id, lunas, bungkus, pos_computer_id, id_pegawai, cetakan_tgl_struk) VALUES (?,?,?,?,?,?,?,?,?,?)";
+
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, kd_order);
+            ps.setString(2, kd_orderdetail);
+            ps.setInt(3, mejaid);
+            ps.setString(4, lib_tanggalwaktu);
+
+            PreparedStatement ps2 = conn.prepareStatement(query_insert_detail_order);
+            ps2.setString(1, kd_orderdetail);
+            ps2.setInt(2, 0);
+            ps2.setInt(3, 0);
+            ps2.setDouble(4, 0);
+
+            PreparedStatement ps3 = conn.prepareStatement(query_insert_transaksi);
+            ps3.setString(1, kd_order);//order_kd
+            ps3.setInt(2, 0);//total_tagihan
+            ps3.setInt(3, 0);//nominal_pembayaran
+            ps3.setInt(4, 0);//kembalian
+            ps3.setInt(5, -1);//payment_type_id
+            ps3.setString(6, lunas);//lunas
+            ps3.setString(7, bungkus);//bungkus
+            ps3.setInt(8, computerPOS_id);//pos_computer_id
+            ps3.setInt(9, pegawai_id);//id_pegawai
+            ps3.setString(10, lib_tanggalwaktu);//cetakan_tgl_struk
+            
+            int executeUpdate = ps.executeUpdate();
+            int executeUpdate2 = ps2.executeUpdate();        
+            int executeUpdate3 = ps3.executeUpdate();
+
+
+            if (executeUpdate > 0 && executeUpdate2>0 && executeUpdate3 > 0) {
+                notif_ins_order_customer = true;
+                System.out.println("insert data transaksi sukses");
+            } else {
+                notif_ins_order_customer = false;
+                System.out.println("insert data transaksi gagal");
+            }
         }
     }
 
-    /* end of method untuk insert data ke table tbl_order_customer */
+    /* end of method untuk insert data transaksi */
+    
+    
     
     /*
      * method untuk delete data ke table tbl_order_customer
      */
-    public static void delete_OrderCustomer() throws SQLException {
+    public static void delete_OrderCustomer(String kd_order, String kd_orderdetail) throws SQLException {
         String sql = "DELETE FROM tbl_order_customer WHERE kd_order=? ";
         String query_delete_detail_order = "DELETE FROM tbl_detail_order_customer WHERE kd_detail_order=? ";
+        String query_delete_transaksi_order = "DELETE FROM tbl_transaksi_pesanan WHERE order_kd=? ";
         PreparedStatement ps = conn.prepareStatement(sql);
-        ps.setString(1, mejaOrder_kdOrder);
+        ps.setString(1, kd_order);
 
+        PreparedStatement ps2 = conn.prepareStatement(query_delete_detail_order);
+        ps2.setString(1, kd_orderdetail);
+        
+        PreparedStatement ps3 = conn.prepareStatement(query_delete_transaksi_order);
+        ps3.setString(1, kd_order);
+            
         int executeUpdate = ps.executeUpdate();
-        if (executeUpdate > 0) {
-            PreparedStatement ps2 = conn.prepareStatement(query_delete_detail_order);
-            ps2.setString(1, mejaOrder_kdOrder_detail);
-            int executeUpdate2 = ps.executeUpdate();
-            notif_del_order_customer = executeUpdate2 > 0 ? true:false;
+        int executeUpdate2 = ps2.executeUpdate();
+        int executeUpdate3 = ps3.executeUpdate();
+        
+        if (executeUpdate > 0 && executeUpdate2 > 0 && executeUpdate3 > 0) {
+            notif_del_order_customer = true;
         } else {
             notif_del_order_customer = false;
         }
@@ -370,15 +465,17 @@ public class CrudModel extends ConfigDatabase {
 >>>>>>> parent of 349bfe7... working kode order and detail kode order insert method @bug when no record
      * here for interact to library (SELECT * FROM `tbl_order_customer` order by id_order_cust DESC limit 1)
     */
-    public static boolean select_lastOrderId() throws SQLException{
-//        int idorderDB = 0;
+    public static int select_lastOrderId() throws SQLException{
+        int idorderDB = -1;
         String query = "SELECT id_order_cust FROM tbl_order_customer order by id_order_cust DESC limit 1";
         Statement stmt = conn.createStatement();
         ResultSet data = stmt.executeQuery(query);
         if (data.next()) {
             idorderDB =  data.getInt("id_order_cust");
+        }else{
+            idorderDB = -1;
         }
-        return false;
+        return idorderDB;
     }
     /*end of here for interact to library*/
 

@@ -225,7 +225,7 @@
                       <Data value="menu013"/>
                       <Data value="menu003"/>
                     </Column>
-                    <Column editable="true" title="Nama menu" type="java.lang.Object">
+                    <Column editable="false" title="Nama menu" type="java.lang.Object">
                       <Data value="ayam bakar"/>
                       <Data value="aqua 300ml"/>
                       <Data value="nasi bakar"/>
@@ -237,7 +237,7 @@
                       <Data value="makanan"/>
                       <Data value="makanan"/>
                     </Column>
-                    <Column editable="true" title="harga(Rp)" type="java.lang.Object">
+                    <Column editable="false" title="harga(Rp)" type="java.lang.Object">
                       <Data value="20.000"/>
                       <Data value="5.000"/>
                       <Data value="10.000"/>
