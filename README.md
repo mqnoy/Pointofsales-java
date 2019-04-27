@@ -14,9 +14,9 @@ Aplikasi penjualan yang di khususkan untuk restoran
 
 ### flow chart
 
-open diagram in [draw.io](https://www.draw.io)
-```
 [proses_create_order.drawio](https://github.com/mqnoy/Pointofsales-java/blob/master/diagram/proses_create_order.drawio)
+```
+open diagram in [draw.io](https://www.draw.io)
 ```
 
 ### Installing
