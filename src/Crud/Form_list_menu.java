@@ -9,6 +9,9 @@ import static Crud.Form_order.jTable_input_order;
 import static databases.CrudModel.getMenulistDB;
 import static databases.CrudModel.tableName;
 import java.awt.List;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 import static pointofsale_backend.Frame_control.tampil_NotAvailable;
 
@@ -21,15 +24,15 @@ public class Form_list_menu extends javax.swing.JFrame {
     /**
      * Creates new form Form_list_menu
      */
-    static public String value = "";
-
+//    static public String value = "";
+    static public String typing_keyword = null;
+    static public String pencarian = null;
+    
     public Form_list_menu() {
         initComponents();
         tableName = JTBL_listMenu;
-        getMenulistDB();
-
+        getMenulistDB(pencarian,typing_keyword);
         String[] col_tbl_listmenu = {"", "", "", ""};
-
     }
 
     /**
@@ -48,12 +51,12 @@ public class Form_list_menu extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         JTBL_listMenu = new javax.swing.JTable();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jTextField1 = new javax.swing.JTextField();
+        cb_flm_ktgmenu = new javax.swing.JComboBox<>();
+        txt_search_menus = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         tbl_tambah_keOrder = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        btn_flm_cari = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jPanel3 = new javax.swing.JPanel();
         jLabel_nmMenu = new javax.swing.JLabel();
@@ -127,10 +130,7 @@ public class Form_list_menu extends javax.swing.JFrame {
 
         JTBL_listMenu.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"1", "menu001", "ayam bakar", "makanan", "20.000"},
-                {"2", "menu002", "aqua 300ml", "minuman", "5.000"},
-                {"3", "menu013", "nasi bakar", "makanan", "10.000"},
-                {"4", "menu003", "nasi putih", "makanan", "7.000"}
+
             },
             new String [] {
                 "no", "kode menu", "Nama menu", "Kategori menu", "harga(Rp)"
@@ -159,23 +159,24 @@ public class Form_list_menu extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 601, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 591, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 375, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 364, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "makanan", "minuman" }));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        cb_flm_ktgmenu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "makanan", "minuman" }));
+        cb_flm_ktgmenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+                cb_flm_ktgmenuActionPerformed(evt);
             }
         });
-
-        jTextField1.setText("ketik nama menu ....");
 
         jButton1.setText("menu paket");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -198,7 +199,12 @@ public class Form_list_menu extends javax.swing.JFrame {
             }
         });
 
-        jButton4.setText("cari menu");
+        btn_flm_cari.setText("cari menu");
+        btn_flm_cari.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_flm_cariActionPerformed(evt);
+            }
+        });
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Draft menu"));
 
@@ -233,11 +239,11 @@ public class Form_list_menu extends javax.swing.JFrame {
                 .addComponent(tbl_tambah_keOrder, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
-                    .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(txt_search_menus, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
+                    .addComponent(cb_flm_ktgmenu, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btn_flm_cari, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -262,11 +268,11 @@ public class Form_list_menu extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
-                            .addComponent(jComboBox1))
+                            .addComponent(cb_flm_ktgmenu))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE)
-                            .addComponent(jTextField1)))
+                            .addComponent(btn_flm_cari, javax.swing.GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE)
+                            .addComponent(txt_search_menus)))
                     .addComponent(tbl_tambah_keOrder, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -348,15 +354,37 @@ public class Form_list_menu extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jTextField_qtyKeyPressed
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+    private void cb_flm_ktgmenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_flm_ktgmenuActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+    }//GEN-LAST:event_cb_flm_ktgmenuActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         tampil_NotAvailable();
 
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void btn_flm_cariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_flm_cariActionPerformed
+        // TODO add your handling code here:
+        String tangkap_val = txt_search_menus.getText();
+        int ktg_menu = cb_flm_ktgmenu.getSelectedIndex();
+        switch(ktg_menu){
+            default:
+                pencarian=null;
+                typing_keyword=null;
+            break;
+            case 0:
+                pencarian="makanan";
+                break;
+            case 1:
+                pencarian="minuman";
+                break;
+        }
+        if (tangkap_val.length() != 0 && tangkap_val.length() >= 3) {
+            typing_keyword = tangkap_val;
+            getMenulistDB(pencarian,typing_keyword);
+        }
+    }//GEN-LAST:event_btn_flm_cariActionPerformed
 
     /**
      * @param args the command line arguments
@@ -394,11 +422,11 @@ public class Form_list_menu extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JTable JTBL_listMenu;
+    private javax.swing.JButton btn_flm_cari;
+    private javax.swing.JComboBox<String> cb_flm_ktgmenu;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton_qty;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JDialog jDialog_inputQty;
     private javax.swing.JLabel jLabel_Qty;
     private javax.swing.JLabel jLabel_nmMenu;
@@ -407,8 +435,8 @@ public class Form_list_menu extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField_qty;
     private javax.swing.JButton tbl_tambah_keOrder;
+    private javax.swing.JTextField txt_search_menus;
     // End of variables declaration//GEN-END:variables
 }

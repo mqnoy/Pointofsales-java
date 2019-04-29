@@ -126,12 +126,12 @@
               <Component id="tbl_tambah_keOrder" max="32767" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="jTextField1" pref="159" max="32767" attributes="0"/>
-                  <Component id="jComboBox1" max="32767" attributes="0"/>
+                  <Component id="txt_search_menus" pref="159" max="32767" attributes="0"/>
+                  <Component id="cb_flm_ktgmenu" max="32767" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="jButton4" max="32767" attributes="0"/>
+                  <Component id="btn_flm_cari" max="32767" attributes="0"/>
                   <Component id="jButton1" pref="148" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -162,12 +162,12 @@
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jButton1" pref="31" max="32767" attributes="0"/>
-                          <Component id="jComboBox1" max="32767" attributes="0"/>
+                          <Component id="cb_flm_ktgmenu" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="jButton4" pref="49" max="32767" attributes="0"/>
-                          <Component id="jTextField1" max="32767" attributes="0"/>
+                          <Component id="btn_flm_cari" pref="49" max="32767" attributes="0"/>
+                          <Component id="txt_search_menus" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                   <Component id="tbl_tambah_keOrder" max="32767" attributes="0"/>
@@ -189,15 +189,19 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="1" attributes="0">
-                  <Component id="jScrollPane1" min="-2" pref="601" max="-2" attributes="0"/>
-                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jScrollPane1" pref="591" max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="jScrollPane1" alignment="1" pref="375" max="32767" attributes="0"/>
+              <Group type="102" alignment="0" attributes="0">
+                  <Component id="jScrollPane1" pref="364" max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+              </Group>
           </Group>
         </DimensionLayout>
       </Layout>
@@ -212,37 +216,12 @@
             <Component class="javax.swing.JTable" name="JTBL_listMenu">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                  <Table columnCount="5" rowCount="4">
-                    <Column editable="false" title="no" type="java.lang.Object">
-                      <Data value="1"/>
-                      <Data value="2"/>
-                      <Data value="3"/>
-                      <Data value="4"/>
-                    </Column>
-                    <Column editable="false" title="kode menu" type="java.lang.Object">
-                      <Data value="menu001"/>
-                      <Data value="menu002"/>
-                      <Data value="menu013"/>
-                      <Data value="menu003"/>
-                    </Column>
-                    <Column editable="false" title="Nama menu" type="java.lang.Object">
-                      <Data value="ayam bakar"/>
-                      <Data value="aqua 300ml"/>
-                      <Data value="nasi bakar"/>
-                      <Data value="nasi putih"/>
-                    </Column>
-                    <Column editable="false" title="Kategori menu" type="java.lang.Object">
-                      <Data value="makanan"/>
-                      <Data value="minuman"/>
-                      <Data value="makanan"/>
-                      <Data value="makanan"/>
-                    </Column>
-                    <Column editable="false" title="harga(Rp)" type="java.lang.Object">
-                      <Data value="20.000"/>
-                      <Data value="5.000"/>
-                      <Data value="10.000"/>
-                      <Data value="7.000"/>
-                    </Column>
+                  <Table columnCount="5" rowCount="0">
+                    <Column editable="false" title="no" type="java.lang.Object"/>
+                    <Column editable="false" title="kode menu" type="java.lang.Object"/>
+                    <Column editable="false" title="Nama menu" type="java.lang.Object"/>
+                    <Column editable="false" title="Kategori menu" type="java.lang.Object"/>
+                    <Column editable="false" title="harga(Rp)" type="java.lang.Object"/>
                   </Table>
                 </Property>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -289,7 +268,7 @@
         </Container>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JComboBox" name="jComboBox1">
+    <Component class="javax.swing.JComboBox" name="cb_flm_ktgmenu">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="2">
@@ -299,16 +278,13 @@
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jComboBox1ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cb_flm_ktgmenuActionPerformed"/>
       </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>
     </Component>
-    <Component class="javax.swing.JTextField" name="jTextField1">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="ketik nama menu ...."/>
-      </Properties>
+    <Component class="javax.swing.JTextField" name="txt_search_menus">
     </Component>
     <Component class="javax.swing.JButton" name="jButton1">
       <Properties>
@@ -334,10 +310,13 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tbl_tambah_keOrderActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton4">
+    <Component class="javax.swing.JButton" name="btn_flm_cari">
       <Properties>
         <Property name="text" type="java.lang.String" value="cari menu"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_flm_cariActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JSeparator" name="jSeparator1">
     </Component>

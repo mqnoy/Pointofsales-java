@@ -14,12 +14,10 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import static pointofsale_backend.Frame_control.tampilLogin_UserApp;
 import static pointofsale_backend.SetGet.notif_del_menulist;
 import static pointofsale_backend.SetGet.notif_ins_found_menulist;
 import static pointofsale_backend.SetGet.notif_ins_menulist;
 import static pointofsale_backend.SetGet.notif_updt_menulist;
-import static pointofsale_backend.SetGet.setClean_sesi;
 
 /**
  *
@@ -38,7 +36,7 @@ public class Form_crud_menu extends javax.swing.JFrame {
     public Form_crud_menu() {
         initComponents();
         tableName = JTBL_listMenu_crud;
-        getMenulistDB();
+        getMenulistDB(null,null);
     }
 
     /**
@@ -430,7 +428,7 @@ public class Form_crud_menu extends javax.swing.JFrame {
                 if (notif_ins_menulist) {
                     JOptionPane.showMessageDialog(this, "insert data success");
                     refresh();
-                    getMenulistDB();
+                    getMenulistDB(null,null);
                 } else if (notif_ins_found_menulist = true) {
                     JOptionPane.showMessageDialog(this, "cant insert ,duplicated kd menu!");
                 } else {
@@ -490,7 +488,7 @@ public class Form_crud_menu extends javax.swing.JFrame {
             if (notif_updt_menulist) {
                 JOptionPane.showMessageDialog(this, "update data sucess");
                 refresh();
-                getMenulistDB();
+                getMenulistDB(null,null);
             } else {
                 JOptionPane.showMessageDialog(this, "update data failed");
             }
@@ -507,7 +505,7 @@ public class Form_crud_menu extends javax.swing.JFrame {
                 delete_MenulistDB(val_menukode);
                 if (notif_del_menulist) {
                     refresh();
-                    getMenulistDB();
+                    getMenulistDB(null,null);
                     JOptionPane.showMessageDialog(this, "delete data sucess");
                 } else {
                     JOptionPane.showMessageDialog(this, "delete data failed");
