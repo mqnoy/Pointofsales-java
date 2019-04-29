@@ -51,7 +51,7 @@ public class Form_list_menu extends javax.swing.JFrame {
         cb_flm_ktgmenu = new javax.swing.JComboBox<>();
         txt_search_menus = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btn_flm_kembali = new javax.swing.JButton();
         tbl_tambah_keOrder = new javax.swing.JButton();
         btn_flm_cari = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
@@ -182,10 +182,10 @@ public class Form_list_menu extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("kembali");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btn_flm_kembali.setText("kembali");
+        btn_flm_kembali.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btn_flm_kembaliActionPerformed(evt);
             }
         });
 
@@ -243,7 +243,7 @@ public class Form_list_menu extends javax.swing.JFrame {
                     .addComponent(btn_flm_cari, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btn_flm_kembali, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(4, 4, 4))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
@@ -271,7 +271,7 @@ public class Form_list_menu extends javax.swing.JFrame {
                             .addComponent(btn_flm_cari, javax.swing.GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE)
                             .addComponent(txt_search_menus)))
                     .addComponent(tbl_tambah_keOrder, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btn_flm_kembali, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(2, 2, 2)
@@ -283,10 +283,10 @@ public class Form_list_menu extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btn_flm_kembaliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_flm_kembaliActionPerformed
         // TODO add your handling code here:
         this.setVisible(false);
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btn_flm_kembaliActionPerformed
     public static String KdMenu;
     public static String HargaMenu;
     public static Integer menuQty = 0;
@@ -358,7 +358,7 @@ public class Form_list_menu extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         tampil_NotAvailable();
-
+       
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btn_flm_cariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_flm_cariActionPerformed
@@ -420,9 +420,9 @@ public class Form_list_menu extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JTable JTBL_listMenu;
     private javax.swing.JButton btn_flm_cari;
+    private javax.swing.JButton btn_flm_kembali;
     private javax.swing.JComboBox<String> cb_flm_ktgmenu;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton_qty;
     private javax.swing.JDialog jDialog_inputQty;
     private javax.swing.JLabel jLabel_Qty;
