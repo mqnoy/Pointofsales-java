@@ -64,8 +64,8 @@ public class Frame_control extends SetGet{
         PopupPilMeja.btn_ppm_Order.setText(set_text_tombol);
         PopupPilMeja.btn_ppm_Bayar.setEnabled(set_tombol_bayar);
         //set biar di tengah         
-        PopupPilMeja.pack();
-        PopupPilMeja.setLocationRelativeTo(null);
+        //PopupPilMeja.pack();
+        //PopupPilMeja.setLocationRelativeTo(null);
         //munculin framenya
         PopupPilMeja.setVisible(true);
     }

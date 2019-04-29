@@ -8,7 +8,6 @@ package databases;
 import static Crud.Form_crud_menu.*;
 import static Crud.Form_crud_menu.JTBL_listMenu_crud;
 import static Crud.Form_list_menu.JTBL_listMenu;
-import Crud.Form_crud_userAplikasi;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

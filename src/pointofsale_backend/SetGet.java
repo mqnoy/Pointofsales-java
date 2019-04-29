@@ -8,12 +8,10 @@ package pointofsale_backend;
 import static databases.CrudModel.cek_Kode_orderanMeja;
 import static databases.CrudModel.cek_Status_orderanMeja;
 import static databases.CrudModel.getMeja_kode;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JTable;
-import static pointofsale_backend.Library.*;
 
 /**
  *
