@@ -9,9 +9,6 @@ import static Crud.Form_order.jTable_input_order;
 import static databases.CrudModel.getMenulistDB;
 import static databases.CrudModel.tableName;
 import java.awt.List;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 import static pointofsale_backend.Frame_control.tampil_NotAvailable;
 
