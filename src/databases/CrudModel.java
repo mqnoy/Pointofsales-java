@@ -36,10 +36,17 @@ public class CrudModel extends ConfigDatabase {
     /*
      * method untuk query select all data 
      */
-    public static ResultSet SQLselectAll(String query) throws SQLException {
-        Statement stmt = conn.createStatement();
-        ResultSet data = stmt.executeQuery(query);
+    public static ResultSet SQLselectAll(String query) {
+        ResultSet data = null;
+
+        try {
+            Statement stmt = conn.createStatement();
+            data = stmt.executeQuery(query);
+        } catch (SQLException ex) {
+            Logger.getLogger(CrudModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return data;
+
     }
 
     /* end of method untuk query select all data  */
@@ -66,7 +73,7 @@ public class CrudModel extends ConfigDatabase {
 
     /* end of method query select meja order */
 
- /*
+    /*
      * method untuk query select user akses aplikasi 
      */
     public static void getUserapp_accessDB(String idaccess, String password) throws SQLException {
@@ -98,10 +105,10 @@ public class CrudModel extends ConfigDatabase {
 
     /* end of method untuk query select all data  */
 
- /*
+    /*
      * method untuk select data user aplikasi dan data pegawai
      */
-    public static void getUserapp_listDB() throws SQLException {
+    public static void getUserapp_listDB() {
         DefaultTableModel tabmode;
         Object[] baris = {"no", "Nip", "Nama pegawai", "Jabatan", "level", "blokir"};
         tabmode = new DefaultTableModel(null, baris);
@@ -109,77 +116,110 @@ public class CrudModel extends ConfigDatabase {
         //query area
         String sql = "SELECT msp.pegawai_nama ,msp.pegawai_nip ,msp.pegawai_jabatan ,mup.level,mup.blokir from tbl_master_pegawai msp LEFT JOIN tbl_master_user_application mup on msp.user_id=mup.id_user";
         ResultSet hasil = SQLselectAll(sql);
-        int NUMBERS = 1;
-        while (hasil.next()) {
-            String col1 = hasil.getString("msp.pegawai_nip");
-            String col2 = hasil.getString("msp.pegawai_nama");
-            String col3 = hasil.getString("msp.pegawai_jabatan");
-            String col4 = hasil.getString("mup.level");
-            String col5 = hasil.getString("mup.blokir");
-            Object[] data = {NUMBERS, col1, col2, col3, col4, col5};
-            tabmode.addRow(data);
-            NUMBERS++;
+        try {
+
+            int NUMBERS = 1;
+            while (hasil.next()) {
+                String col1 = hasil.getString("msp.pegawai_nip");
+                String col2 = hasil.getString("msp.pegawai_nama");
+                String col3 = hasil.getString("msp.pegawai_jabatan");
+                String col4 = hasil.getString("mup.level");
+                String col5 = hasil.getString("mup.blokir");
+                Object[] data = {NUMBERS, col1, col2, col3, col4, col5};
+                tabmode.addRow(data);
+                NUMBERS++;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CrudModel.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
 
     /* end of method untuk select data user aplikasi dan data pegawai */
 
- /*
+    /*
      * method untuk insert user aplikasi dan data pegawai
      */
-    public static void insertUserapp_listDB() throws SQLException {
+    public static void insertUserapp_listDB() {
         boolean check_kdmenu;
         int last_insert_id, id_user_app;
         tanggalan();
         String str_blokir = buttonGroup_blokAkses.getSelection().getActionCommand();
-
         //make password makePassword(var pass)
         String val_paswd_userapp = strTo_MD5(new String(txt_userapp_passwd.getPassword()));
-
         String sql = "INSERT INTO tbl_master_user_application (idaccess, password, level, blokir, date_registered) VALUES (?,?,?,?,?)";
-        PreparedStatement ps = conn.prepareStatement(sql);
-        ps.setString(1, txt_userapp_nip.getText());
-        ps.setString(2, val_paswd_userapp);
-        ps.setString(3, cb_userapp_levelakses.getSelectedItem().toString());
-        ps.setString(4, str_blokir);
-        ps.setString(5, lib_tanggalwaktu);
+        try {
 
-        int executeIns_userapp_user = ps.executeUpdate();
-        if (executeIns_userapp_user > 0) {
-            id_user_app = getUserapp_listDB(txt_userapp_nip.getText());
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, txt_userapp_nip.getText());
+            ps.setString(2, val_paswd_userapp);
+            ps.setString(3, cb_userapp_levelakses.getSelectedItem().toString());
+            ps.setString(4, str_blokir);
+            ps.setString(5, lib_tanggalwaktu);
+            int executeIns_userapp_user = ps.executeUpdate();
+            if (executeIns_userapp_user > 0) {
+                id_user_app = getUserapp_listDB(txt_userapp_nip.getText());
 
-            String sql2 = "INSERT INTO tbl_master_pegawai (pegawai_nip, pegawai_nama, pegawai_jabatan,user_id ) VALUES (?, ?, ?, ?)";
-            PreparedStatement ps2 = conn.prepareStatement(sql2);
-            ps2.setString(1, txt_userapp_nip.getText());
-            ps2.setString(2, txt_userapp_nmpegawai.getText());
-            ps2.setString(3, cb_userapp_jabatan.getSelectedItem().toString());
-            ps2.setInt(4, id_user_app);
+                String sql2 = "INSERT INTO tbl_master_pegawai (pegawai_nip, pegawai_nama, pegawai_jabatan,user_id ) VALUES (?, ?, ?, ?)";
+                PreparedStatement ps2 = conn.prepareStatement(sql2);
+                ps2.setString(1, txt_userapp_nip.getText());
+                ps2.setString(2, txt_userapp_nmpegawai.getText());
+                ps2.setString(3, cb_userapp_jabatan.getSelectedItem().toString());
+                ps2.setInt(4, id_user_app);
 
-            int executeIns_userapp_pegawai = ps2.executeUpdate();
-            boolean ano = executeIns_userapp_pegawai > 0 ? true : false;
+                int executeIns_userapp_pegawai = ps2.executeUpdate();
+                boolean ano = executeIns_userapp_pegawai > 0 ? true : false;
 
-            notif_ins_userapp = ano;
-        } else {
-            notif_ins_userapp = false;
+                notif_ins_userapp = ano;
+            } else {
+                notif_ins_userapp = false;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CrudModel.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    /* end of method untuk insert data user aplikasi dan data pegawai */
+    
+    /*
+     * method untuk delete user aplikasi dan data pegawai
+     */
+    public static void deleteUserapp_listDB(int id_user) {
+        String query_del_userapp = "DELETE FROM tbl_master_user_application INNER JOIN tbl_master_pegawai ON tbl_master_user_application.id_user = tbl_master_pegawai.user_id WHERE tbl_master_user_application.id_user = ?";
+        try {
+            PreparedStatement ps = conn.prepareStatement(query_del_userapp);
+            ps.setInt(1, id_user);
+            int executeDel_userapp_user = ps.executeUpdate();
+            System.out.println("id user = "+id_user);
+            System.out.println(query_del_userapp);
+            if (executeDel_userapp_user > 0) {
+                notif_del_userapp = true;
+            } else {
+                notif_del_userapp = false;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CrudModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    /* end of method untuk delete data user aplikasi dan data pegawai */
 
-    public static int getUserapp_listDB(String var_idaccess) throws SQLException {
+    public static int getUserapp_listDB(String var_idaccess) {
         int val_id_userapp = 0;
         String sql = "SELECT id_user FROM tbl_master_user_application WHERE idaccess=?";
-        PreparedStatement ps = conn.prepareStatement(sql);
-        ps.setString(1, var_idaccess);
-        ResultSet rs = ps.executeQuery();
-        if (rs.next()) {
-            val_id_userapp = rs.getInt("id_user");
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, var_idaccess);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                val_id_userapp = rs.getInt("id_user");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CrudModel.class.getName()).log(Level.SEVERE, null, ex);
         }
         return val_id_userapp;
+
     }
 
-
-    /* end of method untuk insert data user aplikasi dan data pegawai */
- /*
+    /*
      * method untuk query select data master menu
      * overloading getMenulistDB() - check kd_me duplicate or not
      * @param var_kdmenu
@@ -187,13 +227,13 @@ public class CrudModel extends ConfigDatabase {
      */
     public static void getMenulistDB(String var_selected, String var_keywords) {
         DefaultTableModel tabmode = getDatatabel();
-        String sql=null;
+        String sql = null;
         try {
             //JTBL_listMenu.setModel(tabmode);
             if (var_selected != null && var_keywords != null) {
                 //query search
-                sql = "SELECT * FROM tbl_master_item_menu WHERE item_menu_nama LIKE '%"+var_keywords+"%' AND menu_kategory='"+var_selected+"' AND hide_menu='n'";
-            }else{
+                sql = "SELECT * FROM tbl_master_item_menu WHERE item_menu_nama LIKE '%" + var_keywords + "%' AND menu_kategory='" + var_selected + "' AND hide_menu='n'";
+            } else {
                 //query select smua data menu
                 sql = "SELECT * from tbl_master_item_menu WHERE hide_menu='n'";
             }
@@ -201,7 +241,7 @@ public class CrudModel extends ConfigDatabase {
 
             ResultSet hasil;
 
-                hasil = SQLselectAll(sql);
+            hasil = SQLselectAll(sql);
 
             int NUMBERS = 1;
             while (hasil.next()) {
@@ -216,7 +256,7 @@ public class CrudModel extends ConfigDatabase {
         } catch (SQLException ex) {
             Logger.getLogger(CrudModel.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }
 
     public static boolean getMenulistDB(String var_kdmenu) throws SQLException {
@@ -249,7 +289,7 @@ public class CrudModel extends ConfigDatabase {
 
     /* end of method untuk select data master menu */
 
- /*
+    /*
      * method untuk insert data menu
      */
     public static void insert_MenulistDB() throws SQLException {
@@ -276,7 +316,7 @@ public class CrudModel extends ConfigDatabase {
 
     /* end of method untuk insert data menu */
 
- /*
+    /*
      * method untuk ubah data menu
      */
     public static void update_MenulistDB(String var_kd_menu) throws SQLException {
@@ -298,7 +338,7 @@ public class CrudModel extends ConfigDatabase {
 
     /* end of method untuk ubah data menu */
 
- /*
+    /*
      * method untuk hapus 1 data menu
      */
     public static void delete_MenulistDB(String var_kd_menu) throws SQLException {
@@ -434,7 +474,7 @@ public class CrudModel extends ConfigDatabase {
     }
 
     /* end of method untuk insert data transaksi */
- /*
+    /*
      * method untuk delete data ke table tbl_order_customer
      */
     public static void delete_OrderCustomer(String kd_order, String kd_orderdetail) throws SQLException {
@@ -462,9 +502,9 @@ public class CrudModel extends ConfigDatabase {
     }
 
     /* end of method delete insert data ke table tbl_order_customer */
- /*
-=======
->>>>>>> parent of 349bfe7... working kode order and detail kode order insert method @bug when no record
+    /*
+     =======
+     >>>>>>> parent of 349bfe7... working kode order and detail kode order insert method @bug when no record
      * here for interact to library (SELECT * FROM `tbl_order_customer` order by id_order_cust DESC limit 1)
      */
     public static int select_lastOrderId() throws SQLException {
@@ -481,7 +521,6 @@ public class CrudModel extends ConfigDatabase {
     }
 
     /*end of here for interact to library*/
-
     //--------------------------------------------------------------------------
     /*
      * method untuk mengambil dan mencocokan variabel JTable

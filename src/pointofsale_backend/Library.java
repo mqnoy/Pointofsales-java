@@ -9,6 +9,7 @@
 package pointofsale_backend;
 
 import static databases.CrudModel.getMeja_kode;
+import static databases.CrudModel.getUserapp_listDB;
 import static databases.CrudModel.select_lastOrderId;
 import java.sql.SQLException;
 import java.text.DateFormat;
@@ -79,17 +80,17 @@ public class Library {
     }
 
     public static void tanggalan() {
-        TimeZone tz = TimeZone.getTimeZone("Asia/Jakarta");
-        //DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SS");
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        dateFormat.setTimeZone(tz);
-
-        //get current date time with Date()
-        Date datetime = new Date();
-        Calendar calendar = Calendar.getInstance();
-        String strDate = dateFormat.format(datetime);
-        Library.lib_tanggalwaktu = strDate;
-
+//        TimeZone tz = TimeZone.getTimeZone("Asia/Jakarta");
+//        //DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SS");
+//        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//        dateFormat.setTimeZone(tz);
+//
+//        //get current date time with Date()
+//        Date datetime = new Date();
+//        Calendar calendar = Calendar.getInstance();
+//        String strDate = dateFormat.format(datetime);
+//        Library.lib_tanggalwaktu = strDate;
+        getUserapp_listDB();
     }
 
     /*

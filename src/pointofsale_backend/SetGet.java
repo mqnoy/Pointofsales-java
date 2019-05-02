@@ -43,6 +43,9 @@ public class SetGet {
     public static String userApp_blokir = null;
     public static boolean giveAccess = false;
     
+    /*atribut untuk user aplikasi dan pegawai*/
+    public static boolean notif_del_userapp;
+    
     //error definisi
     public static String strError_code = null;
 

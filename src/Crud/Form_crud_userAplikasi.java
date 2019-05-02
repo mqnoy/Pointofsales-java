@@ -5,12 +5,15 @@
  */
 package Crud;
 
+import static databases.CrudModel.deleteUserapp_listDB;
 import static databases.CrudModel.getUserapp_listDB;
 import static databases.CrudModel.insertUserapp_listDB;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import static pointofsale_backend.SetGet.notif_del_userapp;
 import static pointofsale_backend.SetGet.notif_ins_userapp;
 
 /**
@@ -29,12 +32,8 @@ public class Form_crud_userAplikasi extends javax.swing.JFrame {
      * Creates new form Form_crud_userAplikasi
      */
     public Form_crud_userAplikasi() {
-        try {
-            initComponents();
-            getUserapp_listDB();
-        } catch (SQLException ex) {
-            Logger.getLogger(Form_crud_userAplikasi.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        initComponents();
+        getUserapp_listDB();
 
     }
 
@@ -59,7 +58,7 @@ public class Form_crud_userAplikasi extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         txt_userapp_passwd = new javax.swing.JPasswordField();
         jLabel3 = new javax.swing.JLabel();
-        cb_userapp_levelakses = new javax.swing.JComboBox<>();
+        cb_userapp_levelakses = new javax.swing.JComboBox<String>();
         txt_idPengguna = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         rdBlokir_yes = new javax.swing.JRadioButton();
@@ -70,7 +69,7 @@ public class Form_crud_userAplikasi extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         txt_userapp_nmpegawai = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        cb_userapp_jabatan = new javax.swing.JComboBox<>();
+        cb_userapp_jabatan = new javax.swing.JComboBox<String>();
         jPanel3 = new javax.swing.JPanel();
         btn_tambah = new javax.swing.JButton();
         btn_mainmenu = new javax.swing.JButton();
@@ -100,11 +99,11 @@ public class Form_crud_userAplikasi extends javax.swing.JFrame {
 
             },
             new String [] {
-                "No", "id user", "Nip", "nama pegawai", "Jabatan", "level", "blokir"
+                "No", "Nip", "nama pegawai", "Jabatan", "level", "blokir"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -118,8 +117,10 @@ public class Form_crud_userAplikasi extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(JTBL_userapp);
         if (JTBL_userapp.getColumnModel().getColumnCount() > 0) {
-            JTBL_userapp.getColumnModel().getColumn(6).setResizable(false);
+            JTBL_userapp.getColumnModel().getColumn(5).setResizable(false);
         }
+
+        jTextField1.setToolTipText("masukan nama karyawan atau username");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -148,18 +149,18 @@ public class Form_crud_userAplikasi extends javax.swing.JFrame {
         jLabel1.setText("Id pengguna : ");
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel2.setText("Kata sandi :");
+        jLabel2.setText("Kata sandi * :");
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel3.setText("Level akses :");
+        jLabel3.setText("Level akses * :");
 
-        cb_userapp_levelakses.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-pilih-", "operator", "superadmin" }));
+        cb_userapp_levelakses.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-pilih-", "operator", "superadmin" }));
 
         txt_idPengguna.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         txt_idPengguna.setText("..........");
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel8.setText("Blokir akses :");
+        jLabel8.setText("Blokir akses * :");
 
         buttonGroup_blokAkses.add(rdBlokir_yes);
         rdBlokir_yes.setText("yes");
@@ -222,25 +223,24 @@ public class Form_crud_userAplikasi extends javax.swing.JFrame {
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Data karyawan"));
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel5.setText("Nip : ");
+        jLabel5.setText("Nip * : ");
 
         txt_userapp_nip.setPreferredSize(new java.awt.Dimension(41, 20));
         txt_userapp_nip.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txt_userapp_nipKeyTyped(evt);
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txt_userapp_nipKeyReleased(evt);
             }
         });
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel6.setText("Nama pegawai : ");
+        jLabel6.setText("Nama pegawai * : ");
 
-        txt_userapp_nmpegawai.setText("inputan nama pegawai");
         txt_userapp_nmpegawai.setPreferredSize(new java.awt.Dimension(41, 20));
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel7.setText("Jabatan : ");
+        jLabel7.setText("Jabatan * : ");
 
-        cb_userapp_jabatan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "- pilih -", "pelayan", "kepalakoki", "kasir" }));
+        cb_userapp_jabatan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "- pilih -", "pelayan", "kepalakoki", "kasir" }));
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -383,12 +383,12 @@ public class Form_crud_userAplikasi extends javax.swing.JFrame {
 
     private void btn_mainmenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_mainmenuActionPerformed
         // TODO add your handling code here:
-         int result = JOptionPane.showConfirmDialog(this, "Kembali ke halaman utama ?", this.getTitle(), JOptionPane.YES_NO_OPTION);
-                if (result == JOptionPane.YES_OPTION){               
-                    this.setVisible(false);
-                }else if (result == JOptionPane.NO_OPTION)   {
-                    this.setDefaultCloseOperation(Form_crud_userAplikasi.DO_NOTHING_ON_CLOSE);
-            }
+        int result = JOptionPane.showConfirmDialog(this, "Kembali ke halaman utama ?", this.getTitle(), JOptionPane.YES_NO_OPTION);
+        if (result == JOptionPane.YES_OPTION) {
+            this.setVisible(false);
+        } else if (result == JOptionPane.NO_OPTION) {
+            this.setDefaultCloseOperation(Form_crud_userAplikasi.DO_NOTHING_ON_CLOSE);
+        }
     }//GEN-LAST:event_btn_mainmenuActionPerformed
 
     private void JTBL_userappMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JTBL_userappMouseClicked
@@ -399,41 +399,56 @@ public class Form_crud_userAplikasi extends javax.swing.JFrame {
         valJabatan = JTBL_userapp.getModel().getValueAt(row, 3).toString();
         valLevel = JTBL_userapp.getModel().getValueAt(row, 4).toString();
         valBlokir = JTBL_userapp.getModel().getValueAt(row, 5).toString();
-        
+
         cb_userapp_jabatan.setSelectedItem(valJabatan);
         cb_userapp_levelakses.setSelectedItem(valLevel);
         if (valBlokir.equals("n")) {
             rdBlokir_no.setSelected(true);
-        }else if(valBlokir.equals("y")){
+        } else if (valBlokir.equals("y")) {
             rdBlokir_yes.setSelected(true);
-        }else{
+        } else {
             JOptionPane.showMessageDialog(null, "error no valBlokir");
         }
-        
+
         txt_idPengguna.setText(valNip);
 //        System.out.println("row a " + valNip);
-        
+
         txt_userapp_nmpegawai.setText(valNmPegawai);
     }//GEN-LAST:event_JTBL_userappMouseClicked
-
-    private void txt_userapp_nipKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_userapp_nipKeyTyped
-        // TODO add your handling code here:
-        String i_nip = txt_userapp_nip.getText();
-        txt_idPengguna.setText(i_nip);
-    }//GEN-LAST:event_txt_userapp_nipKeyTyped
-
+    public int clearInput(JTextField val) {
+        int a = val.getText().trim().length();
+        return a;
+    }
     private void btn_tambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_tambahActionPerformed
-        try {
-            // TODO add your handling code here:
+        boolean go_insert = false;
+        if (clearInput(txt_userapp_nip) == 0) {
+            JOptionPane.showMessageDialog(null, "txt_userapp_nip kosong");
+        } else if (clearInput(txt_userapp_nmpegawai) == 0) {
+            JOptionPane.showMessageDialog(null, "txt_userapp_nmpegawai kosong");
+        } else if (clearInput(txt_userapp_passwd) == 0) {
+            JOptionPane.showMessageDialog(null, "txt_userapp_passwd kosong");
+        } else if (cb_userapp_levelakses.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(null, "cb_userapp_levelakses kosong");
+        } else if (cb_userapp_jabatan.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(null, "cb_userapp_jabatan kosong");
+        } else if (buttonGroup_blokAkses.isSelected(null)) {
+            JOptionPane.showMessageDialog(null, "buttonGroup_blokAkses kosong");
+        } else {
+            int check_exists_user = getUserapp_listDB(txt_userapp_nip.getText().trim());
+            if (check_exists_user == 0) {
+                go_insert = true;
+            } else {
+                JOptionPane.showMessageDialog(null, txt_userapp_nip.getText().trim() + " sudah ada");
+            }
+        }
+        if (go_insert) {
             insertUserapp_listDB();
             if (notif_ins_userapp) {
                 getUserapp_listDB();
-                JOptionPane.showMessageDialog(null, "insert data success");
-            }else{
-                JOptionPane.showMessageDialog(null, "insert data failed");
+                JOptionPane.showMessageDialog(null, "insert user aplikasi success");
+            } else {
+                JOptionPane.showMessageDialog(null, "insert user aplikasi failed");
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(Form_crud_userAplikasi.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btn_tambahActionPerformed
 
@@ -444,8 +459,28 @@ public class Form_crud_userAplikasi extends javax.swing.JFrame {
 
     private void btn_hapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_hapusActionPerformed
         // TODO add your handling code here:
-        JOptionPane.showMessageDialog(null, "hapus");
+        int result = JOptionPane.showConfirmDialog(this, "Hapus \nnip : " + valNip.trim() + "\n" + valNmPegawai.trim(), this.getTitle(), JOptionPane.YES_NO_OPTION);
+        if (result == JOptionPane.YES_OPTION) {
+            int id_user = getUserapp_listDB(valNip);
+            
+            System.out.println("id user"+this.getName()+valNip);
+            deleteUserapp_listDB(id_user);
+            if (notif_del_userapp) {
+                getUserapp_listDB();
+                JOptionPane.showMessageDialog(this, "hapus data berhasil ");
+            }else{
+                JOptionPane.showMessageDialog(this, "hapus data gagal ");
+            }
+        } else if (result == JOptionPane.NO_OPTION) {
+            this.setDefaultCloseOperation(Form_crud_userAplikasi.DO_NOTHING_ON_CLOSE);
+        }
     }//GEN-LAST:event_btn_hapusActionPerformed
+
+    private void txt_userapp_nipKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_userapp_nipKeyReleased
+        // TODO add your handling code here:
+        String i_nip = txt_userapp_nip.getText();
+        txt_idPengguna.setText(i_nip);
+    }//GEN-LAST:event_txt_userapp_nipKeyReleased
 
     /**
      * @param args the command line arguments
