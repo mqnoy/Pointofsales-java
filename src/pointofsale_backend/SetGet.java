@@ -11,7 +11,6 @@ import static databases.CrudModel.getMeja_kode;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JTable;
 
 /**
  *
@@ -32,10 +31,8 @@ public class SetGet {
     public static boolean notif_updt_menulist;
     public static boolean notif_del_menulist;
     
-    public static boolean notif_ins_userapp;
     
-    //Jtable
-    public static JTable Jtablename;
+    
 
     /*atribut user access aplikasi*/
     public static String userApp_idaccess = null;
@@ -44,6 +41,7 @@ public class SetGet {
     public static boolean giveAccess = false;
     
     /*atribut untuk user aplikasi dan pegawai*/
+    public static boolean notif_ins_userapp;
     public static boolean notif_del_userapp;
     
     //error definisi
@@ -101,7 +99,18 @@ public class SetGet {
         return getrow;
     }
     
-        
+     
+    //
+    public static String tgl_order;
+    public static void set_tanggalOrder(String val_tgl_order){
+        SetGet.tgl_order = val_tgl_order;
+    }
+    public static String get_tanggalOrder(){
+        return SetGet.tgl_order;
+    }
+    
+    //
+    
     /*
      * method setter atribut login frame
      * alias : logout
@@ -116,12 +125,6 @@ public class SetGet {
     /*  end of method logout    */
     
     
-    /*
-     * method getter untuk pencocokan variabel JTable
-     *
-     */
-    public static JTable getTableName() {
-        return Jtablename;
-    }
+    
     /*  end of method set atribut    */
 }
