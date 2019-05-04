@@ -5,6 +5,8 @@
  */
 package Crud;
 
+import static databases.CrudModel.select_Daftarpesanan;
+import static pointofsale_backend.SetGet.get_tanggalOrder;
 /**
  *
  * @author Rifky <qnoy.rifky@gmail.com>
@@ -16,6 +18,8 @@ public class Form_bayar_tagihan extends javax.swing.JFrame {
      */
     public Form_bayar_tagihan() {
         initComponents();
+        
+        
 //        int nominal = Integer.getInteger(txt_nominal_rp.getText());
 //        lbl_bt_pajak.setText(asd);
     }
@@ -38,7 +42,7 @@ public class Form_bayar_tagihan extends javax.swing.JFrame {
         lbl_bt_kdMeja = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        JTBL_bayar_tagihan = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
         txt_nominal_rp = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
@@ -58,7 +62,7 @@ public class Form_bayar_tagihan extends javax.swing.JFrame {
         lbl_bt_rpTotal_tagihan = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        lbl_bt_tgl_order = new javax.swing.JLabel();
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Struk preview"));
 
@@ -97,6 +101,11 @@ public class Form_bayar_tagihan extends javax.swing.JFrame {
 
         lbl_bt_kodeOrder.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lbl_bt_kodeOrder.setText("?");
+        lbl_bt_kodeOrder.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                lbl_bt_kodeOrderPropertyChange(evt);
+            }
+        });
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel5.setText("No order");
@@ -109,7 +118,7 @@ public class Form_bayar_tagihan extends javax.swing.JFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Daftar pesanan"));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        JTBL_bayar_tagihan.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -120,7 +129,7 @@ public class Form_bayar_tagihan extends javax.swing.JFrame {
                 "no", "nama menu", "qty", "subtotal"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(JTBL_bayar_tagihan);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -270,8 +279,8 @@ public class Form_bayar_tagihan extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel3.setText("taggal order");
+        lbl_bt_tgl_order.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lbl_bt_tgl_order.setText("taggal order");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -292,7 +301,7 @@ public class Form_bayar_tagihan extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lbl_bt_kodeOrder, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(lbl_bt_tgl_order, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -304,7 +313,7 @@ public class Form_bayar_tagihan extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lbl_bt_kodeOrder, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lbl_bt_tgl_order, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -346,6 +355,15 @@ public class Form_bayar_tagihan extends javax.swing.JFrame {
         lbl_bt_nominal.setText(txt_nominal_rp.getText());
     }//GEN-LAST:event_txt_nominal_rpKeyReleased
 
+    private void lbl_bt_kodeOrderPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_lbl_bt_kodeOrderPropertyChange
+        // TODO add your handling code here:
+//        tableName = JTBL_bayar_tagihan;
+//        String kd_order = "ODR20190428MJ0012";
+        select_Daftarpesanan(lbl_bt_kodeOrder.getText());
+        lbl_bt_tgl_order.setText(get_tanggalOrder());
+
+    }//GEN-LAST:event_lbl_bt_kodeOrderPropertyChange
+
     /**
      * @param args the command line arguments
      */
@@ -382,6 +400,7 @@ public class Form_bayar_tagihan extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public static javax.swing.JTable JTBL_bayar_tagihan;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JDialog jDialog_struk_prev;
@@ -395,7 +414,6 @@ public class Form_bayar_tagihan extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
@@ -403,7 +421,6 @@ public class Form_bayar_tagihan extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     public javax.swing.JLabel lbl_bt_kdMeja;
     private javax.swing.JLabel lbl_bt_kembalian;
     public javax.swing.JLabel lbl_bt_kodeOrder;
@@ -411,6 +428,7 @@ public class Form_bayar_tagihan extends javax.swing.JFrame {
     public javax.swing.JLabel lbl_bt_pajak;
     public javax.swing.JLabel lbl_bt_rpTagihan;
     private javax.swing.JLabel lbl_bt_rpTotal_tagihan;
+    private javax.swing.JLabel lbl_bt_tgl_order;
     private javax.swing.JTextField txt_nominal_rp;
     // End of variables declaration//GEN-END:variables
 }
