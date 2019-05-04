@@ -8,7 +8,6 @@ package Crud;
 import static databases.CrudModel.delete_MenulistDB;
 import static databases.CrudModel.getMenulistDB;
 import static databases.CrudModel.insert_MenulistDB;
-import static databases.CrudModel.tableName;
 import static databases.CrudModel.update_MenulistDB;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -35,7 +34,7 @@ public class Form_crud_menu extends javax.swing.JFrame {
      */
     public Form_crud_menu() {
         initComponents();
-        tableName = JTBL_listMenu_crud;
+//        tableName = JTBL_listMenu_crud;
         getMenulistDB(null,null);
     }
 
@@ -536,15 +535,11 @@ public class Form_crud_menu extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Form_crud_menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Form_crud_menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Form_crud_menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Form_crud_menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        
         //</editor-fold>
 
         /* Create and display the form */
