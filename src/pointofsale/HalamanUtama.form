@@ -3,6 +3,11 @@
 <Form version="1.8" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <NonVisualComponents>
     <Menu class="javax.swing.JMenuBar" name="jMenuBar1">
+      <Properties>
+        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[150, 30]"/>
+        </Property>
+      </Properties>
       <SubComponents>
         <Menu class="javax.swing.JMenu" name="jMenu2">
           <Properties>
@@ -66,14 +71,14 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <Component id="jpanel_header" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="497" max="32767" attributes="0"/>
+              <EmptySpace pref="488" max="32767" attributes="0"/>
               <Component id="layout_footer" min="-2" max="-2" attributes="0"/>
           </Group>
           <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace pref="135" max="32767" attributes="0"/>
+                  <EmptySpace pref="131" max="32767" attributes="0"/>
                   <Component id="layout_meja_dan_menu" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="176" max="32767" attributes="0"/>
+                  <EmptySpace pref="171" max="32767" attributes="0"/>
               </Group>
           </Group>
       </Group>

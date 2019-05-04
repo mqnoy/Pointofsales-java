@@ -5,9 +5,6 @@
  */
 package pointofsale;
 import static databases.CrudModel.insert_OrderCustomer;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import static pointofsale_backend.Frame_control.*;
 /**
@@ -55,12 +52,7 @@ public class HalamanUtama extends javax.swing.JFrame {
             set_tombol_bayar = true;
             tampil_Popup_pilMeja(val_kodemeja ,_existsKodeOrder,_existsKodeOrderdetail,_existsRp_tagihan,set_text_tombol,set_tombol_bayar);
         }else{
-            try {
-                //order di buat
-                insert_OrderCustomer(var_id_meja);
-            } catch (SQLException ex) {
-                Logger.getLogger(HalamanUtama.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            insert_OrderCustomer(var_id_meja);
             _existsKodeOrder = get_existsRow_order(val_kodemeja,"kode_order");
             _existsKodeOrderdetail = get_existsRow_order(val_kodemeja,"kode_orderdetail");
             _existsRp_tagihan = get_existsRow_order(val_kodemeja,"rp_total");
@@ -335,6 +327,8 @@ public class HalamanUtama extends javax.swing.JFrame {
 
         layout_footer.setRightComponent(jPanel_footer_kanan);
 
+        jMenuBar1.setPreferredSize(new java.awt.Dimension(150, 30));
+
         jMenu2.setText("Bantuan");
         jMenu2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -366,13 +360,13 @@ public class HalamanUtama extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jpanel_header, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 497, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 488, Short.MAX_VALUE)
                 .addComponent(layout_footer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addContainerGap(135, Short.MAX_VALUE)
+                    .addContainerGap(131, Short.MAX_VALUE)
                     .addComponent(layout_meja_dan_menu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(176, Short.MAX_VALUE)))
+                    .addContainerGap(171, Short.MAX_VALUE)))
         );
 
         getAccessibleContext().setAccessibleName("halaman_utama");
