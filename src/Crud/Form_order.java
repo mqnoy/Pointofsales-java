@@ -5,6 +5,8 @@
  */
 package Crud;
 import static databases.CrudModel.delete_OrderCustomer;
+import static databases.CrudModel.insert_OrderCustomer_menu;
+import static databases.CrudModel.select_OrderCustomer_menu;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -52,7 +54,7 @@ public class Form_order extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable_input_order = new javax.swing.JTable();
+        JTBL_form_order = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         btn_Order = new javax.swing.JButton();
         btn_batal = new javax.swing.JButton();
@@ -98,6 +100,11 @@ public class Form_order extends javax.swing.JFrame {
         jLabel5.setText("No detail Order ");
 
         lbl_kodeOrder_detail.setText("?");
+        lbl_kodeOrder_detail.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                lbl_kodeOrder_detailPropertyChange(evt);
+            }
+        });
 
         jLabel9.setText(":");
 
@@ -158,7 +165,7 @@ public class Form_order extends javax.swing.JFrame {
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("List pesanan"));
 
-        jTable_input_order.setModel(new javax.swing.table.DefaultTableModel(
+        JTBL_form_order.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -174,13 +181,13 @@ public class Form_order extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jTable_input_order.setMinimumSize(new java.awt.Dimension(500, 96));
-        jScrollPane2.setViewportView(jTable_input_order);
-        if (jTable_input_order.getColumnModel().getColumnCount() > 0) {
-            jTable_input_order.getColumnModel().getColumn(0).setResizable(false);
-            jTable_input_order.getColumnModel().getColumn(1).setResizable(false);
-            jTable_input_order.getColumnModel().getColumn(2).setResizable(false);
-            jTable_input_order.getColumnModel().getColumn(3).setResizable(false);
+        JTBL_form_order.setMinimumSize(new java.awt.Dimension(500, 96));
+        jScrollPane2.setViewportView(JTBL_form_order);
+        if (JTBL_form_order.getColumnModel().getColumnCount() > 0) {
+            JTBL_form_order.getColumnModel().getColumn(0).setResizable(false);
+            JTBL_form_order.getColumnModel().getColumn(1).setResizable(false);
+            JTBL_form_order.getColumnModel().getColumn(2).setResizable(false);
+            JTBL_form_order.getColumnModel().getColumn(3).setResizable(false);
         }
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -194,7 +201,7 @@ public class Form_order extends javax.swing.JFrame {
             .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE)
         );
 
-        btn_Order.setText("Order");
+        btn_Order.setText("...");
         btn_Order.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_OrderActionPerformed(evt);
@@ -301,22 +308,20 @@ public class Form_order extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    private static boolean  delete_detailorder = false;
     private void btn_batalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_batalActionPerformed
         // TODO add your handling code here:
+        System.out.print(delete_detailorder);
         int result = JOptionPane.showConfirmDialog(this, "Batalkan order ?", this.getTitle(), JOptionPane.YES_NO_OPTION);
-                if (result == JOptionPane.YES_OPTION){    
-                    try {
-                        delete_OrderCustomer(lbl_kodeOrder.getText(), lbl_kodeOrder_detail.getText());
-                        if (notif_del_order_customer) {
-                            JOptionPane.showMessageDialog(this,"delete order berhasil");
-                        }else{
-                            JOptionPane.showMessageDialog(this,"delete order gagal");
-                        }
-                        this.dispose();
-                    } catch (SQLException ex) {
-                        Logger.getLogger(Form_order.class.getName()).log(Level.SEVERE, null, ex);
+                if (result == JOptionPane.YES_OPTION){
+                    
+                    delete_OrderCustomer(lbl_kodeOrder.getText(), lbl_kodeOrder_detail.getText(),delete_detailorder);
+                    if (notif_del_order_customer) {
+                        JOptionPane.showMessageDialog(this,"delete order berhasil");
+                    }else{
+                        JOptionPane.showMessageDialog(this,"delete order gagal");
                     }
+                    this.dispose();
                 }else if (result == JOptionPane.NO_OPTION)   {
                     this.setDefaultCloseOperation(this.DO_NOTHING_ON_CLOSE);
             }
@@ -325,6 +330,8 @@ public class Form_order extends javax.swing.JFrame {
     private void btn_OrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_OrderActionPerformed
         // TODO add your handling code here:
         System.out.println("order");
+        insert_OrderCustomer_menu(lbl_kodeOrder_detail.getText());
+        
     }//GEN-LAST:event_btn_OrderActionPerformed
 
     private void cmenu_tombolOrder1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmenu_tombolOrder1ActionPerformed
@@ -344,6 +351,19 @@ public class Form_order extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void lbl_kodeOrder_detailPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_lbl_kodeOrder_detailPropertyChange
+        // TODO add your handling code here:
+        select_OrderCustomer_menu(lbl_kodeOrder_detail.getText());
+        int total_datatable = JTBL_form_order.getRowCount();
+        if (total_datatable > 0 ) {
+            delete_detailorder = true;
+            btn_Order.setText("Ubah order");
+        }else{
+            btn_Order.setText("Order");
+        }
+        //
+    }//GEN-LAST:event_lbl_kodeOrder_detailPropertyChange
 
     /**
      * @param args the command line arguments
@@ -383,6 +403,7 @@ public class Form_order extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public static javax.swing.JTable JTBL_form_order;
     private javax.swing.JButton btn_Order;
     private javax.swing.JButton btn_batal;
     private javax.swing.JButton btn_hapus;
@@ -402,7 +423,6 @@ public class Form_order extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator2;
-    public static javax.swing.JTable jTable_input_order;
     public javax.swing.JLabel lbl_kodeOrder;
     public javax.swing.JLabel lbl_kodeOrder_detail;
     public javax.swing.JLabel lbl_kodemeja;
