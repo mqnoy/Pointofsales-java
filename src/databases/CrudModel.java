@@ -5,6 +5,7 @@
  */
 package databases;
 
+import static Crud.Form_bayar_tagihan.JTBL_bayar_tagihan;
 import static Crud.Form_crud_menu.*;
 import static Crud.Form_crud_menu.JTBL_listMenu_crud;
 import static Crud.Form_list_menu.JTBL_listMenu;
@@ -18,6 +19,7 @@ import java.util.logging.Logger;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import static Crud.Form_crud_userAplikasi.*;
+import static Crud.Form_order.JTBL_form_order;
 import static pointofsale_backend.Library.generateOrder;
 import static pointofsale_backend.Library.tanggalan;
 import static pointofsale_backend.Library.lib_tanggalwaktu;
@@ -31,7 +33,7 @@ import static pointofsale_backend.SetGet.*;
 public class CrudModel extends ConfigDatabase {
 
     private static final Connection conn = new ConfigDatabase().connect();
-    public static JTable tableName;
+    //public static JTable tableName;
 
     /*
      * method untuk query select all data 
@@ -73,7 +75,7 @@ public class CrudModel extends ConfigDatabase {
 
     /* end of method query select meja order */
 
-    /*
+ /*
      * method untuk query select user akses aplikasi 
      */
     public static void getUserapp_accessDB(String idaccess, String password) throws SQLException {
@@ -105,7 +107,7 @@ public class CrudModel extends ConfigDatabase {
 
     /* end of method untuk query select all data  */
 
-    /*
+ /*
      * method untuk select data user aplikasi dan data pegawai
      */
     public static void getUserapp_listDB() {
@@ -137,7 +139,7 @@ public class CrudModel extends ConfigDatabase {
 
     /* end of method untuk select data user aplikasi dan data pegawai */
 
-    /*
+ /*
      * method untuk insert user aplikasi dan data pegawai
      */
     public static void insertUserapp_listDB() {
@@ -178,9 +180,10 @@ public class CrudModel extends ConfigDatabase {
             Logger.getLogger(CrudModel.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
     /* end of method untuk insert data user aplikasi dan data pegawai */
-    
-    /*
+
+ /*
      * method untuk delete user aplikasi dan data pegawai
      */
     public static void deleteUserapp_listDB(int id_user) {
@@ -189,7 +192,7 @@ public class CrudModel extends ConfigDatabase {
             PreparedStatement ps = conn.prepareStatement(query_del_userapp);
             ps.setInt(1, id_user);
             int executeDel_userapp_user = ps.executeUpdate();
-            System.out.println("id user = "+id_user);
+            System.out.println("id user = " + id_user);
             System.out.println(query_del_userapp);
             if (executeDel_userapp_user > 0) {
                 notif_del_userapp = true;
@@ -200,8 +203,8 @@ public class CrudModel extends ConfigDatabase {
             Logger.getLogger(CrudModel.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    /* end of method untuk delete data user aplikasi dan data pegawai */
 
+    /* end of method untuk delete data user aplikasi dan data pegawai */
     public static int getUserapp_listDB(String var_idaccess) {
         int val_id_userapp = 0;
         String sql = "SELECT id_user FROM tbl_master_user_application WHERE idaccess=?";
@@ -226,7 +229,7 @@ public class CrudModel extends ConfigDatabase {
      * @return ditemukan
      */
     public static void getMenulistDB(String var_selected, String var_keywords) {
-        DefaultTableModel tabmode = getDatatabel();
+        DefaultTableModel tabmode = getDatatabel(JTBL_listMenu);
         String sql = null;
         try {
             //JTBL_listMenu.setModel(tabmode);
@@ -289,7 +292,7 @@ public class CrudModel extends ConfigDatabase {
 
     /* end of method untuk select data master menu */
 
-    /*
+ /*
      * method untuk insert data menu
      */
     public static void insert_MenulistDB() throws SQLException {
@@ -316,7 +319,7 @@ public class CrudModel extends ConfigDatabase {
 
     /* end of method untuk insert data menu */
 
-    /*
+ /*
      * method untuk ubah data menu
      */
     public static void update_MenulistDB(String var_kd_menu) throws SQLException {
@@ -338,7 +341,7 @@ public class CrudModel extends ConfigDatabase {
 
     /* end of method untuk ubah data menu */
 
-    /*
+ /*
      * method untuk hapus 1 data menu
      */
     public static void delete_MenulistDB(String var_kd_menu) throws SQLException {
@@ -390,7 +393,7 @@ public class CrudModel extends ConfigDatabase {
                 + "LEFT JOIN tbl_order_customer b on a.order_kd = b.kd_order\n"
                 + "LEFT JOIN tbl_master_meja c ON b.meja_id = c.id_meja\n"
                 + "WHERE c.kd_meja ='" + kd_meja + "' AND a.lunas ='" + lunas + "'";
-        System.out.println(query);
+//        System.out.println(query);
         Statement stmt = conn.createStatement();
         ResultSet data = stmt.executeQuery(query);
 
@@ -416,7 +419,7 @@ public class CrudModel extends ConfigDatabase {
     /*
      * method untuk insert data transaksi
      */
-    public static void insert_OrderCustomer(int mejaid) throws SQLException {
+    public static void insert_OrderCustomer(int mejaid) {
         int computerPOS_id = 1;
         int order_idDB = 0;
         int pegawai_id = 1;
@@ -427,81 +430,227 @@ public class CrudModel extends ConfigDatabase {
         boolean go_insert = true;
 
         if (go_insert) {
-            tanggalan();
-            kd_order = generateOrder(lib_tanggalwaktu, mejaid, "generate_order");
-            kd_orderdetail = generateOrder(lib_tanggalwaktu, mejaid, "generate_detail_order");
+            try {
+                tanggalan();
+                kd_order = generateOrder(lib_tanggalwaktu, mejaid, "generate_order");
+                kd_orderdetail = generateOrder(lib_tanggalwaktu, mejaid, "generate_detail_order");
 
-            String sql = "INSERT INTO tbl_order_customer (kd_order, detail_order_kd, meja_id, tanggal_transaksi) VALUES (?,?,?,?)";
-            String query_insert_detail_order = "INSERT INTO tbl_detail_order_customer (kd_detail_order, item_menu_id, qty, subtotal) VALUES (?,?,?,?)";
-            String query_insert_transaksi = "INSERT INTO tbl_transaksi_pesanan (order_kd, total_tagihan, nominal_pembayaran, kembalian, payment_type_id, lunas, bungkus, pos_computer_id, id_pegawai, cetakan_tgl_struk) VALUES (?,?,?,?,?,?,?,?,?,?)";
+                String query_insert_order = "INSERT INTO tbl_order_customer (kd_order, detail_order_kd, meja_id, tanggal_order) VALUES (?,?,?,?)";
+                String query_insert_transaksi = "INSERT INTO tbl_transaksi_pesanan (order_kd, total_tagihan, nominal_pembayaran, kembalian, payment_type_id, lunas, bungkus, pos_computer_id, id_pegawai, tgl_pembayaran) VALUES (?,?,?,?,?,?,?,?,?,?)";
 
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setString(1, kd_order);
-            ps.setString(2, kd_orderdetail);
-            ps.setInt(3, mejaid);
-            ps.setString(4, lib_tanggalwaktu);
+                PreparedStatement ps = conn.prepareStatement(query_insert_order);
+                ps.setString(1, kd_order);
+                ps.setString(2, kd_orderdetail);
+                ps.setInt(3, mejaid);
+                ps.setString(4, lib_tanggalwaktu);
 
-            PreparedStatement ps2 = conn.prepareStatement(query_insert_detail_order);
-            ps2.setString(1, kd_orderdetail);
-            ps2.setInt(2, 0);
-            ps2.setInt(3, 0);
-            ps2.setDouble(4, 0);
+                PreparedStatement ps3 = conn.prepareStatement(query_insert_transaksi);
+                ps3.setString(1, kd_order);//order_kd
+                ps3.setInt(2, 0);//total_tagihan
+                ps3.setInt(3, 0);//nominal_pembayaran
+                ps3.setInt(4, 0);//kembalian
+                ps3.setInt(5, -1);//payment_type_id
+                ps3.setString(6, lunas);//lunas
+                ps3.setString(7, bungkus);//bungkus
+                ps3.setInt(8, computerPOS_id);//pos_computer_id
+                ps3.setInt(9, pegawai_id);//id_pegawai
+                ps3.setString(10, null);//null karna belum ada pesanan
 
-            PreparedStatement ps3 = conn.prepareStatement(query_insert_transaksi);
-            ps3.setString(1, kd_order);//order_kd
-            ps3.setInt(2, 0);//total_tagihan
-            ps3.setInt(3, 0);//nominal_pembayaran
-            ps3.setInt(4, 0);//kembalian
-            ps3.setInt(5, -1);//payment_type_id
-            ps3.setString(6, lunas);//lunas
-            ps3.setString(7, bungkus);//bungkus
-            ps3.setInt(8, computerPOS_id);//pos_computer_id
-            ps3.setInt(9, pegawai_id);//id_pegawai
-            ps3.setString(10, lib_tanggalwaktu);//cetakan_tgl_struk
+                int executeUpdate = ps.executeUpdate();
+                //int executeUpdate2 = ps2.executeUpdate();
 
-            int executeUpdate = ps.executeUpdate();
-            int executeUpdate2 = ps2.executeUpdate();
-            int executeUpdate3 = ps3.executeUpdate();
+                int executeUpdate3 = ps3.executeUpdate();
 
-            if (executeUpdate > 0 && executeUpdate2 > 0 && executeUpdate3 > 0) {
-                notif_ins_order_customer = true;
-                System.out.println("insert data transaksi sukses");
-            } else {
-                notif_ins_order_customer = false;
-                System.out.println("insert data transaksi gagal");
+                if (executeUpdate > 0 && executeUpdate3 > 0) {
+                    notif_ins_order_customer = true;
+                    System.out.println("insert data transaksi sukses");
+                } else {
+                    notif_ins_order_customer = false;
+                    System.out.println("insert data transaksi gagal");
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(CrudModel.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
 
     /* end of method untuk insert data transaksi */
-    /*
-     * method untuk delete data ke table tbl_order_customer
-     */
-    public static void delete_OrderCustomer(String kd_order, String kd_orderdetail) throws SQLException {
-        String sql = "DELETE FROM tbl_order_customer WHERE kd_order=? ";
-        String query_delete_detail_order = "DELETE FROM tbl_detail_order_customer WHERE kd_detail_order=? ";
-        String query_delete_transaksi_order = "DELETE FROM tbl_transaksi_pesanan WHERE order_kd=? ";
-        PreparedStatement ps = conn.prepareStatement(sql);
-        ps.setString(1, kd_order);
+ /* end of method untuk insert data transaksi */
+    private static Integer get_id_menu(String kd_menu) {
+        int id_menu = 0;
+        String query_select_menu = "SELECT id_item_menu from tbl_master_item_menu WHERE kd_menu='" + kd_menu + "'";
+        try {
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(query_select_menu);
+            if (rs.next()) {
+                id_menu = rs.getInt("id_item_menu");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CrudModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return id_menu;
+    }
 
-        PreparedStatement ps2 = conn.prepareStatement(query_delete_detail_order);
-        ps2.setString(1, kd_orderdetail);
+    public static void insert_OrderCustomer_menu(String kd_orderdetail) {
+        int tot_draft_orderMenu = JTBL_form_order.getRowCount();
 
-        PreparedStatement ps3 = conn.prepareStatement(query_delete_transaksi_order);
-        ps3.setString(1, kd_order);
+        String query_insert_detail_order = "INSERT into tbl_detail_order_customer (kd_detail_order,item_menu_id,qty) VALUES (?,?,?)";
+        try {
+            conn.setAutoCommit(false);
+            PreparedStatement ps2 = conn.prepareStatement(query_insert_detail_order);
 
-        int executeUpdate = ps.executeUpdate();
-        int executeUpdate2 = ps2.executeUpdate();
-        int executeUpdate3 = ps3.executeUpdate();
+            for (int row = 0; row < tot_draft_orderMenu; row++) {
+                //"no", "kode menu", "qty", "subtotall"
 
-        if (executeUpdate > 0 && executeUpdate2 > 0 && executeUpdate3 > 0) {
-            notif_del_order_customer = true;
-        } else {
-            notif_del_order_customer = false;
+                String str_kdmenu = (String) JTBL_form_order.getValueAt(row, 1);
+                Integer int_qty = (Integer) JTBL_form_order.getValueAt(row, 2);
+                int int_kdmenu = get_id_menu(str_kdmenu);
+
+                ps2.setString(1, kd_orderdetail);
+                ps2.setInt(2, int_kdmenu);
+                ps2.setInt(3, int_qty);
+
+                ps2.addBatch();
+                System.out.println(query_insert_detail_order);
+            }
+            int[] executeUpdate2 = ps2.executeBatch();
+            conn.commit();
+
+            for (int row = 0; row < tot_draft_orderMenu; row++) {
+                if (executeUpdate2[row] > 0) {
+                    notif_ins_order_customer = true;
+                    System.out.println("insert data transaksi sukses");
+                } else {
+                    notif_ins_order_customer = false;
+                    System.out.println("insert data transaksi gagal");
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CrudModel.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    /* end of method delete insert data ke table tbl_order_customer */
+    /* end of method untuk insert data transaksi */
+
+    public static void select_OrderCustomer_menu(String kd_orderdetail) {
+        DefaultTableModel tabmode = getDatatabel(JTBL_form_order);
+        String query_select_ordercustomer_menu = "SELECT tdoc.qty,tmim.item_menu_nama,(tdoc.qty * tmim.item_menu_harga) as subtotal FROM tbl_detail_order_customer tdoc \n"
+                + "LEFT JOIN tbl_master_item_menu tmim ON tmim.id_item_menu = tdoc.item_menu_id \n"
+                + "WHERE tdoc.kd_detail_order='" + kd_orderdetail + "'";
+//        System.out.println(query_select_ordercustomer_menu);
+        try {
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(query_select_ordercustomer_menu);
+            int NUMBERS = 1;
+            while (rs.next()) {
+                //"no", "nama menu", "qty", "subtotall"
+                String a = rs.getString("tmim.item_menu_nama");
+                int b = rs.getInt("tdoc.qty");
+                int c = rs.getInt("subtotal");
+                Object[] data = {NUMBERS, a, b, c};
+                tabmode.addRow(data);
+                NUMBERS++;
+            }
+//            System.out.println(query_select_ordercustomer_menu);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(CrudModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    /* end of method untuk insert data transaksi */
+
+ /*
+     * method untuk delete data ke table tbl_order_customer
+     */
+    public static void delete_OrderCustomer(String kd_order, String kd_orderdetail, boolean del_detail) {
+        String sql = "DELETE FROM tbl_order_customer WHERE kd_order=? ";
+        String query_delete_detail_order = "DELETE FROM tbl_detail_order_customer WHERE kd_detail_order=? ";
+        String query_delete_transaksi_order = "DELETE FROM tbl_transaksi_pesanan WHERE order_kd=? ";
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, kd_order);
+
+            PreparedStatement ps3 = conn.prepareStatement(query_delete_transaksi_order);
+            ps3.setString(1, kd_order);
+            
+            int executeUpdate2 = 0;
+            if (del_detail) {
+                PreparedStatement ps2 = conn.prepareStatement(query_delete_detail_order);
+                ps2.setString(1, kd_orderdetail);
+                executeUpdate2 = ps2.executeUpdate();
+                System.out.println(query_delete_detail_order);
+            }
+            int executeUpdate = ps.executeUpdate();
+            int executeUpdate3 = ps3.executeUpdate();
+
+            notif_del_order_customer = executeUpdate > 0 && executeUpdate3 > 0; //tidak delete tbl_transaksi_pesanan
+            
+            if (executeUpdate2 > 0 && del_detail == true){ 
+                //delete tbl_transaksi_pesanan
+                notif_del_order_customer = true;
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(CrudModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    /* end of method delete data ke table tbl_order_customer */
+ /*
+     * method untuk select data untuk daftar pesanan @Form_bayar_tagihan
+     */
+    public static void select_Daftarpesanan(String kd_order) {
+        //get tanggal order
+        select_Tanggalpesanan(kd_order);
+
+        DefaultTableModel tabmode = getDatatabel(JTBL_bayar_tagihan);
+        String query_select = "SELECT tmim.item_menu_nama,tdoc.qty,(tdoc.qty * tmim.item_menu_harga) as subtotal FROM tbl_order_customer  toc\n"
+                + "LEFT JOIN tbl_detail_order_customer tdoc ON tdoc.kd_detail_order = toc.detail_order_kd\n"
+                + "LEFT JOIN tbl_master_meja tmj ON tmj.id_meja =  toc.meja_id\n"
+                + "LEFT JOIN tbl_master_item_menu tmim ON tmim.id_item_menu = tdoc.item_menu_id\n"
+                + "WHERE toc.kd_order = ?";
+        //"WHERE toc.kd_order = \"ODR20190428MJ0012\"";
+//        System.out.println(query_select);
+
+        try {
+            PreparedStatement ps = conn.prepareStatement(query_select);
+            ps.setString(1, kd_order);
+            ResultSet rs = ps.executeQuery();
+            int NUMBERS = 1;
+            while (rs.next()) {
+                String a = rs.getString("tmim.item_menu_nama");
+                int b = rs.getInt("tdoc.qty");
+                int c = rs.getInt("subtotal");
+                Object[] data = {NUMBERS, a, b, c};
+                tabmode.addRow(data);
+                NUMBERS++;
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(CrudModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    // method select tanggal order @Form_bayar_tagihan
+    public static void select_Tanggalpesanan(String kd_order) {
+        String query_select = "SELECT tanggal_order FROM tbl_order_customer WHERE kd_order = ?";
+//        System.out.println(query_select);
+        try {
+            PreparedStatement ps = conn.prepareStatement(query_select);
+            ps.setString(1, kd_order);
+            ResultSet rs = ps.executeQuery();
+            int NUMBERS = 1;
+            if (rs.next()) {
+                String a = rs.getString("tanggal_order");
+                set_tanggalOrder(a);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CrudModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    //end of method select tanggal order @Form_bayar_tagihan
     /*
      =======
      >>>>>>> parent of 349bfe7... working kode order and detail kode order insert method @bug when no record
@@ -525,7 +674,7 @@ public class CrudModel extends ConfigDatabase {
     /*
      * method untuk mengambil dan mencocokan variabel JTable
      */
-    public static DefaultTableModel getDatatabel() {
+    public static DefaultTableModel getDatatabel(JTable tableName) {
 
         DefaultTableModel tabmode = null;
         if (tableName.equals(JTBL_listMenu)) {
@@ -538,7 +687,18 @@ public class CrudModel extends ConfigDatabase {
             tabmode = new DefaultTableModel(null, baris);
             JTBL_listMenu_crud.setModel(tabmode);
 
+        } else if (tableName.equals(JTBL_bayar_tagihan)) {
+            Object[] baris = {"No", "Nama menu", "qty", "subtotal(Rp)"};
+            tabmode = new DefaultTableModel(null, baris);
+            JTBL_bayar_tagihan.setModel(tabmode);
+
+        } else if (tableName.equals(JTBL_form_order)) {
+            Object[] baris = {"No", "Kode menu", "qty", "subtotal(Rp)"};
+            tabmode = new DefaultTableModel(null, baris);
+            JTBL_form_order.setModel(tabmode);
+
         }
+
         return tabmode;
     }
 
