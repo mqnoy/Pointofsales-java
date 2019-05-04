@@ -80,17 +80,16 @@ public class Library {
     }
 
     public static void tanggalan() {
-//        TimeZone tz = TimeZone.getTimeZone("Asia/Jakarta");
-//        //DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SS");
-//        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//        dateFormat.setTimeZone(tz);
-//
-//        //get current date time with Date()
-//        Date datetime = new Date();
-//        Calendar calendar = Calendar.getInstance();
-//        String strDate = dateFormat.format(datetime);
-//        Library.lib_tanggalwaktu = strDate;
-        getUserapp_listDB();
+        TimeZone tz = TimeZone.getTimeZone("Asia/Jakarta");
+        //DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SS");
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        dateFormat.setTimeZone(tz);
+
+        //get current date time with Date()
+        Date datetime = new Date();
+        Calendar calendar = Calendar.getInstance();
+        String strDate = dateFormat.format(datetime);
+        Library.lib_tanggalwaktu = strDate;
     }
 
     /*
@@ -104,9 +103,9 @@ public class Library {
     
 
     public static void main(String[] args) {
-        tanggalan();
-        String generateOrder = generateOrder(lib_tanggalwaktu, 1,"generate_order");
-        System.out.println(generateOrder);
+//        tanggalan();
+//        String generateOrder = generateOrder(lib_tanggalwaktu, 1,"generate_order");
+        System.out.println(strTo_MD5("admin"));
 
     }
 
