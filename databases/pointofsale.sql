@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Apr 28, 2019 at 02:08 AM
+-- Generation Time: May 04, 2019 at 11:15 PM
 -- Server version: 10.2.13-MariaDB-10.2.13+maria~xenial
 -- PHP Version: 5.6.37-1+ubuntu16.04.1+deb.sury.org+1
 
@@ -30,22 +30,8 @@ CREATE TABLE `tbl_detail_order_customer` (
   `id_detail_order` int(11) NOT NULL,
   `kd_detail_order` varchar(50) NOT NULL,
   `item_menu_id` int(11) NOT NULL,
-  `qty` int(11) NOT NULL,
-  `subtotal` int(20) NOT NULL
+  `qty` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `tbl_detail_order_customer`
---
-
-INSERT INTO `tbl_detail_order_customer` (`id_detail_order`, `kd_detail_order`, `item_menu_id`, `qty`, `subtotal`) VALUES
-(1, 'DTL20190428MJ0011', 0, 0, 0),
-(2, 'DTL20190428MJ0012', 0, 0, 0),
-(3, 'DTL20190428MJ0023', 0, 0, 0),
-(4, 'DTL20190428MJ0014', 0, 0, 0),
-(5, 'DTL20190428MJ0025', 0, 0, 0),
-(20, 'DTL20190428MJ0016', 0, 0, 0),
-(21, 'DTL20190428MJ00221', 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -144,9 +130,7 @@ CREATE TABLE `tbl_master_pegawai` (
 INSERT INTO `tbl_master_pegawai` (`id_pegawai`, `pegawai_nip`, `pegawai_nama`, `pegawai_jabatan`, `user_id`) VALUES
 (1, '201643502057', 'rifky azmi', 'kepalakoki', 1),
 (2, '201643502058', 'rifky qnoy', 'kasir', 2),
-(3, '5656', 'rr', 'pelayan', 4),
-(4, '123123', 'rifky azmi123', 'pelayan', 11),
-(5, '', 'rifky azmi123', 'pelayan', 12);
+(3, '5656', 'rr', 'pelayan', 4);
 
 -- --------------------------------------------------------
 
@@ -188,17 +172,10 @@ CREATE TABLE `tbl_master_user_application` (
 --
 
 INSERT INTO `tbl_master_user_application` (`id_user`, `idaccess`, `password`, `level`, `blokir`, `date_registered`) VALUES
-(1, '201643502057', '5f4dcc3b5aa765d61d8327deb882cf99', 'superadmin', 'n', '2019-04-08 00:00:00'),
+(1, '201643502057', '21232f297a57a5a743894a0e4a801fc3', 'superadmin', 'n', '2019-04-08 00:00:00'),
 (2, '2057', '1234', 'operator', 'n', '2019-04-08 00:00:00'),
-(3, '1870', '81dc9bdb52d04dc20036dbd8313ed055', 'superadmin', 'n', '2019-04-12 00:00:00'),
-(4, '2019', '[C@bea1a79', 'superadmin', 'n', '2019-04-12 23:59:24'),
-(5, '5678', 'rifky azmi2pass', 'superadmin', 'y', '2019-04-13 00:07:06'),
-(6, '9090', 'rifky9090@', 'superadmin', 'y', '2019-04-13 00:35:58'),
-(7, '209', '209pass', 'operator', 'n', '2019-04-13 00:43:11'),
-(8, '1212', '1212password', 'operator', 'n', '2019-04-13 00:47:24'),
-(10, '1313', '1313', 'operator', 'n', '2019-04-13 00:51:14'),
-(11, '123123', '123123', 'operator', 'n', '2019-04-13 01:01:02'),
-(12, '', 'd41d8cd98f00b204e9800998ecf8427e', 'operator', 'n', '2019-04-13 01:30:04');
+(3, '1', 'c4ca4238a0b923820dcc509a6f75849b', 'superadmin', 'n', '2019-05-04 00:00:00'),
+(4, '2019', '[C@bea1a79', 'superadmin', 'n', '2019-04-12 23:59:24');
 
 -- --------------------------------------------------------
 
@@ -211,21 +188,15 @@ CREATE TABLE `tbl_order_customer` (
   `kd_order` varchar(50) NOT NULL,
   `detail_order_kd` varchar(50) NOT NULL,
   `meja_id` int(11) NOT NULL,
-  `tanggal_transaksi` datetime NOT NULL
+  `tanggal_order` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbl_order_customer`
 --
 
-INSERT INTO `tbl_order_customer` (`id_order_cust`, `kd_order`, `detail_order_kd`, `meja_id`, `tanggal_transaksi`) VALUES
-(1, 'ODR20190428MJ0011', 'DTL20190428MJ0011', 1, '2019-04-28 00:13:24'),
-(2, 'ODR20190428MJ0012', 'DTL20190428MJ0012', 1, '2019-04-28 00:13:53'),
-(3, 'ODR20190428MJ0023', 'DTL20190428MJ0023', 2, '2019-04-28 00:15:40'),
-(4, 'ODR20190428MJ0014', 'DTL20190428MJ0014', 1, '2019-04-28 00:42:37'),
-(5, 'ODR20190428MJ0025', 'DTL20190428MJ0025', 2, '2019-04-28 00:46:47'),
-(20, 'ODR20190428MJ0016', 'DTL20190428MJ0016', 1, '2019-04-28 01:26:30'),
-(21, 'ODR20190428MJ00221', 'DTL20190428MJ00221', 2, '2019-04-28 01:50:38');
+INSERT INTO `tbl_order_customer` (`id_order_cust`, `kd_order`, `detail_order_kd`, `meja_id`, `tanggal_order`) VALUES
+(32, 'ODR20190504MJ0011', 'DTL20190504MJ0011', 1, '2019-05-04 23:00:13');
 
 -- --------------------------------------------------------
 
@@ -255,21 +226,15 @@ CREATE TABLE `tbl_transaksi_pesanan` (
   `bungkus` enum('y','n') NOT NULL DEFAULT 'n',
   `pos_computer_id` int(11) NOT NULL,
   `id_pegawai` int(11) NOT NULL,
-  `cetakan_tgl_struk` datetime NOT NULL
+  `tgl_pembayaran` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbl_transaksi_pesanan`
 --
 
-INSERT INTO `tbl_transaksi_pesanan` (`id_struk`, `order_kd`, `total_tagihan`, `nominal_pembayaran`, `kembalian`, `payment_type_id`, `lunas`, `bungkus`, `pos_computer_id`, `id_pegawai`, `cetakan_tgl_struk`) VALUES
-(1, 'ODR20190428MJ0011', 0, 0, 0, -1, 'y', 'n', 1, 1, '2019-04-28 00:13:24'),
-(2, 'ODR20190428MJ0012', 100000, 0, 0, -1, 'n', 'n', 1, 1, '2019-04-28 00:13:53'),
-(3, 'ODR20190428MJ0023', 0, 0, 0, -1, 'y', 'n', 1, 1, '2019-04-28 00:15:40'),
-(4, 'ODR20190428MJ0014', 0, 0, 0, -1, 'y', 'n', 1, 1, '2019-04-28 00:42:37'),
-(5, 'ODR20190428MJ0025', 0, 0, 0, -1, 'y', 'n', 1, 1, '2019-04-28 00:46:47'),
-(20, 'ODR20190428MJ0016', 0, 0, 0, -1, 'y', 'n', 1, 1, '2019-04-28 01:26:30'),
-(21, 'ODR20190428MJ00221', 0, 0, 0, -1, 'n', 'n', 1, 1, '2019-04-28 01:50:38');
+INSERT INTO `tbl_transaksi_pesanan` (`id_struk`, `order_kd`, `total_tagihan`, `nominal_pembayaran`, `kembalian`, `payment_type_id`, `lunas`, `bungkus`, `pos_computer_id`, `id_pegawai`, `tgl_pembayaran`) VALUES
+(32, 'ODR20190504MJ0011', 0, 0, 0, -1, 'n', 'n', 1, 1, NULL);
 
 --
 -- Indexes for dumped tables
@@ -347,7 +312,7 @@ ALTER TABLE `tbl_transaksi_pesanan`
 -- AUTO_INCREMENT for table `tbl_detail_order_customer`
 --
 ALTER TABLE `tbl_detail_order_customer`
-  MODIFY `id_detail_order` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id_detail_order` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT for table `tbl_master_item_menu`
 --
@@ -377,12 +342,12 @@ ALTER TABLE `tbl_master_pos_computer`
 -- AUTO_INCREMENT for table `tbl_master_user_application`
 --
 ALTER TABLE `tbl_master_user_application`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 --
 -- AUTO_INCREMENT for table `tbl_order_customer`
 --
 ALTER TABLE `tbl_order_customer`
-  MODIFY `id_order_cust` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id_order_cust` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 --
 -- AUTO_INCREMENT for table `tbl_struk_for_koki`
 --
@@ -392,7 +357,7 @@ ALTER TABLE `tbl_struk_for_koki`
 -- AUTO_INCREMENT for table `tbl_transaksi_pesanan`
 --
 ALTER TABLE `tbl_transaksi_pesanan`
-  MODIFY `id_struk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id_struk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
