@@ -5,12 +5,11 @@
  */
 package Crud;
 
-import static Crud.Form_order.jTable_input_order;
-import static databases.CrudModel.getMenulistDB;
-import static databases.CrudModel.tableName;
 import java.awt.List;
 import javax.swing.table.DefaultTableModel;
 import static pointofsale_backend.Frame_control.tampil_NotAvailable;
+import static Crud.Form_order.JTBL_form_order;
+import static databases.CrudModel.getMenulistDB;
 
 /**
  *
@@ -27,7 +26,7 @@ public class Form_list_menu extends javax.swing.JFrame {
     
     public Form_list_menu() {
         initComponents();
-        tableName = JTBL_listMenu;
+//        tableName = JTBL_listMenu;
         getMenulistDB(pencarian,typing_keyword);
         String[] col_tbl_listmenu = {"", "", "", ""};
     }
@@ -289,8 +288,9 @@ public class Form_list_menu extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_flm_kembaliActionPerformed
     public static String KdMenu;
     public static String HargaMenu;
-    public static Integer menuQty = 0;
+    public static Integer menuQty = 0,int_HargaMenu=0;
     public static String nmMenu;
+    public static Integer subtotal;
 
     private void JTBL_listMenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JTBL_listMenuMouseClicked
         // TODO add your handling code here:
@@ -301,20 +301,26 @@ public class Form_list_menu extends javax.swing.JFrame {
         int row = JTBL_listMenu.getSelectedRow();
         Form_list_menu.KdMenu = JTBL_listMenu.getModel().getValueAt(row, 1).toString();
         Form_list_menu.nmMenu = JTBL_listMenu.getModel().getValueAt(row, 2).toString();
-//        Form_list_menu.HargaMenu = Double.parseDouble(String.valueOf(jTable_list_menu.getValueAt(row, 5)));
-        Form_list_menu.HargaMenu = JTBL_listMenu.getModel().getValueAt(row, 4).toString();
-//        String str_qty = menuQty.toString();
+//        Form_list_menu.HargaMenu = JTBL_listMenu.getModel().getValueAt(row, 4).toString();
+        Form_list_menu.int_HargaMenu = Integer.parseInt(JTBL_listMenu.getValueAt(row, 4).toString());
 
-        System.out.println("harganya " + HargaMenu);
+
+        System.out.println("harganya " + int_HargaMenu);
     }//GEN-LAST:event_JTBL_listMenuMouseClicked
 
     private void tbl_tambah_keOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbl_tambah_keOrderActionPerformed
         // TODO add your handling code here:
-        int a = 1, room = 301;
+        int a = 1;
+        int number = JTBL_form_order.getRowCount()+a;
         List li = new List();
+
+        Form_list_menu.subtotal = menuQty*int_HargaMenu;
+
 //        Form_list_menu list_menu = new Form_list_menu();
-        DefaultTableModel model = (DefaultTableModel) jTable_input_order.getModel();
-        model.addRow(new Object[]{a++, KdMenu, menuQty, "4", HargaMenu});
+        DefaultTableModel model = (DefaultTableModel) JTBL_form_order.getModel();
+        model.addRow(new Object[]{
+            number, KdMenu, menuQty, subtotal
+        });
 
         li.setVisible(true);
         jLabel_nmMenu.setText("nama menu?");
@@ -328,6 +334,8 @@ public class Form_list_menu extends javax.swing.JFrame {
         if (menuQty > 0) {
             jLabel_Qty.setText(menuQty.toString());
             jLabel_nmMenu.setText(nmMenu);
+            jTextField_qty.setText("0");
+
             jDialog_inputQty.setVisible(false);
 
         } else {
