@@ -13,7 +13,7 @@ Aplikasi penjualan yang di khususkan untuk restoran
 * Jasper
 
 ## library list
-*Reporting
+* Reporting
 ```
 commons-beanutils-1.8.2.jar
 commons-collections-3.2.1.jar
