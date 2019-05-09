@@ -5,6 +5,20 @@
  */
 package Crud;
 
+import databases.CrudModel;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.view.JasperViewer;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.util.HashMap;
+import net.sf.jasperreports.engine.design.JRDesignQuery;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+
 /**
  *
  * @author Rifky <qnoy.rifky@gmail.com>
@@ -201,6 +215,11 @@ public class Form_laporan_penjualan extends javax.swing.JFrame {
         });
 
         jButton3.setText("Cetak laporan");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -289,6 +308,44 @@ public class Form_laporan_penjualan extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.setVisible(false);
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        String reportSource = null;
+        String reportDest = null;
+//        Connection conn = CrudModel.conn;
+        Connection conn = CrudModel.getConn();
+        reportSource = System.getProperty("user.dir") + "/src/Reporting/report_penjualan.jrxml";
+        reportDest = System.getProperty("user.dir") + "/src/Reporting/report_penjualan.jasper";
+        try {
+            
+            String sql = "SELECT toc.tanggal_order,tmim.item_menu_nama,tdoc.qty,(tdoc.qty * tmim.item_menu_harga) as subtotal FROM tbl_order_customer toc \n" +
+            "LEFT JOIN tbl_detail_order_customer tdoc ON tdoc.kd_detail_order = toc.detail_order_kd\n" +
+            "LEFT JOIN tbl_master_item_menu tmim ON tmim.id_item_menu = tdoc.item_menu_id\n" +
+            "LEFT JOIN tbl_transaksi_pesanan ttp ON ttp.order_kd = toc.kd_order\n" +
+            "WHERE ttp.lunas ='y' AND ttp.tgl_pembayaran BETWEEN '2019-05-07 00:00:00' AND '2019-06-07 23:59:59' ";
+            
+            
+            String report = "./src/Reporting/report_penjualan.jrxml";
+            HashMap hashMap = new HashMap();
+            hashMap.put("tgl1", "2019-05-07 00:00:00");
+            hashMap.put("tgl1", "2019-06-07 23:59:59");
+            JasperReport jasperReport = JasperCompileManager.compileReport(report);
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, hashMap, conn);
+            JasperViewer.viewReport(jasperPrint);
+            
+//          reportSource = System.getProperty("user.dir") + "/src/Reporting/report_penjualan.jrxml";
+//            reportDest = System.getProperty("user.dir") + "/src/Reporting/report_penjualan.jasper";
+//
+//            JasperReport jasperReport = JasperCompileManager.compileReport(reportSource);
+//            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, null, conn);
+//            JasperExportManager.exportReportToHtmlFile(jasperPrint, reportDest);
+//            JasperViewer.viewReport(jasperPrint, false);
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
