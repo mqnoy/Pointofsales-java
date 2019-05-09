@@ -32,9 +32,11 @@ import static pointofsale_backend.SetGet.*;
  */
 public class CrudModel extends ConfigDatabase {
 
-    private static final Connection conn = new ConfigDatabase().connect();
+    protected static final Connection conn = new ConfigDatabase().connect();
     //public static JTable tableName;
-
+    public static Connection getConn(){
+        return conn;
+    }
     /*
      * method untuk query select all data 
      */
@@ -700,6 +702,14 @@ public class CrudModel extends ConfigDatabase {
         }
 
         return tabmode;
+    }
+    
+    public static void close(){
+        try {
+            conn.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(CrudModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 }
