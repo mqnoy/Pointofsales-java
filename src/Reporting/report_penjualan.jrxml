@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="70b2f690-c5ef-4a2a-9c3e-9aa878f26e39">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="tgl1" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="tgl2" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="tanggal_order" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="item_menu_nama" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="qty" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="subtotal" class="java.lang.Long"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="117" splitType="Stretch">
+			<staticText>
+				<reportElement x="470" y="7" width="85" height="38" uuid="7f84616b-2665-48f5-b0ae-a9f99420127b"/>
+				<text><![CDATA[Report penjualan]]></text>
+			</staticText>
+			<image>
+				<reportElement x="8" y="0" width="114" height="117" uuid="dae16953-1b54-411c-9e45-4685db3c7ac3"/>
+				<imageExpression><![CDATA["E:\\qnoy\\kuliah_\\6.smt6\\pemrograman_visual\\posv1\\src\\Reporting\\images\\logo.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="355" y="61" width="100" height="20" uuid="9cd1b041-21a9-486d-be0c-0fc186245ea1"/>
+				<text><![CDATA[Periode : ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="455" y="61" width="100" height="20" uuid="33bc93b5-cfc5-4a4f-907e-a087f55e994f"/>
+				<textFieldExpression><![CDATA[$P{tgl1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="455" y="81" width="100" height="20" uuid="d2b995b1-e235-4621-918c-372ecb0ad850"/>
+				<textFieldExpression><![CDATA[$P{tgl2}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="25" splitType="Stretch">
+			<staticText>
+				<reportElement x="355" y="5" width="100" height="20" uuid="a6618624-b1a0-4e23-b119-61f4fa36c000"/>
+				<text><![CDATA[Date generate :]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy h.mm a">
+				<reportElement x="455" y="5" width="100" height="20" uuid="ae5be17f-4192-4c32-ab34-c64bc2fcecd9"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="23" splitType="Stretch">
+			<staticText>
+				<reportElement x="59" y="3" width="100" height="20" uuid="49dbff33-def1-4bc7-b616-a528155d0ff1"/>
+				<text><![CDATA[tanggal_order]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="159" y="3" width="196" height="20" uuid="c9fcaa04-8ba9-4926-aff0-969b8785c207"/>
+				<text><![CDATA[item_menu_nama]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="355" y="0" width="100" height="20" uuid="47905208-6f9f-419e-af50-fbf1b9ead17b"/>
+				<text><![CDATA[qty]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="455" y="0" width="100" height="20" uuid="dfb1c636-64d0-47cb-8240-72de67d08f7c"/>
+				<text><![CDATA[subtotal]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="8" y="3" width="51" height="20" uuid="355edc45-2c2f-4795-9981-99dddfbcedf8"/>
+				<text><![CDATA[No]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<textField>
+				<reportElement x="59" y="1" width="100" height="20" uuid="4bc0f542-15b2-4af1-8125-3ec9ca28a83c"/>
+				<box bottomPadding="1"/>
+				<textFieldExpression><![CDATA[$F{tanggal_order}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="159" y="1" width="196" height="20" uuid="b95a8cf9-54c9-405b-8388-015aed8c240a"/>
+				<box bottomPadding="1"/>
+				<textFieldExpression><![CDATA[$F{item_menu_nama}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="455" y="0" width="100" height="20" uuid="2c854e57-8bfd-44b5-8b14-598232e1932e"/>
+				<box bottomPadding="1"/>
+				<textFieldExpression><![CDATA[$F{subtotal}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="355" y="1" width="100" height="20" uuid="367efe39-cede-4221-be96-ceec988c39a8"/>
+				<box bottomPadding="1"/>
+				<textFieldExpression><![CDATA[$F{qty}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="8" y="1" width="51" height="20" uuid="c67ff079-e67f-4ecf-9c6f-45a6de064084"/>
+				<text><![CDATA[1]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="41" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="27" splitType="Stretch">
+			<textField>
+				<reportElement x="525" y="7" width="30" height="20" uuid="db836a9b-da28-4804-8ae3-3407522a18b6"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="191" splitType="Stretch"/>
+	</summary>
+</jasperReport>

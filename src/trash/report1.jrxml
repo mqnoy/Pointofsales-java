@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="67c62cf6-4907-4574-8a8a-d1715dc52f8e">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="Table Dataset 1" uuid="61396e0d-758c-407c-b1d7-7d1f45cf85d5"/>
+	<subDataset name="dt_sheet_lap" uuid="5288463e-06fc-4723-9306-2e91d54f1b3c">
+		<queryString language="SQL">
+			<![CDATA[SELECT toc.tanggal_order,tmim.item_menu_nama,tdoc.qty,(tdoc.qty * tmim.item_menu_harga) as subtotal FROM tbl_order_customer toc 
+LEFT JOIN tbl_detail_order_customer tdoc ON tdoc.kd_detail_order = toc.detail_order_kd
+LEFT JOIN tbl_master_item_menu tmim ON tmim.id_item_menu = tdoc.item_menu_id
+LEFT JOIN tbl_transaksi_pesanan ttp ON ttp.order_kd = toc.kd_order
+WHERE ttp.tgl_pembayaran BETWEEN '2019-05-07 00:00:00' AND '2019-06-07 23:59:59' AND ttp.lunas ='y']]>
+		</queryString>
+		<field name="tanggal_order" class="java.sql.Timestamp">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<field name="item_menu_nama" class="java.lang.String">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<field name="qty" class="java.lang.Integer">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<field name="subtotal" class="java.lang.Long"/>
+		<group name="tanggal_order">
+			<groupExpression><![CDATA[$F{tanggal_order}]]></groupExpression>
+		</group>
+		<group name="item_menu_nama">
+			<groupExpression><![CDATA[$F{item_menu_nama}]]></groupExpression>
+		</group>
+		<group name="qty">
+			<groupExpression><![CDATA[$F{qty}]]></groupExpression>
+		</group>
+		<group name="subtotal">
+			<groupExpression><![CDATA[$F{subtotal}]]></groupExpression>
+		</group>
+	</subDataset>
+	<parameter name="r_tgl_1_waktu_1" class="java.lang.String"/>
+	<parameter name="r_tgl_2_waktu_2" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT toc.tanggal_order,tmim.item_menu_nama,tdoc.qty,(tdoc.qty * tmim.item_menu_harga) as subtotal FROM tbl_order_customer toc 
+LEFT JOIN tbl_detail_order_customer tdoc ON tdoc.kd_detail_order = toc.detail_order_kd
+LEFT JOIN tbl_master_item_menu tmim ON tmim.id_item_menu = tdoc.item_menu_id
+LEFT JOIN tbl_transaksi_pesanan ttp ON ttp.order_kd = toc.kd_order
+WHERE ttp.tgl_pembayaran BETWEEN '$P{r_tgl_1_waktu_1}' AND '$P{r_tgl_2_waktu_2}' AND ttp.lunas ='y']]>
+	</queryString>
+	<field name="tanggal_order" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="item_menu_nama" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="qty" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="subtotal" class="java.lang.Long"/>
+	<group name="tanggal_order">
+		<groupExpression><![CDATA[$F{tanggal_order}]]></groupExpression>
+	</group>
+	<group name="item_menu_nama">
+		<groupExpression><![CDATA[$F{item_menu_nama}]]></groupExpression>
+	</group>
+	<group name="qty">
+		<groupExpression><![CDATA[$F{qty}]]></groupExpression>
+	</group>
+	<group name="subtotal">
+		<groupExpression><![CDATA[$F{subtotal}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="12" width="360" height="36" uuid="541d7686-63ac-4f70-9efa-562e0004356a"/>
+				<text><![CDATA[Report penjualan]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="360" y="59" width="66" height="20" uuid="7bfe079c-f77e-4ba1-8645-bf11ad1e113a"/>
+				<text><![CDATA[priode]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="426" y="59" width="100" height="20" uuid="d9e1c893-a6fe-4184-b4c2-30239dd154f3"/>
+				<text><![CDATA[Static text]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageFooter>
+		<band height="253" splitType="Stretch">
+			<componentElement>
+				<reportElement key="table 1" style="table 1" x="0" y="0" width="555" height="253" uuid="67a4462f-d699-476d-847f-c264fb7e2e02"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="dt_sheet_lap" uuid="53189556-4a76-45c6-8cbf-ca49306b4158">
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="90" uuid="1544af09-2fd0-4a6b-b726-c8fdcd90171c">
+						<jr:tableHeader style="table 1_TH" height="30"/>
+						<jr:tableFooter style="table 1_TH" height="30"/>
+						<jr:columnHeader style="table 1_CH" height="30">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="0206f766-431b-4d6e-9b34-1b0e9abad518"/>
+								<text><![CDATA[tanggal_order]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table 1_CH" height="30"/>
+						<jr:detailCell style="table 1_TD" height="20">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20" uuid="901f4713-697a-4844-a7ce-0fac83110130"/>
+								<textFieldExpression><![CDATA[$F{tanggal_order}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="dac4cf4e-2072-4c87-bf6b-57307de23cb1">
+						<jr:tableHeader style="table 1_TH" height="30"/>
+						<jr:tableFooter style="table 1_TH" height="30"/>
+						<jr:columnHeader style="table 1_CH" height="30">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="d65c21f5-3e6d-4d45-a462-0a42fc99c034"/>
+								<text><![CDATA[item_menu_nama]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table 1_CH" height="30"/>
+						<jr:detailCell style="table 1_TD" height="20">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20" uuid="8eaa87c8-aa10-4830-b401-4ef0a9822ab1"/>
+								<textFieldExpression><![CDATA[$F{item_menu_nama}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="7fb6366e-272b-48d4-a27b-da349426e8f8">
+						<jr:tableHeader style="table 1_TH" height="30"/>
+						<jr:tableFooter style="table 1_TH" height="30"/>
+						<jr:columnHeader style="table 1_CH" height="30">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="732c20a9-bbe7-4630-97aa-296fad34a017"/>
+								<text><![CDATA[qty]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table 1_CH" height="30"/>
+						<jr:detailCell style="table 1_TD" height="20">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20" uuid="88158db4-9c17-4e4a-8736-5e93243f4d7c"/>
+								<textFieldExpression><![CDATA[$F{qty}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="81ac09d0-03bc-4ba1-a072-f8cd0a4e11a1">
+						<jr:tableHeader style="table 1_TH" height="30"/>
+						<jr:tableFooter style="table 1_TH" height="30"/>
+						<jr:columnHeader style="table 1_CH" height="30">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="96b03872-ebcd-442c-89d7-f04ef5951a93"/>
+								<text><![CDATA[subtotal]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table 1_CH" height="30"/>
+						<jr:detailCell style="table 1_TD" height="20">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20" uuid="540cfe55-4bef-46c3-8c7c-5cc9b06fdf9d"/>
+								<textFieldExpression><![CDATA[$F{subtotal}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy h.mm a">
+				<reportElement x="444" y="22" width="100" height="20" uuid="c234a136-70dd-4f9e-9417-271b42348e7c"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

@@ -1,6 +1,10 @@
 
 import javax.swing.ButtonModel;
-
+import databases.ConfigDatabase;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -12,7 +16,7 @@ import javax.swing.ButtonModel;
  * @author Rifky <qnoy.rifky@gmail.com>
  */
 public class Percobaan extends javax.swing.JFrame {
-
+    private static final Connection conn = new ConfigDatabase().connect();
     /**
      * Creates new form Percobaan
      */
@@ -37,6 +41,7 @@ public class Percobaan extends javax.swing.JFrame {
         jRadioButton1 = new javax.swing.JRadioButton();
         jRadioButton2 = new javax.swing.JRadioButton();
         jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -55,21 +60,30 @@ public class Percobaan extends javax.swing.JFrame {
             }
         });
 
+        jButton2.setText("report");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(113, 113, 113)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton1)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(113, 113, 113)
                         .addComponent(jRadioButton1)
                         .addGap(18, 18, 18)
-                        .addComponent(jRadioButton2))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(161, 161, 161)
-                        .addComponent(jButton1)))
+                        .addComponent(jRadioButton2)))
                 .addContainerGap(187, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton2)
+                .addGap(62, 62, 62))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -78,9 +92,11 @@ public class Percobaan extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jRadioButton1)
                     .addComponent(jRadioButton2))
-                .addGap(52, 52, 52)
+                .addGap(29, 29, 29)
                 .addComponent(jButton1)
-                .addContainerGap(91, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
+                .addComponent(jButton2)
+                .addGap(43, 43, 43))
         );
 
         pack();
@@ -90,6 +106,31 @@ public class Percobaan extends javax.swing.JFrame {
         // TODO add your handling code here:
         anu();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        try {
+            // TODO add your handling code here:
+//        String reportSource = null;
+//        String reportDest = null;
+//        
+//        try {
+//            
+//            reportSource = System.getProperty("user.dir") + "/laporan/stok.jrxml";
+//            reportDest = System.getProperty("user.dir") + "/laporan/stok.jasper";
+//            
+//            JasperReport jasperReport = JasperCompileManager.compileReport(reportSource);
+//            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, null, conn);
+//            JasperExportManager.exportReportToHtmlFile(jasperPrint, reportDest);
+//            JasperViewer.viewReport(jasperPrint, false);
+//            
+//        } catch (Exception e) {
+//            System.out.println(e);
+//        }
+            conn.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(Percobaan.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -129,6 +170,7 @@ public class Percobaan extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.ButtonGroup btngrup;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     public static javax.swing.JRadioButton jRadioButton1;
     public static javax.swing.JRadioButton jRadioButton2;
     // End of variables declaration//GEN-END:variables

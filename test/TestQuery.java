@@ -19,8 +19,9 @@ public class TestQuery extends CrudModel{
     
     
     public static void main (String [] args){
-        String kd_orderdetail = "DTL20190428MJ0012";
-        select_OrderCustomer_menu(kd_orderdetail);
+//        String kd_orderdetail = "DTL20190428MJ0012";
+//        select_OrderCustomer_menu(kd_orderdetail);
+        close();
     }
     
 }
