@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: May 04, 2019 at 11:15 PM
+-- Generation Time: May 07, 2019 at 04:52 PM
 -- Server version: 10.2.13-MariaDB-10.2.13+maria~xenial
 -- PHP Version: 5.6.37-1+ubuntu16.04.1+deb.sury.org+1
 
@@ -33,6 +33,17 @@ CREATE TABLE `tbl_detail_order_customer` (
   `qty` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `tbl_detail_order_customer`
+--
+
+INSERT INTO `tbl_detail_order_customer` (`id_detail_order`, `kd_detail_order`, `item_menu_id`, `qty`) VALUES
+(10, 'DTL20190504MJ0011', 7, 4),
+(11, 'DTL20190504MJ0011', 8, 5),
+(12, 'DTL20190504MJ0011', 7, 4),
+(13, 'DTL20190504MJ0011', 8, 5),
+(14, 'DTL20190507MJ00233', 8, 5);
+
 -- --------------------------------------------------------
 
 --
@@ -42,7 +53,7 @@ CREATE TABLE `tbl_detail_order_customer` (
 CREATE TABLE `tbl_master_item_menu` (
   `id_item_menu` int(11) NOT NULL,
   `item_menu_nama` text NOT NULL,
-  `item_menu_harga` double NOT NULL,
+  `item_menu_harga` int(20) NOT NULL,
   `kd_menu` varchar(50) NOT NULL,
   `menu_kategory` enum('makanan','minuman') NOT NULL,
   `hide_menu` enum('y','n') NOT NULL DEFAULT 'n'
@@ -196,7 +207,8 @@ CREATE TABLE `tbl_order_customer` (
 --
 
 INSERT INTO `tbl_order_customer` (`id_order_cust`, `kd_order`, `detail_order_kd`, `meja_id`, `tanggal_order`) VALUES
-(32, 'ODR20190504MJ0011', 'DTL20190504MJ0011', 1, '2019-05-04 23:00:13');
+(32, 'ODR20190504MJ0011', 'DTL20190504MJ0011', 1, '2019-05-04 23:00:13'),
+(33, 'ODR20190507MJ00233', 'DTL20190507MJ00233', 2, '2019-05-07 12:23:28');
 
 -- --------------------------------------------------------
 
@@ -234,7 +246,8 @@ CREATE TABLE `tbl_transaksi_pesanan` (
 --
 
 INSERT INTO `tbl_transaksi_pesanan` (`id_struk`, `order_kd`, `total_tagihan`, `nominal_pembayaran`, `kembalian`, `payment_type_id`, `lunas`, `bungkus`, `pos_computer_id`, `id_pegawai`, `tgl_pembayaran`) VALUES
-(32, 'ODR20190504MJ0011', 0, 0, 0, -1, 'n', 'n', 1, 1, NULL);
+(32, 'ODR20190504MJ0011', 0, 0, 0, -1, 'y', 'n', 1, 1, '2019-05-07 12:17:09'),
+(33, 'ODR20190507MJ00233', 0, 0, 0, -1, 'n', 'n', 1, 1, '2019-06-07 12:17:09');
 
 --
 -- Indexes for dumped tables
@@ -312,7 +325,7 @@ ALTER TABLE `tbl_transaksi_pesanan`
 -- AUTO_INCREMENT for table `tbl_detail_order_customer`
 --
 ALTER TABLE `tbl_detail_order_customer`
-  MODIFY `id_detail_order` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_detail_order` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 --
 -- AUTO_INCREMENT for table `tbl_master_item_menu`
 --
@@ -347,7 +360,7 @@ ALTER TABLE `tbl_master_user_application`
 -- AUTO_INCREMENT for table `tbl_order_customer`
 --
 ALTER TABLE `tbl_order_customer`
-  MODIFY `id_order_cust` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id_order_cust` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 --
 -- AUTO_INCREMENT for table `tbl_struk_for_koki`
 --
@@ -357,7 +370,7 @@ ALTER TABLE `tbl_struk_for_koki`
 -- AUTO_INCREMENT for table `tbl_transaksi_pesanan`
 --
 ALTER TABLE `tbl_transaksi_pesanan`
-  MODIFY `id_struk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id_struk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
