@@ -22,23 +22,23 @@ public class ConfigDatabase {
     static String database;
     static Integer port;
     static String urldb;
-    private static Connection koneksi;
+    protected static Connection koneksi;
 
     ConfigDatabase() {
         setConf();
     }
 
     protected static void setConf() {
-        ConfigDatabase.host = "imzazmi.com";
-        ConfigDatabase.username = "dev_imza";
-        ConfigDatabase.password = "dev_imza";
+        ConfigDatabase.host = "localhost";
+        ConfigDatabase.username = "root";
+        ConfigDatabase.password = "123456";
         ConfigDatabase.driver = "mysql";
         ConfigDatabase.database = "pointofsale";
         ConfigDatabase.port = 3306;
         ConfigDatabase.urldb = "jdbc:" + driver + "://" + ConfigDatabase.host + ":" + ConfigDatabase.port + "/" + ConfigDatabase.database;
     }
 
-    public Connection connect() {
+    protected Connection connect() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
         } catch (ClassNotFoundException ex) {
