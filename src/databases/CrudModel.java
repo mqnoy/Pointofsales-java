@@ -714,14 +714,3 @@ public class CrudModel extends ConfigDatabase {
     }
 
 }
-
-/*
-
- SELECT *
- from tbl_order_customer tb_ordercust
- INNER join tbl_master_meja tb_meja
- ON tb_ordercust.meja_kd = tb_meja.kd_meja
-
-
-
- */
