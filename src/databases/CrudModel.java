@@ -19,6 +19,7 @@ import java.util.logging.Logger;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import static Crud.Form_crud_userAplikasi.*;
+import static Crud.Form_list_menu.JTBL_draft_order;
 import static Crud.Form_order.JTBL_form_order;
 import static pointofsale_backend.Library.generateOrder;
 import static pointofsale_backend.Library.tanggalan;
@@ -230,8 +231,8 @@ public class CrudModel extends ConfigDatabase {
      * @param var_kdmenu
      * @return ditemukan
      */
-    public static void getMenulistDB(String var_selected, String var_keywords) {
-        DefaultTableModel tabmode = getDatatabel(JTBL_listMenu);
+    public static void getMenulistDB(String var_selected, String var_keywords,JTable table) {
+        DefaultTableModel tabmode = getDatatabel(table);
         String sql = null;
         try {
             //JTBL_listMenu.setModel(tabmode);
@@ -494,7 +495,7 @@ public class CrudModel extends ConfigDatabase {
     }
 
     public static void insert_OrderCustomer_menu(String kd_orderdetail) {
-        int tot_draft_orderMenu = JTBL_form_order.getRowCount();
+        int tot_draft_orderMenu = JTBL_draft_order.getRowCount();
 
         String query_insert_detail_order = "INSERT into tbl_detail_order_customer (kd_detail_order,item_menu_id,qty) VALUES (?,?,?)";
         try {
@@ -504,8 +505,8 @@ public class CrudModel extends ConfigDatabase {
             for (int row = 0; row < tot_draft_orderMenu; row++) {
                 //"no", "kode menu", "qty", "subtotall"
 
-                String str_kdmenu = (String) JTBL_form_order.getValueAt(row, 1);
-                Integer int_qty = (Integer) JTBL_form_order.getValueAt(row, 2);
+                String str_kdmenu = (String) JTBL_draft_order.getValueAt(row, 1);
+                Integer int_qty = (Integer) JTBL_draft_order.getValueAt(row, 2);
                 int int_kdmenu = get_id_menu(str_kdmenu);
 
                 ps2.setString(1, kd_orderdetail);
@@ -695,7 +696,7 @@ public class CrudModel extends ConfigDatabase {
             JTBL_bayar_tagihan.setModel(tabmode);
 
         } else if (tableName.equals(JTBL_form_order)) {
-            Object[] baris = {"No", "Kode menu", "qty", "subtotal(Rp)"};
+            Object[] baris = {"No", "Nama menu", "qty", "subtotal(Rp)"};
             tabmode = new DefaultTableModel(null, baris);
             JTBL_form_order.setModel(tabmode);
 
