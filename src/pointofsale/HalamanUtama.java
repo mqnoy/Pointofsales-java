@@ -104,7 +104,6 @@ public class HalamanUtama extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Point Of Sale");
         setName("frame_hal_utama"); // NOI18N
-        setUndecorated(true);
         setResizable(false);
 
         jpanel_header.setPreferredSize(new java.awt.Dimension(0, 100));
@@ -371,7 +370,7 @@ public class HalamanUtama extends javax.swing.JFrame {
 
         getAccessibleContext().setAccessibleName("halaman_utama");
 
-        setSize(new java.awt.Dimension(1024, 768));
+        setSize(new java.awt.Dimension(1040, 807));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
     
