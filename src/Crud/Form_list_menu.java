@@ -8,8 +8,8 @@ package Crud;
 import java.awt.List;
 import javax.swing.table.DefaultTableModel;
 import static pointofsale_backend.Frame_control.tampil_NotAvailable;
-import static Crud.Form_order.JTBL_form_order;
 import static databases.CrudModel.getMenulistDB;
+import static databases.CrudModel.insert_OrderCustomer_menu;
 
 /**
  *
@@ -27,10 +27,17 @@ public class Form_list_menu extends javax.swing.JFrame {
     public Form_list_menu() {
         initComponents();
 //        tableName = JTBL_listMenu;
-        getMenulistDB(pencarian,typing_keyword);
+        getMenulistDB(pencarian,typing_keyword,JTBL_listMenu);
         String[] col_tbl_listmenu = {"", "", "", ""};
+        
+        //req focus untuk langsung ketik qty
+        jTextField_qty.requestFocus();
+        
+        //hide some labels
+        lbl_flm_kodeOrder.setVisible(false);
+        lbl_flm_kodeOrder_detail.setVisible(false);
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -47,22 +54,21 @@ public class Form_list_menu extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         JTBL_listMenu = new javax.swing.JTable();
-        cb_flm_ktgmenu = new javax.swing.JComboBox<>();
+        jPanel3 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        JTBL_draft_order = new javax.swing.JTable();
+        lbl_flm_kodeOrder_detail = new javax.swing.JLabel();
+        lbl_flm_kodeOrder = new javax.swing.JLabel();
+        cb_flm_ktgmenu = new javax.swing.JComboBox<String>();
         txt_search_menus = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         btn_flm_kembali = new javax.swing.JButton();
-        tbl_tambah_keOrder = new javax.swing.JButton();
         btn_flm_cari = new javax.swing.JButton();
-        jSeparator1 = new javax.swing.JSeparator();
-        jPanel3 = new javax.swing.JPanel();
-        jLabel_nmMenu = new javax.swing.JLabel();
-        jLabel_Qty = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
 
         jDialog_inputQty.setTitle("Input jumlah item");
         jDialog_inputQty.setAlwaysOnTop(true);
-        jDialog_inputQty.setMaximumSize(new java.awt.Dimension(260, 145));
         jDialog_inputQty.setMinimumSize(new java.awt.Dimension(260, 145));
-        jDialog_inputQty.setPreferredSize(new java.awt.Dimension(260, 145));
         jDialog_inputQty.setResizable(false);
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("qty"));
@@ -118,11 +124,11 @@ public class Form_list_menu extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jDialog_inputQty.getAccessibleContext().setAccessibleParent(tbl_tambah_keOrder);
-
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Daftar menu");
         setResizable(false);
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         JTBL_listMenu.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -151,26 +157,95 @@ public class Form_list_menu extends javax.swing.JFrame {
             JTBL_listMenu.getColumnModel().getColumn(4).setResizable(false);
         }
 
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Draft order customer"));
+
+        JTBL_draft_order.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "No", "Kd menu", "qty", "subtotal"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        JTBL_draft_order.getTableHeader().setReorderingAllowed(false);
+        jScrollPane2.setViewportView(JTBL_draft_order);
+        if (JTBL_draft_order.getColumnModel().getColumnCount() > 0) {
+            JTBL_draft_order.getColumnModel().getColumn(0).setResizable(false);
+            JTBL_draft_order.getColumnModel().getColumn(1).setResizable(false);
+            JTBL_draft_order.getColumnModel().getColumn(2).setResizable(false);
+            JTBL_draft_order.getColumnModel().getColumn(3).setResizable(false);
+        }
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2)
+                .addContainerGap())
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        lbl_flm_kodeOrder_detail.setText("jLabel1");
+
+        lbl_flm_kodeOrder.setText("jLabel1");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 591, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(lbl_flm_kodeOrder_detail)
+                        .addGap(18, 18, 18)
+                        .addComponent(lbl_flm_kodeOrder)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 364, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(6, 6, 6)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 274, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbl_flm_kodeOrder_detail)
+                    .addComponent(lbl_flm_kodeOrder))
+                .addGap(24, 24, 24))
         );
 
-        cb_flm_ktgmenu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "makanan", "minuman" }));
+        cb_flm_ktgmenu.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "makanan", "minuman" }));
+        cb_flm_ktgmenu.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         cb_flm_ktgmenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cb_flm_ktgmenuActionPerformed(evt);
+            }
+        });
+
+        txt_search_menus.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txt_search_menusKeyReleased(evt);
             }
         });
 
@@ -188,13 +263,6 @@ public class Form_list_menu extends javax.swing.JFrame {
             }
         });
 
-        tbl_tambah_keOrder.setText("tambahkan ke order");
-        tbl_tambah_keOrder.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tbl_tambah_keOrderActionPerformed(evt);
-            }
-        });
-
         btn_flm_cari.setText("cari menu");
         btn_flm_cari.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -202,86 +270,86 @@ public class Form_list_menu extends javax.swing.JFrame {
             }
         });
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Draft menu"));
-
-        jLabel_nmMenu.setText("nama menu?");
-
-        jLabel_Qty.setText("qty?");
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel_Qty, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel_nmMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(jLabel_nmMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(jLabel_Qty, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
+        jButton2.setText("order");
+        jButton2.setMaximumSize(new java.awt.Dimension(67, 23));
+        jButton2.setMinimumSize(new java.awt.Dimension(67, 23));
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(tbl_tambah_keOrder, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txt_search_menus, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
-                    .addComponent(cb_flm_ktgmenu, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btn_flm_cari, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btn_flm_kembali, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(4, 4, 4))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jSeparator1)
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 63, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txt_search_menus, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btn_flm_cari, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(cb_flm_ktgmenu, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btn_flm_kembali)))
+                .addGap(12, 12, 12))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(btn_flm_kembali, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
+                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(cb_flm_ktgmenu))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btn_flm_cari, javax.swing.GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE)
+                            .addComponent(btn_flm_cari, javax.swing.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)
                             .addComponent(txt_search_menus)))
-                    .addComponent(tbl_tambah_keOrder, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btn_flm_kembali, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(2, 2, 2)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    private static void input_to_draftorder(){
+        // TODO add your handling code here:
+        System.out.println("input_to_draftorder ");
+        int a = 1;
+        int number = JTBL_draft_order.getRowCount()+a;
+        List li = new List();
 
+        Form_list_menu.subtotal = menuQty*int_HargaMenu;
+
+//        Form_list_menu list_menu = new Form_list_menu();
+        DefaultTableModel model = (DefaultTableModel) JTBL_draft_order.getModel();
+        model.addRow(new Object[]{
+            number, KdMenu, menuQty, subtotal
+        });
+
+        li.setVisible(true);
+//        jLabel_nmMenu.setText("nama menu?");
+//        jLabel_Qty.setText("qty?");
+        menuQty = 0;
+    }
+        
     private void btn_flm_kembaliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_flm_kembaliActionPerformed
         // TODO add your handling code here:
         this.setVisible(false);
@@ -304,37 +372,17 @@ public class Form_list_menu extends javax.swing.JFrame {
 //        Form_list_menu.HargaMenu = JTBL_listMenu.getModel().getValueAt(row, 4).toString();
         Form_list_menu.int_HargaMenu = Integer.parseInt(JTBL_listMenu.getValueAt(row, 4).toString());
 
-
+        
         System.out.println("harganya " + int_HargaMenu);
     }//GEN-LAST:event_JTBL_listMenuMouseClicked
-
-    private void tbl_tambah_keOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbl_tambah_keOrderActionPerformed
-        // TODO add your handling code here:
-        int a = 1;
-        int number = JTBL_form_order.getRowCount()+a;
-        List li = new List();
-
-        Form_list_menu.subtotal = menuQty*int_HargaMenu;
-
-//        Form_list_menu list_menu = new Form_list_menu();
-        DefaultTableModel model = (DefaultTableModel) JTBL_form_order.getModel();
-        model.addRow(new Object[]{
-            number, KdMenu, menuQty, subtotal
-        });
-
-        li.setVisible(true);
-        jLabel_nmMenu.setText("nama menu?");
-        jLabel_Qty.setText("qty?");
-        menuQty = 0;
-    }//GEN-LAST:event_tbl_tambah_keOrderActionPerformed
 
     private void jButton_qtyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_qtyActionPerformed
         // TODO add your handling code here:
         menuQty = Integer.parseInt(jTextField_qty.getText());
         if (menuQty > 0) {
-            jLabel_Qty.setText(menuQty.toString());
-            jLabel_nmMenu.setText(nmMenu);
-            jTextField_qty.setText("0");
+            input_to_draftorder();
+            jTextField_qty.requestFocus();
+            jTextField_qty.setText("");
 
             jDialog_inputQty.setVisible(false);
 
@@ -349,8 +397,9 @@ public class Form_list_menu extends javax.swing.JFrame {
 //        System.out.println(str_key);
         if (str_key.equals("Enter")) {
             if (menuQty > 0) {
-                jLabel_Qty.setText(menuQty.toString());
-                jLabel_nmMenu.setText(nmMenu);
+                
+//                jLabel_Qty.setText(menuQty.toString());
+//                jLabel_nmMenu.setText(nmMenu);
                 jDialog_inputQty.setVisible(false);
 
             } else {
@@ -387,9 +436,32 @@ public class Form_list_menu extends javax.swing.JFrame {
         }
         if (tangkap_val.length() != 0 && tangkap_val.length() >= 3) {
             typing_keyword = tangkap_val;
-            getMenulistDB(pencarian,typing_keyword);
+            getMenulistDB(pencarian,typing_keyword,JTBL_listMenu);
+            pencarian=null;
+            typing_keyword=null;
         }
+        
     }//GEN-LAST:event_btn_flm_cariActionPerformed
+
+    private void txt_search_menusKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_search_menusKeyReleased
+        // TODO add your handling code here:
+        if (txt_search_menus.getText().length() == 0 ){
+            pencarian=null;
+            typing_keyword=null;
+            getMenulistDB(pencarian,typing_keyword,JTBL_listMenu);
+        }
+    }//GEN-LAST:event_txt_search_menusKeyReleased
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        insert_OrderCustomer_menu(lbl_flm_kodeOrder_detail.getText());
+              
+        DefaultTableModel tbl_draft_order = (DefaultTableModel)JTBL_draft_order.getModel();
+        while(tbl_draft_order.getRowCount() > 0) {
+            tbl_draft_order.removeRow(0);
+        }
+        Form_order.getAlldata_table_order();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -426,22 +498,23 @@ public class Form_list_menu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public static javax.swing.JTable JTBL_draft_order;
     public static javax.swing.JTable JTBL_listMenu;
     private javax.swing.JButton btn_flm_cari;
     private javax.swing.JButton btn_flm_kembali;
     private javax.swing.JComboBox<String> cb_flm_ktgmenu;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton_qty;
     private javax.swing.JDialog jDialog_inputQty;
-    private javax.swing.JLabel jLabel_Qty;
-    private javax.swing.JLabel jLabel_nmMenu;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField jTextField_qty;
-    private javax.swing.JButton tbl_tambah_keOrder;
+    public javax.swing.JLabel lbl_flm_kodeOrder;
+    public javax.swing.JLabel lbl_flm_kodeOrder_detail;
     private javax.swing.JTextField txt_search_menus;
     // End of variables declaration//GEN-END:variables
 }
