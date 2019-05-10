@@ -35,7 +35,7 @@ public class Form_crud_menu extends javax.swing.JFrame {
     public Form_crud_menu() {
         initComponents();
 //        tableName = JTBL_listMenu_crud;
-        getMenulistDB(null,null);
+        getMenulistDB(null,null,JTBL_listMenu_crud);
     }
 
     /**
@@ -427,7 +427,7 @@ public class Form_crud_menu extends javax.swing.JFrame {
                 if (notif_ins_menulist) {
                     JOptionPane.showMessageDialog(this, "insert data success");
                     refresh();
-                    getMenulistDB(null,null);
+                    getMenulistDB(null,null,JTBL_listMenu_crud);
                 } else if (notif_ins_found_menulist = true) {
                     JOptionPane.showMessageDialog(this, "cant insert ,duplicated kd menu!");
                 } else {
@@ -487,7 +487,7 @@ public class Form_crud_menu extends javax.swing.JFrame {
             if (notif_updt_menulist) {
                 JOptionPane.showMessageDialog(this, "update data sucess");
                 refresh();
-                getMenulistDB(null,null);
+                getMenulistDB(null,null,JTBL_listMenu_crud);
             } else {
                 JOptionPane.showMessageDialog(this, "update data failed");
             }
@@ -504,7 +504,7 @@ public class Form_crud_menu extends javax.swing.JFrame {
                 delete_MenulistDB(val_menukode);
                 if (notif_del_menulist) {
                     refresh();
-                    getMenulistDB(null,null);
+                    getMenulistDB(null,null,JTBL_listMenu_crud);
                     JOptionPane.showMessageDialog(this, "delete data sucess");
                 } else {
                     JOptionPane.showMessageDialog(this, "delete data failed");
