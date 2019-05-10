@@ -101,8 +101,10 @@ public class Frame_control extends SetGet{
     }
     
     //method untuk tampil list menu
-    public static void tampil_form_list_menu() {
+    public static void tampil_form_list_menu(String kd_order,String kd_orderdetail) {
         Form_list_menu form_list_menu = new Form_list_menu();
+        form_list_menu.lbl_flm_kodeOrder.setText(kd_order);
+        form_list_menu.lbl_flm_kodeOrder_detail.setText(kd_orderdetail);
         //set biar di tengah         
         form_list_menu.pack();
         form_list_menu.setLocationRelativeTo(null);
