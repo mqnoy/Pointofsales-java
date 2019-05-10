@@ -5,13 +5,8 @@
  */
 package Crud;
 import static databases.CrudModel.delete_OrderCustomer;
-import static databases.CrudModel.insert_OrderCustomer_menu;
 import static databases.CrudModel.select_OrderCustomer_menu;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import pointofsale.Popup_pilihan_meja;
 import static pointofsale_backend.Frame_control.*;
 /**
  *
@@ -26,6 +21,18 @@ public class Form_order extends javax.swing.JFrame {
     public Form_order() {
         initComponents();
         
+    }
+    public static void getAlldata_table_order(){
+        System.out.println("getAlldata_table_order() executed");
+        select_OrderCustomer_menu(lbl_kodeOrder_detail.getText());
+        int total_datatable = JTBL_form_order.getRowCount();
+        if (total_datatable > 0 ) {
+            delete_detailorder = true;
+            btn_Order.setText("Ubah order");
+        }else{
+            btn_Order.setText("Order");
+        }
+        //
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -151,7 +158,7 @@ public class Form_order extends javax.swing.JFrame {
                     .addComponent(jLabel5)
                     .addComponent(lbl_kodeOrder_detail)
                     .addComponent(jLabel9))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(jLabel6)
@@ -170,7 +177,7 @@ public class Form_order extends javax.swing.JFrame {
 
             },
             new String [] {
-                "no", "kode menu", "qty", "subtotall"
+                "no", "nama menu", "qty", "subtotall"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -278,13 +285,11 @@ public class Form_order extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cmenu_tombolOrder1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(cmenu_tombolOrder1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -329,14 +334,12 @@ public class Form_order extends javax.swing.JFrame {
 
     private void btn_OrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_OrderActionPerformed
         // TODO add your handling code here:
-        System.out.println("order");
-        insert_OrderCustomer_menu(lbl_kodeOrder_detail.getText());
-        
+        System.out.println("order");        
     }//GEN-LAST:event_btn_OrderActionPerformed
 
     private void cmenu_tombolOrder1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmenu_tombolOrder1ActionPerformed
         // TODO add your handling code here:
-        tampil_form_list_menu();
+        tampil_form_list_menu(lbl_kodeOrder.getText(),lbl_kodeOrder_detail.getText());
     }//GEN-LAST:event_cmenu_tombolOrder1ActionPerformed
 
     private void cmenu_tombolOrder1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cmenu_tombolOrder1MouseClicked
@@ -354,15 +357,7 @@ public class Form_order extends javax.swing.JFrame {
 
     private void lbl_kodeOrder_detailPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_lbl_kodeOrder_detailPropertyChange
         // TODO add your handling code here:
-        select_OrderCustomer_menu(lbl_kodeOrder_detail.getText());
-        int total_datatable = JTBL_form_order.getRowCount();
-        if (total_datatable > 0 ) {
-            delete_detailorder = true;
-            btn_Order.setText("Ubah order");
-        }else{
-            btn_Order.setText("Order");
-        }
-        //
+        getAlldata_table_order();
     }//GEN-LAST:event_lbl_kodeOrder_detailPropertyChange
 
     /**
@@ -404,7 +399,7 @@ public class Form_order extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JTable JTBL_form_order;
-    private javax.swing.JButton btn_Order;
+    private static javax.swing.JButton btn_Order;
     private javax.swing.JButton btn_batal;
     private javax.swing.JButton btn_hapus;
     private javax.swing.JButton cmenu_tombolOrder1;
@@ -424,7 +419,7 @@ public class Form_order extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator2;
     public javax.swing.JLabel lbl_kodeOrder;
-    public javax.swing.JLabel lbl_kodeOrder_detail;
+    public static javax.swing.JLabel lbl_kodeOrder_detail;
     public javax.swing.JLabel lbl_kodemeja;
     public javax.swing.JLabel lbl_total_rp_order;
     // End of variables declaration//GEN-END:variables
