@@ -4,15 +4,17 @@
  * and open the template in the editor.
  */
 package pointofsale;
+
 import static databases.CrudModel.insert_OrderCustomer;
 import javax.swing.JOptionPane;
 import static pointofsale_backend.Frame_control.*;
+
 /**
  *
  * @author Rifky <qnoy.rifky@gmail.com>
  */
 public class HalamanUtama extends javax.swing.JFrame {
-   
+
     /**
      * Creates new form CobaLayout
      */
@@ -20,48 +22,50 @@ public class HalamanUtama extends javax.swing.JFrame {
         giveAccess = true;//for testing set to true ,live pls comment with //
         if (giveAccess) {
             initComponents();
-        }else{
+        } else {
             int result = JOptionPane.showConfirmDialog(this, "anda belum login !", this.getTitle(), JOptionPane.YES_NO_OPTION);
-                if (result == JOptionPane.YES_OPTION){               
-                    tampilLogin_UserApp();
-                }else if (result == JOptionPane.NO_OPTION)   {
-                    System.exit(0);
+            if (result == JOptionPane.YES_OPTION) {
+                tampilLogin_UserApp();
+            } else if (result == JOptionPane.NO_OPTION) {
+                System.exit(0);
             }
         }
     }
-    public static void mulaiOrder(int var_id_meja){
+
+    public static void mulaiOrder(int var_id_meja) {
         String val_kodemeja = getKodeMeja(var_id_meja);
         String val_kodeorder = null;
         String val_kodeorderDetail = null;
         String _existsKodeOrder;
         String _existsKodeOrderdetail;
-        String _existsRp_tagihan ;
+        String _existsRp_tagihan;
         String set_text_tombol;
         boolean set_tombol_bayar;
-        
+
         getStatusMejaorder(val_kodemeja);
         if (notif_cek_order_tdklunas) {
             //ditemukan kode meja dan tidak lunas
-            _existsKodeOrder = get_existsRow_order(val_kodemeja,"kode_order");
-            _existsKodeOrderdetail = get_existsRow_order(val_kodemeja,"kode_orderdetail");
-            _existsRp_tagihan = get_existsRow_order(val_kodemeja,"rp_total");
-            System.out.println("kode order"+_existsKodeOrder);
-            System.out.println("kode detail order "+_existsKodeOrderdetail);
-            System.out.println("kdmeja @hal utama = "+val_kodemeja);
-            set_text_tombol ="Edit order" ;
+            _existsKodeOrder = get_existsRow_order(val_kodemeja, "kode_order");
+            _existsKodeOrderdetail = get_existsRow_order(val_kodemeja, "kode_orderdetail");
+            _existsRp_tagihan = get_existsRow_order(val_kodemeja, "rp_total");
+            System.out.println("kode order" + _existsKodeOrder);
+            System.out.println("kode detail order " + _existsKodeOrderdetail);
+            System.out.println("kdmeja @hal utama = " + val_kodemeja);
+            set_text_tombol = "Edit order";
             set_tombol_bayar = true;
-            tampil_Popup_pilMeja(val_kodemeja ,_existsKodeOrder,_existsKodeOrderdetail,_existsRp_tagihan,set_text_tombol,set_tombol_bayar);
-        }else{
+            tampil_Popup_pilMeja(val_kodemeja, _existsKodeOrder, _existsKodeOrderdetail, _existsRp_tagihan, set_text_tombol, set_tombol_bayar);
+        } else {
             insert_OrderCustomer(var_id_meja);
-            _existsKodeOrder = get_existsRow_order(val_kodemeja,"kode_order");
-            _existsKodeOrderdetail = get_existsRow_order(val_kodemeja,"kode_orderdetail");
-            _existsRp_tagihan = get_existsRow_order(val_kodemeja,"rp_total");
-            set_text_tombol ="Mulai order" ;
+            _existsKodeOrder = get_existsRow_order(val_kodemeja, "kode_order");
+            _existsKodeOrderdetail = get_existsRow_order(val_kodemeja, "kode_orderdetail");
+            _existsRp_tagihan = get_existsRow_order(val_kodemeja, "rp_total");
+            set_text_tombol = "Mulai order";
             set_tombol_bayar = false;
-            tampil_Popup_pilMeja(val_kodemeja ,_existsKodeOrder,_existsKodeOrderdetail,_existsRp_tagihan,set_text_tombol,set_tombol_bayar);
-            
+            tampil_Popup_pilMeja(val_kodemeja, _existsKodeOrder, _existsKodeOrderdetail, _existsRp_tagihan, set_text_tombol, set_tombol_bayar);
+
         }
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -71,6 +75,7 @@ public class HalamanUtama extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
         jpanel_header = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         layout_meja_dan_menu = new javax.swing.JSplitPane();
@@ -88,24 +93,36 @@ public class HalamanUtama extends javax.swing.JFrame {
         jpanel_menu_kanan = new javax.swing.JPanel();
         jButton11 = new javax.swing.JButton();
         jButton12 = new javax.swing.JButton();
-        jToggleButton2 = new javax.swing.JToggleButton();
-        jToggleButton3 = new javax.swing.JToggleButton();
         jButton14 = new javax.swing.JButton();
         tbl_keluar_sesi_1 = new javax.swing.JButton();
         layout_footer = new javax.swing.JSplitPane();
         jPanel_footer_kiri = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jPanel_footer_kanan = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu2 = new javax.swing.JMenu();
-        jMenu1 = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Point Of Sale");
+        setBackground(new java.awt.Color(255, 255, 255));
+        setExtendedState(6);
+        setMaximumSize(new java.awt.Dimension(1028, 1024));
+        setMinimumSize(new java.awt.Dimension(1024, 768));
         setName("frame_hal_utama"); // NOI18N
+        setUndecorated(true);
+        setPreferredSize(new java.awt.Dimension(1024, 768));
         setResizable(false);
 
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setMaximumSize(new java.awt.Dimension(1280, 1024));
+        jPanel1.setMinimumSize(new java.awt.Dimension(1024, 768));
+        jPanel1.setName(""); // NOI18N
+        jPanel1.setPreferredSize(new java.awt.Dimension(1024, 768));
+
+        jpanel_header.setBackground(new java.awt.Color(255, 255, 255));
         jpanel_header.setPreferredSize(new java.awt.Dimension(0, 100));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
@@ -132,6 +149,7 @@ public class HalamanUtama extends javax.swing.JFrame {
         layout_meja_dan_menu.setMinimumSize(new java.awt.Dimension(1024, 436));
         layout_meja_dan_menu.setPreferredSize(new java.awt.Dimension(1024, 436));
 
+        jpanel_meja.setBackground(new java.awt.Color(255, 255, 255));
         jpanel_meja.setMinimumSize(new java.awt.Dimension(500, 69));
         jpanel_meja.setPreferredSize(new java.awt.Dimension(800, 400));
         jpanel_meja.setLayout(new java.awt.GridLayout(3, 3));
@@ -187,9 +205,13 @@ public class HalamanUtama extends javax.swing.JFrame {
 
         jPanel2.setPreferredSize(new java.awt.Dimension(200, 472));
 
+        jpanel_menu_kanan.setBackground(new java.awt.Color(255, 255, 255));
         jpanel_menu_kanan.setMinimumSize(new java.awt.Dimension(205, 436));
         jpanel_menu_kanan.setPreferredSize(new java.awt.Dimension(205, 436));
 
+        jButton11.setBackground(new java.awt.Color(51, 51, 51));
+        jButton11.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        jButton11.setForeground(new java.awt.Color(255, 255, 255));
         jButton11.setText("Laporan penjualan");
         jButton11.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -197,17 +219,19 @@ public class HalamanUtama extends javax.swing.JFrame {
             }
         });
 
-        jButton12.setText("Manajemen Menu");
+        jButton12.setBackground(new java.awt.Color(51, 51, 51));
+        jButton12.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        jButton12.setForeground(new java.awt.Color(255, 255, 255));
+        jButton12.setText("Manajemen pesanan menu");
         jButton12.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton12ActionPerformed(evt);
             }
         });
 
-        jToggleButton2.setText("keluar");
-
-        jToggleButton3.setText("keluar");
-
+        jButton14.setBackground(new java.awt.Color(51, 51, 51));
+        jButton14.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        jButton14.setForeground(new java.awt.Color(255, 255, 255));
         jButton14.setText("Manajemen Meja");
         jButton14.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -215,6 +239,9 @@ public class HalamanUtama extends javax.swing.JFrame {
             }
         });
 
+        tbl_keluar_sesi_1.setBackground(new java.awt.Color(51, 51, 51));
+        tbl_keluar_sesi_1.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        tbl_keluar_sesi_1.setForeground(new java.awt.Color(255, 255, 255));
         tbl_keluar_sesi_1.setText("keluar");
         tbl_keluar_sesi_1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -229,48 +256,40 @@ public class HalamanUtama extends javax.swing.JFrame {
             .addGroup(jpanel_menu_kananLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jpanel_menu_kananLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton11, javax.swing.GroupLayout.DEFAULT_SIZE, 199, Short.MAX_VALUE)
+                    .addComponent(jButton11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpanel_menu_kananLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jToggleButton3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jToggleButton2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(tbl_keluar_sesi_1))
-                    .addComponent(jButton14, javax.swing.GroupLayout.DEFAULT_SIZE, 199, Short.MAX_VALUE)
-                    .addComponent(jButton12, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE))
+                    .addComponent(jButton14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton12, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jpanel_menu_kananLayout.setVerticalGroup(
             jpanel_menu_kananLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpanel_menu_kananLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
                 .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton14, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 232, Short.MAX_VALUE)
-                .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(jpanel_menu_kananLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jToggleButton2)
-                    .addComponent(jToggleButton3)
-                    .addComponent(tbl_keluar_sesi_1))
-                .addContainerGap())
+                .addComponent(jButton14, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 300, Short.MAX_VALUE)
+                .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(tbl_keluar_sesi_1)
+                .addGap(18, 18, 18))
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 224, Short.MAX_VALUE)
+            .addGap(0, 205, Short.MAX_VALUE)
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jpanel_menu_kanan, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 219, Short.MAX_VALUE))
+                .addComponent(jpanel_menu_kanan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 436, Short.MAX_VALUE)
+            .addGap(0, 496, Short.MAX_VALUE)
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jpanel_menu_kanan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jpanel_menu_kanan, javax.swing.GroupLayout.DEFAULT_SIZE, 496, Short.MAX_VALUE))
         );
 
         layout_meja_dan_menu.setRightComponent(jPanel2);
@@ -278,6 +297,7 @@ public class HalamanUtama extends javax.swing.JFrame {
         layout_footer.setMinimumSize(new java.awt.Dimension(1024, 150));
         layout_footer.setPreferredSize(new java.awt.Dimension(1024, 150));
 
+        jPanel_footer_kiri.setBackground(new java.awt.Color(255, 255, 255));
         jPanel_footer_kiri.setBorder(javax.swing.BorderFactory.createTitledBorder("Daftar pesanan"));
         jPanel_footer_kiri.setMinimumSize(new java.awt.Dimension(700, 100));
         jPanel_footer_kiri.setPreferredSize(new java.awt.Dimension(700, 174));
@@ -308,41 +328,80 @@ public class HalamanUtama extends javax.swing.JFrame {
         );
         jPanel_footer_kiriLayout.setVerticalGroup(
             jPanel_footer_kiriLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
+            .addGroup(jPanel_footer_kiriLayout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         layout_footer.setLeftComponent(jPanel_footer_kiri);
 
-        javax.swing.GroupLayout jPanel_footer_kananLayout = new javax.swing.GroupLayout(jPanel_footer_kanan);
-        jPanel_footer_kanan.setLayout(jPanel_footer_kananLayout);
-        jPanel_footer_kananLayout.setHorizontalGroup(
-            jPanel_footer_kananLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 317, Short.MAX_VALUE)
         );
-        jPanel_footer_kananLayout.setVerticalGroup(
-            jPanel_footer_kananLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 148, Short.MAX_VALUE)
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 122, Short.MAX_VALUE)
         );
 
-        layout_footer.setRightComponent(jPanel_footer_kanan);
+        layout_footer.setRightComponent(jPanel3);
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jpanel_header, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(layout_footer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(layout_meja_dan_menu, javax.swing.GroupLayout.PREFERRED_SIZE, 1010, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(4, Short.MAX_VALUE)))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jpanel_header, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(layout_footer, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0))
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGap(106, 106, 106)
+                    .addComponent(layout_meja_dan_menu, javax.swing.GroupLayout.PREFERRED_SIZE, 496, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(166, Short.MAX_VALUE)))
+        );
 
         jMenuBar1.setPreferredSize(new java.awt.Dimension(150, 30));
 
-        jMenu2.setText("Bantuan");
-        jMenu2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jMenu2MouseClicked(evt);
-            }
-        });
-        jMenuBar1.add(jMenu2);
+        jMenu2.setText("Menu aplikasi");
 
-        jMenu1.setText("Manajemen user");
-        jMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jMenu1MouseClicked(evt);
+        jMenuItem2.setText("Manajemen user aplikasi");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
             }
         });
-        jMenuBar1.add(jMenu1);
+        jMenu2.add(jMenuItem2);
+
+        jMenuItem1.setText("Keluar aplikasi");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem1);
+
+        jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
 
@@ -350,42 +409,33 @@ public class HalamanUtama extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jpanel_header, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1024, Short.MAX_VALUE)
-            .addComponent(layout_footer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(layout_meja_dan_menu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jpanel_header, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 488, Short.MAX_VALUE)
-                .addComponent(layout_footer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addContainerGap(131, Short.MAX_VALUE)
-                    .addComponent(layout_meja_dan_menu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(171, Short.MAX_VALUE)))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 738, Short.MAX_VALUE)
         );
+
+        jPanel1.getAccessibleContext().setAccessibleName("");
 
         getAccessibleContext().setAccessibleName("halaman_utama");
 
-        setSize(new java.awt.Dimension(1040, 807));
+        setSize(new java.awt.Dimension(1024, 768));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-    
+
     private void btn_meja9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_meja9ActionPerformed
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_btn_meja9ActionPerformed
 
     private void btn_meja1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_meja1ActionPerformed
-       mulaiOrder(1);
+        mulaiOrder(1);
     }//GEN-LAST:event_btn_meja1ActionPerformed
 
     private void btn_meja7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_meja7ActionPerformed
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_btn_meja7ActionPerformed
 
     private void btn_meja2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_meja2ActionPerformed
@@ -408,27 +458,32 @@ public class HalamanUtama extends javax.swing.JFrame {
         tampil_NotAvailable();
     }//GEN-LAST:event_jButton14ActionPerformed
 
-    private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked
-        // TODO add your handling code here:
-        tampilCrud_UserApp();
-    }//GEN-LAST:event_jMenu1MouseClicked
-
-    private void jMenu2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu2MouseClicked
-        // TODO add your handling code here:
-        tampil_NotAvailable();
-    }//GEN-LAST:event_jMenu2MouseClicked
-
     private void tbl_keluar_sesi_1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbl_keluar_sesi_1ActionPerformed
         // TODO add your handling code here:
         int result = JOptionPane.showConfirmDialog(this, "Logout ?", this.getTitle(), JOptionPane.YES_NO_OPTION);
-                if (result == JOptionPane.YES_OPTION){               
-                    this.dispose();
-                    setClean_sesi();//clean atribut value
-                    tampilLogin_UserApp();
-                }else if (result == JOptionPane.NO_OPTION)   {
-                    this.setDefaultCloseOperation(this.DO_NOTHING_ON_CLOSE);
-            }
+        if (result == JOptionPane.YES_OPTION) {
+            this.dispose();
+            setClean_sesi();//clean atribut value
+            tampilLogin_UserApp();
+        } else if (result == JOptionPane.NO_OPTION) {
+            this.setDefaultCloseOperation(this.DO_NOTHING_ON_CLOSE);
+        }
     }//GEN-LAST:event_tbl_keluar_sesi_1ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        // TODO add your handling code here:
+        tampilCrud_UserApp();
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // TODO add your handling code here:
+        int result = JOptionPane.showConfirmDialog(this, "Keluar aplikasi?", this.getTitle(), JOptionPane.YES_NO_OPTION);
+        if (result == JOptionPane.YES_OPTION) {
+            System.exit(0);
+        } else if (result == JOptionPane.NO_OPTION) {
+            this.setDefaultCloseOperation(HalamanLogin.DO_NOTHING_ON_CLOSE);
+        }
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -463,9 +518,8 @@ public class HalamanUtama extends javax.swing.JFrame {
             public void run() {
                 new HalamanUtama().setVisible(true);
                 //set biar di tengah         
-                
+
                 //munculin framenya
-               
             }
         });
     }
@@ -484,16 +538,16 @@ public class HalamanUtama extends javax.swing.JFrame {
     private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton14;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel_footer_kanan;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel_footer_kiri;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JToggleButton jToggleButton2;
-    private javax.swing.JToggleButton jToggleButton3;
     private javax.swing.JPanel jpanel_header;
     private javax.swing.JPanel jpanel_meja;
     private javax.swing.JPanel jpanel_menu_kanan;
