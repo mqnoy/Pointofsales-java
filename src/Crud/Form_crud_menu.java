@@ -442,11 +442,11 @@ public class Form_crud_menu extends javax.swing.JFrame {
     private void txt_menuhargaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_menuhargaKeyReleased
         // TODO add your handling code here:
         try {
-            hargamenu_final = Double.parseDouble(txt_menuharga.getText());
+            hargamenu_final = Integer.parseInt(txt_menuharga.getText());
             lbl_menuharga.setText(txt_menuharga.getText());
 
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "parsing to double gagal !\n" + e);
+            JOptionPane.showMessageDialog(this, "parsing to int gagal !\n" + e);
             txt_menuharga.setText("0");
         }
     }//GEN-LAST:event_txt_menuhargaKeyReleased
