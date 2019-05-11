@@ -8,6 +8,7 @@ package databases;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -43,14 +44,16 @@ public class ConfigDatabase {
             Class.forName("com.mysql.jdbc.Driver");
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(ConfigDatabase.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("driver not found");
+//            System.out.println("driver not found");
+            JOptionPane.showMessageDialog(null, "driver not found\n" + ex);
         }
 
         try {
             koneksi = DriverManager.getConnection(urldb, username, password);
             System.out.println("Berhasil Koneksi Database");
         } catch (SQLException ex) {
-            System.out.println("Gagal Koneksi Database" + ex);
+            JOptionPane.showMessageDialog(null, "Gagal Koneksi Database\n" + ex);
+            //System.out.println("Gagal Koneksi Database" + ex);
         }
         return koneksi;
     }
