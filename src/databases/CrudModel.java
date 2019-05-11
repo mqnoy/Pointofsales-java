@@ -537,7 +537,7 @@ public class CrudModel extends ConfigDatabase {
 
     public static void select_OrderCustomer_menu(String kd_orderdetail) {
         DefaultTableModel tabmode = getDatatabel(JTBL_form_order);
-        String query_select_ordercustomer_menu = "SELECT tdoc.qty,tmim.item_menu_nama,(tdoc.qty * tmim.item_menu_harga) as subtotal FROM tbl_detail_order_customer tdoc \n"
+        String query_select_ordercustomer_menu = "SELECT tdoc.qty,tdoc.id_detail_order,tmim.item_menu_nama,(tdoc.qty * tmim.item_menu_harga) as subtotal FROM tbl_detail_order_customer tdoc \n"
                 + "LEFT JOIN tbl_master_item_menu tmim ON tmim.id_item_menu = tdoc.item_menu_id \n"
                 + "WHERE tdoc.kd_detail_order='" + kd_orderdetail + "'";
 //        System.out.println(query_select_ordercustomer_menu);
@@ -546,11 +546,12 @@ public class CrudModel extends ConfigDatabase {
             ResultSet rs = stmt.executeQuery(query_select_ordercustomer_menu);
             int NUMBERS = 1;
             while (rs.next()) {
-                //"no", "nama menu", "qty", "subtotall"
-                String a = rs.getString("tmim.item_menu_nama");
-                int b = rs.getInt("tdoc.qty");
-                int c = rs.getInt("subtotal");
-                Object[] data = {NUMBERS, a, b, c};
+                //"no", ,"#id" "nama menu", "qty", "subtotall"
+                int a = rs.getInt("tdoc.id_detail_order");
+                String b = rs.getString("tmim.item_menu_nama");
+                int c = rs.getInt("tdoc.qty");
+                int d = rs.getInt("subtotal");
+                Object[] data = {NUMBERS, a, b, c ,d};
                 tabmode.addRow(data);
                 NUMBERS++;
             }
@@ -696,7 +697,7 @@ public class CrudModel extends ConfigDatabase {
             JTBL_bayar_tagihan.setModel(tabmode);
 
         } else if (tableName.equals(JTBL_form_order)) {
-            Object[] baris = {"No", "Nama menu", "qty", "subtotal(Rp)"};
+            Object[] baris = {"No", "#id" ,"Nama menu", "qty", "subtotal(Rp)"};
             tabmode = new DefaultTableModel(null, baris);
             JTBL_form_order.setModel(tabmode);
 
