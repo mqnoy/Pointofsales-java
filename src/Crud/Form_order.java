@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package Crud;
+import static Crud.Form_list_menu.JTBL_listMenu;
 import static databases.CrudModel.delete_OrderCustomer;
 import static databases.CrudModel.select_OrderCustomer_menu;
 import javax.swing.JOptionPane;
@@ -13,7 +14,7 @@ import static pointofsale_backend.Frame_control.*;
  * @author Rifky <qnoy.rifky@gmail.com>
  */
 public class Form_order extends javax.swing.JFrame {
-
+    private static boolean button_order = false;
     /**
      * Creates new form C_menu
      */
@@ -28,9 +29,17 @@ public class Form_order extends javax.swing.JFrame {
         int total_datatable = JTBL_form_order.getRowCount();
         if (total_datatable > 0 ) {
             delete_detailorder = true;
-            btn_Order.setText("Ubah order");
+            if (total_datatable > 1) {
+                btn_hapus_1pesanan.setEnabled(true);
+            }
+            btn_daftar_menu.setEnabled(true);
+            btn_Order.setText("Ubah pesanan");
+            button_order = false;
         }else{
-            btn_Order.setText("Order");
+            btn_hapus_1pesanan.setEnabled(false);
+            btn_daftar_menu.setEnabled(false);
+            btn_Order.setText("Tambah pesanan");
+            button_order = true;
         }
         //
     }
@@ -43,8 +52,12 @@ public class Form_order extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jDialog_listpesanan = new javax.swing.JDialog();
+        jPanel5 = new javax.swing.JPanel();
+        jButton3 = new javax.swing.JButton();
+        jTextField2 = new javax.swing.JTextField();
+        jButton2 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
-        cmenu_tombolOrder1 = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JSeparator();
         jPanel3 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
@@ -63,26 +76,73 @@ public class Form_order extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         JTBL_form_order = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
+        btn_hapus_1pesanan = new javax.swing.JButton();
+        btn_daftar_menu = new javax.swing.JButton();
         btn_Order = new javax.swing.JButton();
         btn_batal = new javax.swing.JButton();
-        btn_hapus = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+
+        jDialog_listpesanan.setBackground(new java.awt.Color(255, 51, 0));
+        jDialog_listpesanan.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jDialog_listpesanan.setUndecorated(true);
+        jDialog_listpesanan.setResizable(false);
+
+        jPanel5.setBackground(new java.awt.Color(255, 51, 0));
+        jPanel5.setForeground(new java.awt.Color(255, 51, 0));
+
+        jButton3.setText("Masukan");
+
+        jButton2.setText("X");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addContainerGap(54, Short.MAX_VALUE)
+                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGap(54, 54, 54)
+                        .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGap(50, 50, 50))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(16, 16, 16)
+                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(35, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout jDialog_listpesananLayout = new javax.swing.GroupLayout(jDialog_listpesanan.getContentPane());
+        jDialog_listpesanan.getContentPane().setLayout(jDialog_listpesananLayout);
+        jDialog_listpesananLayout.setHorizontalGroup(
+            jDialog_listpesananLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jDialog_listpesananLayout.setVerticalGroup(
+            jDialog_listpesananLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Form Order");
         setResizable(false);
-
-        cmenu_tombolOrder1.setText("Daftar menu");
-        cmenu_tombolOrder1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                cmenu_tombolOrder1MouseClicked(evt);
-            }
-        });
-        cmenu_tombolOrder1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmenu_tombolOrder1ActionPerformed(evt);
-            }
-        });
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Informasi pesanan"));
 
@@ -144,7 +204,7 @@ public class Form_order extends javax.swing.JFrame {
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(lbl_kodeOrder, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
                             .addComponent(lbl_kodeOrder_detail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap(81, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -177,11 +237,11 @@ public class Form_order extends javax.swing.JFrame {
 
             },
             new String [] {
-                "no", "nama menu", "qty", "subtotall"
+                "no", "#id", "nama menu", "qty", "subtotal"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -189,12 +249,24 @@ public class Form_order extends javax.swing.JFrame {
             }
         });
         JTBL_form_order.setMinimumSize(new java.awt.Dimension(500, 96));
+        JTBL_form_order.getTableHeader().setReorderingAllowed(false);
+        JTBL_form_order.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                JTBL_form_orderMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(JTBL_form_order);
         if (JTBL_form_order.getColumnModel().getColumnCount() > 0) {
             JTBL_form_order.getColumnModel().getColumn(0).setResizable(false);
+            JTBL_form_order.getColumnModel().getColumn(0).setHeaderValue("no");
             JTBL_form_order.getColumnModel().getColumn(1).setResizable(false);
+            JTBL_form_order.getColumnModel().getColumn(1).setHeaderValue("#id");
             JTBL_form_order.getColumnModel().getColumn(2).setResizable(false);
+            JTBL_form_order.getColumnModel().getColumn(2).setHeaderValue("nama menu");
             JTBL_form_order.getColumnModel().getColumn(3).setResizable(false);
+            JTBL_form_order.getColumnModel().getColumn(3).setHeaderValue("qty");
+            JTBL_form_order.getColumnModel().getColumn(4).setResizable(false);
+            JTBL_form_order.getColumnModel().getColumn(4).setHeaderValue("subtotal");
         }
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -205,52 +277,7 @@ public class Form_order extends javax.swing.JFrame {
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE)
-        );
-
-        btn_Order.setText("...");
-        btn_Order.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_OrderActionPerformed(evt);
-            }
-        });
-
-        btn_batal.setText("Batalkan");
-        btn_batal.setMaximumSize(new java.awt.Dimension(61, 23));
-        btn_batal.setMinimumSize(new java.awt.Dimension(61, 23));
-        btn_batal.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_batalActionPerformed(evt);
-            }
-        });
-
-        btn_hapus.setText("hapus");
-        btn_hapus.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_hapusActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addComponent(btn_hapus, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btn_batal, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btn_Order, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(2, 2, 2))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btn_batal, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_Order, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 1, Short.MAX_VALUE))
-            .addComponent(btn_hapus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE)
         );
 
         jButton1.setText("kembali");
@@ -260,42 +287,93 @@ public class Form_order extends javax.swing.JFrame {
             }
         });
 
+        btn_hapus_1pesanan.setText("Hapus (1)item");
+        btn_hapus_1pesanan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_hapus_1pesananActionPerformed(evt);
+            }
+        });
+
+        btn_daftar_menu.setText("Daftar menu");
+        btn_daftar_menu.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_daftar_menuMouseClicked(evt);
+            }
+        });
+        btn_daftar_menu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_daftar_menuActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btn_hapus_1pesanan)
+                .addGap(18, 18, 18)
+                .addComponent(btn_daftar_menu, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btn_hapus_1pesanan, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btn_daftar_menu, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        btn_Order.setText("...");
+        btn_Order.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_OrderActionPerformed(evt);
+            }
+        });
+
+        btn_batal.setText("Batalkan pesanan");
+        btn_batal.setMaximumSize(new java.awt.Dimension(61, 23));
+        btn_batal.setMinimumSize(new java.awt.Dimension(61, 23));
+        btn_batal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_batalActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(4, 4, 4)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(cmenu_tombolOrder1, javax.swing.GroupLayout.DEFAULT_SIZE, 96, Short.MAX_VALUE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jSeparator2)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(btn_batal, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btn_Order, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cmenu_tombolOrder1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btn_Order, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_batal, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(11, 11, 11)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -306,9 +384,7 @@ public class Form_order extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -334,21 +410,17 @@ public class Form_order extends javax.swing.JFrame {
 
     private void btn_OrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_OrderActionPerformed
         // TODO add your handling code here:
-        System.out.println("order");        
+        if (button_order) {
+            tampil_form_list_menu(lbl_kodeOrder.getText(),lbl_kodeOrder_detail.getText());        
+        }else{
+            System.out.println("update query order");
+        }
     }//GEN-LAST:event_btn_OrderActionPerformed
 
-    private void cmenu_tombolOrder1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmenu_tombolOrder1ActionPerformed
+    private void btn_hapus_1pesananActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_hapus_1pesananActionPerformed
         // TODO add your handling code here:
-        tampil_form_list_menu(lbl_kodeOrder.getText(),lbl_kodeOrder_detail.getText());
-    }//GEN-LAST:event_cmenu_tombolOrder1ActionPerformed
-
-    private void cmenu_tombolOrder1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cmenu_tombolOrder1MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cmenu_tombolOrder1MouseClicked
-
-    private void btn_hapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_hapusActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_hapusActionPerformed
+        
+    }//GEN-LAST:event_btn_hapus_1pesananActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
@@ -359,6 +431,27 @@ public class Form_order extends javax.swing.JFrame {
         // TODO add your handling code here:
         getAlldata_table_order();
     }//GEN-LAST:event_lbl_kodeOrder_detailPropertyChange
+
+    private void btn_daftar_menuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_daftar_menuActionPerformed
+        // TODO add your handling code here:
+        tampil_form_list_menu(lbl_kodeOrder.getText(),lbl_kodeOrder_detail.getText());
+    }//GEN-LAST:event_btn_daftar_menuActionPerformed
+
+    private void btn_daftar_menuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_daftar_menuMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_daftar_menuMouseClicked
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        jDialog_listpesanan.dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void JTBL_form_orderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JTBL_form_orderMouseClicked
+        // TODO add your handling code here:
+        jDialog_listpesanan.pack();
+        jDialog_listpesanan.setLocationRelativeTo(null);
+        jDialog_listpesanan.setVisible(true);
+    }//GEN-LAST:event_JTBL_form_orderMouseClicked
 
     /**
      * @param args the command line arguments
@@ -401,9 +494,12 @@ public class Form_order extends javax.swing.JFrame {
     public static javax.swing.JTable JTBL_form_order;
     private static javax.swing.JButton btn_Order;
     private javax.swing.JButton btn_batal;
-    private javax.swing.JButton btn_hapus;
-    private javax.swing.JButton cmenu_tombolOrder1;
+    private static javax.swing.JButton btn_daftar_menu;
+    private static javax.swing.JButton btn_hapus_1pesanan;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    public static javax.swing.JDialog jDialog_listpesanan;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -416,9 +512,11 @@ public class Form_order extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator2;
-    public javax.swing.JLabel lbl_kodeOrder;
+    private javax.swing.JTextField jTextField2;
+    public static javax.swing.JLabel lbl_kodeOrder;
     public static javax.swing.JLabel lbl_kodeOrder_detail;
     public javax.swing.JLabel lbl_kodemeja;
     public javax.swing.JLabel lbl_total_rp_order;
