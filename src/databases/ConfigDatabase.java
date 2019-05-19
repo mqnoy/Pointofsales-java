@@ -30,7 +30,7 @@ public class ConfigDatabase {
     }
 
     protected static void setConf() {
-        ConfigDatabase.host = "192.168.137.1";
+        ConfigDatabase.host = "localhost";
         ConfigDatabase.username = "root";
         ConfigDatabase.password = "123456";
         ConfigDatabase.driver = "mysql";

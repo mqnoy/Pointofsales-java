@@ -6,6 +6,7 @@
 package pointofsale_backend;
 
 import Crud.*;
+import java.awt.Color;
 import pointofsale.HalamanLogin;
 import pointofsale.HalamanUtama;
 import pointofsale.NotAvailable;
