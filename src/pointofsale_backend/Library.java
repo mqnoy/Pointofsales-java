@@ -2,9 +2,7 @@
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
- * https://stackoverflow.com/questions/3753869/how-do-i-concatenate-two-strings-in-java
- * https://stackoverflow.com/questions/8694984/remove-part-of-string-in-java
- * https://www.javatpoint.com/java-date-to-string
+ * 
  */
 package pointofsale_backend;
 
@@ -28,9 +26,15 @@ public class Library {
 
     public static String lib_tanggalwaktu;
 
-//    public Library(){
-//        tanggalan();//generate tanggal sekarang 
-//    }
+    public Library(){
+        tanggalan();//generate tanggal sekarang 
+        System.out.println("constructors");
+    }
+    /**
+     * 
+     * https://stackoverflow.com/questions/3753869/how-do-i-concatenate-two-strings-in-java
+     * https://stackoverflow.com/questions/8694984/remove-part-of-string-in-java
+     */
     public static String generateOrder(String dateOrder, Integer idMeja, String generateFor) {
         int order_idDB = 0;
         String orderPrefix = "", kodeMejaDB = "";
@@ -77,7 +81,22 @@ public class Library {
         return codeOrder;
 
     }
-
+    /**
+    *  method untuk parsing jdatepicker  untuk date di sql
+    * 
+     * @param raw_date
+     * @param raw_format
+     * @return 
+    */
+    public static String parsing_Jdate(Date raw_date,String raw_format){
+        DateFormat sdf = new SimpleDateFormat(raw_format);
+        return sdf.format(raw_date);
+    }
+    /**/
+    
+    /**
+     * https://www.javatpoint.com/java-date-to-string
+     */
     public static void tanggalan() {
         TimeZone tz = TimeZone.getTimeZone("Asia/Jakarta");
         //DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SS");
@@ -94,6 +113,8 @@ public class Library {
     /*
      * method untuk konvert text ke MD5
      * thx for  : https://stackoverflow.com/questions/415953/how-can-i-generate-an-md5-hash
+     * @param var_text
+     * @return 
      */
     public static String strTo_MD5(String var_text) {
         return DigestUtils.md5Hex(var_text);
@@ -102,10 +123,20 @@ public class Library {
     
 
     public static void main(String[] args) {
+        Library library = new Library();
+
 //        tanggalan();
 //        String generateOrder = generateOrder(lib_tanggalwaktu, 1,"generate_order");
-        System.out.println(strTo_MD5("admin"));
-        
+//        System.out.println(strTo_MD5("admin"));
+        //    Date tanggalAwal_rpt = rpt_tanggal_awal.getDate();
+//        Date tanggalAkhir_rpt = rpt_tanggal_akhir.getDate();
+//        DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//        String final_tanggalAwal_rpt = sdf.format(tanggalAwal_rpt);
+//        String final_tanggalAkhir_rpt = sdf.format(tanggalAkhir_rpt);
+         Date datetime = new Date();
+        String rawformat = "yyyy-MM-dd 00:00:00";
+        String anuan = parsing_Jdate(datetime,rawformat);
+        System.out.println(lib_tanggalwaktu);
     }
 
 }
