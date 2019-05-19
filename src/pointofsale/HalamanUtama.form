@@ -41,7 +41,6 @@
     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
       <Color blue="ff" green="ff" red="ff" type="rgb"/>
     </Property>
-    <Property name="extendedState" type="int" value="6"/>
     <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
       <Dimension value="[1028, 1024]"/>
     </Property>
@@ -310,7 +309,7 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <EmptySpace min="0" pref="496" max="32767" attributes="0"/>
                       <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-                          <Component id="jpanel_menu_kanan" alignment="0" pref="496" max="32767" attributes="0"/>
+                          <Component id="jpanel_menu_kanan" alignment="0" pref="494" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>

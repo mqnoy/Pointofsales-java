@@ -108,7 +108,6 @@ public class HalamanUtama extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Point Of Sale");
         setBackground(new java.awt.Color(255, 255, 255));
-        setExtendedState(6);
         setMaximumSize(new java.awt.Dimension(1028, 1024));
         setMinimumSize(new java.awt.Dimension(1024, 768));
         setName("frame_hal_utama"); // NOI18N
@@ -145,7 +144,6 @@ public class HalamanUtama extends javax.swing.JFrame {
                 .addContainerGap(23, Short.MAX_VALUE))
         );
 
-        layout_meja_dan_menu.setBorder(null);
         layout_meja_dan_menu.setMinimumSize(new java.awt.Dimension(1024, 436));
         layout_meja_dan_menu.setPreferredSize(new java.awt.Dimension(1024, 436));
 
@@ -289,7 +287,7 @@ public class HalamanUtama extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 496, Short.MAX_VALUE)
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jpanel_menu_kanan, javax.swing.GroupLayout.DEFAULT_SIZE, 496, Short.MAX_VALUE))
+                .addComponent(jpanel_menu_kanan, javax.swing.GroupLayout.DEFAULT_SIZE, 494, Short.MAX_VALUE))
         );
 
         layout_meja_dan_menu.setRightComponent(jPanel2);
