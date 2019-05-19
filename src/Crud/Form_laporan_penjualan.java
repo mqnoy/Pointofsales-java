@@ -5,9 +5,7 @@
  */
 package Crud;
 
-import databases.CrudModel;
-import java.sql.Connection;
-import java.text.DateFormat;
+import static databases.CrudModel.conn;
 import java.util.Date;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -17,7 +15,7 @@ import net.sf.jasperreports.engine.design.JRDesignQuery;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.view.JasperViewer;
-import java.text.SimpleDateFormat;
+import static pointofsale_backend.Library.parsing_Jdate;
 
 /**
  *
@@ -85,6 +83,11 @@ public class Form_laporan_penjualan extends javax.swing.JFrame {
         jLabel1.setText("Tanggal akhir");
 
         jButton1.setText("Cari");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -311,14 +314,11 @@ public class Form_laporan_penjualan extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        Connection conn = CrudModel.getConn();
         Date tanggalAwal_rpt = rpt_tanggal_awal.getDate();
         Date tanggalAkhir_rpt = rpt_tanggal_akhir.getDate();
-        DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String final_tanggalAwal_rpt = sdf.format(tanggalAwal_rpt);
-        String final_tanggalAkhir_rpt = sdf.format(tanggalAkhir_rpt);
-        System.out.println(final_tanggalAwal_rpt);
-        System.out.println(final_tanggalAkhir_rpt);
+        String final_tanggalAwal_rpt = parsing_Jdate(tanggalAwal_rpt,"yyyy-MM-dd 00:00:00");
+        String final_tanggalAkhir_rpt = parsing_Jdate(tanggalAkhir_rpt,"yyyy-MM-dd 00:00:00");
+
         try {
             String sql = "SELECT toc.tanggal_order,tmim.item_menu_nama,tdoc.qty,(tdoc.qty * tmim.item_menu_harga) as subtotal FROM tbl_order_customer toc \n"
                     + "LEFT JOIN tbl_detail_order_customer tdoc ON tdoc.kd_detail_order = toc.detail_order_kd\n"
@@ -339,6 +339,16 @@ public class Form_laporan_penjualan extends javax.swing.JFrame {
             System.out.println(e);
         }
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        Date tanggalAwal_rpt = rpt_tanggal_awal.getDate();
+        Date tanggalAkhir_rpt = rpt_tanggal_akhir.getDate();
+        String final_tanggalAwal_rpt = parsing_Jdate(tanggalAwal_rpt,"yyyy-MM-dd 00:00:00");
+        String final_tanggalAkhir_rpt = parsing_Jdate(tanggalAkhir_rpt,"yyyy-MM-dd 00:00:00");
+        
+        System.out.println(final_tanggalAwal_rpt+" s/d "+final_tanggalAkhir_rpt);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
