@@ -6,18 +6,18 @@
 package Crud;
 
 import databases.CrudModel;
+import java.sql.Connection;
+import java.text.DateFormat;
+import java.util.Date;
 import net.sf.jasperreports.engine.JasperCompileManager;
-import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.view.JasperViewer;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.util.HashMap;
 import net.sf.jasperreports.engine.design.JRDesignQuery;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.view.JasperViewer;
+import java.text.SimpleDateFormat;
 
 /**
  *
@@ -43,10 +43,10 @@ public class Form_laporan_penjualan extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        rpt_tanggal_awal = new com.toedter.calendar.JDateChooser();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        jDateChooser2 = new com.toedter.calendar.JDateChooser();
+        rpt_tanggal_akhir = new com.toedter.calendar.JDateChooser();
         jButton1 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
@@ -96,11 +96,11 @@ public class Form_laporan_penjualan extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(rpt_tanggal_awal, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(rpt_tanggal_akhir, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(21, Short.MAX_VALUE))
         );
@@ -112,8 +112,8 @@ public class Form_laporan_penjualan extends javax.swing.JFrame {
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(rpt_tanggal_awal, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(rpt_tanggal_akhir, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(15, 15, 15))
@@ -311,36 +311,29 @@ public class Form_laporan_penjualan extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        String reportSource = null;
-        String reportDest = null;
-//        Connection conn = CrudModel.conn;
         Connection conn = CrudModel.getConn();
-        reportSource = System.getProperty("user.dir") + "/src/Reporting/report_penjualan.jrxml";
-        reportDest = System.getProperty("user.dir") + "/src/Reporting/report_penjualan.jasper";
+        Date tanggalAwal_rpt = rpt_tanggal_awal.getDate();
+        Date tanggalAkhir_rpt = rpt_tanggal_akhir.getDate();
+        DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String final_tanggalAwal_rpt = sdf.format(tanggalAwal_rpt);
+        String final_tanggalAkhir_rpt = sdf.format(tanggalAkhir_rpt);
+        System.out.println(final_tanggalAwal_rpt);
+        System.out.println(final_tanggalAkhir_rpt);
         try {
-            
-            String sql = "SELECT toc.tanggal_order,tmim.item_menu_nama,tdoc.qty,(tdoc.qty * tmim.item_menu_harga) as subtotal FROM tbl_order_customer toc \n" +
-            "LEFT JOIN tbl_detail_order_customer tdoc ON tdoc.kd_detail_order = toc.detail_order_kd\n" +
-            "LEFT JOIN tbl_master_item_menu tmim ON tmim.id_item_menu = tdoc.item_menu_id\n" +
-            "LEFT JOIN tbl_transaksi_pesanan ttp ON ttp.order_kd = toc.kd_order\n" +
-            "WHERE ttp.lunas ='y' AND ttp.tgl_pembayaran BETWEEN '2019-05-07 00:00:00' AND '2019-06-07 23:59:59' ";
-            
-            
-            String report = "./src/Reporting/report_penjualan.jrxml";
-            HashMap hashMap = new HashMap();
-            hashMap.put("tgl1", "2019-05-07 00:00:00");
-            hashMap.put("tgl1", "2019-06-07 23:59:59");
-            JasperReport jasperReport = JasperCompileManager.compileReport(report);
-            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, hashMap, conn);
-            JasperViewer.viewReport(jasperPrint);
-            
-//          reportSource = System.getProperty("user.dir") + "/src/Reporting/report_penjualan.jrxml";
-//            reportDest = System.getProperty("user.dir") + "/src/Reporting/report_penjualan.jasper";
-//
-//            JasperReport jasperReport = JasperCompileManager.compileReport(reportSource);
-//            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, null, conn);
-//            JasperExportManager.exportReportToHtmlFile(jasperPrint, reportDest);
-//            JasperViewer.viewReport(jasperPrint, false);
+            String sql = "SELECT toc.tanggal_order,tmim.item_menu_nama,tdoc.qty,(tdoc.qty * tmim.item_menu_harga) as subtotal FROM tbl_order_customer toc \n"
+                    + "LEFT JOIN tbl_detail_order_customer tdoc ON tdoc.kd_detail_order = toc.detail_order_kd\n"
+                    + "LEFT JOIN tbl_master_item_menu tmim ON tmim.id_item_menu = tdoc.item_menu_id\n"
+                    + "LEFT JOIN tbl_transaksi_pesanan ttp ON ttp.order_kd = toc.kd_order\n"
+                    + "WHERE ttp.lunas ='y' AND ttp.tgl_pembayaran BETWEEN '"+final_tanggalAwal_rpt+"' AND '"+final_tanggalAkhir_rpt+"' ";
+            String reportPath = "E:\\qnoy\\kuliah_\\6.smt6\\pemrograman_visual\\posver1\\Pointofsales-java\\src\\Reporting\\report_penjualan.jrxml";
+            JasperDesign jd = JRXmlLoader.load(reportPath);
+            JRDesignQuery newQuery = new JRDesignQuery();
+            newQuery.setText(sql);
+            jd.setQuery(newQuery);
+
+            JasperReport jr = JasperCompileManager.compileReport(jd);
+            JasperPrint jp = JasperFillManager.fillReport(jr, null, conn);
+            JasperViewer.viewReport(jp);
 
         } catch (Exception e) {
             System.out.println(e);
@@ -386,8 +379,6 @@ public class Form_laporan_penjualan extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
-    private com.toedter.calendar.JDateChooser jDateChooser2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -408,5 +399,7 @@ public class Form_laporan_penjualan extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private com.toedter.calendar.JDateChooser rpt_tanggal_akhir;
+    private com.toedter.calendar.JDateChooser rpt_tanggal_awal;
     // End of variables declaration//GEN-END:variables
 }
