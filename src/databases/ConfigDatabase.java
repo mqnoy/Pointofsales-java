@@ -15,7 +15,6 @@ import javax.swing.JOptionPane;
  * @author rifky
  */
 public class ConfigDatabase {
-
     static String host;
     static String username;
     static String password;
@@ -24,11 +23,14 @@ public class ConfigDatabase {
     static Integer port;
     static String urldb;
     protected static Connection koneksi;
-
+    
     ConfigDatabase() {
         setConf();
+        connect();
     }
-
+    protected Connection getConn(){
+        return koneksi;
+    }
     protected static void setConf() {
         ConfigDatabase.host = "localhost";
         ConfigDatabase.username = "root";
@@ -39,12 +41,11 @@ public class ConfigDatabase {
         ConfigDatabase.urldb = "jdbc:" + driver + "://" + ConfigDatabase.host + ":" + ConfigDatabase.port + "/" + ConfigDatabase.database;
     }
 
-    protected Connection connect() {
+    protected  static Connection connect() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(ConfigDatabase.class.getName()).log(Level.SEVERE, null, ex);
-//            System.out.println("driver not found");
             JOptionPane.showMessageDialog(null, "driver not found\n" + ex);
         }
 
@@ -53,7 +54,6 @@ public class ConfigDatabase {
             System.out.println("Berhasil Koneksi Database");
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Gagal Koneksi Database\n" + ex);
-            //System.out.println("Gagal Koneksi Database" + ex);
         }
         return koneksi;
     }
