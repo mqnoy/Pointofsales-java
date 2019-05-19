@@ -3,14 +3,14 @@
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-	<parameter name="tgl1" class="java.lang.String">
-		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
-	</parameter>
 	<parameter name="tgl2" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[]]>
+		<![CDATA[SELECT toc.tanggal_order,tmim.item_menu_nama,tdoc.qty,(tdoc.qty * tmim.item_menu_harga) as subtotal FROM tbl_order_customer toc 
+LEFT JOIN tbl_detail_order_customer tdoc ON tdoc.kd_detail_order = toc.detail_order_kd
+LEFT JOIN tbl_master_item_menu tmim ON tmim.id_item_menu = tdoc.item_menu_id
+LEFT JOIN tbl_transaksi_pesanan ttp ON ttp.order_kd = toc.kd_order]]>
 	</queryString>
 	<field name="tanggal_order" class="java.sql.Timestamp">
 		<fieldDescription><![CDATA[]]></fieldDescription>
@@ -39,14 +39,6 @@
 				<reportElement x="355" y="61" width="100" height="20" uuid="9cd1b041-21a9-486d-be0c-0fc186245ea1"/>
 				<text><![CDATA[Periode : ]]></text>
 			</staticText>
-			<textField>
-				<reportElement x="455" y="61" width="100" height="20" uuid="33bc93b5-cfc5-4a4f-907e-a087f55e994f"/>
-				<textFieldExpression><![CDATA[$P{tgl1}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="455" y="81" width="100" height="20" uuid="d2b995b1-e235-4621-918c-372ecb0ad850"/>
-				<textFieldExpression><![CDATA[$P{tgl2}]]></textFieldExpression>
-			</textField>
 		</band>
 	</title>
 	<pageHeader>
