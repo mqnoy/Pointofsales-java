@@ -9,7 +9,6 @@ import static Crud.Form_bayar_tagihan.JTBL_bayar_tagihan;
 import static Crud.Form_crud_menu.*;
 import static Crud.Form_crud_menu.JTBL_listMenu_crud;
 import static Crud.Form_list_menu.JTBL_listMenu;
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -21,6 +20,7 @@ import javax.swing.table.DefaultTableModel;
 import static Crud.Form_crud_userAplikasi.*;
 import static Crud.Form_list_menu.JTBL_draft_order;
 import static Crud.Form_order.JTBL_form_order;
+import java.sql.Connection;
 import static pointofsale_backend.Library.generateOrder;
 import static pointofsale_backend.Library.tanggalan;
 import static pointofsale_backend.Library.lib_tanggalwaktu;
@@ -32,12 +32,9 @@ import static pointofsale_backend.SetGet.*;
  * @author Rifky <qnoy.rifky@gmail.com>
  */
 public class CrudModel extends ConfigDatabase {
+    public static final Connection conn = new ConfigDatabase().getConn();
 
-    protected static final Connection conn = new ConfigDatabase().connect();
     //public static JTable tableName;
-    public static Connection getConn(){
-        return conn;
-    }
     /*
      * method untuk query select all data 
      */
