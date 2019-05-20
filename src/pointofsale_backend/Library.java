@@ -6,6 +6,7 @@
  */
 package pointofsale_backend;
 
+import static databases.CrudModel.conn;
 import static databases.CrudModel.getMeja_kode;
 import static databases.CrudModel.select_lastOrderId;
 import java.sql.SQLException;
@@ -16,6 +17,15 @@ import java.util.Date;
 import java.util.TimeZone;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.design.JRDesignQuery;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.view.JasperViewer;
 import org.apache.commons.codec.digest.DigestUtils;
 
 /**
@@ -25,6 +35,7 @@ import org.apache.commons.codec.digest.DigestUtils;
 public class Library {
 
     public static String lib_tanggalwaktu;
+    public static String Jasper_QueryCustom;
 
     public Library(){
         tanggalan();//generate tanggal sekarang 
@@ -34,6 +45,10 @@ public class Library {
      * 
      * https://stackoverflow.com/questions/3753869/how-do-i-concatenate-two-strings-in-java
      * https://stackoverflow.com/questions/8694984/remove-part-of-string-in-java
+     * @param dateOrder
+     * @param idMeja
+     * @param generateFor
+     * @return 
      */
     public static String generateOrder(String dateOrder, Integer idMeja, String generateFor) {
         int order_idDB = 0;
@@ -82,8 +97,38 @@ public class Library {
 
     }
     /**
+     * method custom jasper/ireport 
+     * thx for : https://www.youtube.com/watch?v=kB67jL8-DO0
+     * https://stackoverflow.com/questions/24183129/dynamic-sql-query-for-jasper-report
+     * error compailing : solved import http://www.java2s.com/example/jar/e/download-ecj431jar-file.html
+     * @param reportPath
+     * @param query
+     */
+     public static void generate_CustomReport(String reportPath,String query){
+            try{
+                JasperDesign jd = JRXmlLoader.load(reportPath);
+                JRDesignQuery newQuery = new JRDesignQuery();
+                newQuery.setText(query);
+                jd.setQuery(newQuery);
+                
+                JasperReport jr = JasperCompileManager.compileReport(jd);
+                JasperPrint jp = JasperFillManager.fillReport(jr, null, conn);
+                JasperViewer.viewReport(jp);
+            }catch(Exception ex){
+                JOptionPane.showMessageDialog(null, ex);
+            }
+    }
+    public static void set_CustomReportQuery(String Query){
+        Jasper_QueryCustom = Query;
+    }
+    public static String get_CustomReportQuery(){
+        return Jasper_QueryCustom;
+    }
+    
+    /**/
+    
+    /**
     *  method untuk parsing jdatepicker  untuk date di sql
-    * 
      * @param raw_date
      * @param raw_format
      * @return 
