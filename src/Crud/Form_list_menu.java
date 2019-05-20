@@ -11,6 +11,9 @@ import static pointofsale_backend.Frame_control.tampil_NotAvailable;
 import static databases.CrudModel.getMenulistDB;
 import static databases.CrudModel.insert_OrderCustomer_menu;
 import static databases.CrudModel.insert_ReceiptChef;
+import java.awt.event.ActionEvent;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
 
 /**
  *
@@ -154,48 +157,7 @@ public class Form_list_menu extends javax.swing.JFrame {
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Draft order customer"));
 
-        JTBL_draft_order.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "No", "Kd menu", "qty", "subtotal"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
         JTBL_draft_order.getTableHeader().setReorderingAllowed(false);
-        JTBL_draft_order.addContainerListener(new java.awt.event.ContainerAdapter() {
-            public void componentAdded(java.awt.event.ContainerEvent evt) {
-                JTBL_draft_orderComponentAdded(evt);
-            }
-        });
-        JTBL_draft_order.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                JTBL_draft_orderFocusGained(evt);
-            }
-        });
-        JTBL_draft_order.addHierarchyListener(new java.awt.event.HierarchyListener() {
-            public void hierarchyChanged(java.awt.event.HierarchyEvent evt) {
-                JTBL_draft_orderHierarchyChanged(evt);
-            }
-        });
-        JTBL_draft_order.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                JTBL_draft_orderPropertyChange(evt);
-            }
-        });
-        JTBL_draft_order.addVetoableChangeListener(new java.beans.VetoableChangeListener() {
-            public void vetoableChange(java.beans.PropertyChangeEvent evt)throws java.beans.PropertyVetoException {
-                JTBL_draft_orderVetoableChange(evt);
-            }
-        });
         jScrollPane2.setViewportView(JTBL_draft_order);
         if (JTBL_draft_order.getColumnModel().getColumnCount() > 0) {
             JTBL_draft_order.getColumnModel().getColumn(0).setResizable(false);
@@ -481,39 +443,14 @@ public class Form_list_menu extends javax.swing.JFrame {
         }
         Form_order.getAlldata_table_order();
     }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void JTBL_draft_orderPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_JTBL_draft_orderPropertyChange
-        // TODO add your handling code here:
-        
-        
-    }//GEN-LAST:event_JTBL_draft_orderPropertyChange
-
-    private void JTBL_draft_orderComponentAdded(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_JTBL_draft_orderComponentAdded
-        // TODO add your handling code here:
-        
-    }//GEN-LAST:event_JTBL_draft_orderComponentAdded
-
-    private void JTBL_draft_orderVetoableChange(java.beans.PropertyChangeEvent evt)throws java.beans.PropertyVetoException {//GEN-FIRST:event_JTBL_draft_orderVetoableChange
-        // TODO add your handling code here:
-        
-    }//GEN-LAST:event_JTBL_draft_orderVetoableChange
-
-    private void JTBL_draft_orderFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_JTBL_draft_orderFocusGained
-        // TODO add your handling code here:
-        
-    }//GEN-LAST:event_JTBL_draft_orderFocusGained
-
-    private void JTBL_draft_orderHierarchyChanged(java.awt.event.HierarchyEvent evt) {//GEN-FIRST:event_JTBL_draft_orderHierarchyChanged
-        // TODO add your handling code here:
-        
-    }//GEN-LAST:event_JTBL_draft_orderHierarchyChanged
-
+    
     private void btn_flm_hapus1itemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_flm_hapus1itemActionPerformed
         // TODO add your handling code here:
         DefaultTableModel tbl_draft_order = (DefaultTableModel)JTBL_draft_order.getModel();
         while(tbl_draft_order.getRowCount() > 0) {
             tbl_draft_order.removeRow(0);
         }
+        
     }//GEN-LAST:event_btn_flm_hapus1itemActionPerformed
 
     /**
