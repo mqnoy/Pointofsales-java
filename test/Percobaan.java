@@ -1,7 +1,16 @@
 
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.TitledBorder;
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -18,6 +27,7 @@ public class Percobaan extends javax.swing.JFrame {
      */
     public Percobaan() {
         initComponents();
+        buttonLoop();
     }
     public static void anu(){
         String aa = btngrup.getSelection().getActionCommand();
@@ -83,12 +93,10 @@ public class Percobaan extends javax.swing.JFrame {
                         .addComponent(jRadioButton1)
                         .addGap(18, 18, 18)
                         .addComponent(jRadioButton2)
-                        .addContainerGap(187, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton2)
-                        .addGap(69, 69, 69))))
+                        .addGap(114, 114, 114)
+                        .addComponent(jButton2))
+                    .addComponent(jButton1))
+                .addContainerGap(214, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(37, 37, 37)
                 .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -102,20 +110,15 @@ public class Percobaan extends javax.swing.JFrame {
                 .addGap(111, 111, 111)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jRadioButton1)
-                    .addComponent(jRadioButton2))
+                    .addComponent(jRadioButton2)
+                    .addComponent(jButton2))
+                .addGap(29, 29, 29)
+                .addComponent(jButton1)
+                .addGap(45, 45, 45)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addComponent(jButton1)
-                        .addGap(45, 45, 45)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton3))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
-                        .addComponent(jButton2)
-                        .addGap(130, 130, 130))))
+                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton3))
+                .addContainerGap(307, Short.MAX_VALUE))
         );
 
         pack();
@@ -155,7 +158,48 @@ public class Percobaan extends javax.swing.JFrame {
         // TODO add your handling code here:
         System.out.println(jDateChooser1.getDate());
     }//GEN-LAST:event_jButton3ActionPerformed
+    // instead of having cat1, cat2 ... you have buttons[0], buttons[1] ...
 
+    public void buttonLoop(){
+        JButton select, create, repair, compact;
+        JLabel database;
+        setLayout(new GridBagLayout());
+//        new JPanel.setBorder(new CompoundBorder(new TitledBorder("Database"), new EmptyBorder(12, 0, 0, 0)));
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.anchor = GridBagConstraints.WEST;
+        gbc.insets = new Insets(0, 0, 0, 4);
+
+        JPanel panel = new JPanel(new GridBagLayout());
+        panel.add(new JLabel("Database: "), gbc);
+        gbc.gridx++;
+        gbc.weightx = 1;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(0, 0, 0, 0);
+        panel.add((database = new JLabel()), gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.weightx = 1;
+        gbc.gridwidth = GridBagConstraints.REMAINDER;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(4, 4, 4, 4);
+        add(panel, gbc);
+
+        gbc.gridwidth = 1;
+        gbc.weightx = 0.25;
+        gbc.gridy++;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        add((select = new JButton("Select")), gbc);
+        gbc.gridx++;
+        add((create = new JButton("Create")), gbc);
+        gbc.gridx++;
+        add((repair = new JButton("Repair")), gbc);
+        gbc.gridx++;
+        add((compact = new JButton("Compact")), gbc);
+    }
+    
     /**
      * @param args the command line arguments
      */
