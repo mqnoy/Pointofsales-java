@@ -32,6 +32,7 @@ import static pointofsale_backend.SetGet.*;
  * @author Rifky <qnoy.rifky@gmail.com>
  */
 public class CrudModel extends ConfigDatabase {
+
     public static final Connection conn = new ConfigDatabase().getConn();
 
     //public static JTable tableName;
@@ -75,7 +76,7 @@ public class CrudModel extends ConfigDatabase {
 
     /* end of method query select meja order */
 
- /*
+    /*
      * method untuk query select user akses aplikasi 
      */
     public static void getUserapp_accessDB(String idaccess, String password) throws SQLException {
@@ -107,7 +108,7 @@ public class CrudModel extends ConfigDatabase {
 
     /* end of method untuk query select all data  */
 
- /*
+    /*
      * method untuk select data user aplikasi dan data pegawai
      */
     public static void getUserapp_listDB() {
@@ -139,7 +140,7 @@ public class CrudModel extends ConfigDatabase {
 
     /* end of method untuk select data user aplikasi dan data pegawai */
 
- /*
+    /*
      * method untuk insert user aplikasi dan data pegawai
      */
     public static void insertUserapp_listDB() {
@@ -183,7 +184,7 @@ public class CrudModel extends ConfigDatabase {
 
     /* end of method untuk insert data user aplikasi dan data pegawai */
 
- /*
+    /*
      * method untuk delete user aplikasi dan data pegawai
      */
     public static void deleteUserapp_listDB(int id_user) {
@@ -228,7 +229,7 @@ public class CrudModel extends ConfigDatabase {
      * @param var_kdmenu
      * @return ditemukan
      */
-    public static void getMenulistDB(String var_selected, String var_keywords,JTable table) {
+    public static void getMenulistDB(String var_selected, String var_keywords, JTable table) {
         DefaultTableModel tabmode = getDatatabel(table);
         String sql = null;
         try {
@@ -292,7 +293,7 @@ public class CrudModel extends ConfigDatabase {
 
     /* end of method untuk select data master menu */
 
- /*
+    /*
      * method untuk insert data menu
      */
     public static void insert_MenulistDB() throws SQLException {
@@ -319,7 +320,7 @@ public class CrudModel extends ConfigDatabase {
 
     /* end of method untuk insert data menu */
 
- /*
+    /*
      * method untuk ubah data menu
      */
     public static void update_MenulistDB(String var_kd_menu) throws SQLException {
@@ -341,7 +342,7 @@ public class CrudModel extends ConfigDatabase {
 
     /* end of method untuk ubah data menu */
 
- /*
+    /*
      * method untuk hapus 1 data menu
      */
     public static void delete_MenulistDB(String var_kd_menu) throws SQLException {
@@ -475,7 +476,7 @@ public class CrudModel extends ConfigDatabase {
     }
 
     /* end of method untuk insert data transaksi */
- /* end of method untuk insert data transaksi */
+    /* end of method untuk insert data transaksi */
     private static Integer get_id_menu(String kd_menu) {
         int id_menu = 0;
         String query_select_menu = "SELECT id_item_menu from tbl_master_item_menu WHERE kd_menu='" + kd_menu + "'";
@@ -531,6 +532,23 @@ public class CrudModel extends ConfigDatabase {
     }
 
     /* end of method untuk insert data transaksi */
+    public static void insert_ReceiptChef(String kd_order) {
+        String query_insert_struk_for_koki = "INSERT into tbl_struk_for_koki (order_kd) VALUES (?)";
+        try {
+            PreparedStatement ps = conn.prepareStatement(query_insert_struk_for_koki);
+            ps.setString(1, kd_order);
+            int executeUpdate = ps.executeUpdate();
+            if (executeUpdate > 0) {
+                notif_ins_struk_for_koki = true;
+                System.out.println("insert "+kd_order+" tbl_struk_for_koki sukses");
+            } else {
+                notif_ins_struk_for_koki = false;
+                System.out.println("insert "+kd_order+" tbl_struk_for_koki gagal");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CrudModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     public static void select_OrderCustomer_menu(String kd_orderdetail) {
         DefaultTableModel tabmode = getDatatabel(JTBL_form_order);
@@ -548,7 +566,7 @@ public class CrudModel extends ConfigDatabase {
                 String b = rs.getString("tmim.item_menu_nama");
                 int c = rs.getInt("tdoc.qty");
                 int d = rs.getInt("subtotal");
-                Object[] data = {NUMBERS, a, b, c ,d};
+                Object[] data = {NUMBERS, a, b, c, d};
                 tabmode.addRow(data);
                 NUMBERS++;
             }
@@ -561,10 +579,37 @@ public class CrudModel extends ConfigDatabase {
 
     /* end of method untuk insert data transaksi */
 
- /*
+    /*
      * method untuk delete data ke table tbl_order_customer
      */
+    public static void delete_OrderCustomer(String kd_order, String kd_orderdetail) {
+        try {
+            String sql_delete_join = "DELETE tbl_order_customer,tbl_detail_order_customer,tbl_transaksi_pesanan,tbl_struk_for_koki\n" +
+                                "FROM tbl_order_customer\n" +
+                                "INNER JOIN tbl_detail_order_customer ON tbl_order_customer.detail_order_kd = tbl_detail_order_customer.kd_detail_order\n" +
+                                "INNER JOIN tbl_transaksi_pesanan ON tbl_order_customer.kd_order = tbl_transaksi_pesanan.order_kd\n" +
+                                "INNER JOIN tbl_struk_for_koki ON tbl_order_customer.kd_order = tbl_struk_for_koki.order_kd\n" +
+                                "WHERE tbl_order_customer.kd_order =? "
+                                + "AND tbl_order_customer.detail_order_kd =?";
+
+            PreparedStatement ps = conn.prepareStatement(sql_delete_join);
+            ps.setString(1, kd_order);
+            ps.setString(2, kd_orderdetail);
+            int executeUpdate = ps.executeUpdate();
+
+            if (executeUpdate > 0) {
+                //delete tbl_transaksi_pesanan
+                notif_del_order_customer = true;
+            } else {
+                notif_del_order_customer = false;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CrudModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     public static void delete_OrderCustomer(String kd_order, String kd_orderdetail, boolean del_detail) {
+
         String sql = "DELETE FROM tbl_order_customer WHERE kd_order=? ";
         String query_delete_detail_order = "DELETE FROM tbl_detail_order_customer WHERE kd_detail_order=? ";
         String query_delete_transaksi_order = "DELETE FROM tbl_transaksi_pesanan WHERE order_kd=? ";
@@ -574,7 +619,7 @@ public class CrudModel extends ConfigDatabase {
 
             PreparedStatement ps3 = conn.prepareStatement(query_delete_transaksi_order);
             ps3.setString(1, kd_order);
-            
+
             int executeUpdate2 = 0;
             if (del_detail) {
                 PreparedStatement ps2 = conn.prepareStatement(query_delete_detail_order);
@@ -586,19 +631,18 @@ public class CrudModel extends ConfigDatabase {
             int executeUpdate3 = ps3.executeUpdate();
 
             notif_del_order_customer = executeUpdate > 0 && executeUpdate3 > 0; //tidak delete tbl_transaksi_pesanan
-            
-            if (executeUpdate2 > 0 && del_detail == true){ 
+
+            if (executeUpdate2 > 0 && del_detail == true) {
                 //delete tbl_transaksi_pesanan
                 notif_del_order_customer = true;
             }
-
         } catch (SQLException ex) {
             Logger.getLogger(CrudModel.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     /* end of method delete data ke table tbl_order_customer */
- /*
+    /*
      * method untuk select data untuk daftar pesanan @Form_bayar_tagihan
      */
     public static void select_Daftarpesanan(String kd_order) {
@@ -626,10 +670,12 @@ public class CrudModel extends ConfigDatabase {
                 Object[] data = {NUMBERS, a, b, c};
                 tabmode.addRow(data);
                 NUMBERS++;
+
             }
 
         } catch (SQLException ex) {
-            Logger.getLogger(CrudModel.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CrudModel.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -645,9 +691,11 @@ public class CrudModel extends ConfigDatabase {
             if (rs.next()) {
                 String a = rs.getString("tanggal_order");
                 set_tanggalOrder(a);
+
             }
         } catch (SQLException ex) {
-            Logger.getLogger(CrudModel.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CrudModel.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -694,7 +742,7 @@ public class CrudModel extends ConfigDatabase {
             JTBL_bayar_tagihan.setModel(tabmode);
 
         } else if (tableName.equals(JTBL_form_order)) {
-            Object[] baris = {"No", "#id" ,"Nama menu", "qty", "subtotal(Rp)"};
+            Object[] baris = {"No", "#id", "Nama menu", "qty", "subtotal(Rp)"};
             tabmode = new DefaultTableModel(null, baris);
             JTBL_form_order.setModel(tabmode);
 
@@ -702,12 +750,14 @@ public class CrudModel extends ConfigDatabase {
 
         return tabmode;
     }
-    
-    public static void close(){
+
+    public static void close() {
         try {
             conn.close();
+
         } catch (SQLException ex) {
-            Logger.getLogger(CrudModel.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CrudModel.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }
 
