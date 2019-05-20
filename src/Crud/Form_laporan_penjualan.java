@@ -6,16 +6,10 @@
 package Crud;
 
 import static databases.CrudModel.conn;
+import java.sql.*;
 import java.util.Date;
-import net.sf.jasperreports.engine.JasperCompileManager;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.design.JRDesignQuery;
-import net.sf.jasperreports.engine.design.JasperDesign;
-import net.sf.jasperreports.engine.xml.JRXmlLoader;
-import net.sf.jasperreports.view.JasperViewer;
-import static pointofsale_backend.Library.parsing_Jdate;
+import javax.swing.JOptionPane;
+import static pointofsale_backend.Library.*;
 
 /**
  *
@@ -23,11 +17,14 @@ import static pointofsale_backend.Library.parsing_Jdate;
  */
 public class Form_laporan_penjualan extends javax.swing.JFrame {
 
+    private static boolean run_report = false;
+
     /**
      * Creates new form Form_laporan_penjualan
      */
     public Form_laporan_penjualan() {
         initComponents();
+        btn_cetak_laporanPen.setEnabled(run_report);
     }
 
     /**
@@ -45,7 +42,7 @@ public class Form_laporan_penjualan extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         rpt_tanggal_akhir = new com.toedter.calendar.JDateChooser();
-        jButton1 = new javax.swing.JButton();
+        btn_cari_priode = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -60,7 +57,8 @@ public class Form_laporan_penjualan extends javax.swing.JFrame {
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btn_cetak_laporanPen = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -82,10 +80,10 @@ public class Form_laporan_penjualan extends javax.swing.JFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel1.setText("Tanggal akhir");
 
-        jButton1.setText("Cari");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btn_cari_priode.setText("Cari");
+        btn_cari_priode.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btn_cari_priodeActionPerformed(evt);
             }
         });
 
@@ -104,7 +102,7 @@ public class Form_laporan_penjualan extends javax.swing.JFrame {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(rpt_tanggal_akhir, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btn_cari_priode, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(21, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -118,7 +116,7 @@ public class Form_laporan_penjualan extends javax.swing.JFrame {
                     .addComponent(rpt_tanggal_awal, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(rpt_tanggal_akhir, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btn_cari_priode, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(15, 15, 15))
         );
 
@@ -217,10 +215,17 @@ public class Form_laporan_penjualan extends javax.swing.JFrame {
             }
         });
 
-        jButton3.setText("Cetak laporan");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btn_cetak_laporanPen.setText("Cetak laporan");
+        btn_cetak_laporanPen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btn_cetak_laporanPenActionPerformed(evt);
+            }
+        });
+
+        jButton1.setText("Close");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
             }
         });
 
@@ -235,26 +240,30 @@ public class Form_laporan_penjualan extends javax.swing.JFrame {
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btn_cetak_laporanPen, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(21, 21, 21)
+                        .addComponent(btn_cetak_laporanPen, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("List data"));
@@ -312,42 +321,58 @@ public class Form_laporan_penjualan extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void btn_cetak_laporanPenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cetak_laporanPenActionPerformed
         // TODO add your handling code here:
-        Date tanggalAwal_rpt = rpt_tanggal_awal.getDate();
-        Date tanggalAkhir_rpt = rpt_tanggal_akhir.getDate();
-        String final_tanggalAwal_rpt = parsing_Jdate(tanggalAwal_rpt,"yyyy-MM-dd 00:00:00");
-        String final_tanggalAkhir_rpt = parsing_Jdate(tanggalAkhir_rpt,"yyyy-MM-dd 00:00:00");
-
-        try {
-            String sql = "SELECT toc.tanggal_order,tmim.item_menu_nama,tdoc.qty,(tdoc.qty * tmim.item_menu_harga) as subtotal FROM tbl_order_customer toc \n"
-                    + "LEFT JOIN tbl_detail_order_customer tdoc ON tdoc.kd_detail_order = toc.detail_order_kd\n"
-                    + "LEFT JOIN tbl_master_item_menu tmim ON tmim.id_item_menu = tdoc.item_menu_id\n"
-                    + "LEFT JOIN tbl_transaksi_pesanan ttp ON ttp.order_kd = toc.kd_order\n"
-                    + "WHERE ttp.lunas ='y' AND ttp.tgl_pembayaran BETWEEN '"+final_tanggalAwal_rpt+"' AND '"+final_tanggalAkhir_rpt+"' ";
-            String reportPath = "E:\\qnoy\\kuliah_\\6.smt6\\pemrograman_visual\\posver1\\Pointofsales-java\\src\\Reporting\\report_penjualan.jrxml";
-            JasperDesign jd = JRXmlLoader.load(reportPath);
-            JRDesignQuery newQuery = new JRDesignQuery();
-            newQuery.setText(sql);
-            jd.setQuery(newQuery);
-
-            JasperReport jr = JasperCompileManager.compileReport(jd);
-            JasperPrint jp = JasperFillManager.fillReport(jr, null, conn);
-            JasperViewer.viewReport(jp);
-
-        } catch (Exception e) {
-            System.out.println(e);
+        if (run_report) {
+            String reportPath = ".\\src\\Reporting\\report_penjualan.jrxml";
+            generate_CustomReport(reportPath, get_CustomReportQuery());
         }
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_btn_cetak_laporanPenActionPerformed
+
+    private void btn_cari_priodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cari_priodeActionPerformed
+        // TODO add your handling code here:
+        if (rpt_tanggal_awal.getDate() == null || rpt_tanggal_akhir.getDate() == null) {
+            JOptionPane.showMessageDialog(this, "Tanggal awal dan akhir tidak boleh kosong!");
+        } else {
+            Date tanggalAwal_rpt = rpt_tanggal_awal.getDate();
+            Date tanggalAkhir_rpt = rpt_tanggal_akhir.getDate();
+            String final_tanggalAwal_rpt = parsing_Jdate(tanggalAwal_rpt, "yyyy-MM-dd 00:00:00");
+            String final_tanggalAkhir_rpt = parsing_Jdate(tanggalAkhir_rpt, "yyyy-MM-dd 00:00:00");
+            // compareTo() akan return 1 jika yang di bandingkan lebih kecil dari pembanding 
+//            System.out.println(tanggalAwal_rpt.compareTo(tanggalAkhir_rpt));
+            if (tanggalAwal_rpt.compareTo(tanggalAkhir_rpt) == 1) {
+                JOptionPane.showMessageDialog(this, "Tanggal awal tidak boleh lebih kecil dari tanggal akhir !");
+                btn_cetak_laporanPen.setEnabled(run_report);
+            } else {
+                try {
+                    String sql = "SELECT toc.tanggal_order,ttp.tgl_pembayaran,tmim.item_menu_nama,tdoc.qty,(tdoc.qty * tmim.item_menu_harga) as subtotal FROM tbl_order_customer toc \n"
+                            + "LEFT JOIN tbl_detail_order_customer tdoc ON tdoc.kd_detail_order = toc.detail_order_kd\n"
+                            + "LEFT JOIN tbl_master_item_menu tmim ON tmim.id_item_menu = tdoc.item_menu_id\n"
+                            + "LEFT JOIN tbl_transaksi_pesanan ttp ON ttp.order_kd = toc.kd_order\n"
+                            + "WHERE ttp.lunas ='y' AND ttp.tgl_pembayaran BETWEEN '" + final_tanggalAwal_rpt + "' AND '" + final_tanggalAkhir_rpt + "' ";
+                    Statement stmt = conn.createStatement();
+                    System.out.println(sql);
+                    ResultSet rs = stmt.executeQuery(sql);
+                    if (rs.next()) {
+                        run_report = true;
+                        set_CustomReportQuery(sql);
+                        JOptionPane.showMessageDialog(this, "data ditemukan \n" + final_tanggalAwal_rpt + " - " + final_tanggalAkhir_rpt);
+                        btn_cetak_laporanPen.setEnabled(run_report);
+                    } else {
+                        run_report = false;
+                        btn_cetak_laporanPen.setEnabled(run_report);
+                        JOptionPane.showMessageDialog(this, "tidak ada data \n" + final_tanggalAwal_rpt + " - " + final_tanggalAkhir_rpt);
+                    }
+                } catch (SQLException e) {
+                    JOptionPane.showMessageDialog(this, e);
+                }
+            }
+        }
+    }//GEN-LAST:event_btn_cari_priodeActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        Date tanggalAwal_rpt = rpt_tanggal_awal.getDate();
-        Date tanggalAkhir_rpt = rpt_tanggal_akhir.getDate();
-        String final_tanggalAwal_rpt = parsing_Jdate(tanggalAwal_rpt,"yyyy-MM-dd 00:00:00");
-        String final_tanggalAkhir_rpt = parsing_Jdate(tanggalAkhir_rpt,"yyyy-MM-dd 00:00:00");
-        
-        System.out.println(final_tanggalAwal_rpt+" s/d "+final_tanggalAkhir_rpt);
+        this.setDefaultCloseOperation(Form_laporan_penjualan.EXIT_ON_CLOSE);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -386,9 +411,10 @@ public class Form_laporan_penjualan extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_cari_priode;
+    private javax.swing.JButton btn_cetak_laporanPen;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
