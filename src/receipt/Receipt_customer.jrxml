@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="dce56cc3-45a2-4646-a6c6-dcba188f9813">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT kd_order, tmj.kd_meja,tmim.item_menu_nama,(tdoc.qty * tmim.item_menu_harga) as subtotal FROM tbl_order_customer toc
+RIGHT JOIN tbl_detail_order_customer tdoc ON toc.detail_order_kd = tdoc.kd_detail_order
+LEFT JOIN tbl_master_item_menu tmim ON tdoc.item_menu_id = tmim.id_item_menu
+INNER JOIN tbl_transaksi_pesanan ttp ON toc.kd_order = ttp.order_kd
+LEFT JOIN tbl_master_meja tmj ON toc.meja_id = tmj.id_meja
+LEFT JOIN tbl_master_payment_type tmpt ON ttp.payment_type_id = tmpt.id_payment_type
+WHERE toc.kd_order = "ODR20190504MJ0011"]]>
+	</queryString>
+	<field name="kd_order" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="kd_meja" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="item_menu_nama" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="subtotal" class="java.lang.Long"/>
+	<group name="kd_order">
+		<groupExpression><![CDATA[$F{kd_order}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="60" splitType="Stretch">
+			<staticText>
+				<reportElement x="174" y="0" width="232" height="40" uuid="ae728b62-5f74-4c40-9b88-2a70bd87e0aa"/>
+				<textElement textAlignment="Center">
+					<font size="28"/>
+				</textElement>
+				<text><![CDATA[Nama restoran]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="194" y="40" width="181" height="20" uuid="44d79800-b5b5-4b58-bcf5-e58d5ab93fed"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[jl.selalu lurus gk pernah belok]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="60" splitType="Stretch">
+			<textField>
+				<reportElement x="231" y="20" width="106" height="20" uuid="212f57aa-ebf6-40f0-9f2d-4308a1aed5c3"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{kd_order}]]></textFieldExpression>
+			</textField>
+			<textField pattern="h.mm a">
+				<reportElement x="286" y="0" width="51" height="20" uuid="7e50a24a-742f-44cb-9897-f4dada7693f9"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="231" y="40" width="106" height="20" uuid="f4624cd5-659b-4d41-ae04-546b8dc7a9db"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{kd_meja}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="231" y="0" width="55" height="20" uuid="96645c7e-e7d0-4b8b-9e0d-68c0637bf728"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="21" splitType="Stretch">
+			<staticText>
+				<reportElement x="194" y="0" width="100" height="20" uuid="1fa4eb97-4576-43f3-b4c3-86a886a95990"/>
+				<text><![CDATA[item]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="337" y="0" width="69" height="20" uuid="610a1565-2e26-4c58-bf0a-62c8a12b77de"/>
+				<text><![CDATA[subtotal]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<textField>
+				<reportElement x="194" y="0" width="100" height="20" uuid="e26072d5-f3be-495d-89bb-2ec9668e969d"/>
+				<textFieldExpression><![CDATA[$F{item_menu_nama}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="337" y="0" width="69" height="20" uuid="7ddda8de-2df5-44fa-a277-fd9dd6fe5487"/>
+				<textFieldExpression><![CDATA[$F{subtotal}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="3" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="102" splitType="Immediate">
+			<staticText>
+				<reportElement x="177" y="81" width="232" height="20" uuid="b83be643-275b-43d6-bb3a-6170709de452"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Sampai jumpa :)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="197" y="0" width="56" height="20" uuid="706d0021-c224-40bd-ab97-c20e75f9b004"/>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="197" y="20" width="56" height="20" uuid="1e0fb0e7-3c59-42bd-97a8-677711abad00"/>
+				<text><![CDATA[Pajak 10%]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="253" y="20" width="100" height="20" uuid="be70cc0c-72ca-44bf-b2a4-cebc6cf1fdd9"/>
+				<text><![CDATA[Static text]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="253" y="0" width="100" height="20" uuid="0aa5233c-5ddd-4190-ae5f-f92caaf6f3c0"/>
+				<text><![CDATA[Static text]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="197" y="40" width="56" height="20" uuid="859e0f98-d94d-4a23-86e7-fe9a7762cd7e"/>
+				<text><![CDATA[Bayar]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="253" y="40" width="100" height="20" uuid="d3fcf52e-ba42-40f4-b794-2be75ab6d76f"/>
+				<text><![CDATA[Static text]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="197" y="60" width="56" height="20" uuid="f0185a86-4fe8-40cb-a2cb-de52f0b71ac1"/>
+				<text><![CDATA[Kembalian]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="253" y="60" width="100" height="20" uuid="9984d99d-b4b1-4ff9-8e8d-a7d7a444f1dc"/>
+				<text><![CDATA[Static text]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="3" splitType="Stretch"/>
+	</summary>
+</jasperReport>

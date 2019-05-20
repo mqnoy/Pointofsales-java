@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="212" pageHeight="425" columnWidth="172" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b2064431-30ab-4f68-8838-ca176bb8a744">
+	<property name="ireport.zoom" value="1.771561000000001"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT tmim.item_menu_nama,tdoc.qty FROM tbl_struk_for_koki tsfk 
+LEFT JOIN tbl_order_customer toc ON tsfk.order_kd = toc.kd_order
+RIGHT JOIN tbl_detail_order_customer tdoc ON toc.detail_order_kd = tdoc.kd_detail_order
+LEFT JOIN tbl_master_item_menu tmim ON tdoc.item_menu_id = tmim.id_item_menu
+WHERE tsfk.order_kd = "ODR20190518MJ00133"]]>
+	</queryString>
+	<field name="item_menu_nama" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="qty" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<group name="item_menu_nama">
+		<groupExpression><![CDATA[$F{item_menu_nama}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="65" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="172" height="25" uuid="fbba6948-4767-4d6e-951c-f51a85cec22c"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[KD_MEJA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="25" width="172" height="20" uuid="53e43e7d-32ff-4e3a-9a14-b1667c3275eb"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[NO_ORDER]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="23" y="45" width="64" height="20" uuid="4a837d3c-0718-46f3-818c-5a6611e14c04"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField pattern="h.mm a">
+				<reportElement x="87" y="45" width="46" height="20" uuid="aecf7da1-c17e-4a4c-ba4f-139dc9829000"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="4" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="20" uuid="0c59f7f9-8661-4633-b60f-4c613718f552"/>
+				<text><![CDATA[item]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="100" y="0" width="72" height="20" uuid="7039a58e-a543-4d4f-bc25-d9b5b7f9a2c7"/>
+				<text><![CDATA[qty]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<textField>
+				<reportElement x="-1" y="0" width="100" height="20" uuid="99a204af-dd0d-42c4-b4f4-69b39e88a693"/>
+				<textFieldExpression><![CDATA[$F{item_menu_nama}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="99" y="0" width="73" height="20" uuid="2956bdb8-500b-4434-b7c6-15530dc656bc"/>
+				<textFieldExpression><![CDATA[$F{qty}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="4" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="6" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="6" splitType="Stretch"/>
+	</summary>
+</jasperReport>
