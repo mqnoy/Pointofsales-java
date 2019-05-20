@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package Crud;
-import static Crud.Form_list_menu.JTBL_listMenu;
 import static databases.CrudModel.delete_OrderCustomer;
 import static databases.CrudModel.select_OrderCustomer_menu;
 import javax.swing.JOptionPane;
@@ -395,8 +394,8 @@ public class Form_order extends javax.swing.JFrame {
         System.out.print(delete_detailorder);
         int result = JOptionPane.showConfirmDialog(this, "Batalkan order ?", this.getTitle(), JOptionPane.YES_NO_OPTION);
                 if (result == JOptionPane.YES_OPTION){
-                    
-                    delete_OrderCustomer(lbl_kodeOrder.getText(), lbl_kodeOrder_detail.getText(),delete_detailorder);
+                    delete_OrderCustomer(lbl_kodeOrder.getText(),lbl_kodeOrder_detail.getText());
+                    //delete_OrderCustomer(lbl_kodeOrder.getText(), lbl_kodeOrder_detail.getText(),delete_detailorder);
                     if (notif_del_order_customer) {
                         JOptionPane.showMessageDialog(this,"delete order berhasil");
                     }else{
