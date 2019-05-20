@@ -22,6 +22,7 @@ public class SetGet {
     public static boolean notif_del_order_customer;
     public static boolean notif_cek_order_tdklunas;
     public static boolean notif_cek_order_mejakode;
+    public static boolean notif_ins_struk_for_koki;
         
     public static String tanggalSkrg;
     
