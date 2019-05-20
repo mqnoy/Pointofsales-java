@@ -3,16 +3,16 @@
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-	<parameter name="tgl2" class="java.lang.String">
-		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
-	</parameter>
 	<queryString>
-		<![CDATA[SELECT toc.tanggal_order,tmim.item_menu_nama,tdoc.qty,(tdoc.qty * tmim.item_menu_harga) as subtotal FROM tbl_order_customer toc 
+		<![CDATA[SELECT toc.tanggal_order,ttp.tgl_pembayaran,tmim.item_menu_nama,tdoc.qty,(tdoc.qty * tmim.item_menu_harga) as subtotal FROM tbl_order_customer toc 
 LEFT JOIN tbl_detail_order_customer tdoc ON tdoc.kd_detail_order = toc.detail_order_kd
 LEFT JOIN tbl_master_item_menu tmim ON tmim.id_item_menu = tdoc.item_menu_id
 LEFT JOIN tbl_transaksi_pesanan ttp ON ttp.order_kd = toc.kd_order]]>
 	</queryString>
 	<field name="tanggal_order" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tgl_pembayaran" class="java.sql.Timestamp">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="item_menu_nama" class="java.lang.String">
@@ -56,10 +56,6 @@ LEFT JOIN tbl_transaksi_pesanan ttp ON ttp.order_kd = toc.kd_order]]>
 	<columnHeader>
 		<band height="23" splitType="Stretch">
 			<staticText>
-				<reportElement x="59" y="3" width="100" height="20" uuid="49dbff33-def1-4bc7-b616-a528155d0ff1"/>
-				<text><![CDATA[tanggal_order]]></text>
-			</staticText>
-			<staticText>
 				<reportElement x="159" y="3" width="196" height="20" uuid="c9fcaa04-8ba9-4926-aff0-969b8785c207"/>
 				<text><![CDATA[item_menu_nama]]></text>
 			</staticText>
@@ -75,15 +71,14 @@ LEFT JOIN tbl_transaksi_pesanan ttp ON ttp.order_kd = toc.kd_order]]>
 				<reportElement x="8" y="3" width="51" height="20" uuid="355edc45-2c2f-4795-9981-99dddfbcedf8"/>
 				<text><![CDATA[No]]></text>
 			</staticText>
+			<staticText>
+				<reportElement x="59" y="3" width="100" height="20" uuid="87f9bce1-07e3-45e5-bed1-921da26af928"/>
+				<text><![CDATA[tgl_pembayaran]]></text>
+			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
 		<band height="21" splitType="Stretch">
-			<textField>
-				<reportElement x="59" y="1" width="100" height="20" uuid="4bc0f542-15b2-4af1-8125-3ec9ca28a83c"/>
-				<box bottomPadding="1"/>
-				<textFieldExpression><![CDATA[$F{tanggal_order}]]></textFieldExpression>
-			</textField>
 			<textField>
 				<reportElement x="159" y="1" width="196" height="20" uuid="b95a8cf9-54c9-405b-8388-015aed8c240a"/>
 				<box bottomPadding="1"/>
@@ -103,6 +98,10 @@ LEFT JOIN tbl_transaksi_pesanan ttp ON ttp.order_kd = toc.kd_order]]>
 				<reportElement x="8" y="1" width="51" height="20" uuid="c67ff079-e67f-4ecf-9c6f-45a6de064084"/>
 				<text><![CDATA[1]]></text>
 			</staticText>
+			<textField>
+				<reportElement x="59" y="1" width="100" height="20" uuid="a056792c-2592-405d-841a-300399920c75"/>
+				<textFieldExpression><![CDATA[$F{tgl_pembayaran}]]></textFieldExpression>
+			</textField>
 		</band>
 	</detail>
 	<columnFooter>
