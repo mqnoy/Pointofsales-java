@@ -1,13 +1,21 @@
 
+import java.awt.BorderLayout;
+import java.awt.Container;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
@@ -22,6 +30,7 @@ import javax.swing.border.TitledBorder;
  * @author Rifky <qnoy.rifky@gmail.com>
  */
 public class Percobaan extends javax.swing.JFrame {
+
     /**
      * Creates new form Percobaan
      */
@@ -29,7 +38,8 @@ public class Percobaan extends javax.swing.JFrame {
         initComponents();
         buttonLoop();
     }
-    public static void anu(){
+
+    public static void anu() {
         String aa = btngrup.getSelection().getActionCommand();
         System.out.println(aa);
     }
@@ -50,6 +60,7 @@ public class Percobaan extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
         jButton3 = new javax.swing.JButton();
+        panel_tombol = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -82,6 +93,20 @@ public class Percobaan extends javax.swing.JFrame {
             }
         });
 
+        panel_tombol.setBackground(new java.awt.Color(255, 255, 102));
+        panel_tombol.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        javax.swing.GroupLayout panel_tombolLayout = new javax.swing.GroupLayout(panel_tombol);
+        panel_tombol.setLayout(panel_tombolLayout);
+        panel_tombolLayout.setHorizontalGroup(
+            panel_tombolLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 525, Short.MAX_VALUE)
+        );
+        panel_tombolLayout.setVerticalGroup(
+            panel_tombolLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -96,13 +121,16 @@ public class Percobaan extends javax.swing.JFrame {
                         .addGap(114, 114, 114)
                         .addComponent(jButton2))
                     .addComponent(jButton1))
-                .addContainerGap(214, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(37, 37, 37)
-                .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButton3)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(panel_tombol, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton3)))
+                .addGap(0, 38, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -118,7 +146,9 @@ public class Percobaan extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton3))
-                .addContainerGap(307, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 117, Short.MAX_VALUE)
+                .addComponent(panel_tombol, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(86, 86, 86))
         );
 
         pack();
@@ -131,7 +161,7 @@ public class Percobaan extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
 //        try {
-            // TODO add your handling code here:
+        // TODO add your handling code here:
 //        String reportSource = null;
 //        String reportDest = null;
 //        
@@ -159,47 +189,23 @@ public class Percobaan extends javax.swing.JFrame {
         System.out.println(jDateChooser1.getDate());
     }//GEN-LAST:event_jButton3ActionPerformed
     // instead of having cat1, cat2 ... you have buttons[0], buttons[1] ...
+    ArrayList<JButton> buttons = new ArrayList<JButton>();
 
-    public void buttonLoop(){
-        JButton select, create, repair, compact;
-        JLabel database;
-        setLayout(new GridBagLayout());
-//        new JPanel.setBorder(new CompoundBorder(new TitledBorder("Database"), new EmptyBorder(12, 0, 0, 0)));
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.anchor = GridBagConstraints.WEST;
-        gbc.insets = new Insets(0, 0, 0, 4);
+    public void buttonLoop() {
+        // create each by jsut assigning a name based on its index
+        for (int i = 0; i < 3; i++) {
+            buttons.add(new JButton("Button :: " + i));
+        }
+        panel_tombol.setLayout(new GridLayout(3, 3, 10, 10));
 
-        JPanel panel = new JPanel(new GridBagLayout());
-        panel.add(new JLabel("Database: "), gbc);
-        gbc.gridx++;
-        gbc.weightx = 1;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.insets = new Insets(0, 0, 0, 0);
-        panel.add((database = new JLabel()), gbc);
-
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.weightx = 1;
-        gbc.gridwidth = GridBagConstraints.REMAINDER;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.insets = new Insets(4, 4, 4, 4);
-        add(panel, gbc);
-
-        gbc.gridwidth = 1;
-        gbc.weightx = 0.25;
-        gbc.gridy++;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        add((select = new JButton("Select")), gbc);
-        gbc.gridx++;
-        add((create = new JButton("Create")), gbc);
-        gbc.gridx++;
-        add((repair = new JButton("Repair")), gbc);
-        gbc.gridx++;
-        add((compact = new JButton("Compact")), gbc);
     }
-    
+
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == buttons.get(0)) {
+        // do something
+        }
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -243,5 +249,15 @@ public class Percobaan extends javax.swing.JFrame {
     private com.toedter.calendar.JDateChooser jDateChooser1;
     public static javax.swing.JRadioButton jRadioButton1;
     public static javax.swing.JRadioButton jRadioButton2;
+    private javax.swing.JPanel panel_tombol;
     // End of variables declaration//GEN-END:variables
 }
+
+//class buttonMaddness {
+//
+//    public static void main(String[] args) {
+//        butMaddFrame myFrame = new butMaddFrame();
+//        myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//    }
+//}
+
