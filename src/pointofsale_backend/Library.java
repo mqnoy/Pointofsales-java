@@ -171,17 +171,18 @@ public class Library {
         Library library = new Library();
 
 //        tanggalan();
-//        String generateOrder = generateOrder(lib_tanggalwaktu, 1,"generate_order");
+        String generateOrder = generateOrder(lib_tanggalwaktu, 1,"generate_order");
+        System.out.println(generateOrder);
 //        System.out.println(strTo_MD5("admin"));
         //    Date tanggalAwal_rpt = rpt_tanggal_awal.getDate();
 //        Date tanggalAkhir_rpt = rpt_tanggal_akhir.getDate();
 //        DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 //        String final_tanggalAwal_rpt = sdf.format(tanggalAwal_rpt);
 //        String final_tanggalAkhir_rpt = sdf.format(tanggalAkhir_rpt);
-         Date datetime = new Date();
-        String rawformat = "yyyy-MM-dd 00:00:00";
-        String anuan = parsing_Jdate(datetime,rawformat);
-        System.out.println(lib_tanggalwaktu);
+//         Date datetime = new Date();
+//        String rawformat = "yyyy-MM-dd 00:00:00";
+//        String anuan = parsing_Jdate(datetime,rawformat);
+//        System.out.println(lib_tanggalwaktu);
     }
 
 }
