@@ -111,7 +111,6 @@ public class HalamanUtama extends javax.swing.JFrame {
         setMaximumSize(new java.awt.Dimension(1028, 1024));
         setMinimumSize(new java.awt.Dimension(1024, 768));
         setName("frame_hal_utama"); // NOI18N
-        setUndecorated(true);
         setPreferredSize(new java.awt.Dimension(1024, 768));
         setResizable(false);
 
@@ -418,7 +417,7 @@ public class HalamanUtama extends javax.swing.JFrame {
 
         getAccessibleContext().setAccessibleName("halaman_utama");
 
-        setSize(new java.awt.Dimension(1024, 768));
+        setSize(new java.awt.Dimension(1040, 807));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 

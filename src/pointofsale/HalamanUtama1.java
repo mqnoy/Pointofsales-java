@@ -6,19 +6,62 @@
 package pointofsale;
 
 import static databases.CrudModel.insert_OrderCustomer;
+import java.awt.BorderLayout;
+import java.awt.Container;
+import java.awt.GridLayout;
+import java.awt.Panel;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import static pointofsale_backend.Frame_control.*;
+import pointofsale_backend.ButtonGenerator;
 
 /**
  *
  * @author Rifky <qnoy.rifky@gmail.com>
  */
-public class HalamanUtama extends javax.swing.JFrame {
-
+public class HalamanUtama1 extends javax.swing.JFrame {
+//    jpanel_meja
+    public static int start_buttons = 1;
+    public static int maximal_buttons = 20;
+    public static int total_buttons = 9;
+    
     /**
      * Creates new form CobaLayout
+     * @param e
      */
-    public HalamanUtama() {
+
+    private void jButton_gen_ActionPerformed(java.awt.event.ActionEvent evt) {                                          
+        // TODO add your handling code here:
+        if (evt.getActionCommand().contains("meja")) {
+            System.out.println("" + evt.getActionCommand());
+        }
+    } 
+    public void button_generator() {
+        JButton[] buttons = new JButton[maximal_buttons];
+        for (start_buttons =1 ; start_buttons <= total_buttons; start_buttons++) {
+                String str_start_buttons = String.valueOf(start_buttons);
+                buttons[start_buttons] = new JButton("meja"+start_buttons);
+                buttons[start_buttons].setActionCommand("meja"+start_buttons);
+                buttons[start_buttons].addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
+                        jButton_gen_ActionPerformed(evt);
+                    }
+                });
+
+                jpanel_meja2.add(buttons[start_buttons]);
+        }
+    }
+
+    public HalamanUtama1() {
+//        Container container = getContentPane();
+//        //set_JPnel(JPanel panela,JPanel panelb,JPanel panelc,Container container){
+//        int baris = 3;
+//        int kolom = 3;
+//jpanel_meja2.setLayout(new java.awt.BorderLayout());
+        
+
         giveAccess = true;//for testing set to true ,live pls comment with //
         if (giveAccess) {
             initComponents();
@@ -79,16 +122,7 @@ public class HalamanUtama extends javax.swing.JFrame {
         jpanel_header = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         layout_meja_dan_menu = new javax.swing.JSplitPane();
-        jpanel_meja = new javax.swing.JPanel();
-        btn_meja1 = new javax.swing.JButton();
-        btn_meja2 = new javax.swing.JButton();
-        btn_meja3 = new javax.swing.JButton();
-        btn_meja4 = new javax.swing.JButton();
-        btn_meja5 = new javax.swing.JButton();
-        btn_meja6 = new javax.swing.JButton();
-        btn_meja7 = new javax.swing.JButton();
-        btn_meja8 = new javax.swing.JButton();
-        btn_meja9 = new javax.swing.JButton();
+        jpanel_meja2 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jpanel_menu_kanan = new javax.swing.JPanel();
         jButton11 = new javax.swing.JButton();
@@ -147,59 +181,14 @@ public class HalamanUtama extends javax.swing.JFrame {
         layout_meja_dan_menu.setMinimumSize(new java.awt.Dimension(1024, 436));
         layout_meja_dan_menu.setPreferredSize(new java.awt.Dimension(1024, 436));
 
-        jpanel_meja.setBackground(new java.awt.Color(255, 255, 255));
-        jpanel_meja.setMinimumSize(new java.awt.Dimension(500, 69));
-        jpanel_meja.setPreferredSize(new java.awt.Dimension(800, 400));
-        jpanel_meja.setLayout(new java.awt.GridLayout(3, 3));
+        jpanel_meja2.setBackground(new java.awt.Color(255, 255, 255));
+        jpanel_meja2.setMinimumSize(new java.awt.Dimension(500, 69));
+        jpanel_meja2.setPreferredSize(new java.awt.Dimension(800, 400));
+        jpanel_meja2.setLayout(new java.awt.GridLayout(5, 3));
 
-        btn_meja1.setText("MEJA1");
-        btn_meja1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_meja1ActionPerformed(evt);
-            }
-        });
-        jpanel_meja.add(btn_meja1);
+        button_generator();
 
-        btn_meja2.setText("MEJA2");
-        btn_meja2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_meja2ActionPerformed(evt);
-            }
-        });
-        jpanel_meja.add(btn_meja2);
-
-        btn_meja3.setText("MEJA3");
-        jpanel_meja.add(btn_meja3);
-
-        btn_meja4.setText("MEJA4");
-        jpanel_meja.add(btn_meja4);
-
-        btn_meja5.setText("MEJA5");
-        jpanel_meja.add(btn_meja5);
-
-        btn_meja6.setText("MEJA6");
-        jpanel_meja.add(btn_meja6);
-
-        btn_meja7.setText("MEJA7");
-        btn_meja7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_meja7ActionPerformed(evt);
-            }
-        });
-        jpanel_meja.add(btn_meja7);
-
-        btn_meja8.setText("MEJA8");
-        jpanel_meja.add(btn_meja8);
-
-        btn_meja9.setText("MEJA9");
-        btn_meja9.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_meja9ActionPerformed(evt);
-            }
-        });
-        jpanel_meja.add(btn_meja9);
-
-        layout_meja_dan_menu.setLeftComponent(jpanel_meja);
+        layout_meja_dan_menu.setLeftComponent(jpanel_meja2);
 
         jPanel2.setPreferredSize(new java.awt.Dimension(200, 472));
 
@@ -259,7 +248,7 @@ public class HalamanUtama extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(tbl_keluar_sesi_1))
                     .addComponent(jButton14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton12, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE))
+                    .addComponent(jButton12, javax.swing.GroupLayout.DEFAULT_SIZE, 483, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jpanel_menu_kananLayout.setVerticalGroup(
@@ -268,7 +257,7 @@ public class HalamanUtama extends javax.swing.JFrame {
                 .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton14, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 300, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 298, Short.MAX_VALUE)
                 .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(tbl_keluar_sesi_1)
@@ -279,13 +268,13 @@ public class HalamanUtama extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 205, Short.MAX_VALUE)
+            .addGap(0, 503, Short.MAX_VALUE)
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jpanel_menu_kanan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jpanel_menu_kanan, javax.swing.GroupLayout.DEFAULT_SIZE, 503, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 496, Short.MAX_VALUE)
+            .addGap(0, 494, Short.MAX_VALUE)
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(jpanel_menu_kanan, javax.swing.GroupLayout.DEFAULT_SIZE, 494, Short.MAX_VALUE))
         );
@@ -353,12 +342,12 @@ public class HalamanUtama extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(layout_footer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jpanel_header, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(layout_footer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addContainerGap()
@@ -422,25 +411,6 @@ public class HalamanUtama extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btn_meja9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_meja9ActionPerformed
-        // TODO add your handling code here:
-
-    }//GEN-LAST:event_btn_meja9ActionPerformed
-
-    private void btn_meja1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_meja1ActionPerformed
-        mulaiOrder(1);
-    }//GEN-LAST:event_btn_meja1ActionPerformed
-
-    private void btn_meja7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_meja7ActionPerformed
-        // TODO add your handling code here:
-
-    }//GEN-LAST:event_btn_meja7ActionPerformed
-
-    private void btn_meja2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_meja2ActionPerformed
-        // TODO add your handling code here:
-        mulaiOrder(2);
-    }//GEN-LAST:event_btn_meja2ActionPerformed
-
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
         // TODO add your handling code here:
         tampilForm_LapPenjualan();
@@ -497,24 +467,31 @@ public class HalamanUtama extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(HalamanUtama.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(HalamanUtama1.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(HalamanUtama.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(HalamanUtama1.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(HalamanUtama.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(HalamanUtama1.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(HalamanUtama.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(HalamanUtama1.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new HalamanUtama().setVisible(true);
+                new HalamanUtama1().setVisible(true);
                 //set biar di tengah         
 
                 //munculin framenya
@@ -523,15 +500,6 @@ public class HalamanUtama extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn_meja1;
-    private javax.swing.JButton btn_meja2;
-    private javax.swing.JButton btn_meja3;
-    private javax.swing.JButton btn_meja4;
-    private javax.swing.JButton btn_meja5;
-    private javax.swing.JButton btn_meja6;
-    private javax.swing.JButton btn_meja7;
-    private javax.swing.JButton btn_meja8;
-    private javax.swing.JButton btn_meja9;
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton14;
@@ -547,10 +515,12 @@ public class HalamanUtama extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JPanel jpanel_header;
-    private javax.swing.JPanel jpanel_meja;
+    public static javax.swing.JPanel jpanel_meja2;
     private javax.swing.JPanel jpanel_menu_kanan;
     private javax.swing.JSplitPane layout_footer;
     private javax.swing.JSplitPane layout_meja_dan_menu;
     private javax.swing.JButton tbl_keluar_sesi_1;
     // End of variables declaration//GEN-END:variables
+
+    
 }
