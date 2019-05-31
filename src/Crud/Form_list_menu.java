@@ -157,6 +157,22 @@ public class Form_list_menu extends javax.swing.JFrame {
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Draft order customer"));
 
+        JTBL_draft_order.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "no", "kd menu", "qty", "subtotal"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         JTBL_draft_order.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(JTBL_draft_order);
         if (JTBL_draft_order.getColumnModel().getColumnCount() > 0) {
