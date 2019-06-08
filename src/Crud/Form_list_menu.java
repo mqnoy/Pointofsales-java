@@ -10,10 +10,6 @@ import javax.swing.table.DefaultTableModel;
 import static pointofsale_backend.Frame_control.tampil_NotAvailable;
 import static databases.CrudModel.getMenulistDB;
 import static databases.CrudModel.insert_OrderCustomer_menu;
-import static databases.CrudModel.insert_ReceiptChef;
-import java.awt.event.ActionEvent;
-import javax.swing.AbstractAction;
-import javax.swing.Action;
 
 /**
  *
@@ -452,7 +448,6 @@ public class Form_list_menu extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         insert_OrderCustomer_menu(lbl_flm_kodeOrder_detail.getText());
-        insert_ReceiptChef(lbl_flm_kodeOrder.getText());      
         DefaultTableModel tbl_draft_order = (DefaultTableModel)JTBL_draft_order.getModel();
         while(tbl_draft_order.getRowCount() > 0) {
             tbl_draft_order.removeRow(0);
