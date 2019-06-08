@@ -34,7 +34,7 @@ public class ConfigDatabase {
     protected static void setConf() {
         ConfigDatabase.host = "localhost";
         ConfigDatabase.username = "root";
-        ConfigDatabase.password = "123456";
+        ConfigDatabase.password = "";
         ConfigDatabase.driver = "mysql";
         ConfigDatabase.database = "pointofsale";
         ConfigDatabase.port = 3306;

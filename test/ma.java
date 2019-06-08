@@ -15,8 +15,8 @@ import java.awt.event.*;
 class buttonMaddness22 {
 
     public static void main(String[] args) {
-        butMaddFrame myFrame = new butMaddFrame();
-        myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        butMaddFrame myFrame = new butMaddFrame();
+//        myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 }
 
