@@ -60,6 +60,6 @@ locate to folder Pointofsales ,with NetBeans
 
 ## License
 
-This project is licensed under the ???? - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the Apache-2.0 - see the [LICENSE.md](LICENSE.md) file for details
 
 
