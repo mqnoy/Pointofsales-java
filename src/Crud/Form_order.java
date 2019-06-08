@@ -4,37 +4,58 @@
  * and open the template in the editor.
  */
 package Crud;
+
 import static databases.CrudModel.delete_OrderCustomer;
+import static databases.CrudModel.delete_satuOrderCustomer_menu;
 import static databases.CrudModel.select_OrderCustomer_menu;
+import static databases.CrudModel.select_OrderCustomer_menu_total;
+import static databases.CrudModel.update_OrderCustomer_menu;
 import javax.swing.JOptionPane;
 import static pointofsale_backend.Frame_control.*;
+import static pointofsale_backend.Library.*;
+
 /**
  *
  * @author Rifky <qnoy.rifky@gmail.com>
  */
 public class Form_order extends javax.swing.JFrame {
+
     private static boolean button_order = false;
+    private String val_status;
+    private int val_id_ordermenu;
+
     /**
      * Creates new form C_menu
      */
-
     public Form_order() {
         initComponents();
-        
+        getAlldata_tableOrder_rp();
+
     }
-    public static void getAlldata_table_order(){
+
+    public static void getAlldata_tableOrder_rp() {
+        //get jumlah rp orderan
+        int total_rp = select_OrderCustomer_menu_total(lbl_kodeOrder_detail.getText());
+        String totalOrder_rp = String.valueOf(total_rp);
+        lbl_total_rp_order.setText(totalOrder_rp);
+    }
+
+    public static void getAlldata_table_order() {
+        getAlldata_tableOrder_rp();
+
         System.out.println("getAlldata_table_order() executed");
         select_OrderCustomer_menu(lbl_kodeOrder_detail.getText());
         int total_datatable = JTBL_form_order.getRowCount();
-        if (total_datatable > 0 ) {
+        if (total_datatable > 0) {
             delete_detailorder = true;
             if (total_datatable > 1) {
                 btn_hapus_1pesanan.setEnabled(true);
             }
             btn_daftar_menu.setEnabled(true);
-            btn_Order.setText("Ubah pesanan");
+            btn_Order.setText("Print Pesanan");
             button_order = false;
-        }else{
+
+        } else {
             btn_hapus_1pesanan.setEnabled(false);
             btn_daftar_menu.setEnabled(false);
             btn_Order.setText("Tambah pesanan");
@@ -42,6 +63,7 @@ public class Form_order extends javax.swing.JFrame {
         }
         //
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -236,11 +258,11 @@ public class Form_order extends javax.swing.JFrame {
 
             },
             new String [] {
-                "no", "#id", "nama menu", "qty", "subtotal"
+                "no", "#id", "nama menu", "qty", "subtotal", "status"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -257,15 +279,11 @@ public class Form_order extends javax.swing.JFrame {
         jScrollPane2.setViewportView(JTBL_form_order);
         if (JTBL_form_order.getColumnModel().getColumnCount() > 0) {
             JTBL_form_order.getColumnModel().getColumn(0).setResizable(false);
-            JTBL_form_order.getColumnModel().getColumn(0).setHeaderValue("no");
             JTBL_form_order.getColumnModel().getColumn(1).setResizable(false);
-            JTBL_form_order.getColumnModel().getColumn(1).setHeaderValue("#id");
             JTBL_form_order.getColumnModel().getColumn(2).setResizable(false);
-            JTBL_form_order.getColumnModel().getColumn(2).setHeaderValue("nama menu");
             JTBL_form_order.getColumnModel().getColumn(3).setResizable(false);
-            JTBL_form_order.getColumnModel().getColumn(3).setHeaderValue("qty");
             JTBL_form_order.getColumnModel().getColumn(4).setResizable(false);
-            JTBL_form_order.getColumnModel().getColumn(4).setHeaderValue("subtotal");
+            JTBL_form_order.getColumnModel().getColumn(5).setResizable(false);
         }
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -294,11 +312,6 @@ public class Form_order extends javax.swing.JFrame {
         });
 
         btn_daftar_menu.setText("Daftar menu");
-        btn_daftar_menu.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btn_daftar_menuMouseClicked(evt);
-            }
-        });
         btn_daftar_menu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_daftar_menuActionPerformed(evt);
@@ -388,38 +401,45 @@ public class Form_order extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    private static boolean  delete_detailorder = false;
+    private static boolean delete_detailorder = false;
     private void btn_batalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_batalActionPerformed
         // TODO add your handling code here:
         System.out.print(delete_detailorder);
         int result = JOptionPane.showConfirmDialog(this, "Batalkan order ?", this.getTitle(), JOptionPane.YES_NO_OPTION);
-                if (result == JOptionPane.YES_OPTION){
-                    delete_OrderCustomer(lbl_kodeOrder.getText(),lbl_kodeOrder_detail.getText());
-                    //delete_OrderCustomer(lbl_kodeOrder.getText(), lbl_kodeOrder_detail.getText(),delete_detailorder);
-                    if (notif_del_order_customer) {
-                        JOptionPane.showMessageDialog(this,"delete order berhasil");
-                    }else{
-                        JOptionPane.showMessageDialog(this,"delete order gagal");
-                    }
-                    this.dispose();
-                }else if (result == JOptionPane.NO_OPTION)   {
-                    this.setDefaultCloseOperation(this.DO_NOTHING_ON_CLOSE);
+        if (result == JOptionPane.YES_OPTION) {
+//                    delete_OrderCustomer(lbl_kodeOrder.getText(),lbl_kodeOrder_detail.getText());
+            delete_OrderCustomer(lbl_kodeOrder.getText(), lbl_kodeOrder_detail.getText(), delete_detailorder);
+            if (notif_del_order_customer) {
+                JOptionPane.showMessageDialog(this, "delete order berhasil");
+            } else {
+                JOptionPane.showMessageDialog(this, "delete order gagal");
             }
+            this.dispose();
+        } else if (result == JOptionPane.NO_OPTION) {
+            this.setDefaultCloseOperation(this.DO_NOTHING_ON_CLOSE);
+        }
     }//GEN-LAST:event_btn_batalActionPerformed
 
     private void btn_OrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_OrderActionPerformed
         // TODO add your handling code here:
         if (button_order) {
-            tampil_form_list_menu(lbl_kodeOrder.getText(),lbl_kodeOrder_detail.getText());        
-        }else{
+            tampil_form_list_menu(lbl_kodeOrder.getText(), lbl_kodeOrder_detail.getText());
+        } else {
             System.out.println("update query order");
+            update_OrderCustomer_menu(lbl_kodeOrder_detail.getText());
+            getAlldata_table_order();
+            if(notif_updt_order_customer){
+                String reportPath = ".\\src\\receipt\\Receipt_chef.jrxml";
+                String qery_select_forReceipt = "SELECT tmim.item_menu_nama,tdoc.qty FROM tbl_detail_order_customer tdoc \n" +
+                                                "LEFT JOIN tbl_order_customer toc ON tdoc.kd_detail_order = toc.detail_order_kd\n" +
+                                                "LEFT JOIN tbl_master_item_menu tmim ON tdoc.item_menu_id = tmim.id_item_menu\n" +
+                                                "WHERE tdoc.cetak='y' AND tdoc.kd_detail_order = '"+lbl_kodeOrder_detail.getText()+"'"; 
+                System.out.println(qery_select_forReceipt);
+                set_CustomReportQuery(qery_select_forReceipt);
+                generate_CustomReport(reportPath, get_CustomReportQuery());
+            }
         }
     }//GEN-LAST:event_btn_OrderActionPerformed
-
-    private void btn_hapus_1pesananActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_hapus_1pesananActionPerformed
-        // TODO add your handling code here:
-        
-    }//GEN-LAST:event_btn_hapus_1pesananActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
@@ -433,12 +453,8 @@ public class Form_order extends javax.swing.JFrame {
 
     private void btn_daftar_menuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_daftar_menuActionPerformed
         // TODO add your handling code here:
-        tampil_form_list_menu(lbl_kodeOrder.getText(),lbl_kodeOrder_detail.getText());
+        tampil_form_list_menu(lbl_kodeOrder.getText(), lbl_kodeOrder_detail.getText());
     }//GEN-LAST:event_btn_daftar_menuActionPerformed
-
-    private void btn_daftar_menuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_daftar_menuMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_daftar_menuMouseClicked
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
@@ -447,10 +463,28 @@ public class Form_order extends javax.swing.JFrame {
 
     private void JTBL_form_orderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JTBL_form_orderMouseClicked
         // TODO add your handling code here:
-        jDialog_listpesanan.pack();
-        jDialog_listpesanan.setLocationRelativeTo(null);
-        jDialog_listpesanan.setVisible(true);
+        int row = JTBL_form_order.getSelectedRow();
+        val_id_ordermenu = (int) JTBL_form_order.getModel().getValueAt(row, 1);
+        val_status = JTBL_form_order.getModel().getValueAt(row, 5).toString();
+        System.out.println("table clicked =>" + val_id_ordermenu + "\n" + val_status);
     }//GEN-LAST:event_JTBL_form_orderMouseClicked
+
+    private void btn_hapus_1pesananActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_hapus_1pesananActionPerformed
+        // TODO add your handling code here:
+        if (val_status.equals("kitchen")) {
+            JOptionPane.showMessageDialog(rootPane, "tidak bisa di hapus karna sudah di kitchen");
+        } else {
+            delete_satuOrderCustomer_menu(val_id_ordermenu, lbl_kodeOrder_detail.getText());
+
+            if (notif_delsatu_order_customer) {
+                getAlldata_table_order();
+                JOptionPane.showMessageDialog(rootPane, "sukses di hapus ");
+            }else{
+                JOptionPane.showMessageDialog(rootPane, "gagal di hapus ");
+            }
+
+        }
+    }//GEN-LAST:event_btn_hapus_1pesananActionPerformed
 
     /**
      * @param args the command line arguments
@@ -479,8 +513,6 @@ public class Form_order extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
-        
-
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -518,8 +550,7 @@ public class Form_order extends javax.swing.JFrame {
     public static javax.swing.JLabel lbl_kodeOrder;
     public static javax.swing.JLabel lbl_kodeOrder_detail;
     public javax.swing.JLabel lbl_kodemeja;
-    public javax.swing.JLabel lbl_total_rp_order;
+    public static javax.swing.JLabel lbl_total_rp_order;
     // End of variables declaration//GEN-END:variables
 
-    
 }
