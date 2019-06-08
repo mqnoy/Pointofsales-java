@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jun 08, 2019 at 11:08 AM
+-- Generation Time: Jun 08, 2019 at 04:23 PM
 -- Server version: 10.1.40-MariaDB
 -- PHP Version: 7.1.29
 
@@ -41,11 +41,7 @@ CREATE TABLE `tbl_detail_order_customer` (
 --
 
 INSERT INTO `tbl_detail_order_customer` (`id_detail_order`, `kd_detail_order`, `item_menu_id`, `qty`, `cetak`) VALUES
-(5, 'DTL20190608MJ0011', 8, 2, 'y'),
-(7, 'DTL20190608MJ0011', 9, 2, 'y'),
-(9, 'DTL20190608MJ0011', 8, 2, 'y'),
-(10, 'DTL20190608MJ0014', 8, 3, 'y'),
-(11, 'DTL20190608MJ0014', 9, 3, 'y');
+(1, 'DTL20190608MJ0011', 8, 2, 'y');
 
 -- --------------------------------------------------------
 
@@ -142,9 +138,7 @@ CREATE TABLE `tbl_master_pegawai` (
 --
 
 INSERT INTO `tbl_master_pegawai` (`id_pegawai`, `pegawai_nip`, `pegawai_nama`, `pegawai_jabatan`, `user_id`) VALUES
-(1, '201643502057', 'rifky azmi', 'kepalakoki', 1),
-(2, '201643502058', 'rifky qnoy', 'kasir', 2),
-(3, '5656', 'rr', 'pelayan', 4);
+(9, '201643502057', 'rifky azmi', 'kepalakoki', 1);
 
 -- --------------------------------------------------------
 
@@ -186,10 +180,7 @@ CREATE TABLE `tbl_master_user_application` (
 --
 
 INSERT INTO `tbl_master_user_application` (`id_user`, `idaccess`, `password`, `level`, `blokir`, `date_registered`) VALUES
-(1, '201643502057', '21232f297a57a5a743894a0e4a801fc3', 'superadmin', 'n', '2019-04-08 00:00:00'),
-(2, '2057', '1234', 'operator', 'n', '2019-04-08 00:00:00'),
-(3, '1', 'c4ca4238a0b923820dcc509a6f75849b', 'superadmin', 'n', '2019-05-04 00:00:00'),
-(4, '2019', '[C@bea1a79', 'superadmin', 'n', '2019-04-12 23:59:24');
+(1, '201643502057', '226faebfce8e36504fc162465effefc5', 'superadmin', 'n', '2019-04-08 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -210,8 +201,7 @@ CREATE TABLE `tbl_order_customer` (
 --
 
 INSERT INTO `tbl_order_customer` (`id_order_cust`, `kd_order`, `detail_order_kd`, `meja_id`, `tanggal_order`) VALUES
-(3, 'ODR20190608MJ0011', 'DTL20190608MJ0011', 1, '2019-06-08 14:26:16'),
-(4, 'ODR20190608MJ0014', 'DTL20190608MJ0014', 1, '2019-06-08 15:13:55');
+(1, 'ODR20190608MJ0011', 'DTL20190608MJ0011', 1, '2019-06-08 21:01:48');
 
 -- --------------------------------------------------------
 
@@ -222,15 +212,15 @@ INSERT INTO `tbl_order_customer` (`id_order_cust`, `kd_order`, `detail_order_kd`
 CREATE TABLE `tbl_transaksi_pesanan` (
   `id_struk` int(11) NOT NULL,
   `order_kd` varchar(50) NOT NULL,
-  `total_tagihan` int(20) NOT NULL,
-  `nominal_pembayaran` int(20) NOT NULL,
-  `kembalian` int(20) NOT NULL,
+  `total_tagihan` int(100) NOT NULL,
+  `nominal_pembayaran` int(100) NOT NULL,
+  `kembalian` int(100) NOT NULL,
   `payment_type_id` int(11) NOT NULL,
   `lunas` enum('y','n') NOT NULL DEFAULT 'n',
   `bungkus` enum('y','n') NOT NULL DEFAULT 'n',
   `pos_computer_id` int(11) NOT NULL,
   `id_pegawai` int(11) NOT NULL,
-  `tgl_pembayaran` datetime DEFAULT NULL
+  `tgl_pembayaran` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -238,8 +228,7 @@ CREATE TABLE `tbl_transaksi_pesanan` (
 --
 
 INSERT INTO `tbl_transaksi_pesanan` (`id_struk`, `order_kd`, `total_tagihan`, `nominal_pembayaran`, `kembalian`, `payment_type_id`, `lunas`, `bungkus`, `pos_computer_id`, `id_pegawai`, `tgl_pembayaran`) VALUES
-(3, 'ODR20190608MJ0011', 0, 0, 0, -1, 'y', 'n', 1, 1, '2019-06-08 00:00:00'),
-(4, 'ODR20190608MJ0014', 0, 0, 0, -1, 'n', 'n', 1, 1, NULL);
+(1, 'ODR20190608MJ0011', 110000, 1000000, 890000, 1, 'y', 'n', 1, 9, '2019-06-08 14:04:49');
 
 --
 -- Indexes for dumped tables
@@ -311,7 +300,7 @@ ALTER TABLE `tbl_transaksi_pesanan`
 -- AUTO_INCREMENT for table `tbl_detail_order_customer`
 --
 ALTER TABLE `tbl_detail_order_customer`
-  MODIFY `id_detail_order` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id_detail_order` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tbl_master_item_menu`
@@ -335,7 +324,7 @@ ALTER TABLE `tbl_master_payment_type`
 -- AUTO_INCREMENT for table `tbl_master_pegawai`
 --
 ALTER TABLE `tbl_master_pegawai`
-  MODIFY `id_pegawai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_pegawai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `tbl_master_pos_computer`
@@ -347,19 +336,19 @@ ALTER TABLE `tbl_master_pos_computer`
 -- AUTO_INCREMENT for table `tbl_master_user_application`
 --
 ALTER TABLE `tbl_master_user_application`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `tbl_order_customer`
 --
 ALTER TABLE `tbl_order_customer`
-  MODIFY `id_order_cust` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_order_cust` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `tbl_transaksi_pesanan`
 --
 ALTER TABLE `tbl_transaksi_pesanan`
-  MODIFY `id_struk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_struk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
