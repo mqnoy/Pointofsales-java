@@ -35,8 +35,8 @@ public class Form_order extends javax.swing.JFrame {
 
     public static void getAlldata_tableOrder_rp() {
         //get jumlah rp orderan
-        boolean stateBayar_tagihan = false; 
-        int total_rp = select_OrderCustomer_menu_total(lbl_kodeOrder_detail.getText(),stateBayar_tagihan);
+        boolean stateBayar_tagihan = false;
+        int total_rp = select_OrderCustomer_menu_total(lbl_kodeOrder_detail.getText(), stateBayar_tagihan);
         String totalOrder_rp = String.valueOf(total_rp);
         lbl_total_rp_order.setText(totalOrder_rp);
     }
@@ -298,6 +298,8 @@ public class Form_order extends javax.swing.JFrame {
             .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE)
         );
 
+        jButton1.setBackground(new java.awt.Color(51, 51, 51));
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("kembali");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -305,6 +307,8 @@ public class Form_order extends javax.swing.JFrame {
             }
         });
 
+        btn_hapus_1pesanan.setBackground(new java.awt.Color(51, 51, 51));
+        btn_hapus_1pesanan.setForeground(new java.awt.Color(255, 255, 255));
         btn_hapus_1pesanan.setText("Hapus (1)item");
         btn_hapus_1pesanan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -312,6 +316,8 @@ public class Form_order extends javax.swing.JFrame {
             }
         });
 
+        btn_daftar_menu.setBackground(new java.awt.Color(51, 51, 51));
+        btn_daftar_menu.setForeground(new java.awt.Color(255, 255, 255));
         btn_daftar_menu.setText("Daftar menu");
         btn_daftar_menu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -338,6 +344,8 @@ public class Form_order extends javax.swing.JFrame {
                 .addComponent(btn_daftar_menu, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
+        btn_Order.setBackground(new java.awt.Color(51, 51, 51));
+        btn_Order.setForeground(new java.awt.Color(255, 255, 255));
         btn_Order.setText("...");
         btn_Order.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -345,6 +353,8 @@ public class Form_order extends javax.swing.JFrame {
             }
         });
 
+        btn_batal.setBackground(new java.awt.Color(51, 51, 51));
+        btn_batal.setForeground(new java.awt.Color(255, 255, 255));
         btn_batal.setText("Batalkan pesanan");
         btn_batal.setMaximumSize(new java.awt.Dimension(61, 23));
         btn_batal.setMinimumSize(new java.awt.Dimension(61, 23));
@@ -426,19 +436,22 @@ public class Form_order extends javax.swing.JFrame {
         if (button_order) {
             tampil_form_list_menu(lbl_kodeOrder.getText(), lbl_kodeOrder_detail.getText());
         } else {
-            System.out.println("update query order");
-            update_OrderCustomer_menu(lbl_kodeOrder_detail.getText());
-            getAlldata_table_order();
-            if(notif_updt_order_customer){
+                String reportPath = get_fullPath("src/receipt/Receipt_chef.jrxml");
+                String qery_select_forReceipt = "SELECT tmim.item_menu_nama,tdoc.qty FROM tbl_detail_order_customer tdoc \n"
+                        + "LEFT JOIN tbl_order_customer toc ON tdoc.kd_detail_order = toc.detail_order_kd\n"
+                        + "LEFT JOIN tbl_master_item_menu tmim ON tdoc.item_menu_id = tmim.id_item_menu\n"
+                        + "WHERE tdoc.cetak='n' AND tdoc.kd_detail_order = '" + lbl_kodeOrder_detail.getText() + "'";
+                System.out.println(qery_select_forReceipt);
+                set_CustomReportQuery(qery_select_forReceipt);
+                generate_CustomReport(reportPath, get_CustomReportQuery());
                 
-//                String reportPath = ".\\src\\receipt\\Receipt_chef.jrxml";
-//                String qery_select_forReceipt = "SELECT tmim.item_menu_nama,tdoc.qty FROM tbl_detail_order_customer tdoc \n" +
-//                                                "LEFT JOIN tbl_order_customer toc ON tdoc.kd_detail_order = toc.detail_order_kd\n" +
-//                                                "LEFT JOIN tbl_master_item_menu tmim ON tdoc.item_menu_id = tmim.id_item_menu\n" +
-//                                                "WHERE tdoc.cetak='y' AND tdoc.kd_detail_order = '"+lbl_kodeOrder_detail.getText()+"'"; 
-//                System.out.println(qery_select_forReceipt);
-//                set_CustomReportQuery(qery_select_forReceipt);
-//                generate_CustomReport(reportPath, get_CustomReportQuery());
+            //cek state apakah jasper sudah selesai    
+            if (get_stateAfterReport()) {
+                System.out.println("update query order");
+                update_OrderCustomer_menu(lbl_kodeOrder_detail.getText());
+                if (notif_updt_order_customer) {
+                    getAlldata_table_order();
+                }
             }
         }
     }//GEN-LAST:event_btn_OrderActionPerformed
@@ -481,7 +494,7 @@ public class Form_order extends javax.swing.JFrame {
             if (notif_delsatu_order_customer) {
                 getAlldata_table_order();
                 JOptionPane.showMessageDialog(rootPane, "sukses di hapus ");
-            }else{
+            } else {
                 JOptionPane.showMessageDialog(rootPane, "gagal di hapus ");
             }
 
@@ -499,7 +512,7 @@ public class Form_order extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Metal".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
