@@ -59,7 +59,7 @@ public class Form_crud_menu extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         txt_menuharga = new javax.swing.JTextField();
-        cb_menukategory = new javax.swing.JComboBox<>();
+        cb_menukategory = new javax.swing.JComboBox<String>();
         jPanel3 = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
         lbl_menuharga = new javax.swing.JLabel();
@@ -123,7 +123,9 @@ public class Form_crud_menu extends javax.swing.JFrame {
             }
         });
 
-        cb_menukategory.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "- pilih -", "makanan", "minuman" }));
+        cb_menukategory.setBackground(new java.awt.Color(51, 51, 51));
+        cb_menukategory.setForeground(new java.awt.Color(255, 255, 255));
+        cb_menukategory.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "- pilih -", "makanan", "minuman" }));
         cb_menukategory.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cb_menukategoryItemStateChanged(evt);
@@ -299,6 +301,8 @@ public class Form_crud_menu extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(JTBL_listMenu_crud);
 
+        jToggleButton1.setBackground(new java.awt.Color(51, 51, 51));
+        jToggleButton1.setForeground(new java.awt.Color(255, 255, 255));
         jToggleButton1.setText("Kembali");
         jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -306,6 +310,7 @@ public class Form_crud_menu extends javax.swing.JFrame {
             }
         });
 
+        jLabel15.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
         jLabel15.setForeground(new java.awt.Color(255, 0, 0));
         jLabel15.setText("note : fungsi hapus disini hanya menyembunyikan saja");
 
@@ -313,7 +318,7 @@ public class Form_crud_menu extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 528, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 538, Short.MAX_VALUE)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -329,6 +334,8 @@ public class Form_crud_menu extends javax.swing.JFrame {
                     .addComponent(jLabel15)))
         );
 
+        btn_hapusmenu.setBackground(new java.awt.Color(51, 51, 51));
+        btn_hapusmenu.setForeground(new java.awt.Color(255, 255, 255));
         btn_hapusmenu.setText("Hapus");
         btn_hapusmenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -336,6 +343,8 @@ public class Form_crud_menu extends javax.swing.JFrame {
             }
         });
 
+        btn_tambahmenu.setBackground(new java.awt.Color(51, 51, 51));
+        btn_tambahmenu.setForeground(new java.awt.Color(255, 255, 255));
         btn_tambahmenu.setText("Tambah");
         btn_tambahmenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -343,6 +352,8 @@ public class Form_crud_menu extends javax.swing.JFrame {
             }
         });
 
+        btn_updatemenu.setBackground(new java.awt.Color(51, 51, 51));
+        btn_updatemenu.setForeground(new java.awt.Color(255, 255, 255));
         btn_updatemenu.setText("Ubah");
         btn_updatemenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -530,7 +541,7 @@ public class Form_crud_menu extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Metal".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }

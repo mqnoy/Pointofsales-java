@@ -154,6 +154,8 @@ public class Form_crud_userAplikasi extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel3.setText("Level akses * :");
 
+        cb_userapp_levelakses.setBackground(new java.awt.Color(51, 51, 51));
+        cb_userapp_levelakses.setForeground(new java.awt.Color(255, 255, 255));
         cb_userapp_levelakses.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-pilih-", "operator", "superadmin" }));
 
         txt_idPengguna.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -240,6 +242,8 @@ public class Form_crud_userAplikasi extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel7.setText("Jabatan * : ");
 
+        cb_userapp_jabatan.setBackground(new java.awt.Color(51, 51, 51));
+        cb_userapp_jabatan.setForeground(new java.awt.Color(255, 255, 255));
         cb_userapp_jabatan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "- pilih -", "pelayan", "kepalakoki", "kasir" }));
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
@@ -295,6 +299,8 @@ public class Form_crud_userAplikasi extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        btn_tambah.setBackground(new java.awt.Color(51, 51, 51));
+        btn_tambah.setForeground(new java.awt.Color(255, 255, 255));
         btn_tambah.setText("Tambah");
         btn_tambah.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -302,6 +308,8 @@ public class Form_crud_userAplikasi extends javax.swing.JFrame {
             }
         });
 
+        btn_mainmenu.setBackground(new java.awt.Color(51, 51, 51));
+        btn_mainmenu.setForeground(new java.awt.Color(255, 255, 255));
         btn_mainmenu.setText("Menu utama");
         btn_mainmenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -309,6 +317,8 @@ public class Form_crud_userAplikasi extends javax.swing.JFrame {
             }
         });
 
+        btn_ubah.setBackground(new java.awt.Color(51, 51, 51));
+        btn_ubah.setForeground(new java.awt.Color(255, 255, 255));
         btn_ubah.setText("Ubah");
         btn_ubah.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -316,6 +326,8 @@ public class Form_crud_userAplikasi extends javax.swing.JFrame {
             }
         });
 
+        btn_hapus.setBackground(new java.awt.Color(51, 51, 51));
+        btn_hapus.setForeground(new java.awt.Color(255, 255, 255));
         btn_hapus.setText("Hapus");
         btn_hapus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -493,7 +505,7 @@ public class Form_crud_userAplikasi extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Metal".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }

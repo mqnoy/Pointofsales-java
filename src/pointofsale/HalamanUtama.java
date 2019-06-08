@@ -151,6 +151,8 @@ public class HalamanUtama extends javax.swing.JFrame {
         jpanel_meja.setPreferredSize(new java.awt.Dimension(800, 400));
         jpanel_meja.setLayout(new java.awt.GridLayout(3, 3));
 
+        btn_meja1.setBackground(new java.awt.Color(103, 161, 229));
+        btn_meja1.setForeground(new java.awt.Color(255, 255, 255));
         btn_meja1.setText("MEJA1");
         btn_meja1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -159,6 +161,8 @@ public class HalamanUtama extends javax.swing.JFrame {
         });
         jpanel_meja.add(btn_meja1);
 
+        btn_meja2.setBackground(btn_meja1.getBackground());
+        btn_meja2.setForeground(btn_meja1.getForeground());
         btn_meja2.setText("MEJA2");
         btn_meja2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -167,18 +171,28 @@ public class HalamanUtama extends javax.swing.JFrame {
         });
         jpanel_meja.add(btn_meja2);
 
+        btn_meja3.setBackground(btn_meja1.getBackground());
+        btn_meja3.setForeground(btn_meja1.getForeground());
         btn_meja3.setText("MEJA3");
         jpanel_meja.add(btn_meja3);
 
+        btn_meja4.setBackground(btn_meja1.getBackground());
+        btn_meja4.setForeground(btn_meja1.getForeground());
         btn_meja4.setText("MEJA4");
         jpanel_meja.add(btn_meja4);
 
+        btn_meja5.setBackground(btn_meja1.getBackground());
+        btn_meja5.setForeground(btn_meja1.getForeground());
         btn_meja5.setText("MEJA5");
         jpanel_meja.add(btn_meja5);
 
+        btn_meja6.setBackground(btn_meja1.getBackground());
+        btn_meja6.setForeground(btn_meja1.getForeground());
         btn_meja6.setText("MEJA6");
         jpanel_meja.add(btn_meja6);
 
+        btn_meja7.setBackground(btn_meja1.getBackground());
+        btn_meja7.setForeground(btn_meja1.getForeground());
         btn_meja7.setText("MEJA7");
         btn_meja7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -187,9 +201,13 @@ public class HalamanUtama extends javax.swing.JFrame {
         });
         jpanel_meja.add(btn_meja7);
 
+        btn_meja8.setBackground(btn_meja1.getBackground());
+        btn_meja8.setForeground(btn_meja1.getForeground());
         btn_meja8.setText("MEJA8");
         jpanel_meja.add(btn_meja8);
 
+        btn_meja9.setBackground(btn_meja1.getBackground());
+        btn_meja9.setForeground(btn_meja1.getForeground());
         btn_meja9.setText("MEJA9");
         btn_meja9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

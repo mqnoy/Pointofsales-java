@@ -199,6 +199,8 @@ public class Form_list_menu extends javax.swing.JFrame {
 
         lbl_flm_kodeOrder.setText("jLabel1");
 
+        btn_flm_hapus1item.setBackground(new java.awt.Color(51, 51, 51));
+        btn_flm_hapus1item.setForeground(new java.awt.Color(255, 255, 255));
         btn_flm_hapus1item.setText("Kosongkan daft");
         btn_flm_hapus1item.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -243,6 +245,8 @@ public class Form_list_menu extends javax.swing.JFrame {
                         .addContainerGap())))
         );
 
+        cb_flm_ktgmenu.setBackground(new java.awt.Color(51, 51, 51));
+        cb_flm_ktgmenu.setForeground(new java.awt.Color(255, 255, 255));
         cb_flm_ktgmenu.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "makanan", "minuman" }));
         cb_flm_ktgmenu.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         cb_flm_ktgmenu.addActionListener(new java.awt.event.ActionListener() {
@@ -257,6 +261,8 @@ public class Form_list_menu extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setBackground(new java.awt.Color(51, 51, 51));
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("menu paket");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -264,6 +270,8 @@ public class Form_list_menu extends javax.swing.JFrame {
             }
         });
 
+        btn_flm_kembali.setBackground(new java.awt.Color(51, 51, 51));
+        btn_flm_kembali.setForeground(new java.awt.Color(255, 255, 255));
         btn_flm_kembali.setText("kembali");
         btn_flm_kembali.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -271,6 +279,8 @@ public class Form_list_menu extends javax.swing.JFrame {
             }
         });
 
+        btn_flm_cari.setBackground(new java.awt.Color(51, 51, 51));
+        btn_flm_cari.setForeground(new java.awt.Color(255, 255, 255));
         btn_flm_cari.setText("cari menu");
         btn_flm_cari.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -278,6 +288,9 @@ public class Form_list_menu extends javax.swing.JFrame {
             }
         });
 
+        jButton2.setBackground(new java.awt.Color(51, 51, 51));
+        jButton2.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(255, 255, 255));
         jButton2.setText("order");
         jButton2.setMaximumSize(new java.awt.Dimension(67, 23));
         jButton2.setMinimumSize(new java.awt.Dimension(67, 23));
@@ -475,7 +488,7 @@ public class Form_list_menu extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Metal".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }

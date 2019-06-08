@@ -45,6 +45,8 @@ public class Popup_pilihan_meja extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Pilihan");
 
+        btn_ppm_Bayar.setBackground(new java.awt.Color(51, 51, 51));
+        btn_ppm_Bayar.setForeground(new java.awt.Color(255, 255, 255));
         btn_ppm_Bayar.setText("BAYAR");
         btn_ppm_Bayar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -52,6 +54,8 @@ public class Popup_pilihan_meja extends javax.swing.JFrame {
             }
         });
 
+        btn_ppm_Order.setBackground(new java.awt.Color(51, 51, 51));
+        btn_ppm_Order.setForeground(new java.awt.Color(255, 255, 255));
         btn_ppm_Order.setText("...");
         btn_ppm_Order.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -59,6 +63,8 @@ public class Popup_pilihan_meja extends javax.swing.JFrame {
             }
         });
 
+        btn_ppmBack.setBackground(new java.awt.Color(51, 51, 51));
+        btn_ppmBack.setForeground(new java.awt.Color(255, 255, 255));
         btn_ppmBack.setText("KEMBALI");
         btn_ppmBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -167,7 +173,7 @@ public class Popup_pilihan_meja extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Metal".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
