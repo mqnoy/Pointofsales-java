@@ -10,27 +10,25 @@ import static Crud.Form_bayar_tagihan.JTBL_bayar_tagihan;
 import static Crud.Form_bayar_tagihan.bt_cb_tipepembayaran;
 import static Crud.Form_crud_menu.*;
 import static Crud.Form_crud_menu.JTBL_listMenu_crud;
+import static Crud.Form_crud_userAplikasi.*;
+import static Crud.Form_laporan_penjualan.jTable_lap_penjualan;
+import static Crud.Form_list_menu.JTBL_draft_order;
 import static Crud.Form_list_menu.JTBL_listMenu;
+import static Crud.Form_order.JTBL_form_order;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import static Crud.Form_crud_userAplikasi.*;
-import static Crud.Form_list_menu.JTBL_draft_order;
-import static Crud.Form_order.JTBL_form_order;
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.Timestamp;
 import static pointofsale_backend.Library.generateOrder;
-import static pointofsale_backend.Library.generate_CustomReport;
-import static pointofsale_backend.Library.get_CustomReportQuery;
-import static pointofsale_backend.Library.tanggalan;
 import static pointofsale_backend.Library.lib_tanggalwaktu;
 import static pointofsale_backend.Library.strTo_MD5;
+import static pointofsale_backend.Library.tanggalan;
 import static pointofsale_backend.SetGet.*;
 
 /**
@@ -824,7 +822,8 @@ public class CrudModel extends ConfigDatabase {
     }
 
     /* end of method delete data ke table tbl_order_customer */
- /*
+    
+    /*
      * method untuk select data untuk daftar pesanan @Form_bayar_tagihan
      */
     public static void select_Daftarpesanan(String kd_order) {
@@ -897,6 +896,47 @@ public class CrudModel extends ConfigDatabase {
         }
         return idorderDB;
     }
+    /*
+     * method untuk select data untuk daftar transaksi @Form_laporan_penjualan
+     * return void
+     */
+    public static void select_DaftarTransaksi(boolean cari_data,String tgl_awal,String tgl_akhir) {
+        String query_selectTransaksi = "";
+        DefaultTableModel tabmode = getDatatabel(jTable_lap_penjualan);
+        if (cari_data) {
+            query_selectTransaksi = "SELECT * FROM tbl_transaksi_pesanan ttp "
+                + " LEFT JOIN tbl_master_payment_type mpt ON ttp.payment_type_id = mpt.id_payment_type "
+                + " LEFT JOIN tbl_master_pos_computer mpc ON ttp.pos_computer_id = mpc.id_pos_computer "
+                + " LEFT JOIN tbl_master_pegawai mp ON ttp.id_pegawai = mp.id_pegawai "
+                + " WHERE tgl_pembayaran BETWEEN '" + tgl_awal + "' AND '" + tgl_akhir + "' ";
+        }else{
+        query_selectTransaksi = "SELECT * FROM tbl_transaksi_pesanan ttp "
+                + " LEFT JOIN tbl_master_payment_type mpt ON ttp.payment_type_id = mpt.id_payment_type "
+                + " LEFT JOIN tbl_master_pos_computer mpc ON ttp.pos_computer_id = mpc.id_pos_computer "
+                + " LEFT JOIN tbl_master_pegawai mp ON ttp.id_pegawai = mp.id_pegawai ";
+        }
+        try {
+            ResultSet hasil = SQLselectAll(query_selectTransaksi);
+            int NUMBERS = 1;
+            while (hasil.next()) {
+                String a = hasil.getString("order_kd");
+                int b = hasil.getInt("total_tagihan");
+                String c = hasil.getString("type_payment");                
+                String d = hasil.getString("lunas");
+                String e = hasil.getString("computer_hostname");
+                String f = hasil.getString("pegawai_nama");
+                String g = hasil.getString("tgl_pembayaran");
+
+                Object[] data = {NUMBERS, a, b, c, d, e, f, g};
+                tabmode.addRow(data);
+                NUMBERS++;
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(CrudModel.class
+                    .getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     /*end of here for interact to library*/
     //--------------------------------------------------------------------------
@@ -926,6 +966,11 @@ public class CrudModel extends ConfigDatabase {
             tabmode = new DefaultTableModel(null, baris);
             JTBL_form_order.setModel(tabmode);
 
+        }else if (tableName.equals(jTable_lap_penjualan)){
+            Object[] baris = {"No", "kode order", "Total tagihan", "Tipe pembayaran", "Lunas", "Pc pos", "kasir", "Tgl Pembayaran"};
+            tabmode = new DefaultTableModel(null, baris);
+            jTable_lap_penjualan.setModel(tabmode);
+            
         }
 
         return tabmode;

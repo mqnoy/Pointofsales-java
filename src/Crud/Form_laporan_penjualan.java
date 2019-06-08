@@ -6,6 +6,7 @@
 package Crud;
 
 import static databases.CrudModel.conn;
+import static databases.CrudModel.select_DaftarTransaksi;
 import java.sql.*;
 import java.util.Date;
 import javax.swing.JOptionPane;
@@ -25,6 +26,7 @@ public class Form_laporan_penjualan extends javax.swing.JFrame {
     public Form_laporan_penjualan() {
         initComponents();
         btn_cetak_laporanPen.setEnabled(run_report);
+        select_DaftarTransaksi(false,null,null);
     }
 
     /**
@@ -59,16 +61,19 @@ public class Form_laporan_penjualan extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         btn_cetak_laporanPen = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTable_lap_penjualan = new javax.swing.JTable();
+        jLabel15 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Laporan Penjualan");
         setAlwaysOnTop(true);
         setMaximumSize(new java.awt.Dimension(1024, 768));
         setMinimumSize(new java.awt.Dimension(1024, 768));
-        setPreferredSize(new java.awt.Dimension(1024, 768));
+        setPreferredSize(new java.awt.Dimension(1024, 600));
+        setResizable(false);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Cari data"));
 
@@ -76,6 +81,7 @@ public class Form_laporan_penjualan extends javax.swing.JFrame {
 
         rpt_tanggal_awal.setBackground(new java.awt.Color(51, 51, 51));
         rpt_tanggal_awal.setForeground(new java.awt.Color(255, 255, 255));
+        rpt_tanggal_awal.setDateFormatString("yyyy-MM-dd ");
 
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel2.setText("Tanggal awal");
@@ -85,6 +91,7 @@ public class Form_laporan_penjualan extends javax.swing.JFrame {
 
         rpt_tanggal_akhir.setBackground(new java.awt.Color(51, 51, 51));
         rpt_tanggal_akhir.setForeground(new java.awt.Color(255, 255, 255));
+        rpt_tanggal_akhir.setDateFormatString("yyyy-MM-dd ");
 
         btn_cari_priode.setBackground(new java.awt.Color(51, 51, 51));
         btn_cari_priode.setForeground(new java.awt.Color(255, 255, 255));
@@ -243,6 +250,15 @@ public class Form_laporan_penjualan extends javax.swing.JFrame {
             }
         });
 
+        jButton3.setBackground(new java.awt.Color(51, 51, 51));
+        jButton3.setForeground(new java.awt.Color(255, 255, 255));
+        jButton3.setText("Refresh table");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -256,7 +272,8 @@ public class Form_laporan_penjualan extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btn_cetak_laporanPen, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
                     .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -269,6 +286,8 @@ public class Form_laporan_penjualan extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton3)
+                        .addGap(18, 18, 18)
                         .addComponent(jButton1))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
@@ -282,18 +301,34 @@ public class Form_laporan_penjualan extends javax.swing.JFrame {
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("List data"));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTable_lap_penjualan.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "No", "kode order", "Total tagihan", "Tipe pembayaran", "Lunas", "Pc pos", "kasir", "Tgl Pembayaran"
             }
-        ));
-        jScrollPane1.setViewportView(jTable1);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTable_lap_penjualan.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(jTable_lap_penjualan);
+        if (jTable_lap_penjualan.getColumnModel().getColumnCount() > 0) {
+            jTable_lap_penjualan.getColumnModel().getColumn(0).setResizable(false);
+            jTable_lap_penjualan.getColumnModel().getColumn(1).setResizable(false);
+            jTable_lap_penjualan.getColumnModel().getColumn(2).setResizable(false);
+            jTable_lap_penjualan.getColumnModel().getColumn(3).setResizable(false);
+            jTable_lap_penjualan.getColumnModel().getColumn(4).setResizable(false);
+            jTable_lap_penjualan.getColumnModel().getColumn(5).setResizable(false);
+            jTable_lap_penjualan.getColumnModel().getColumn(6).setResizable(false);
+            jTable_lap_penjualan.getColumnModel().getColumn(7).setResizable(false);
+        }
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -303,8 +338,13 @@ public class Form_laporan_penjualan extends javax.swing.JFrame {
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 366, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
+
+        jLabel15.setForeground(new java.awt.Color(255, 0, 51));
+        jLabel15.setText("*Note : mencetak laporan berdasarkan jumlah detail order dengan transaksi sukses");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -314,7 +354,10 @@ public class Form_laporan_penjualan extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel15)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -324,7 +367,9 @@ public class Form_laporan_penjualan extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+                .addComponent(jLabel15)
+                .addGap(21, 21, 21))
         );
 
         pack();
@@ -353,7 +398,9 @@ public class Form_laporan_penjualan extends javax.swing.JFrame {
             String final_tanggalAwal_rpt = parsing_Jdate(tanggalAwal_rpt, "yyyy-MM-dd 00:00:00");
             String final_tanggalAkhir_rpt = parsing_Jdate(tanggalAkhir_rpt, "yyyy-MM-dd 00:00:00");
             // compareTo() akan return 1 jika yang di bandingkan lebih kecil dari pembanding 
-//            System.out.println(tanggalAwal_rpt.compareTo(tanggalAkhir_rpt));
+            
+            // ambil data dari model untuk di tampilkan ke jtable
+            select_DaftarTransaksi(true,final_tanggalAwal_rpt,final_tanggalAkhir_rpt);
             if (tanggalAwal_rpt.compareTo(tanggalAkhir_rpt) == 1) {
                 JOptionPane.showMessageDialog(this, "Tanggal awal tidak boleh lebih kecil dari tanggal akhir !");
                 btn_cetak_laporanPen.setEnabled(run_report);
@@ -388,6 +435,14 @@ public class Form_laporan_penjualan extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        select_DaftarTransaksi(false,null,null);
+        rpt_tanggal_awal.setDate(null);
+        rpt_tanggal_akhir.setDate(null);
+                
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -429,12 +484,14 @@ public class Form_laporan_penjualan extends javax.swing.JFrame {
     private javax.swing.JButton btn_cetak_laporanPen;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -448,7 +505,7 @@ public class Form_laporan_penjualan extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    public static javax.swing.JTable jTable_lap_penjualan;
     private com.toedter.calendar.JDateChooser rpt_tanggal_akhir;
     private com.toedter.calendar.JDateChooser rpt_tanggal_awal;
     // End of variables declaration//GEN-END:variables
