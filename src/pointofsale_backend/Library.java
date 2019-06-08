@@ -8,11 +8,7 @@ package pointofsale_backend;
 
 import static databases.CrudModel.conn;
 import static databases.CrudModel.getMeja_kode;
-import static databases.CrudModel.getUserapp_listDB;
-
 import static databases.CrudModel.select_lastOrderId;
-import java.io.File;
-import java.net.URL;
 import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.text.DateFormat;
@@ -30,7 +26,6 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.design.JRDesignQuery;
 import net.sf.jasperreports.engine.design.JasperDesign;
-import static net.sf.jasperreports.engine.util.JRLoader.getResource;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.view.JasperViewer;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -199,7 +194,7 @@ public class Library {
         if(directoryExists){
             fullPath = dir_report;
         }else{
-            JOptionPane.showMessageDialog(null, "directory is not exists");
+            JOptionPane.showMessageDialog(null, "directory is not exists\n" +dir_report);
         }
         return fullPath;
     }/*end */
@@ -211,7 +206,9 @@ public class Library {
 //        tanggalan();
         String generateOrder = generateOrder(lib_tanggalwaktu, 1,"generate_order");
 //        int itu = getUserapp_listDB("201643502058");
-        String home = System.getProperty("user.home");
+//        String home = System.getProperty("user.home");
+        String reportSource = System.getProperty("user.dir") + "/laporan/stok.jrxml";
+        System.out.println(reportSource);
          System.out.println(get_fullPath("src/Reporting/report_penjualan.jrxml"));
         //    Date tanggalAwal_rpt = rpt_tanggal_awal.getDate();
 //        Date tanggalAkhir_rpt = rpt_tanggal_akhir.getDate();

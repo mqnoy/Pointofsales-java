@@ -1,3 +1,5 @@
+package trash;
+
 
 import java.awt.BorderLayout;
 import java.awt.Container;
@@ -14,6 +16,7 @@ import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.border.CompoundBorder;
@@ -160,6 +163,9 @@ public class Percobaan extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        String reportSource = System.getProperty("user.dir") + "/laporan/stok.jrxml";
+        System.out.println(reportSource);
+        JOptionPane.showMessageDialog(this, reportSource);
 //        try {
         // TODO add your handling code here:
 //        String reportSource = null;
