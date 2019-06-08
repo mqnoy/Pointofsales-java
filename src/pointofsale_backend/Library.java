@@ -8,9 +8,12 @@ package pointofsale_backend;
 
 import static databases.CrudModel.conn;
 import static databases.CrudModel.getMeja_kode;
-import static databases.CrudModel.select_lastOrderId;
 import static databases.CrudModel.getUserapp_listDB;
 
+import static databases.CrudModel.select_lastOrderId;
+import java.io.File;
+import java.net.URL;
+import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -20,12 +23,14 @@ import java.util.TimeZone;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.design.JRDesignQuery;
 import net.sf.jasperreports.engine.design.JasperDesign;
+import static net.sf.jasperreports.engine.util.JRLoader.getResource;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.view.JasperViewer;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -106,6 +111,7 @@ public class Library {
      * @param reportPath
      * @param query
      */
+    public static boolean state_after_report = false;
      public static void generate_CustomReport(String reportPath,String query){
             try{
                 JasperDesign jd = JRXmlLoader.load(reportPath);
@@ -115,8 +121,9 @@ public class Library {
                 
                 JasperReport jr = JasperCompileManager.compileReport(jd);
                 JasperPrint jp = JasperFillManager.fillReport(jr, null, conn);
-                JasperViewer.viewReport(jp);
-            }catch(Exception ex){
+                JasperViewer.viewReport(jp,false);// false : mencegah agar tidak close application
+                set_stateAfterReport(true);;
+            }catch(JRException ex){
                 JOptionPane.showMessageDialog(null, ex);
             }
     }
@@ -125,6 +132,12 @@ public class Library {
     }
     public static String get_CustomReportQuery(){
         return Jasper_QueryCustom;
+    }
+    public static void set_stateAfterReport(boolean raw_state){
+        state_after_report= raw_state;
+    }
+    public static boolean get_stateAfterReport(){
+        return state_after_report;
     }
     
     /**/
@@ -168,16 +181,38 @@ public class Library {
     }
     /* end of method untuk konvert text ke MD5 */
     
+    /*
+    * https://www.mkyong.com/java/how-to-get-the-current-working-directory-in-java/
+    * @param raw_location
+    * example "src/Reporting/"
+    * return String
+    */
+    public static String get_fullPath(String raw_location){
+        // works on *nix
+        // works on Windows
+        String fullPath = "";
+        String dir_report = Paths.get(raw_location).toAbsolutePath().toString();
+
+        boolean directoryExists = new java.io.File(dir_report).exists();
+        System.out.println(directoryExists);
+
+        if(directoryExists){
+            fullPath = dir_report;
+        }else{
+            JOptionPane.showMessageDialog(null, "directory is not exists");
+        }
+        return fullPath;
+    }/*end */
+    
 
     public static void main(String[] args) {
         Library library = new Library();
 
 //        tanggalan();
         String generateOrder = generateOrder(lib_tanggalwaktu, 1,"generate_order");
-        int itu = getUserapp_listDB("201643502058");
-
-        System.out.println(itu);
-//        System.out.println(strTo_MD5("admin"));
+//        int itu = getUserapp_listDB("201643502058");
+        String home = System.getProperty("user.home");
+         System.out.println(get_fullPath("src/Reporting/report_penjualan.jrxml"));
         //    Date tanggalAwal_rpt = rpt_tanggal_awal.getDate();
 //        Date tanggalAkhir_rpt = rpt_tanggal_akhir.getDate();
 //        DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
