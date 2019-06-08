@@ -65,8 +65,6 @@ public class HalamanLogin extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setExtendedState(6);
-        setUndecorated(true);
         setResizable(false);
 
         jPanel5.setBackground(new java.awt.Color(255, 255, 255));
