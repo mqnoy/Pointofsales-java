@@ -74,12 +74,20 @@ public class Form_laporan_penjualan extends javax.swing.JFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Periode"));
 
+        rpt_tanggal_awal.setBackground(new java.awt.Color(51, 51, 51));
+        rpt_tanggal_awal.setForeground(new java.awt.Color(255, 255, 255));
+
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel2.setText("Tanggal awal");
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel1.setText("Tanggal akhir");
 
+        rpt_tanggal_akhir.setBackground(new java.awt.Color(51, 51, 51));
+        rpt_tanggal_akhir.setForeground(new java.awt.Color(255, 255, 255));
+
+        btn_cari_priode.setBackground(new java.awt.Color(51, 51, 51));
+        btn_cari_priode.setForeground(new java.awt.Color(255, 255, 255));
         btn_cari_priode.setText("Cari");
         btn_cari_priode.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -208,6 +216,8 @@ public class Form_laporan_penjualan extends javax.swing.JFrame {
                 .addContainerGap(52, Short.MAX_VALUE))
         );
 
+        jButton2.setBackground(new java.awt.Color(51, 51, 51));
+        jButton2.setForeground(new java.awt.Color(255, 255, 255));
         jButton2.setText("Menu utama");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -215,6 +225,8 @@ public class Form_laporan_penjualan extends javax.swing.JFrame {
             }
         });
 
+        btn_cetak_laporanPen.setBackground(new java.awt.Color(51, 51, 51));
+        btn_cetak_laporanPen.setForeground(new java.awt.Color(255, 255, 255));
         btn_cetak_laporanPen.setText("Cetak laporan");
         btn_cetak_laporanPen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -222,6 +234,8 @@ public class Form_laporan_penjualan extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setBackground(new java.awt.Color(51, 51, 51));
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Close");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -324,7 +338,7 @@ public class Form_laporan_penjualan extends javax.swing.JFrame {
     private void btn_cetak_laporanPenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cetak_laporanPenActionPerformed
         // TODO add your handling code here:
         if (run_report) {
-            String reportPath = ".\\src\\Reporting\\report_penjualan.jrxml";
+            String reportPath = get_fullPath("src/Reporting/report_penjualan.jrxml");
             generate_CustomReport(reportPath, get_CustomReportQuery());
         }
     }//GEN-LAST:event_btn_cetak_laporanPenActionPerformed
@@ -386,7 +400,7 @@ public class Form_laporan_penjualan extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Metal".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
