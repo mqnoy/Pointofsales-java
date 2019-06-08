@@ -14,12 +14,12 @@
             <Property name="text" type="java.lang.String" value="Menu aplikasi"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem2">
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem_mnj_userapp">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Manajemen user aplikasi"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem2ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem_mnj_userappActionPerformed"/>
               </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem1">
@@ -297,7 +297,7 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jButton11" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="jButton14" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="hu_btn_mjnmeja" alignment="0" max="32767" attributes="0"/>
                                   <Component id="jButton12" alignment="0" pref="176" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
@@ -310,7 +310,7 @@
                               <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                               <Component id="jButton12" min="-2" pref="42" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="jButton14" min="-2" pref="42" max="-2" attributes="0"/>
+                              <Component id="hu_btn_mjnmeja" min="-2" pref="42" max="-2" attributes="0"/>
                               <EmptySpace pref="299" max="32767" attributes="0"/>
                               <Component id="jButton11" min="-2" pref="42" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
@@ -353,7 +353,7 @@
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton12ActionPerformed"/>
                       </Events>
                     </Component>
-                    <Component class="javax.swing.JButton" name="jButton14">
+                    <Component class="javax.swing.JButton" name="hu_btn_mjnmeja">
                       <Properties>
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="33" green="33" red="33" type="rgb"/>
@@ -367,7 +367,7 @@
                         <Property name="text" type="java.lang.String" value="Manajemen Meja"/>
                       </Properties>
                       <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton14ActionPerformed"/>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="hu_btn_mjnmejaActionPerformed"/>
                       </Events>
                     </Component>
                   </SubComponents>

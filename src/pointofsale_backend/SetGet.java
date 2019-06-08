@@ -142,6 +142,9 @@ public class SetGet {
     public static boolean get_accessApp(){
         return giveAccess;
     }
+    public static String get_levelaccessApp(){
+        return userApp_level;
+    }
     public static int get_idPegawai(){
         return userApp_idPegawai;
     }
