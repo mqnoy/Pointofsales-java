@@ -6,7 +6,7 @@
 package pointofsale_backend;
 
 import Crud.*;
-import java.awt.Color;
+import static databases.CrudModel.select_OrderCustomer_menu_total;
 import pointofsale.HalamanLogin;
 import pointofsale.HalamanUtama;
 import pointofsale.NotAvailable;
@@ -47,10 +47,16 @@ public class Frame_control extends SetGet{
     
     // method untuk tampil form bayar
     public static void tampilForm_bayar(String kd_meja ,String kd_order, String kd_orderdetail, String rp_tagihan){
+        //get jumlah rp orderan
+        int total_rp = select_OrderCustomer_menu_total(kd_orderdetail); 
+        String totalOrder_rp = String.valueOf(total_rp);
+
+        
         Form_bayar_tagihan form_bayar = new Form_bayar_tagihan();
         form_bayar.lbl_bt_kdMeja.setText(kd_meja);
         form_bayar.lbl_bt_kodeOrder.setText(kd_order);
-        form_bayar.lbl_bt_rpTagihan.setText(rp_tagihan);
+        form_bayar.lbl_bt_rpTagihan.setText(totalOrder_rp);
+        form_bayar.lbl_bt_kodeDetailOrder.setText(kd_orderdetail);
         form_bayar.pack();
         form_bayar.setLocationRelativeTo(null);
         form_bayar.setVisible(true);
@@ -65,8 +71,8 @@ public class Frame_control extends SetGet{
         PopupPilMeja.btn_ppm_Order.setText(set_text_tombol);
         PopupPilMeja.btn_ppm_Bayar.setEnabled(set_tombol_bayar);
         //set biar di tengah         
-        //PopupPilMeja.pack();
-        //PopupPilMeja.setLocationRelativeTo(null);
+        PopupPilMeja.pack();
+        PopupPilMeja.setLocationRelativeTo(null);
         //munculin framenya
         PopupPilMeja.setVisible(true);
     }
@@ -78,14 +84,16 @@ public class Frame_control extends SetGet{
     //method untuk tampil form cari tagihan
     public static void tampil_formOrder(String kd_meja ,String kd_order,String kd_orderdetail,String rp_total) {
         Form_order form_order = new Form_order();
-        System.out.println("tanggalan=" + tanggalSkrg);
         form_order.lbl_kodemeja.setText(kd_meja);        
         form_order.lbl_kodeOrder.setText(kd_order);
         form_order.lbl_kodeOrder_detail.setText(kd_orderdetail);
-        form_order.lbl_total_rp_order.setText(rp_total);
+        
+        //get jumlah rp orderan
+        int total_rp = select_OrderCustomer_menu_total(kd_orderdetail); 
+        String totalOrder_rp = String.valueOf(total_rp);
+        form_order.lbl_total_rp_order.setText(totalOrder_rp);
 
-        System.out.println("no meja @form order="+kd_meja);
-        System.out.println("no meja @form order="+kd_order);
+        System.out.println("tampil_formOrder()");
         form_order.pack();
         form_order.setLocationRelativeTo(null);
         form_order.setVisible(true);

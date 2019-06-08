@@ -22,7 +22,7 @@ public class Popup_pilihan_meja extends javax.swing.JFrame {
         lbl_ppm_kdmeja.setVisible(false);        
         lbl_ppm_kode_order.setVisible(false);        
         lbl_ppm_kode_orderdetail.setVisible(false);
-
+        
 
     }
 

@@ -20,10 +20,15 @@ public class SetGet {
     //atribut untuk aktifitas order
     public static boolean notif_ins_order_customer;
     public static boolean notif_del_order_customer;
+    public static boolean notif_delsatu_order_customer;
+    public static boolean notif_updt_order_customer;
     public static boolean notif_cek_order_tdklunas;
     public static boolean notif_cek_order_mejakode;
-    public static boolean notif_ins_struk_for_koki;
-        
+    
+
+
+
+    
     public static String tanggalSkrg;
     
     //atribut untuk notifikasi query
@@ -31,8 +36,6 @@ public class SetGet {
     public static boolean notif_ins_found_menulist;
     public static boolean notif_updt_menulist;
     public static boolean notif_del_menulist;
-    
-    
     
 
     /*atribut user access aplikasi*/
