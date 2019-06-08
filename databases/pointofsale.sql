@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.1
--- http://www.phpmyadmin.net
+-- version 4.8.5
+-- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: May 21, 2019 at 05:53 PM
--- Server version: 10.1.8-MariaDB
--- PHP Version: 5.6.14
+-- Host: localhost
+-- Generation Time: Jun 08, 2019 at 11:08 AM
+-- Server version: 10.1.40-MariaDB
+-- PHP Version: 7.1.29
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -30,8 +32,20 @@ CREATE TABLE `tbl_detail_order_customer` (
   `id_detail_order` int(11) NOT NULL,
   `kd_detail_order` varchar(50) NOT NULL,
   `item_menu_id` int(11) NOT NULL,
-  `qty` int(11) NOT NULL
+  `qty` int(11) NOT NULL,
+  `cetak` enum('n','y') NOT NULL DEFAULT 'n'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tbl_detail_order_customer`
+--
+
+INSERT INTO `tbl_detail_order_customer` (`id_detail_order`, `kd_detail_order`, `item_menu_id`, `qty`, `cetak`) VALUES
+(5, 'DTL20190608MJ0011', 8, 2, 'y'),
+(7, 'DTL20190608MJ0011', 9, 2, 'y'),
+(9, 'DTL20190608MJ0011', 8, 2, 'y'),
+(10, 'DTL20190608MJ0014', 8, 3, 'y'),
+(11, 'DTL20190608MJ0014', 9, 3, 'y');
 
 -- --------------------------------------------------------
 
@@ -56,12 +70,10 @@ INSERT INTO `tbl_master_item_menu` (`id_item_menu`, `item_menu_nama`, `item_menu
 (1, 'menu1', 60000, 'kdmenu1', 'minuman', 'y'),
 (5, 'kdmenuao', 33330, 'kdmenuao2', 'minuman', 'y'),
 (6, 'ff', 110, '23', 'minuman', 'y'),
-(7, 'nasi bakar ', 15000, 'kdmenu2', 'makanan', 'n'),
+(7, 'nasi bakar ', 60000, 'kdmenu2', 'makanan', 'n'),
 (8, 'nasi bakar daging', 50000, 'kdmenu23', 'makanan', 'n'),
-(9, 'nasi bakar ayam', 25000, 'kdmenu25', 'makanan', 'n'),
-(10, 'nasi bakar ayam', 12000, 'kdmenu26', 'makanan', 'n'),
-(11, 'teh botol', 10000, 'minum01', 'minuman', 'n'),
-(12, 'Aqua 300ml', 5000, 'minum02', 'minuman', 'n');
+(9, 'nasi bakar ayam', 60000, 'kdmenu25', 'makanan', 'n'),
+(10, 'nasi bakar ayam', 6, 'kdmenu26', 'makanan', 'n');
 
 -- --------------------------------------------------------
 
@@ -198,19 +210,8 @@ CREATE TABLE `tbl_order_customer` (
 --
 
 INSERT INTO `tbl_order_customer` (`id_order_cust`, `kd_order`, `detail_order_kd`, `meja_id`, `tanggal_order`) VALUES
-(2, 'ODR20190520MJ0022', 'DTL20190520MJ0022', 2, '2019-05-20 13:58:08'),
-(3, 'ODR20190520MJ0013', 'DTL20190520MJ0013', 1, '2019-05-20 14:11:37');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tbl_struk_for_koki`
---
-
-CREATE TABLE `tbl_struk_for_koki` (
-  `id_struk_for_koki` int(11) NOT NULL,
-  `order_kd` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+(3, 'ODR20190608MJ0011', 'DTL20190608MJ0011', 1, '2019-06-08 14:26:16'),
+(4, 'ODR20190608MJ0014', 'DTL20190608MJ0014', 1, '2019-06-08 15:13:55');
 
 -- --------------------------------------------------------
 
@@ -237,8 +238,8 @@ CREATE TABLE `tbl_transaksi_pesanan` (
 --
 
 INSERT INTO `tbl_transaksi_pesanan` (`id_struk`, `order_kd`, `total_tagihan`, `nominal_pembayaran`, `kembalian`, `payment_type_id`, `lunas`, `bungkus`, `pos_computer_id`, `id_pegawai`, `tgl_pembayaran`) VALUES
-(2, 'ODR20190520MJ0022', 0, 0, 0, -1, 'n', 'n', 1, 1, NULL),
-(3, 'ODR20190520MJ0013', 0, 0, 0, -1, 'n', 'n', 1, 1, NULL);
+(3, 'ODR20190608MJ0011', 0, 0, 0, -1, 'y', 'n', 1, 1, '2019-06-08 00:00:00'),
+(4, 'ODR20190608MJ0014', 0, 0, 0, -1, 'n', 'n', 1, 1, NULL);
 
 --
 -- Indexes for dumped tables
@@ -297,12 +298,6 @@ ALTER TABLE `tbl_order_customer`
   ADD UNIQUE KEY `kd_order` (`kd_order`);
 
 --
--- Indexes for table `tbl_struk_for_koki`
---
-ALTER TABLE `tbl_struk_for_koki`
-  ADD PRIMARY KEY (`id_struk_for_koki`);
-
---
 -- Indexes for table `tbl_transaksi_pesanan`
 --
 ALTER TABLE `tbl_transaksi_pesanan`
@@ -316,52 +311,57 @@ ALTER TABLE `tbl_transaksi_pesanan`
 -- AUTO_INCREMENT for table `tbl_detail_order_customer`
 --
 ALTER TABLE `tbl_detail_order_customer`
-  MODIFY `id_detail_order` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_detail_order` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
 --
 -- AUTO_INCREMENT for table `tbl_master_item_menu`
 --
 ALTER TABLE `tbl_master_item_menu`
-  MODIFY `id_item_menu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id_item_menu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
 --
 -- AUTO_INCREMENT for table `tbl_master_meja`
 --
 ALTER TABLE `tbl_master_meja`
   MODIFY `id_meja` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
 --
 -- AUTO_INCREMENT for table `tbl_master_payment_type`
 --
 ALTER TABLE `tbl_master_payment_type`
   MODIFY `id_payment_type` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
 --
 -- AUTO_INCREMENT for table `tbl_master_pegawai`
 --
 ALTER TABLE `tbl_master_pegawai`
   MODIFY `id_pegawai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
 --
 -- AUTO_INCREMENT for table `tbl_master_pos_computer`
 --
 ALTER TABLE `tbl_master_pos_computer`
   MODIFY `id_pos_computer` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
 --
 -- AUTO_INCREMENT for table `tbl_master_user_application`
 --
 ALTER TABLE `tbl_master_user_application`
   MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
 --
 -- AUTO_INCREMENT for table `tbl_order_customer`
 --
 ALTER TABLE `tbl_order_customer`
-  MODIFY `id_order_cust` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
---
--- AUTO_INCREMENT for table `tbl_struk_for_koki`
---
-ALTER TABLE `tbl_struk_for_koki`
-  MODIFY `id_struk_for_koki` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_order_cust` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
 --
 -- AUTO_INCREMENT for table `tbl_transaksi_pesanan`
 --
 ALTER TABLE `tbl_transaksi_pesanan`
-  MODIFY `id_struk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_struk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+COMMIT;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
