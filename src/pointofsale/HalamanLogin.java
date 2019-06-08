@@ -11,7 +11,9 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import static pointofsale_backend.Frame_control.tampilhalUtama_UserApp;
 import static pointofsale_backend.Library.strTo_MD5;
+import static pointofsale_backend.SetGet.get_accessApp;
 import static pointofsale_backend.SetGet.giveAccess;
+import static pointofsale_backend.SetGet.set_loginApp;
 import static pointofsale_backend.SetGet.strError_code;
 /**
  *
@@ -303,26 +305,21 @@ public class HalamanLogin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
-        try {
-            // TODO add your handling code here:
-            String val_idaccess = txt_idaccess.getText();
-            String val_password = strTo_MD5( new String(txt_password.getPassword()) );
-            if (val_idaccess.isEmpty() || val_password.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "errorxxx harus di isi !");
-            }else{
-                getUserapp_accessDB(val_idaccess,val_password);
-                if (giveAccess) {
-                    tampilhalUtama_UserApp();
-                    this.dispose();
-                }else if(strError_code.equals("error801")){
-                    JOptionPane.showMessageDialog(this, "error801 id access atau password salah !");
-                }else if(strError_code.equals("error800")){
-                    JOptionPane.showMessageDialog(this, "error800 akun di blokir !");
-                }
+        // TODO add your handling code here:
+        String val_idaccess = txt_idaccess.getText();
+        String val_password = new String(txt_password.getPassword());
+        if (val_idaccess.isEmpty() || val_password.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "errorxxx harus di isi !");
+        }else{
+            set_loginApp(val_idaccess,val_password);   
+            if (get_accessApp()) {
+                tampilhalUtama_UserApp();
+                this.dispose();
+            }else if(strError_code.equals("error801")){
+                JOptionPane.showMessageDialog(this, "error801 id access atau password salah atau tidak ada data pegawainya !");
+            }else if(strError_code.equals("error800")){
+                JOptionPane.showMessageDialog(this, "error800 akun di blokir !");
             }
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(HalamanLogin.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton14ActionPerformed
 
