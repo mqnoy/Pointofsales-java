@@ -372,7 +372,7 @@ public class Form_laporan_penjualan extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        this.setDefaultCloseOperation(Form_laporan_penjualan.EXIT_ON_CLOSE);
+        this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

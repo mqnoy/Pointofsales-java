@@ -8,9 +8,11 @@ package pointofsale_backend;
 import static databases.CrudModel.cek_Kode_orderanMeja;
 import static databases.CrudModel.cek_Status_orderanMeja;
 import static databases.CrudModel.getMeja_kode;
+import static databases.CrudModel.getUserapp_accessDB;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import static pointofsale_backend.Library.strTo_MD5;
 
 /**
  *
@@ -24,6 +26,7 @@ public class SetGet {
     public static boolean notif_updt_order_customer;
     public static boolean notif_cek_order_tdklunas;
     public static boolean notif_cek_order_mejakode;
+    public static boolean notif_updt_transaksi_customer;
     
 
 
@@ -43,6 +46,9 @@ public class SetGet {
     public static String userApp_level = null;
     public static String userApp_blokir = null;
     public static boolean giveAccess = false;
+    public static String userApp_namaPegawai = null;    
+    public static int userApp_idPegawai = -1;       
+    public static String userApp_jabatanPegawai  = null;
     
     /*atribut untuk user aplikasi dan pegawai*/
     public static boolean notif_ins_userapp;
@@ -114,6 +120,40 @@ public class SetGet {
     }
     
     //
+    
+    
+    //area login frame
+    
+    public static void set_loginApp(String account_idaccess,String account_Password){
+        System.out.println("setter getter login app");
+        System.out.println(account_idaccess);
+        System.out.println(account_Password);
+        getUserapp_accessDB(account_idaccess,account_Password);
+    }
+    
+    public static void set_infoAccount(String account_idaccess,String account_level,int idPegawai,String namaPegawai,String jabatanPegawai,boolean account_akses){
+        userApp_idaccess = account_idaccess;        
+        userApp_level = account_level;      
+        userApp_idPegawai = idPegawai;
+        userApp_namaPegawai = namaPegawai;        
+        userApp_jabatanPegawai = jabatanPegawai;
+        giveAccess = account_akses;
+    }
+    public static boolean get_accessApp(){
+        return giveAccess;
+    }
+    public static int get_idPegawai(){
+        return userApp_idPegawai;
+    }
+    public static String get_nipPegawai(){
+        return userApp_idaccess;
+    }
+    public static String get_namaPegawai(){
+        return userApp_namaPegawai;
+    }
+    public static String get_jabatanPegawai(){
+        return userApp_jabatanPegawai;
+    }
     
     /*
      * method setter atribut login frame

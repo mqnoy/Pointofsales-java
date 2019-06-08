@@ -22,8 +22,6 @@ public class Popup_pilihan_meja extends javax.swing.JFrame {
         lbl_ppm_kdmeja.setVisible(false);        
         lbl_ppm_kode_order.setVisible(false);        
         lbl_ppm_kode_orderdetail.setVisible(false);
-        
-
     }
 
     /**
@@ -144,17 +142,18 @@ public class Popup_pilihan_meja extends javax.swing.JFrame {
 
     private void btn_ppm_OrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ppm_OrderActionPerformed
         tampil_formOrder(lbl_ppm_kdmeja.getText() ,lbl_ppm_kode_order.getText(),lbl_ppm_kode_orderdetail.getText(),lbl_ppm_rp_total.getText());
-        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_btn_ppm_OrderActionPerformed
 
     private void btn_ppmBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ppmBackActionPerformed
         // TODO add your handling code here:
-        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_btn_ppmBackActionPerformed
 
     private void btn_ppm_BayarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ppm_BayarActionPerformed
         // TODO add your handling code here:
         tampilForm_bayar(lbl_ppm_kdmeja.getText() ,lbl_ppm_kode_order.getText(),lbl_ppm_kode_orderdetail.getText(),lbl_ppm_rp_total.getText());
+        this.dispose();
     }//GEN-LAST:event_btn_ppm_BayarActionPerformed
 
     /**

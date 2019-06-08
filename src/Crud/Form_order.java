@@ -35,7 +35,8 @@ public class Form_order extends javax.swing.JFrame {
 
     public static void getAlldata_tableOrder_rp() {
         //get jumlah rp orderan
-        int total_rp = select_OrderCustomer_menu_total(lbl_kodeOrder_detail.getText());
+        boolean stateBayar_tagihan = false; 
+        int total_rp = select_OrderCustomer_menu_total(lbl_kodeOrder_detail.getText(),stateBayar_tagihan);
         String totalOrder_rp = String.valueOf(total_rp);
         lbl_total_rp_order.setText(totalOrder_rp);
     }
@@ -429,14 +430,15 @@ public class Form_order extends javax.swing.JFrame {
             update_OrderCustomer_menu(lbl_kodeOrder_detail.getText());
             getAlldata_table_order();
             if(notif_updt_order_customer){
-                String reportPath = ".\\src\\receipt\\Receipt_chef.jrxml";
-                String qery_select_forReceipt = "SELECT tmim.item_menu_nama,tdoc.qty FROM tbl_detail_order_customer tdoc \n" +
-                                                "LEFT JOIN tbl_order_customer toc ON tdoc.kd_detail_order = toc.detail_order_kd\n" +
-                                                "LEFT JOIN tbl_master_item_menu tmim ON tdoc.item_menu_id = tmim.id_item_menu\n" +
-                                                "WHERE tdoc.cetak='y' AND tdoc.kd_detail_order = '"+lbl_kodeOrder_detail.getText()+"'"; 
-                System.out.println(qery_select_forReceipt);
-                set_CustomReportQuery(qery_select_forReceipt);
-                generate_CustomReport(reportPath, get_CustomReportQuery());
+                
+//                String reportPath = ".\\src\\receipt\\Receipt_chef.jrxml";
+//                String qery_select_forReceipt = "SELECT tmim.item_menu_nama,tdoc.qty FROM tbl_detail_order_customer tdoc \n" +
+//                                                "LEFT JOIN tbl_order_customer toc ON tdoc.kd_detail_order = toc.detail_order_kd\n" +
+//                                                "LEFT JOIN tbl_master_item_menu tmim ON tdoc.item_menu_id = tmim.id_item_menu\n" +
+//                                                "WHERE tdoc.cetak='y' AND tdoc.kd_detail_order = '"+lbl_kodeOrder_detail.getText()+"'"; 
+//                System.out.println(qery_select_forReceipt);
+//                set_CustomReportQuery(qery_select_forReceipt);
+//                generate_CustomReport(reportPath, get_CustomReportQuery());
             }
         }
     }//GEN-LAST:event_btn_OrderActionPerformed

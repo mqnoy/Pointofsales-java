@@ -9,6 +9,8 @@ package pointofsale_backend;
 import static databases.CrudModel.conn;
 import static databases.CrudModel.getMeja_kode;
 import static databases.CrudModel.select_lastOrderId;
+import static databases.CrudModel.getUserapp_listDB;
+
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -172,7 +174,9 @@ public class Library {
 
 //        tanggalan();
         String generateOrder = generateOrder(lib_tanggalwaktu, 1,"generate_order");
-        System.out.println(generateOrder);
+        int itu = getUserapp_listDB("201643502058");
+
+        System.out.println(itu);
 //        System.out.println(strTo_MD5("admin"));
         //    Date tanggalAwal_rpt = rpt_tanggal_awal.getDate();
 //        Date tanggalAkhir_rpt = rpt_tanggal_akhir.getDate();
@@ -186,3 +190,5 @@ public class Library {
     }
 
 }
+
+//https://stackoverflow.com/questions/40217532/insert-datetime-string-from-java-in-mysql

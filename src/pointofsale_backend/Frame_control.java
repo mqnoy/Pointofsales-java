@@ -48,7 +48,8 @@ public class Frame_control extends SetGet{
     // method untuk tampil form bayar
     public static void tampilForm_bayar(String kd_meja ,String kd_order, String kd_orderdetail, String rp_tagihan){
         //get jumlah rp orderan
-        int total_rp = select_OrderCustomer_menu_total(kd_orderdetail); 
+        boolean stateBayar_tagihan = true; 
+        int total_rp = select_OrderCustomer_menu_total(kd_orderdetail,stateBayar_tagihan); 
         String totalOrder_rp = String.valueOf(total_rp);
 
         
@@ -68,7 +69,7 @@ public class Frame_control extends SetGet{
         PopupPilMeja.lbl_ppm_kode_order.setText(kd_order);
         PopupPilMeja.lbl_ppm_kode_orderdetail.setText(kd_orderdetail);
         PopupPilMeja.lbl_ppm_rp_total.setText(rp_tagihan);
-        PopupPilMeja.btn_ppm_Order.setText(set_text_tombol);
+        PopupPilMeja.btn_ppm_Order.setText(set_text_tombol);        
         PopupPilMeja.btn_ppm_Bayar.setEnabled(set_tombol_bayar);
         //set biar di tengah         
         PopupPilMeja.pack();
@@ -89,7 +90,8 @@ public class Frame_control extends SetGet{
         form_order.lbl_kodeOrder_detail.setText(kd_orderdetail);
         
         //get jumlah rp orderan
-        int total_rp = select_OrderCustomer_menu_total(kd_orderdetail); 
+        boolean stateBayar_tagihan = false;
+        int total_rp = select_OrderCustomer_menu_total(kd_orderdetail,stateBayar_tagihan); 
         String totalOrder_rp = String.valueOf(total_rp);
         form_order.lbl_total_rp_order.setText(totalOrder_rp);
 
