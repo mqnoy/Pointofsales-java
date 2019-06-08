@@ -31,10 +31,6 @@ LEFT JOIN tbl_transaksi_pesanan ttp ON ttp.order_kd = toc.kd_order]]>
 				<reportElement x="470" y="7" width="85" height="38" uuid="7f84616b-2665-48f5-b0ae-a9f99420127b"/>
 				<text><![CDATA[Report penjualan]]></text>
 			</staticText>
-			<image>
-				<reportElement x="8" y="0" width="114" height="117" uuid="dae16953-1b54-411c-9e45-4685db3c7ac3"/>
-				<imageExpression><![CDATA["E:\\qnoy\\kuliah_\\6.smt6\\pemrograman_visual\\posv1\\src\\Reporting\\images\\logo.jpg"]]></imageExpression>
-			</image>
 			<staticText>
 				<reportElement x="355" y="61" width="100" height="20" uuid="9cd1b041-21a9-486d-be0c-0fc186245ea1"/>
 				<text><![CDATA[Periode : ]]></text>
