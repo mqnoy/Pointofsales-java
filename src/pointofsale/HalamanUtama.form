@@ -78,12 +78,12 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jPanel1" max="32767" attributes="0"/>
+          <Component id="jPanel1" pref="1030" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jPanel1" alignment="0" pref="738" max="32767" attributes="0"/>
+          <Component id="jPanel1" alignment="0" pref="747" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
@@ -207,7 +207,7 @@
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
                 <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[500, 69]"/>
+                  <Dimension value="[800, 400]"/>
                 </Property>
                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                   <Dimension value="[800, 400]"/>
@@ -285,6 +285,9 @@
             </Container>
             <Container class="javax.swing.JPanel" name="jPanel2">
               <Properties>
+                <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                  <Dimension value="[300, 0]"/>
+                </Property>
                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                   <Dimension value="[200, 472]"/>
                 </Property>
@@ -298,15 +301,15 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <EmptySpace min="0" pref="205" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="498" max="32767" attributes="0"/>
                       <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-                          <Component id="jpanel_menu_kanan" alignment="0" max="32767" attributes="0"/>
+                          <Component id="jpanel_menu_kanan" alignment="0" pref="498" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <EmptySpace min="0" pref="496" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="494" max="32767" attributes="0"/>
                       <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
                           <Component id="jpanel_menu_kanan" alignment="0" pref="494" max="32767" attributes="0"/>
                       </Group>
@@ -320,10 +323,10 @@
                       <Color blue="ff" green="ff" red="ff" type="rgb"/>
                     </Property>
                     <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                      <Dimension value="[205, 436]"/>
+                      <Dimension value="[200, 436]"/>
                     </Property>
                     <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                      <Dimension value="[205, 436]"/>
+                      <Dimension value="[200, 436]"/>
                     </Property>
                   </Properties>
 
@@ -339,7 +342,7 @@
                                       <Component id="tbl_keluar_sesi_1" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <Component id="jButton14" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="jButton12" alignment="0" pref="185" max="32767" attributes="0"/>
+                                  <Component id="jButton12" alignment="0" pref="474" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
@@ -351,7 +354,7 @@
                               <Component id="jButton12" min="-2" pref="42" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="jButton14" min="-2" pref="42" max="-2" attributes="0"/>
-                              <EmptySpace pref="300" max="32767" attributes="0"/>
+                              <EmptySpace pref="295" max="32767" attributes="0"/>
                               <Component id="jButton11" min="-2" pref="42" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="tbl_keluar_sesi_1" min="-2" max="-2" attributes="0"/>

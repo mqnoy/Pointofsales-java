@@ -51,7 +51,7 @@ public class HalamanUtama extends javax.swing.JFrame {
             System.out.println("kode order" + _existsKodeOrder);
             System.out.println("kode detail order " + _existsKodeOrderdetail);
             System.out.println("kdmeja @hal utama = " + val_kodemeja);
-            set_text_tombol = "Edit order";
+            set_text_tombol = "Lihat order";
             set_tombol_bayar = true;
             tampil_Popup_pilMeja(val_kodemeja, _existsKodeOrder, _existsKodeOrderdetail, _existsRp_tagihan, set_text_tombol, set_tombol_bayar);
         } else {
@@ -147,7 +147,7 @@ public class HalamanUtama extends javax.swing.JFrame {
         layout_meja_dan_menu.setPreferredSize(new java.awt.Dimension(1024, 436));
 
         jpanel_meja.setBackground(new java.awt.Color(255, 255, 255));
-        jpanel_meja.setMinimumSize(new java.awt.Dimension(500, 69));
+        jpanel_meja.setMinimumSize(new java.awt.Dimension(800, 400));
         jpanel_meja.setPreferredSize(new java.awt.Dimension(800, 400));
         jpanel_meja.setLayout(new java.awt.GridLayout(3, 3));
 
@@ -200,11 +200,12 @@ public class HalamanUtama extends javax.swing.JFrame {
 
         layout_meja_dan_menu.setLeftComponent(jpanel_meja);
 
+        jPanel2.setMinimumSize(new java.awt.Dimension(300, 0));
         jPanel2.setPreferredSize(new java.awt.Dimension(200, 472));
 
         jpanel_menu_kanan.setBackground(new java.awt.Color(255, 255, 255));
-        jpanel_menu_kanan.setMinimumSize(new java.awt.Dimension(205, 436));
-        jpanel_menu_kanan.setPreferredSize(new java.awt.Dimension(205, 436));
+        jpanel_menu_kanan.setMinimumSize(new java.awt.Dimension(200, 436));
+        jpanel_menu_kanan.setPreferredSize(new java.awt.Dimension(200, 436));
 
         jButton11.setBackground(new java.awt.Color(51, 51, 51));
         jButton11.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
@@ -258,7 +259,7 @@ public class HalamanUtama extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(tbl_keluar_sesi_1))
                     .addComponent(jButton14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton12, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE))
+                    .addComponent(jButton12, javax.swing.GroupLayout.DEFAULT_SIZE, 474, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jpanel_menu_kananLayout.setVerticalGroup(
@@ -267,7 +268,7 @@ public class HalamanUtama extends javax.swing.JFrame {
                 .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton14, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 300, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 295, Short.MAX_VALUE)
                 .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(tbl_keluar_sesi_1)
@@ -278,13 +279,13 @@ public class HalamanUtama extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 205, Short.MAX_VALUE)
+            .addGap(0, 498, Short.MAX_VALUE)
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jpanel_menu_kanan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jpanel_menu_kanan, javax.swing.GroupLayout.DEFAULT_SIZE, 498, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 496, Short.MAX_VALUE)
+            .addGap(0, 494, Short.MAX_VALUE)
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(jpanel_menu_kanan, javax.swing.GroupLayout.DEFAULT_SIZE, 494, Short.MAX_VALUE))
         );
@@ -406,11 +407,11 @@ public class HalamanUtama extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1030, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 738, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 747, Short.MAX_VALUE)
         );
 
         jPanel1.getAccessibleContext().setAccessibleName("");
