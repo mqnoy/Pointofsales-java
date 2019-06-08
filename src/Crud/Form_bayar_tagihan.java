@@ -29,6 +29,7 @@ public class Form_bayar_tagihan extends javax.swing.JFrame {
         initComponents();
         txt_nominal_rp.setText("0");
         bt_btn_bayar.setEnabled(false);
+        lbl_bt_kodeDetailOrder.setVisible(false);
     }
     private void get_total_tagihan(){
         nominal_cash = Integer.parseInt(lbl_bt_nominal.getText());
