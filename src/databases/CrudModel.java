@@ -22,6 +22,8 @@ import static Crud.Form_list_menu.JTBL_draft_order;
 import static Crud.Form_order.JTBL_form_order;
 import java.sql.Connection;
 import static pointofsale_backend.Library.generateOrder;
+import static pointofsale_backend.Library.generate_CustomReport;
+import static pointofsale_backend.Library.get_CustomReportQuery;
 import static pointofsale_backend.Library.tanggalan;
 import static pointofsale_backend.Library.lib_tanggalwaktu;
 import static pointofsale_backend.Library.strTo_MD5;
@@ -76,7 +78,7 @@ public class CrudModel extends ConfigDatabase {
 
     /* end of method query select meja order */
 
-    /*
+ /*
      * method untuk query select user akses aplikasi 
      */
     public static void getUserapp_accessDB(String idaccess, String password) throws SQLException {
@@ -108,7 +110,7 @@ public class CrudModel extends ConfigDatabase {
 
     /* end of method untuk query select all data  */
 
-    /*
+ /*
      * method untuk select data user aplikasi dan data pegawai
      */
     public static void getUserapp_listDB() {
@@ -140,7 +142,7 @@ public class CrudModel extends ConfigDatabase {
 
     /* end of method untuk select data user aplikasi dan data pegawai */
 
-    /*
+ /*
      * method untuk insert user aplikasi dan data pegawai
      */
     public static void insertUserapp_listDB() {
@@ -184,7 +186,7 @@ public class CrudModel extends ConfigDatabase {
 
     /* end of method untuk insert data user aplikasi dan data pegawai */
 
-    /*
+ /*
      * method untuk delete user aplikasi dan data pegawai
      */
     public static void deleteUserapp_listDB(int id_user) {
@@ -293,7 +295,7 @@ public class CrudModel extends ConfigDatabase {
 
     /* end of method untuk select data master menu */
 
-    /*
+ /*
      * method untuk insert data menu
      */
     public static void insert_MenulistDB() throws SQLException {
@@ -320,7 +322,7 @@ public class CrudModel extends ConfigDatabase {
 
     /* end of method untuk insert data menu */
 
-    /*
+ /*
      * method untuk ubah data menu
      */
     public static void update_MenulistDB(String var_kd_menu) throws SQLException {
@@ -342,7 +344,7 @@ public class CrudModel extends ConfigDatabase {
 
     /* end of method untuk ubah data menu */
 
-    /*
+ /*
      * method untuk hapus 1 data menu
      */
     public static void delete_MenulistDB(String var_kd_menu) throws SQLException {
@@ -476,7 +478,7 @@ public class CrudModel extends ConfigDatabase {
     }
 
     /* end of method untuk insert data transaksi */
-    /* end of method untuk insert data transaksi */
+ /* end of method untuk insert data transaksi */
     private static Integer get_id_menu(String kd_menu) {
         int id_menu = 0;
         String query_select_menu = "SELECT id_item_menu from tbl_master_item_menu WHERE kd_menu='" + kd_menu + "'";
@@ -532,31 +534,82 @@ public class CrudModel extends ConfigDatabase {
     }
 
     /* end of method untuk insert data transaksi */
-    public static void insert_ReceiptChef(String kd_order) {
-        String query_insert_struk_for_koki = "INSERT into tbl_struk_for_koki (order_kd) VALUES (?)";
+
+ /*update order menjadi print yes untuk kebutuhan struk koki*/
+    public static void update_OrderCustomer_menu(String kd_orderdetail) {
+        String query_update_ordercustomer_menu = "UPDATE tbl_detail_order_customer SET cetak='y' WHERE kd_detail_order='" + kd_orderdetail + "'";
         try {
-            PreparedStatement ps = conn.prepareStatement(query_insert_struk_for_koki);
-            ps.setString(1, kd_order);
+            PreparedStatement ps = conn.prepareStatement(query_update_ordercustomer_menu);
             int executeUpdate = ps.executeUpdate();
             if (executeUpdate > 0) {
-                notif_ins_struk_for_koki = true;
-                System.out.println("insert "+kd_order+" tbl_struk_for_koki sukses");
+                notif_updt_order_customer = true;
+                System.out.println("UPDATE " + kd_orderdetail + " tbl_detail_order_customer sukses");
             } else {
-                notif_ins_struk_for_koki = false;
-                System.out.println("insert "+kd_order+" tbl_struk_for_koki gagal");
+                notif_updt_order_customer = false;
+                System.out.println("UPDATE " + kd_orderdetail + " tbl_detail_order_customer gagal");
             }
+            System.out.println(query_update_ordercustomer_menu);
+
         } catch (SQLException ex) {
             Logger.getLogger(CrudModel.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    public static void select_OrderCustomer_menu(String kd_orderdetail) {
-        DefaultTableModel tabmode = getDatatabel(JTBL_form_order);
-        String query_select_ordercustomer_menu = "SELECT tdoc.qty,tdoc.id_detail_order,tmim.item_menu_nama,(tdoc.qty * tmim.item_menu_harga) as subtotal FROM tbl_detail_order_customer tdoc \n"
+    /*end update order menjadi print yes untuk kebutuhan struk koki*/
+
+    /*delete 1 item menu di detail order*/
+    public static void delete_satuOrderCustomer_menu(int id_detailOrder, String kd_orderdetail) {
+        String query_delete1_ordercustomer_menu = "DELETE FROM tbl_detail_order_customer "
+                + "WHERE id_detail_order=? AND kd_detail_order=?";
+        try {
+            PreparedStatement ps_del = conn.prepareStatement(query_delete1_ordercustomer_menu);
+            ps_del.setInt(1,id_detailOrder);            
+            ps_del.setString(2,kd_orderdetail);
+            
+            int executeUpdate = ps_del.executeUpdate();
+            if (executeUpdate > 0) {
+                notif_delsatu_order_customer = true;
+            }
+            System.out.println(query_delete1_ordercustomer_menu);
+        } catch (SQLException ex) {
+            Logger.getLogger(CrudModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    /*end delete 1 item menu di detail order*/
+
+    public static int select_OrderCustomer_menu_total(String kd_orderdetail) {
+        int totalnya = 0;
+        String query_select_sum_ordercustomer_menu = "SELECT SUM((tdoc.qty * tmim.item_menu_harga)) AS total "
+                + "FROM tbl_detail_order_customer tdoc \n"
                 + "LEFT JOIN tbl_master_item_menu tmim ON tmim.id_item_menu = tdoc.item_menu_id \n"
                 + "WHERE tdoc.kd_detail_order='" + kd_orderdetail + "'";
-//        System.out.println(query_select_ordercustomer_menu);
         try {
+            System.out.println(query_select_sum_ordercustomer_menu);
+
+            Statement stmt_sum = conn.createStatement();
+            ResultSet rs_sum = stmt_sum.executeQuery(query_select_sum_ordercustomer_menu);
+            if (rs_sum.next()) {
+                totalnya = rs_sum.getInt("total");
+                return totalnya;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CrudModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return totalnya;
+    }
+
+    public static void select_OrderCustomer_menu(String kd_orderdetail) {
+        String status_print = "";
+        DefaultTableModel tabmode = getDatatabel(JTBL_form_order);
+        String query_select_ordercustomer_menu = "SELECT tdoc.cetak,tdoc.qty,tdoc.id_detail_order,tmim.item_menu_nama,(tdoc.qty * tmim.item_menu_harga) as subtotal "
+                + "FROM tbl_detail_order_customer tdoc \n"
+                + "LEFT JOIN tbl_master_item_menu tmim ON tmim.id_item_menu = tdoc.item_menu_id \n"
+                + "WHERE tdoc.kd_detail_order='" + kd_orderdetail + "'";
+
+        try {
+            System.out.println(query_select_ordercustomer_menu);
+
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(query_select_ordercustomer_menu);
             int NUMBERS = 1;
@@ -566,7 +619,13 @@ public class CrudModel extends ConfigDatabase {
                 String b = rs.getString("tmim.item_menu_nama");
                 int c = rs.getInt("tdoc.qty");
                 int d = rs.getInt("subtotal");
-                Object[] data = {NUMBERS, a, b, c, d};
+                String e = rs.getString("cetak");
+                if (e.equals("y")) {
+                    status_print = "kitchen";
+                } else {
+                    status_print = "order";
+                }
+                Object[] data = {NUMBERS, a, b, c, d, status_print};
                 tabmode.addRow(data);
                 NUMBERS++;
             }
@@ -579,18 +638,18 @@ public class CrudModel extends ConfigDatabase {
 
     /* end of method untuk insert data transaksi */
 
-    /*
+ /*
      * method untuk delete data ke table tbl_order_customer
      */
     public static void delete_OrderCustomer(String kd_order, String kd_orderdetail) {
         try {
-            String sql_delete_join = "DELETE tbl_order_customer,tbl_detail_order_customer,tbl_transaksi_pesanan,tbl_struk_for_koki\n" +
-                                "FROM tbl_order_customer\n" +
-                                "INNER JOIN tbl_detail_order_customer ON tbl_order_customer.detail_order_kd = tbl_detail_order_customer.kd_detail_order\n" +
-                                "INNER JOIN tbl_transaksi_pesanan ON tbl_order_customer.kd_order = tbl_transaksi_pesanan.order_kd\n" +
-                                "INNER JOIN tbl_struk_for_koki ON tbl_order_customer.kd_order = tbl_struk_for_koki.order_kd\n" +
-                                "WHERE tbl_order_customer.kd_order =? "
-                                + "AND tbl_order_customer.detail_order_kd =?";
+            String sql_delete_join = "DELETE tbl_order_customer,tbl_detail_order_customer,tbl_transaksi_pesanan,tbl_struk_for_koki\n"
+                    + "FROM tbl_order_customer\n"
+                    + "INNER JOIN tbl_detail_order_customer ON tbl_order_customer.detail_order_kd = tbl_detail_order_customer.kd_detail_order\n"
+                    + "INNER JOIN tbl_transaksi_pesanan ON tbl_order_customer.kd_order = tbl_transaksi_pesanan.order_kd\n"
+                    + "INNER JOIN tbl_struk_for_koki ON tbl_order_customer.kd_order = tbl_struk_for_koki.order_kd\n"
+                    + "WHERE tbl_order_customer.kd_order =? "
+                    + "AND tbl_order_customer.detail_order_kd =?";
 
             PreparedStatement ps = conn.prepareStatement(sql_delete_join);
             ps.setString(1, kd_order);
@@ -642,7 +701,7 @@ public class CrudModel extends ConfigDatabase {
     }
 
     /* end of method delete data ke table tbl_order_customer */
-    /*
+ /*
      * method untuk select data untuk daftar pesanan @Form_bayar_tagihan
      */
     public static void select_Daftarpesanan(String kd_order) {
@@ -742,7 +801,7 @@ public class CrudModel extends ConfigDatabase {
             JTBL_bayar_tagihan.setModel(tabmode);
 
         } else if (tableName.equals(JTBL_form_order)) {
-            Object[] baris = {"No", "#id", "Nama menu", "qty", "subtotal(Rp)"};
+            Object[] baris = {"No", "#id", "Nama menu", "qty", "subtotal(Rp)", "Status"};
             tabmode = new DefaultTableModel(null, baris);
             JTBL_form_order.setModel(tabmode);
 
