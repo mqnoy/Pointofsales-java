@@ -4,9 +4,15 @@
  * and open the template in the editor.
  */
 package pointofsale;
+import static databases.CrudModel.getUserapp_accessDB;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import static pointofsale_backend.Frame_control.tampilhalUtama_UserApp;
+import static pointofsale_backend.Library.strTo_MD5;
 import static pointofsale_backend.SetGet.get_accessApp;
+import static pointofsale_backend.SetGet.giveAccess;
 import static pointofsale_backend.SetGet.set_loginApp;
 import static pointofsale_backend.SetGet.strError_code;
 /**
@@ -14,36 +20,17 @@ import static pointofsale_backend.SetGet.strError_code;
  * @author Rifky <qnoy.rifky@gmail.com>
  */
 public class HalamanLogin extends javax.swing.JFrame {
-    public boolean typingPassword = false;
 
     /**
      * Creates new form HalamanLogin
      */
     public HalamanLogin() {
-        initComponents();
-    }
-    public void typerKey(String newStringHere){
-        if (typingPassword) {
-            String val_password = new String(txt_password.getPassword());
-            txt_password.setText(val_password + newStringHere);
+        if (giveAccess ==false) {
+            initComponents();
         }else{
-            txt_idaccess.setText(txt_idaccess.getText() + newStringHere);
+            System.exit(0);
         }
-    }
-    public void clearTextField(){
-        if (typingPassword) {
-            txt_password.setText("");
-        }else{
-            txt_idaccess.setText("");
-        }
-    }
-    public void deleteOneCharTextField(){
-        if (typingPassword) {
-            String val_password = new String(txt_password.getPassword());
-            txt_password.setText(""+val_password.substring(0, val_password.length() - 1));
-        }else{
-            txt_idaccess.setText(""+txt_idaccess.getText().substring(0, txt_idaccess.getText().length() - 1));
-        }
+        
     }
 
     /**
@@ -69,9 +56,9 @@ public class HalamanLogin extends javax.swing.JFrame {
         jButton10 = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
         jButton12 = new javax.swing.JButton();
-        btn_clr = new javax.swing.JButton();
+        jButton7 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        btn_del = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jButton14 = new javax.swing.JButton();
         jButton13 = new javax.swing.JButton();
@@ -90,12 +77,6 @@ public class HalamanLogin extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
-        txt_idaccess.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txt_idaccessFocusGained(evt);
-            }
-        });
-
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setLayout(new java.awt.GridLayout(4, 3));
 
@@ -104,11 +85,6 @@ public class HalamanLogin extends javax.swing.JFrame {
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("1");
         jButton1.setBorderPainted(false);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
         jPanel3.add(jButton1);
 
         jButton9.setBackground(new java.awt.Color(51, 51, 51));
@@ -116,11 +92,6 @@ public class HalamanLogin extends javax.swing.JFrame {
         jButton9.setForeground(new java.awt.Color(255, 255, 255));
         jButton9.setText("2");
         jButton9.setBorderPainted(false);
-        jButton9.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton9ActionPerformed(evt);
-            }
-        });
         jPanel3.add(jButton9);
 
         jButton4.setBackground(new java.awt.Color(51, 51, 51));
@@ -128,11 +99,6 @@ public class HalamanLogin extends javax.swing.JFrame {
         jButton4.setForeground(new java.awt.Color(255, 255, 255));
         jButton4.setText("3");
         jButton4.setBorderPainted(false);
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
-            }
-        });
         jPanel3.add(jButton4);
 
         jButton5.setBackground(new java.awt.Color(51, 51, 51));
@@ -140,11 +106,6 @@ public class HalamanLogin extends javax.swing.JFrame {
         jButton5.setForeground(new java.awt.Color(255, 255, 255));
         jButton5.setText("4");
         jButton5.setBorderPainted(false);
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
-            }
-        });
         jPanel3.add(jButton5);
 
         jButton3.setBackground(new java.awt.Color(51, 51, 51));
@@ -152,11 +113,6 @@ public class HalamanLogin extends javax.swing.JFrame {
         jButton3.setForeground(new java.awt.Color(255, 255, 255));
         jButton3.setText("5");
         jButton3.setBorderPainted(false);
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
         jPanel3.add(jButton3);
 
         jButton11.setBackground(new java.awt.Color(51, 51, 51));
@@ -164,11 +120,6 @@ public class HalamanLogin extends javax.swing.JFrame {
         jButton11.setForeground(new java.awt.Color(255, 255, 255));
         jButton11.setText("6");
         jButton11.setBorderPainted(false);
-        jButton11.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton11ActionPerformed(evt);
-            }
-        });
         jPanel3.add(jButton11);
 
         jButton10.setBackground(new java.awt.Color(51, 51, 51));
@@ -176,11 +127,6 @@ public class HalamanLogin extends javax.swing.JFrame {
         jButton10.setForeground(new java.awt.Color(255, 255, 255));
         jButton10.setText("7");
         jButton10.setBorderPainted(false);
-        jButton10.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton10ActionPerformed(evt);
-            }
-        });
         jPanel3.add(jButton10);
 
         jButton8.setBackground(new java.awt.Color(51, 51, 51));
@@ -188,11 +134,6 @@ public class HalamanLogin extends javax.swing.JFrame {
         jButton8.setForeground(new java.awt.Color(255, 255, 255));
         jButton8.setText("8");
         jButton8.setBorderPainted(false);
-        jButton8.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton8ActionPerformed(evt);
-            }
-        });
         jPanel3.add(jButton8);
 
         jButton12.setBackground(new java.awt.Color(51, 51, 51));
@@ -200,48 +141,28 @@ public class HalamanLogin extends javax.swing.JFrame {
         jButton12.setForeground(new java.awt.Color(255, 255, 255));
         jButton12.setText("9");
         jButton12.setBorderPainted(false);
-        jButton12.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton12ActionPerformed(evt);
-            }
-        });
         jPanel3.add(jButton12);
 
-        btn_clr.setBackground(new java.awt.Color(77, 77, 77));
-        btn_clr.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        btn_clr.setForeground(new java.awt.Color(255, 255, 255));
-        btn_clr.setText("CLR");
-        btn_clr.setBorderPainted(false);
-        btn_clr.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_clrActionPerformed(evt);
-            }
-        });
-        jPanel3.add(btn_clr);
+        jButton7.setBackground(new java.awt.Color(77, 77, 77));
+        jButton7.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jButton7.setForeground(new java.awt.Color(255, 255, 255));
+        jButton7.setText("CLR");
+        jButton7.setBorderPainted(false);
+        jPanel3.add(jButton7);
 
         jButton2.setBackground(new java.awt.Color(51, 51, 51));
         jButton2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
         jButton2.setText("0");
         jButton2.setBorderPainted(false);
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
         jPanel3.add(jButton2);
 
-        btn_del.setBackground(new java.awt.Color(77, 77, 77));
-        btn_del.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        btn_del.setForeground(new java.awt.Color(255, 255, 255));
-        btn_del.setText("←");
-        btn_del.setBorderPainted(false);
-        btn_del.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_delActionPerformed(evt);
-            }
-        });
-        jPanel3.add(btn_del);
+        jButton6.setBackground(new java.awt.Color(77, 77, 77));
+        jButton6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jButton6.setForeground(new java.awt.Color(255, 255, 255));
+        jButton6.setText("DEL");
+        jButton6.setBorderPainted(false);
+        jPanel3.add(jButton6);
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -281,12 +202,6 @@ public class HalamanLogin extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 154, Short.MAX_VALUE)
                 .addComponent(jButton13, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
-
-        txt_password.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txt_passwordFocusGained(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -418,89 +333,6 @@ public class HalamanLogin extends javax.swing.JFrame {
             }
     }//GEN-LAST:event_jButton13ActionPerformed
 
-    private void txt_idaccessFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_idaccessFocusGained
-        // TODO add your handling code here:
-        typingPassword = false;
-    }//GEN-LAST:event_txt_idaccessFocusGained
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        typerKey("1");
-
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-        // TODO add your handling code here:
-        typerKey("2");
-    }//GEN-LAST:event_jButton9ActionPerformed
-
-    private void txt_passwordFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_passwordFocusGained
-        // TODO add your handling code here:
-        typingPassword = true;
-    }//GEN-LAST:event_txt_passwordFocusGained
-
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
-        typerKey("3");
-        
-    }//GEN-LAST:event_jButton4ActionPerformed
-
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
-        typerKey("4");
-    }//GEN-LAST:event_jButton5ActionPerformed
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-        typerKey("5");
-    }//GEN-LAST:event_jButton3ActionPerformed
-
-    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
-        // TODO add your handling code here:
-        typerKey("6");
-    }//GEN-LAST:event_jButton11ActionPerformed
-
-    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-        // TODO add your handling code here:
-        typerKey("7");
-    }//GEN-LAST:event_jButton10ActionPerformed
-
-    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        // TODO add your handling code here:
-        typerKey("8");
-    }//GEN-LAST:event_jButton8ActionPerformed
-
-    private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
-        // TODO add your handling code here:
-        typerKey("9");
-    }//GEN-LAST:event_jButton12ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-        typerKey("0");
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void btn_clrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_clrActionPerformed
-        // TODO add your handling code here:
-        clearTextField();
-    }//GEN-LAST:event_btn_clrActionPerformed
-
-    private void btn_delActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_delActionPerformed
-        // TODO add your handling code here:
-        if (typingPassword) {
-            boolean empty = new String(txt_password.getPassword()).isEmpty();
-            if (!empty) {
-                deleteOneCharTextField();
-            }
-        }else{
-            boolean empty = txt_idaccess.getText().isEmpty();
-            if (!empty) {
-                deleteOneCharTextField();
-            }
-            
-        }
-    }//GEN-LAST:event_btn_delActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -537,8 +369,6 @@ public class HalamanLogin extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn_clr;
-    private javax.swing.JButton btn_del;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
@@ -549,6 +379,8 @@ public class HalamanLogin extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
@@ -558,7 +390,7 @@ public class HalamanLogin extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
-    public javax.swing.JTextField txt_idaccess;
-    public javax.swing.JPasswordField txt_password;
+    private javax.swing.JTextField txt_idaccess;
+    private javax.swing.JPasswordField txt_password;
     // End of variables declaration//GEN-END:variables
 }

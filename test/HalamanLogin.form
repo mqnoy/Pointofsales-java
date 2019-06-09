@@ -144,12 +144,6 @@
               </Layout>
               <SubComponents>
                 <Component class="javax.swing.JTextField" name="txt_idaccess">
-                  <Events>
-                    <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txt_idaccessFocusGained"/>
-                  </Events>
-                  <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
-                  </AuxValues>
                 </Component>
                 <Container class="javax.swing.JPanel" name="jPanel3">
                   <Properties>
@@ -177,9 +171,6 @@
                         <Property name="text" type="java.lang.String" value="1"/>
                         <Property name="borderPainted" type="boolean" value="false"/>
                       </Properties>
-                      <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
-                      </Events>
                     </Component>
                     <Component class="javax.swing.JButton" name="jButton9">
                       <Properties>
@@ -195,9 +186,6 @@
                         <Property name="text" type="java.lang.String" value="2"/>
                         <Property name="borderPainted" type="boolean" value="false"/>
                       </Properties>
-                      <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton9ActionPerformed"/>
-                      </Events>
                     </Component>
                     <Component class="javax.swing.JButton" name="jButton4">
                       <Properties>
@@ -213,9 +201,6 @@
                         <Property name="text" type="java.lang.String" value="3"/>
                         <Property name="borderPainted" type="boolean" value="false"/>
                       </Properties>
-                      <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton4ActionPerformed"/>
-                      </Events>
                     </Component>
                     <Component class="javax.swing.JButton" name="jButton5">
                       <Properties>
@@ -231,9 +216,6 @@
                         <Property name="text" type="java.lang.String" value="4"/>
                         <Property name="borderPainted" type="boolean" value="false"/>
                       </Properties>
-                      <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton5ActionPerformed"/>
-                      </Events>
                     </Component>
                     <Component class="javax.swing.JButton" name="jButton3">
                       <Properties>
@@ -249,9 +231,6 @@
                         <Property name="text" type="java.lang.String" value="5"/>
                         <Property name="borderPainted" type="boolean" value="false"/>
                       </Properties>
-                      <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton3ActionPerformed"/>
-                      </Events>
                     </Component>
                     <Component class="javax.swing.JButton" name="jButton11">
                       <Properties>
@@ -267,9 +246,6 @@
                         <Property name="text" type="java.lang.String" value="6"/>
                         <Property name="borderPainted" type="boolean" value="false"/>
                       </Properties>
-                      <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton11ActionPerformed"/>
-                      </Events>
                     </Component>
                     <Component class="javax.swing.JButton" name="jButton10">
                       <Properties>
@@ -285,9 +261,6 @@
                         <Property name="text" type="java.lang.String" value="7"/>
                         <Property name="borderPainted" type="boolean" value="false"/>
                       </Properties>
-                      <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton10ActionPerformed"/>
-                      </Events>
                     </Component>
                     <Component class="javax.swing.JButton" name="jButton8">
                       <Properties>
@@ -303,9 +276,6 @@
                         <Property name="text" type="java.lang.String" value="8"/>
                         <Property name="borderPainted" type="boolean" value="false"/>
                       </Properties>
-                      <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton8ActionPerformed"/>
-                      </Events>
                     </Component>
                     <Component class="javax.swing.JButton" name="jButton12">
                       <Properties>
@@ -321,11 +291,8 @@
                         <Property name="text" type="java.lang.String" value="9"/>
                         <Property name="borderPainted" type="boolean" value="false"/>
                       </Properties>
-                      <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton12ActionPerformed"/>
-                      </Events>
                     </Component>
-                    <Component class="javax.swing.JButton" name="btn_clr">
+                    <Component class="javax.swing.JButton" name="jButton7">
                       <Properties>
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="4d" green="4d" red="4d" type="rgb"/>
@@ -339,9 +306,6 @@
                         <Property name="text" type="java.lang.String" value="CLR"/>
                         <Property name="borderPainted" type="boolean" value="false"/>
                       </Properties>
-                      <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_clrActionPerformed"/>
-                      </Events>
                     </Component>
                     <Component class="javax.swing.JButton" name="jButton2">
                       <Properties>
@@ -357,27 +321,21 @@
                         <Property name="text" type="java.lang.String" value="0"/>
                         <Property name="borderPainted" type="boolean" value="false"/>
                       </Properties>
-                      <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>
-                      </Events>
                     </Component>
-                    <Component class="javax.swing.JButton" name="btn_del">
+                    <Component class="javax.swing.JButton" name="jButton6">
                       <Properties>
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="4d" green="4d" red="4d" type="rgb"/>
                         </Property>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                          <Font name="Segoe UI" size="24" style="1"/>
+                          <Font name="Segoe UI" size="18" style="1"/>
                         </Property>
                         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="ff" green="ff" red="ff" type="rgb"/>
                         </Property>
-                        <Property name="text" type="java.lang.String" value="&#x2190;"/>
+                        <Property name="text" type="java.lang.String" value="DEL"/>
                         <Property name="borderPainted" type="boolean" value="false"/>
                       </Properties>
-                      <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_delActionPerformed"/>
-                      </Events>
                     </Component>
                   </SubComponents>
                 </Container>
@@ -445,12 +403,6 @@
                   </SubComponents>
                 </Container>
                 <Component class="javax.swing.JPasswordField" name="txt_password">
-                  <Events>
-                    <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txt_passwordFocusGained"/>
-                  </Events>
-                  <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
-                  </AuxValues>
                 </Component>
               </SubComponents>
             </Container>
