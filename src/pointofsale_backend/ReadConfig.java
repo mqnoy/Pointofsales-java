@@ -21,7 +21,9 @@ import java.io.FileNotFoundException;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import org.apache.commons.configuration.ConfigurationException;
+import static pointofsale_backend.Library.get_fullPath;
 
 /**
  *
@@ -55,13 +57,14 @@ public class ReadConfig {
      */
     private static void loadConfig() {
         try {
-            FileInputStream file = new FileInputStream("./src/pointofsale_config.ini");
-            configuration.load(file);
-        } catch (ConfigurationException | FileNotFoundException ex) {
+            String dir_iniFile = get_fullPath("src/pointofsale_config.ini");
+            //boolean directoryExists = new java.io.File(dir_iniFile).exists();
+                FileInputStream file = new FileInputStream(dir_iniFile);
+                configuration.load(file);
+        } catch (ConfigurationException  | FileNotFoundException ex) {
+            JOptionPane.showMessageDialog(null, "Tidak ada file .ini !\n"+ex);
             Logger.getLogger(ReadConfig.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-//    public static void main(String[] args) {
-//    }
 }

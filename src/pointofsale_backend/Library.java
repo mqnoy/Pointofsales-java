@@ -212,7 +212,7 @@ public class Library {
 //        int itu = getUserapp_listDB("201643502058");
 //        String home = System.getProperty("user.home");
         String reportSource = System.getProperty("user.dir") + "/laporan/stok.jrxml";
-        System.out.println(reportSource);
+        
          System.out.println(get_fullPath("src/Reporting/report_penjualan.jrxml"));
         //    Date tanggalAwal_rpt = rpt_tanggal_awal.getDate();
 //        Date tanggalAkhir_rpt = rpt_tanggal_akhir.getDate();
@@ -222,7 +222,9 @@ public class Library {
 //         Date datetime = new Date();
 //        String rawformat = "yyyy-MM-dd 00:00:00";
 //        String anuan = parsing_Jdate(datetime,rawformat);
-//       
+//       ReadConfig rc = new ReadConfig();
+//        String _config = rc.get_config("pc_hostname");
+//        System.out.println(_config);
         
     }
 
