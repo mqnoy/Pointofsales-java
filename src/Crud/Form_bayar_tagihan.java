@@ -8,6 +8,8 @@ package Crud;
 import static databases.CrudModel.get_listPayment_type;
 import static databases.CrudModel.select_Daftarpesanan;
 import static databases.CrudModel.update_TransCustomer;
+import java.util.HashMap;
+import java.util.Map;
 import javax.swing.JOptionPane;
 import static pointofsale_backend.Library.generate_CustomReport;
 import static pointofsale_backend.Library.get_CustomReportQuery;
@@ -508,6 +510,14 @@ public class Form_bayar_tagihan extends javax.swing.JFrame {
 
         System.out.println("delete data di detail order customer yg cetak = n kd order detail terkait");
         if (notif_updt_transaksi_customer) {
+            Map JasperParams = new HashMap();
+            JasperParams.put("PARAM_NM_RESTO","NAMA RESTO");            
+            JasperParams.put("PARAM_RESTO_INFO","jl.yang tidak rusak");            
+            JasperParams.put("PARAM_STRUK_TOT_RP",lbl_bt_rpTotal_tagihan.getText());            
+            JasperParams.put("PARAM_STRUK_PJK_RP",lbl_bt_pajak.getText());            
+            JasperParams.put("PARAM_STRUK_NOMINAL_RP",lbl_bt_nominal.getText());            
+            JasperParams.put("PARAM_STRUK_KEMBALIAN_RP",lbl_bt_kembalian.getText());            
+            
             System.out.println("do jasper for stuk customer here");
             String reportPath = get_fullPath("src/receipt/Receipt_customer.jrxml");
             String query_select_forReceipt = "SELECT kd_order, tmj.kd_meja,tmim.item_menu_nama,(tdoc.qty * tmim.item_menu_harga) as subtotal FROM tbl_order_customer toc\n" +
@@ -519,7 +529,7 @@ public class Form_bayar_tagihan extends javax.swing.JFrame {
                     "WHERE toc.kd_order = '" + lbl_bt_kodeOrder.getText() + "'";
             System.out.println(query_select_forReceipt);
             set_CustomReportQuery(query_select_forReceipt);
-            generate_CustomReport(reportPath, get_CustomReportQuery());
+            generate_CustomReport(reportPath,JasperParams ,get_CustomReportQuery());
 
             //cek state apakah jasper sudah selesai    
             if (get_stateAfterReport()) {

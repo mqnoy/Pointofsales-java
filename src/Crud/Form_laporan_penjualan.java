@@ -7,8 +7,11 @@ package Crud;
 
 import static databases.CrudModel.conn;
 import static databases.CrudModel.select_DaftarTransaksi;
+import static databases.CrudModel.select_SUMDaftarTransaksi;
 import java.sql.*;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import javax.swing.JOptionPane;
 import static pointofsale_backend.Library.*;
 import static pointofsale_backend.SetGet.looksAndFeel;
@@ -20,7 +23,7 @@ import static pointofsale_backend.SetGet.looksAndFeel;
 public class Form_laporan_penjualan extends javax.swing.JFrame {
 
     private static boolean run_report = false;
-
+    private static int total_pendapatan = 0;
     /**
      * Creates new form Form_laporan_penjualan
      */
@@ -59,6 +62,9 @@ public class Form_laporan_penjualan extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        lbl_tot_pendapatan = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
         btn_cetak_laporanPen = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
@@ -161,6 +167,12 @@ public class Form_laporan_penjualan extends javax.swing.JFrame {
 
         jLabel14.setText("Total order?");
 
+        jLabel16.setText("Total pendapatan");
+
+        jLabel17.setText(":");
+
+        lbl_tot_pendapatan.setText("Total pendapatan?");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -194,7 +206,13 @@ public class Form_laporan_penjualan extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lbl_tot_pendapatan, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -220,7 +238,12 @@ public class Form_laporan_penjualan extends javax.swing.JFrame {
                     .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(52, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbl_tot_pendapatan, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
         jButton2.setBackground(new java.awt.Color(51, 51, 51));
@@ -383,8 +406,19 @@ public class Form_laporan_penjualan extends javax.swing.JFrame {
     private void btn_cetak_laporanPenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cetak_laporanPenActionPerformed
         // TODO add your handling code here:
         if (run_report) {
+            //total_pendapatan = 100000000;
+            Date tanggalAwal_rpt = rpt_tanggal_awal.getDate();
+            Date tanggalAkhir_rpt = rpt_tanggal_akhir.getDate();
+            String final_tanggalAwal_rpt = parsing_Jdate(tanggalAwal_rpt, "dd-MM-yyyy");
+            String final_tanggalAkhir_rpt = parsing_Jdate(tanggalAkhir_rpt, "dd-MM-yyyy");
+            Map JasperParams = new HashMap();
+            JasperParams.put("PARAM_NM_RESTO","NAMA RESTO");            
+            JasperParams.put("PARAM_RESTO_INFO","jl.yang tidak rusak");
+            JasperParams.put("PARAM_PERIOD_BEGIN",final_tanggalAwal_rpt);
+            JasperParams.put("PARAM_PERIOD_END",final_tanggalAkhir_rpt);
+            JasperParams.put("PARAM_TOT_PENDAPATAN",String.valueOf(total_pendapatan));
             String reportPath = get_fullPath("src/Reporting/report_penjualan.jrxml");
-            generate_CustomReport(reportPath, get_CustomReportQuery());
+            generate_CustomReport(reportPath,JasperParams ,get_CustomReportQuery());
         }
     }//GEN-LAST:event_btn_cetak_laporanPenActionPerformed
 
@@ -415,6 +449,8 @@ public class Form_laporan_penjualan extends javax.swing.JFrame {
                     System.out.println(sql);
                     ResultSet rs = stmt.executeQuery(sql);
                     if (rs.next()) {
+                        total_pendapatan = select_SUMDaftarTransaksi(final_tanggalAwal_rpt,final_tanggalAkhir_rpt);
+                        lbl_tot_pendapatan.setText(String.valueOf(total_pendapatan));
                         run_report = true;
                         set_CustomReportQuery(sql);
                         JOptionPane.showMessageDialog(this, "data ditemukan \n" + final_tanggalAwal_rpt + " - " + final_tanggalAkhir_rpt);
@@ -492,6 +528,8 @@ public class Form_laporan_penjualan extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -506,6 +544,7 @@ public class Form_laporan_penjualan extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     public static javax.swing.JTable jTable_lap_penjualan;
+    public javax.swing.JLabel lbl_tot_pendapatan;
     private com.toedter.calendar.JDateChooser rpt_tanggal_akhir;
     private com.toedter.calendar.JDateChooser rpt_tanggal_awal;
     // End of variables declaration//GEN-END:variables
