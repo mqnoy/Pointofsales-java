@@ -5,6 +5,8 @@
  */
 package pointofsale;
 
+import static pointofsale_backend.SetGet.looksAndFeel;
+
 /**
  *
  * @author Rifky <qnoy.rifky@gmail.com>
@@ -89,7 +91,7 @@ public class NotAvailable extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Metal".equals(info.getName())) {
+                if (looksAndFeel.equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }

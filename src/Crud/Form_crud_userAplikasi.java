@@ -13,6 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import static pointofsale_backend.SetGet.looksAndFeel;
 import static pointofsale_backend.SetGet.notif_del_userapp;
 import static pointofsale_backend.SetGet.notif_ins_userapp;
 
@@ -505,7 +506,7 @@ public class Form_crud_userAplikasi extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Metal".equals(info.getName())) {
+                if (looksAndFeel.equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }

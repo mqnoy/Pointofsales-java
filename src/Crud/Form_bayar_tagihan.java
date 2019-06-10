@@ -11,6 +11,7 @@ import static databases.CrudModel.select_OrderCustomer_menu_total;
 import static databases.CrudModel.update_TransCustomer;
 import javax.swing.JOptionPane;
 import static pointofsale_backend.SetGet.get_tanggalOrder;
+import static pointofsale_backend.SetGet.looksAndFeel;
 import static pointofsale_backend.SetGet.notif_updt_transaksi_customer;
 /**
  *
@@ -542,7 +543,7 @@ public class Form_bayar_tagihan extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Metal".equals(info.getName())) {
+                if (looksAndFeel.equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }

@@ -11,6 +11,7 @@ import java.sql.*;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import static pointofsale_backend.Library.*;
+import static pointofsale_backend.SetGet.looksAndFeel;
 
 /**
  *
@@ -455,7 +456,7 @@ public class Form_laporan_penjualan extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Metal".equals(info.getName())) {
+                if (looksAndFeel.equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }

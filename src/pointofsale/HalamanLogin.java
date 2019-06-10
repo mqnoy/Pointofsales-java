@@ -7,6 +7,7 @@ package pointofsale;
 import javax.swing.JOptionPane;
 import static pointofsale_backend.Frame_control.tampilhalUtama_UserApp;
 import static pointofsale_backend.SetGet.get_accessApp;
+import static pointofsale_backend.SetGet.looksAndFeel;
 import static pointofsale_backend.SetGet.set_loginApp;
 import static pointofsale_backend.SetGet.strError_code;
 /**
@@ -512,7 +513,7 @@ public class HalamanLogin extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Metal".equals(info.getName())) {
+                if (looksAndFeel.equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
