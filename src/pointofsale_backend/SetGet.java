@@ -20,7 +20,9 @@ import java.util.logging.Logger;
 public class SetGet {
     public static ReadConfig readConf = new ReadConfig();
     //looks and feel
-    public static final String looksAndFeel = readConf.get_config("looks_and_feel");
+    public static final String looksAndFeel = readConf.get_config("looks_and_feel");    
+    public static final String pcIpAddreess = readConf.get_config("pc_ipaddress");
+
 
 
     //atribut untuk aktifitas order

@@ -6,10 +6,13 @@
  */
 package pointofsale_backend;
 
+import databases.CrudModel;
 import static databases.CrudModel.conn;
 import static databases.CrudModel.getMeja_kode;
+import static databases.CrudModel.select_kdPC_pos;
 import static databases.CrudModel.select_lastOrderId;
 import java.nio.file.Paths;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -29,6 +32,7 @@ import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.view.JasperViewer;
 import org.apache.commons.codec.digest.DigestUtils;
+import static pointofsale_backend.SetGet.pcIpAddreess;
 
 /**
  *
@@ -218,11 +222,8 @@ public class Library {
 //         Date datetime = new Date();
 //        String rawformat = "yyyy-MM-dd 00:00:00";
 //        String anuan = parsing_Jdate(datetime,rawformat);
-//        System.out.println(lib_tanggalwaktu);
-         
-         ReadConfig readConf = new ReadConfig();
-        String _config = readConf.get_config("pc_hostname");
-        System.out.println(_config);
+//       
+        
     }
 
 }
