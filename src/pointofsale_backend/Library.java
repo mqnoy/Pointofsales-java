@@ -219,6 +219,10 @@ public class Library {
 //        String rawformat = "yyyy-MM-dd 00:00:00";
 //        String anuan = parsing_Jdate(datetime,rawformat);
 //        System.out.println(lib_tanggalwaktu);
+         
+         ReadConfig readConf = new ReadConfig();
+        String _config = readConf.get_config("pc_hostname");
+        System.out.println(_config);
     }
 
 }
