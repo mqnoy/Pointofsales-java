@@ -934,11 +934,30 @@ public class CrudModel extends ConfigDatabase {
         }
         return idorderDB;
     }
+    
+    /*
+     * method untuk select data total pendapatan dari daftar transaksi @Form_laporan_penjualan
+     * @return int
+     */
+    public static int select_SUMDaftarTransaksi(String tgl_awal, String tgl_akhir) {
+        int pendapatanTotal=0;
+        String query_sum = "SELECT SUM(total_tagihan) AS total_pendapatan FROM tbl_transaksi_pesanan "
+                + "WHERE tgl_pembayaran BETWEEN '" + tgl_awal + "' AND '" + tgl_akhir + "' ";
+        ResultSet rs = SQLselectAll(query_sum);
+        try {
+            while(rs.next()){
+                pendapatanTotal = rs.getInt("total_pendapatan");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CrudModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return pendapatanTotal;
+    }/*end*/
+    
     /*
      * method untuk select data untuk daftar transaksi @Form_laporan_penjualan
-     * return void
+     * @return void
      */
-
     public static void select_DaftarTransaksi(boolean cari_data, String tgl_awal, String tgl_akhir) {
         String query_selectTransaksi = "";
         DefaultTableModel tabmode = getDatatabel(jTable_lap_penjualan);
