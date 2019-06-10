@@ -955,6 +955,31 @@ public class CrudModel extends ConfigDatabase {
     }/*end*/
     
     /*
+     * method untuk select data total pendapatan dari daftar transaksi @Form_laporan_penjualan
+     * @return int
+     */
+    public static int select_COUNTDaftarTransaksi(boolean pickWhere,String tgl_awal, String tgl_akhir,String lunas) {
+        int transaksiTotal=0;
+        String query_sum ="";
+        if (pickWhere) {
+            query_sum = "SELECT COUNT(lunas) AS total_transaksi FROM tbl_transaksi_pesanan "
+                + "WHERE lunas='"+lunas+"' AND tgl_pembayaran BETWEEN '" + tgl_awal + "' AND '" + tgl_akhir + "' ";
+        }else{
+            query_sum = "SELECT COUNT(lunas) AS total_transaksi FROM tbl_transaksi_pesanan "; 
+        }
+        System.out.println(query_sum);
+        ResultSet rs = SQLselectAll(query_sum);
+        try {
+            while(rs.next()){
+                transaksiTotal = rs.getInt("total_transaksi");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CrudModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return transaksiTotal;
+    }/*end*/
+    
+    /*
      * method untuk select data untuk daftar transaksi @Form_laporan_penjualan
      * @return void
      */
