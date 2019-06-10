@@ -57,7 +57,7 @@ public class ReadConfig {
      */
     private static void loadConfig() {
         try {
-            String dir_iniFile = get_fullPath("src/pointofsale_config.ini");
+            String dir_iniFile = get_fullPath("config/pointofsale_config.ini");
             //boolean directoryExists = new java.io.File(dir_iniFile).exists();
                 FileInputStream file = new FileInputStream(dir_iniFile);
                 configuration.load(file);
