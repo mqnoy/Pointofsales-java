@@ -90,7 +90,7 @@ public class Form_bayar_tagihan extends javax.swing.JFrame {
         lbl_bt_rpTotal_tagihan = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
-        bt_cb_tipepembayaran = new javax.swing.JComboBox<>();
+        bt_cb_tipepembayaran = new javax.swing.JComboBox<String>();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         lbl_bt_tgl_order = new javax.swing.JLabel();
@@ -105,12 +105,15 @@ public class Form_bayar_tagihan extends javax.swing.JFrame {
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel7.setText("Rp ");
 
+        pop_uang_kembalian.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         pop_uang_kembalian.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         pop_uang_kembalian.setText("nominal uang kembalian");
 
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel10.setText("Uang kembalian");
 
+        jButton1.setBackground(new java.awt.Color(51, 51, 51));
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("close");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -216,6 +219,8 @@ public class Form_bayar_tagihan extends javax.swing.JFrame {
             }
         });
 
+        bt_btn_bayar.setBackground(new java.awt.Color(51, 51, 51));
+        bt_btn_bayar.setForeground(new java.awt.Color(255, 255, 255));
         bt_btn_bayar.setText("Bayar");
         bt_btn_bayar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -231,6 +236,8 @@ public class Form_bayar_tagihan extends javax.swing.JFrame {
 
         lbl_bt_rpTagihan.setText("0");
 
+        jButton2.setBackground(new java.awt.Color(51, 51, 51));
+        jButton2.setForeground(new java.awt.Color(255, 255, 255));
         jButton2.setText("Batal");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -260,6 +267,8 @@ public class Form_bayar_tagihan extends javax.swing.JFrame {
 
         jLabel22.setText(": Rp");
 
+        bt_cb_tipepembayaran.setBackground(new java.awt.Color(51, 51, 51));
+        bt_cb_tipepembayaran.setForeground(new java.awt.Color(255, 255, 255));
         bt_cb_tipepembayaran.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bt_cb_tipepembayaranActionPerformed(evt);
@@ -326,13 +335,10 @@ public class Form_bayar_tagihan extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(lbl_bt_rpTagihan, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, 0))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lbl_bt_rpTagihan, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
