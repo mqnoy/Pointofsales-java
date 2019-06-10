@@ -3,6 +3,11 @@
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
+	<parameter name="PARAM_NM_RESTO" class="java.lang.String"/>
+	<parameter name="PARAM_RESTO_INFO" class="java.lang.String"/>
+	<parameter name="PARAM_PERIOD_BEGIN" class="java.lang.String"/>
+	<parameter name="PARAM_PERIOD_END" class="java.lang.String"/>
+	<parameter name="PARAM_TOT_PENDAPATAN" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT toc.tanggal_order,ttp.tgl_pembayaran,tmim.item_menu_nama,tdoc.qty,(tdoc.qty * tmim.item_menu_harga) as subtotal FROM tbl_order_customer toc 
 LEFT JOIN tbl_detail_order_customer tdoc ON tdoc.kd_detail_order = toc.detail_order_kd
@@ -28,26 +33,49 @@ LEFT JOIN tbl_transaksi_pesanan ttp ON ttp.order_kd = toc.kd_order]]>
 	<title>
 		<band height="117" splitType="Stretch">
 			<staticText>
-				<reportElement x="470" y="7" width="85" height="38" uuid="7f84616b-2665-48f5-b0ae-a9f99420127b"/>
+				<reportElement x="8" y="77" width="134" height="20" uuid="7f84616b-2665-48f5-b0ae-a9f99420127b"/>
 				<text><![CDATA[Report penjualan]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="355" y="61" width="100" height="20" uuid="9cd1b041-21a9-486d-be0c-0fc186245ea1"/>
+				<reportElement x="355" y="77" width="200" height="20" uuid="9cd1b041-21a9-486d-be0c-0fc186245ea1"/>
 				<text><![CDATA[Periode : ]]></text>
 			</staticText>
-		</band>
-	</title>
-	<pageHeader>
-		<band height="25" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="257" height="20" uuid="0a5b31d3-8a76-4db8-9687-2750039f8f2f"/>
+				<textFieldExpression><![CDATA[$P{PARAM_NM_RESTO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="20" width="257" height="20" uuid="1d4a16b8-5e41-46c7-ae50-b3d32fd6c8b0"/>
+				<textFieldExpression><![CDATA[$P{PARAM_RESTO_INFO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="355" y="97" width="100" height="20" uuid="26e8f13e-71d6-4a52-8777-c71d57def02f"/>
+				<textFieldExpression><![CDATA[$P{PARAM_PERIOD_BEGIN}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="455" y="97" width="100" height="20" uuid="20548e35-5661-474b-aba1-4111ed2a8814"/>
+				<textFieldExpression><![CDATA[$P{PARAM_PERIOD_END}]]></textFieldExpression>
+			</textField>
 			<staticText>
-				<reportElement x="355" y="5" width="100" height="20" uuid="a6618624-b1a0-4e23-b119-61f4fa36c000"/>
+				<reportElement x="378" y="0" width="77" height="20" uuid="a6618624-b1a0-4e23-b119-61f4fa36c000"/>
 				<text><![CDATA[Date generate :]]></text>
 			</staticText>
 			<textField pattern="dd/MM/yyyy h.mm a">
-				<reportElement x="455" y="5" width="100" height="20" uuid="ae5be17f-4192-4c32-ab34-c64bc2fcecd9"/>
+				<reportElement x="455" y="0" width="100" height="20" uuid="ae5be17f-4192-4c32-ab34-c64bc2fcecd9"/>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement x="8" y="97" width="100" height="20" uuid="120fc64b-3213-4b69-88ee-37445188a988"/>
+				<text><![CDATA[Total pendapatan :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="108" y="97" width="173" height="20" uuid="808f2405-bdaa-4757-b77b-3e76ef5989fe"/>
+				<textFieldExpression><![CDATA[$P{PARAM_TOT_PENDAPATAN}]]></textFieldExpression>
+			</textField>
 		</band>
+	</title>
+	<pageHeader>
+		<band height="25" splitType="Stretch"/>
 	</pageHeader>
 	<columnHeader>
 		<band height="23" splitType="Stretch">
@@ -112,6 +140,6 @@ LEFT JOIN tbl_transaksi_pesanan ttp ON ttp.order_kd = toc.kd_order]]>
 		</band>
 	</pageFooter>
 	<summary>
-		<band height="191" splitType="Stretch"/>
+		<band height="34" splitType="Stretch"/>
 	</summary>
 </jasperReport>
