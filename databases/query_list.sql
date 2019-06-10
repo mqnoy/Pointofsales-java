@@ -41,10 +41,10 @@ WHERE tbl_order_customer.kd_order = "ODR20190520MJ0011"
 
 
 ##truncate smua tabel transaksi
-TRUNCATE tbl_order_customer
-TRUNCATE tbl_detail_order_customer
-TRUNCATE tbl_transaksi_pesanan
-TRUNCATE tbl_struk_for_koki
+TRUNCATE tbl_order_customer;
+TRUNCATE tbl_detail_order_customer;
+TRUNCATE tbl_transaksi_pesanan;
+TRUNCATE tbl_struk_for_koki;
 
 
 
