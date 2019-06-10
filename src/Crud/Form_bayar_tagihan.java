@@ -7,22 +7,29 @@ package Crud;
 
 import static databases.CrudModel.get_listPayment_type;
 import static databases.CrudModel.select_Daftarpesanan;
-import static databases.CrudModel.select_OrderCustomer_menu_total;
 import static databases.CrudModel.update_TransCustomer;
 import javax.swing.JOptionPane;
+import static pointofsale_backend.Library.generate_CustomReport;
+import static pointofsale_backend.Library.get_CustomReportQuery;
+import static pointofsale_backend.Library.get_fullPath;
+import static pointofsale_backend.Library.get_stateAfterReport;
+import static pointofsale_backend.Library.set_CustomReportQuery;
 import static pointofsale_backend.SetGet.get_tanggalOrder;
 import static pointofsale_backend.SetGet.looksAndFeel;
 import static pointofsale_backend.SetGet.notif_updt_transaksi_customer;
+
 /**
  *
  * @author Rifky <qnoy.rifky@gmail.com>
  */
 public class Form_bayar_tagihan extends javax.swing.JFrame {
-    private int total_tagihan=0;
-    private int total_pajak=0;
-    private String str_nominal="";
-    private int nominal_uang=0,nominal_cash=0;
-    private int total_kembalian=0;
+
+    private int total_tagihan = 0;
+    private int total_pajak = 0;
+    private String str_nominal = "";
+    private int nominal_uang = 0, nominal_cash = 0;
+    private int total_kembalian = 0;
+
     /**
      * Creates new form Form_bayar_tagihan
      */
@@ -34,18 +41,19 @@ public class Form_bayar_tagihan extends javax.swing.JFrame {
         txt_nominal_rp.setEnabled(false);
         get_listPayment_type();
     }
-    private void get_total_tagihan(){
-        
-        int sum_subtotal  = Integer.parseInt(lbl_bt_rpTagihan.getText());
+
+    private void get_total_tagihan() {
+
+        int sum_subtotal = Integer.parseInt(lbl_bt_rpTagihan.getText());
         //sementara hardcode dulu, nanti akan di ambil dari database value tax nya
-        total_pajak = (sum_subtotal* 10)/100 ;
+        total_pajak = (sum_subtotal * 10) / 100;
         String str_total_pajak = String.valueOf(total_pajak);
         lbl_bt_pajak.setText(str_total_pajak);
-        
+
         total_tagihan = sum_subtotal + total_pajak;
         String str_total_tagihan = String.valueOf(total_tagihan);
         lbl_bt_rpTotal_tagihan.setText(str_total_tagihan);
-        
+
     }
 
     /**
@@ -463,56 +471,72 @@ public class Form_bayar_tagihan extends javax.swing.JFrame {
 
     private void txt_nominal_rpKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_nominal_rpKeyReleased
         // TODO add your handling code here:
-        try{
+        try {
             nominal_uang = Integer.parseInt(txt_nominal_rp.getText());
-        }catch (NumberFormatException ex){
+        } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(rootPane, "inputan salah!");
             txt_nominal_rp.setText("0");
         }
         str_nominal = String.valueOf(nominal_uang);
         lbl_bt_nominal.setText(str_nominal);
-        
+
         nominal_cash = Integer.parseInt(lbl_bt_nominal.getText());
 
         //nominal uang harus lebih besar dari total tagihan 
         if (nominal_cash < total_tagihan) {
             bt_btn_bayar.setEnabled(false);
             lbl_bt_kembalian.setText("0");
-        }else{
+        } else {
             bt_btn_bayar.setEnabled(true);
             total_kembalian = nominal_cash - total_tagihan;
             lbl_bt_kembalian.setText(String.valueOf(total_kembalian));
         }
-        
+
     }//GEN-LAST:event_txt_nominal_rpKeyReleased
 
     private void lbl_bt_kodeOrderPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_lbl_bt_kodeOrderPropertyChange
         // TODO add your handling code here:
         select_Daftarpesanan(lbl_bt_kodeOrder.getText());
-        lbl_bt_tgl_order.setText(get_tanggalOrder());      
+        lbl_bt_tgl_order.setText(get_tanggalOrder());
     }//GEN-LAST:event_lbl_bt_kodeOrderPropertyChange
 
     private void bt_btn_bayarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_btn_bayarActionPerformed
         // TODO add your handling code here:
         String kd_order = lbl_bt_kodeOrder.getText();
         String kd_order_detail = lbl_bt_kodeDetailOrder.getText();
-        update_TransCustomer(kd_order,kd_order_detail);
-        System.out.println("update tabel transaksi");
-        System.out.println("delete data di detail order customer yg cetak = n kd order detail terkait");  
+        update_TransCustomer(kd_order, kd_order_detail);
+
+        System.out.println("delete data di detail order customer yg cetak = n kd order detail terkait");
         if (notif_updt_transaksi_customer) {
-            JOptionPane.showMessageDialog(rootPane, "Transaksi berhasil !");
-            //tampil popup kembalian
-            Popup_kembalian.pack();
-            Popup_kembalian.setLocationRelativeTo(null);
-            pop_uang_kembalian.setText(lbl_bt_kembalian.getText());
+            System.out.println("do jasper for stuk customer here");
+            String reportPath = get_fullPath("src/receipt/Receipt_customer.jrxml");
+            String query_select_forReceipt = "SELECT kd_order, tmj.kd_meja,tmim.item_menu_nama,(tdoc.qty * tmim.item_menu_harga) as subtotal FROM tbl_order_customer toc\n" +
+                    "RIGHT JOIN tbl_detail_order_customer tdoc ON toc.detail_order_kd = tdoc.kd_detail_order\n" +
+                    "LEFT JOIN tbl_master_item_menu tmim ON tdoc.item_menu_id = tmim.id_item_menu\n" +
+                    "INNER JOIN tbl_transaksi_pesanan ttp ON toc.kd_order = ttp.order_kd\n" +
+                    "LEFT JOIN tbl_master_meja tmj ON toc.meja_id = tmj.id_meja\n" +
+                    "LEFT JOIN tbl_master_payment_type tmpt ON ttp.payment_type_id = tmpt.id_payment_type\n" +
+                    "WHERE toc.kd_order = '" + lbl_bt_kodeOrder.getText() + "'";
+            System.out.println(query_select_forReceipt);
+            set_CustomReportQuery(query_select_forReceipt);
+            generate_CustomReport(reportPath, get_CustomReportQuery());
 
-            Popup_kembalian.setVisible(true);
+            //cek state apakah jasper sudah selesai    
+            if (get_stateAfterReport()) {
+                JOptionPane.showMessageDialog(rootPane, "Transaksi berhasil !");
+                //tampil popup kembalian
+                Popup_kembalian.pack();
+                Popup_kembalian.setLocationRelativeTo(null);
+                pop_uang_kembalian.setText(lbl_bt_kembalian.getText());
 
-        }else{
+                Popup_kembalian.setVisible(true);
+
+            }
+
+        } else {
             JOptionPane.showMessageDialog(rootPane, "Transaksi gagal !");
         }
-        
-        System.out.println("do jasper for stuk customer here");
+
 
     }//GEN-LAST:event_bt_btn_bayarActionPerformed
 
@@ -529,7 +553,7 @@ public class Form_bayar_tagihan extends javax.swing.JFrame {
         // TODO add your handling code here:
         Popup_kembalian.setVisible(false);
         this.dispose();
-        
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
