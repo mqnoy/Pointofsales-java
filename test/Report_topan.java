@@ -3,6 +3,7 @@ import static databases.CrudModel.conn;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import javax.swing.JOptionPane;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -87,26 +88,23 @@ public class Report_topan extends javax.swing.JFrame {
 
     private void btn_cetakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cetakActionPerformed
         // TODO add your handling code here:
-            String reportPath = ".\\src\\Reporting\\report_penjualan.jrxml";
-            Date tanggalAwal_rpt = input_tanggal_awal.getDate();
-            Date tanggalAkhir_rpt = input_tanggal_akhir.getDate();
-            DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd 00:00:00");
-            String final_tanggalAwal_rpt =  sdf.format(tanggalAwal_rpt);
-            String final_tanggalAkhir_rpt =  sdf.format(tanggalAkhir_rpt);
+            String reportPath = ".\\test\\report_test.jrxml";
+//            Date tanggalAwal_rpt = input_tanggal_awal.getDate();
+//            Date tanggalAkhir_rpt = input_tanggal_akhir.getDate();
+//            DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd 00:00:00");
+//            String final_tanggalAwal_rpt =  sdf.format(tanggalAwal_rpt);
+//            String final_tanggalAkhir_rpt =  sdf.format(tanggalAkhir_rpt);
             
-        String query = "SELECT toc.tanggal_order,ttp.tgl_pembayaran,tmim.item_menu_nama,tdoc.qty,(tdoc.qty * tmim.item_menu_harga) as subtotal FROM tbl_order_customer toc \n"
-                            + "LEFT JOIN tbl_detail_order_customer tdoc ON tdoc.kd_detail_order = toc.detail_order_kd\n"
-                            + "LEFT JOIN tbl_master_item_menu tmim ON tmim.id_item_menu = tdoc.item_menu_id\n"
-                            + "LEFT JOIN tbl_transaksi_pesanan ttp ON ttp.order_kd = toc.kd_order\n"
-                            + "WHERE ttp.lunas ='y' AND ttp.tgl_pembayaran BETWEEN '" + final_tanggalAwal_rpt + "' AND '" + final_tanggalAkhir_rpt + "' ";
+        String query = "SELECT * FROM tbl_master_meja";
         try{
                 JasperDesign jd = JRXmlLoader.load(reportPath);
                 JRDesignQuery newQuery = new JRDesignQuery();
                 newQuery.setText(query);
                 jd.setQuery(newQuery);
-                
+                HashMap map = new HashMap();
+                map.put("test_params1","test value params1"); 
                 JasperReport jr = JasperCompileManager.compileReport(jd);
-                JasperPrint jp = JasperFillManager.fillReport(jr, null, conn);
+                JasperPrint jp = JasperFillManager.fillReport(jr, map, conn);
                 JasperViewer.viewReport(jp);
             }catch(Exception ex){
                 JOptionPane.showMessageDialog(null, ex);
