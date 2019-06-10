@@ -437,12 +437,12 @@ public class Form_order extends javax.swing.JFrame {
             tampil_form_list_menu(lbl_kodeOrder.getText(), lbl_kodeOrder_detail.getText());
         } else {
                 String reportPath = get_fullPath("src/receipt/Receipt_chef.jrxml");
-                String qery_select_forReceipt = "SELECT tmim.item_menu_nama,tdoc.qty FROM tbl_detail_order_customer tdoc \n"
+                String query_select_forReceipt = "SELECT tmim.item_menu_nama,tdoc.qty FROM tbl_detail_order_customer tdoc \n"
                         + "LEFT JOIN tbl_order_customer toc ON tdoc.kd_detail_order = toc.detail_order_kd\n"
                         + "LEFT JOIN tbl_master_item_menu tmim ON tdoc.item_menu_id = tmim.id_item_menu\n"
                         + "WHERE tdoc.cetak='n' AND tdoc.kd_detail_order = '" + lbl_kodeOrder_detail.getText() + "'";
-                System.out.println(qery_select_forReceipt);
-                set_CustomReportQuery(qery_select_forReceipt);
+                System.out.println(query_select_forReceipt);
+                set_CustomReportQuery(query_select_forReceipt);
                 generate_CustomReport(reportPath, get_CustomReportQuery());
                 
             //cek state apakah jasper sudah selesai    
