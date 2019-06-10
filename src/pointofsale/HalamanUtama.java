@@ -27,6 +27,8 @@ public class HalamanUtama extends javax.swing.JFrame {
             if (get_levelaccessApp().equals("superadmin")) {
                 jMenuItem_mnj_userapp.setVisible(true);
                 hu_btn_mjnmeja.setVisible(true);
+                hu_lbl_pchostname.setText(readConf.get_config("pc_hostname"));
+                hu_lbl_pcipaddress.setText(readConf.get_config("pc_ipaddress"));
             }else{
                 jMenuItem_mnj_userapp.setVisible(false);
                 hu_btn_mjnmeja.setVisible(false);
@@ -579,7 +581,7 @@ public class HalamanUtama extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Metal".equals(info.getName())) {
+                if (looksAndFeel.equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
