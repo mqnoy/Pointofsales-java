@@ -53,6 +53,7 @@ public class SetGet {
     /*atribut untuk user aplikasi dan pegawai*/
     public static boolean notif_ins_userapp;
     public static boolean notif_del_userapp;
+    public static boolean notif_upd_userapp;
     
     //error definisi
     public static String strError_code = null;

@@ -7,14 +7,18 @@ package Crud;
 
 import static databases.CrudModel.deleteUserapp_listDB;
 import static databases.CrudModel.getUserapp_listDB;
+import static databases.CrudModel.getUserapp_listDB;
 import static databases.CrudModel.insertUserapp_listDB;
+import static databases.CrudModel.update_Userapp_listDB;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import pointofsale_backend.SetGet;
 import static pointofsale_backend.SetGet.notif_del_userapp;
 import static pointofsale_backend.SetGet.notif_ins_userapp;
+import static pointofsale_backend.SetGet.notif_upd_userapp;
 
 /**
  *
@@ -33,7 +37,7 @@ public class Form_crud_userAplikasi extends javax.swing.JFrame {
      */
     public Form_crud_userAplikasi() {
         initComponents();
-        getUserapp_listDB();
+        getUserapp_listDB(false,null);
 
     }
 
@@ -51,7 +55,7 @@ public class Form_crud_userAplikasi extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         JTBL_userapp = new javax.swing.JTable();
-        jTextField1 = new javax.swing.JTextField();
+        txt_pencarian_userKeywords = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -120,7 +124,18 @@ public class Form_crud_userAplikasi extends javax.swing.JFrame {
             JTBL_userapp.getColumnModel().getColumn(5).setResizable(false);
         }
 
-        jTextField1.setToolTipText("masukan nama karyawan atau username");
+        txt_pencarian_userKeywords.setText("min 3 karakter");
+        txt_pencarian_userKeywords.setToolTipText("masukan nama karyawan atau username");
+        txt_pencarian_userKeywords.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txt_pencarian_userKeywordsFocusGained(evt);
+            }
+        });
+        txt_pencarian_userKeywords.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txt_pencarian_userKeywordsKeyReleased(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -128,14 +143,14 @@ public class Form_crud_userAplikasi extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt_pencarian_userKeywords, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 424, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 3, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
+                .addComponent(txt_pencarian_userKeywords, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -456,7 +471,7 @@ public class Form_crud_userAplikasi extends javax.swing.JFrame {
         if (go_insert) {
             insertUserapp_listDB();
             if (notif_ins_userapp) {
-                getUserapp_listDB();
+                getUserapp_listDB(false,null);
                 JOptionPane.showMessageDialog(null, "insert user aplikasi success");
             } else {
                 JOptionPane.showMessageDialog(null, "insert user aplikasi failed");
@@ -467,6 +482,14 @@ public class Form_crud_userAplikasi extends javax.swing.JFrame {
     private void btn_ubahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ubahActionPerformed
         // TODO add your handling code here:
         JOptionPane.showMessageDialog(null, "ubah");
+        int id_user = getUserapp_listDB(valNip);
+        update_Userapp_listDB(id_user);
+        if (notif_upd_userapp) {
+            getUserapp_listDB(false,null);
+            JOptionPane.showMessageDialog(this, "update data berhasil ");
+        } else {
+            JOptionPane.showMessageDialog(this, "update data gagal ");
+        }
     }//GEN-LAST:event_btn_ubahActionPerformed
 
     private void btn_hapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_hapusActionPerformed
@@ -474,13 +497,13 @@ public class Form_crud_userAplikasi extends javax.swing.JFrame {
         int result = JOptionPane.showConfirmDialog(this, "Hapus \nnip : " + valNip.trim() + "\n" + valNmPegawai.trim(), this.getTitle(), JOptionPane.YES_NO_OPTION);
         if (result == JOptionPane.YES_OPTION) {
             int id_user = getUserapp_listDB(valNip);
-            
-            System.out.println("id user"+this.getName()+valNip);
+
+            System.out.println("id user" + this.getName() + valNip);
             deleteUserapp_listDB(id_user);
             if (notif_del_userapp) {
-                getUserapp_listDB();
+                getUserapp_listDB(false,null);
                 JOptionPane.showMessageDialog(this, "hapus data berhasil ");
-            }else{
+            } else {
                 JOptionPane.showMessageDialog(this, "hapus data gagal ");
             }
         } else if (result == JOptionPane.NO_OPTION) {
@@ -493,6 +516,21 @@ public class Form_crud_userAplikasi extends javax.swing.JFrame {
         String i_nip = txt_userapp_nip.getText();
         txt_idPengguna.setText(i_nip);
     }//GEN-LAST:event_txt_userapp_nipKeyReleased
+
+    private void txt_pencarian_userKeywordsKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_pencarian_userKeywordsKeyReleased
+        // TODO add your handling code here:
+        if (!txt_pencarian_userKeywords.getText().isEmpty() && txt_pencarian_userKeywords.getText().length() > 3) {
+            String keywords_userapp = txt_pencarian_userKeywords.getText();
+            getUserapp_listDB(true,keywords_userapp);
+        }else if(txt_pencarian_userKeywords.getText().isEmpty()){
+            getUserapp_listDB(false,null);
+        }
+    }//GEN-LAST:event_txt_pencarian_userKeywordsKeyReleased
+
+    private void txt_pencarian_userKeywordsFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_pencarian_userKeywordsFocusGained
+        // TODO add your handling code here:
+        txt_pencarian_userKeywords.setText("");
+    }//GEN-LAST:event_txt_pencarian_userKeywordsFocusGained
 
     /**
      * @param args the command line arguments
@@ -552,10 +590,10 @@ public class Form_crud_userAplikasi extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
     public static javax.swing.JRadioButton rdBlokir_no;
     public static javax.swing.JRadioButton rdBlokir_yes;
     private javax.swing.JLabel txt_idPengguna;
+    private javax.swing.JTextField txt_pencarian_userKeywords;
     public static javax.swing.JTextField txt_userapp_nip;
     public static javax.swing.JTextField txt_userapp_nmpegawai;
     public static javax.swing.JPasswordField txt_userapp_passwd;

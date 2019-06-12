@@ -80,32 +80,32 @@ public class CrudModel extends ConfigDatabase {
 
     /* end of method query select meja order */
 
- /*
+    /*
      * method untuk query select user akses aplikasi 
      */
     public static void getUserapp_accessDB(String idaccess, String password) {
-        String account_idaccess=null;        
-        String account_level=null;
+        String account_idaccess = null;
+        String account_level = null;
         int idPegawai = -1;
-        String namaPegawai=null;        
-        String jabatanPegawai=null;
-        boolean account_akses=false;
+        String namaPegawai = null;
+        String jabatanPegawai = null;
+        boolean account_akses = false;
         try {
             String sql = "SELECT * FROM tbl_master_user_application tmu INNER JOIN tbl_master_pegawai tmp "
                     + " ON tmu.id_user = tmp.user_id "
                     + " WHERE idaccess=? AND password=? ";
-            
+
             PreparedStatement ps = conn.prepareStatement(sql);
             String hash_password = strTo_MD5(password);
             ps.setString(1, idaccess);
             ps.setString(2, hash_password);
-            System.out.println("models logins => " +sql);
+            System.out.println("models logins => " + sql);
 
             ResultSet rs = ps.executeQuery();
-            
+
             if (rs.next()) {
                 String is_blocked = rs.getString("blokir");
-                
+
                 if (is_blocked.equals("y")) {
                     System.out.println("akun di blokir !");
                     strError_code = "error800";
@@ -117,9 +117,9 @@ public class CrudModel extends ConfigDatabase {
                     namaPegawai = rs.getString("pegawai_nama");
                     jabatanPegawai = rs.getString("pegawai_jabatan");
                     account_akses = true;
-                    
+
                     //seter untuk menggunakan aplikasi dengan idakses yang validr
-                    set_infoAccount(account_idaccess,account_level,idPegawai,namaPegawai,jabatanPegawai,account_akses);
+                    set_infoAccount(account_idaccess, account_level, idPegawai, namaPegawai, jabatanPegawai, account_akses);
                 }
             } else {
                 System.out.println("id access atau password salah atau tidak ada data pegawainya !");
@@ -132,18 +132,27 @@ public class CrudModel extends ConfigDatabase {
 
     /* end of method untuk query select all data  */
 
- /*
+    /*
      * method untuk select data user aplikasi dan data pegawai
      */
-    public static void getUserapp_listDB() {
+    public static void getUserapp_listDB(boolean pencarian, String var_keywords) {
         DefaultTableModel tabmode;
         Object[] baris = {"no", "Nip", "Nama pegawai", "Jabatan", "level", "blokir"};
         tabmode = new DefaultTableModel(null, baris);
         JTBL_userapp.setModel(tabmode);
         //query area
-        String sql = "SELECT msp.pegawai_nama ,msp.pegawai_nip ,msp.pegawai_jabatan ,mup.level,mup.blokir from tbl_master_pegawai msp LEFT JOIN tbl_master_user_application mup on msp.user_id=mup.id_user";
+        String sql = "";
+        if (pencarian) {
+            sql = "SELECT msp.pegawai_nama ,msp.pegawai_nip ,msp.pegawai_jabatan ,mup.level,mup.blokir from tbl_master_pegawai msp "
+                    + " LEFT JOIN tbl_master_user_application mup on msp.user_id=mup.id_user "
+                    + " WHERE msp.pegawai_nama LIKE '%"+var_keywords+"%'  OR msp.pegawai_nip LIKE '"+var_keywords+"%'";
+        } else {
+            sql = "SELECT msp.pegawai_nama ,msp.pegawai_nip ,msp.pegawai_jabatan ,mup.level,mup.blokir from tbl_master_pegawai msp "
+                    + " LEFT JOIN tbl_master_user_application mup on msp.user_id=mup.id_user";
+        }
         ResultSet hasil = SQLselectAll(sql);
         try {
+            System.out.println(sql);
 
             int NUMBERS = 1;
             while (hasil.next()) {
@@ -164,11 +173,10 @@ public class CrudModel extends ConfigDatabase {
 
     /* end of method untuk select data user aplikasi dan data pegawai */
 
- /*
+    /*
      * method untuk insert user aplikasi dan data pegawai
      */
     public static void insertUserapp_listDB() {
-        boolean check_kdmenu;
         int last_insert_id, id_user_app;
         tanggalan();
         String str_blokir = buttonGroup_blokAkses.getSelection().getActionCommand();
@@ -207,8 +215,55 @@ public class CrudModel extends ConfigDatabase {
     }
 
     /* end of method untuk insert data user aplikasi dan data pegawai */
+    /*
+     * method untuk update user aplikasi dan data pegawai
+     */
+    public static void update_Userapp_listDB(int id_user) {
+        String nama_pegawai = txt_userapp_nmpegawai.getText();
+        String jabatan_pegawai = cb_userapp_jabatan.getSelectedItem().toString();
+        String kata_sandi = "";
+        String level_akses = cb_userapp_levelakses.getSelectedItem().toString();
+        boolean ubah_kata_sandi = false;
+        String query_update_user = "";
+        String str_blokir = buttonGroup_blokAkses.getSelection().getActionCommand();
 
- /*
+        if (new String(txt_userapp_passwd.getPassword()).equals("")) {
+            ubah_kata_sandi = false;
+            query_update_user = "UPDATE tbl_master_user_application SET level=?, blokir=? WHERE id_user=" + id_user;
+        } else {
+            ubah_kata_sandi = true;
+            kata_sandi = strTo_MD5(new String(txt_userapp_passwd.getPassword()));
+            query_update_user = "UPDATE tbl_master_user_application SET level=?, blokir=?, password=? WHERE id_user=" + id_user;
+        }
+
+        String query_update_pegawai = "UPDATE tbl_master_pegawai SET pegawai_nama=?, pegawai_jabatan=? WHERE user_id=" + id_user;
+        try {
+            PreparedStatement ps_update_user = conn.prepareStatement(query_update_user);
+            ps_update_user.setString(1, level_akses);
+            ps_update_user.setString(2, str_blokir);
+            if (ubah_kata_sandi) {
+                ps_update_user.setString(3, kata_sandi);
+            }
+
+            PreparedStatement ps_update_pegawai = conn.prepareStatement(query_update_pegawai);
+            ps_update_pegawai.setString(1, nama_pegawai);
+            ps_update_pegawai.setString(2, jabatan_pegawai);
+
+            int executeUpd_userapp_user = ps_update_user.executeUpdate();
+            int executeUpd_userapp_pegawai = ps_update_pegawai.executeUpdate();
+
+            if (executeUpd_userapp_user > 0 && executeUpd_userapp_pegawai > 0) {
+                notif_upd_userapp = true;
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(CrudModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    /* end of method untuk update data user aplikasi dan data pegawai */
+
+    /*
      * method untuk delete user aplikasi dan data pegawai
      */
     public static void deleteUserapp_listDB(int id_user) {
@@ -334,7 +389,7 @@ public class CrudModel extends ConfigDatabase {
 
     /* end of method untuk select data master menu */
 
- /*
+    /*
      * method untuk insert data menu
      */
     public static void insert_MenulistDB() throws SQLException {
@@ -361,7 +416,7 @@ public class CrudModel extends ConfigDatabase {
 
     /* end of method untuk insert data menu */
 
- /*
+    /*
      * method untuk ubah data menu
      */
     public static void update_MenulistDB(String var_kd_menu) throws SQLException {
@@ -383,7 +438,7 @@ public class CrudModel extends ConfigDatabase {
 
     /* end of method untuk ubah data menu */
 
- /*
+    /*
      * method untuk hapus 1 data menu
      */
     public static void delete_MenulistDB(String var_kd_menu) throws SQLException {
@@ -517,7 +572,7 @@ public class CrudModel extends ConfigDatabase {
     }
 
     /* end of method untuk insert data transaksi ketika order*/
- /*
+    /*
      * method untuk update data transaksi ketika bayar
      */
     public static void update_TransCustomer(String kd_order, String kd_orderdetail) {
@@ -536,15 +591,15 @@ public class CrudModel extends ConfigDatabase {
         String sql_update_trans = "UPDATE tbl_transaksi_pesanan SET "
                 + "total_tagihan=?,nominal_pembayaran=?,kembalian=?,payment_type_id=?,"
                 + "lunas=?,bungkus=?,pos_computer_id=?,id_pegawai=?, tgl_pembayaran=?"
-                + " WHERE order_kd='"+kd_order+"'";
-        
+                + " WHERE order_kd='" + kd_order + "'";
+
         //cari jika masih ada menu yang belum di cetak di detail order ,maka akan di delete paksa 
         try {
             String cek_detailorder_cetak_n = "SELECT COUNT(*) AS total_item FROM tbl_detail_order_customer "
-                + "WHERE cetak = 'n' AND kd_detail_order = '"+kd_orderdetail+"'";
+                    + "WHERE cetak = 'n' AND kd_detail_order = '" + kd_orderdetail + "'";
             ResultSet hasil_cek;
             hasil_cek = SQLselectAll(cek_detailorder_cetak_n);
-            while (hasil_cek.next()) { 
+            while (hasil_cek.next()) {
                 total_itemMenu_pn = hasil_cek.getInt("total_item");
             }
         } catch (SQLException ex) {
@@ -553,7 +608,7 @@ public class CrudModel extends ConfigDatabase {
         if (total_itemMenu_pn > 0) {
             delete_paksa_itemMenu = true;
         }
-    
+
         String sql_delete_unused_detailoder = "DELETE FROM tbl_detail_order_customer "
                 + "WHERE kd_detail_order='" + kd_orderdetail + "' AND cetak='n' ";
 
@@ -567,7 +622,7 @@ public class CrudModel extends ConfigDatabase {
             ps_update.setString(6, bungkus);
             ps_update.setInt(7, computerPOS_id);
             ps_update.setInt(8, pegawai_id);
-            ps_update.setTimestamp(9,tgl_sekarang_bayar);
+            ps_update.setTimestamp(9, tgl_sekarang_bayar);
 
             int executeUpdate = ps_update.executeUpdate();
             if (executeUpdate > 0) {
@@ -580,15 +635,15 @@ public class CrudModel extends ConfigDatabase {
                 }
                 notif_updt_transaksi_customer = true;
             }
-            System.out.println(sql_update_trans);            
+            System.out.println(sql_update_trans);
             System.out.println(sql_delete_unused_detailoder);
 
         } catch (SQLException ex) {
             Logger.getLogger(CrudModel.class.getName()).log(Level.SEVERE, null, ex);
         }
     }/* end of method untuk update data transaksi ketika bayar*/
-    
-    
+
+
     /* end of method untuk insert data transaksi */
     private static Integer get_id_menu(String kd_menu) {
         int id_menu = 0;
@@ -647,7 +702,7 @@ public class CrudModel extends ConfigDatabase {
 
     /* end of method untuk insert data transaksi */
 
- /*update order menjadi print yes untuk kebutuhan struk koki*/
+    /*update order menjadi print yes untuk kebutuhan struk koki*/
     public static void update_OrderCustomer_menu(String kd_orderdetail) {
         String query_update_ordercustomer_menu = "UPDATE tbl_detail_order_customer SET cetak='y' WHERE kd_detail_order='" + kd_orderdetail + "'";
         try {
@@ -669,7 +724,7 @@ public class CrudModel extends ConfigDatabase {
 
     /*end update order menjadi print yes untuk kebutuhan struk koki*/
 
- /*delete 1 item menu di detail order*/
+    /*delete 1 item menu di detail order*/
     public static void delete_satuOrderCustomer_menu(int id_detailOrder, String kd_orderdetail) {
         String query_delete1_ordercustomer_menu = "DELETE FROM tbl_detail_order_customer "
                 + "WHERE id_detail_order=? AND kd_detail_order=?";
@@ -689,21 +744,21 @@ public class CrudModel extends ConfigDatabase {
     }
 
     /*end delete 1 item menu di detail order*/
-    public static int select_OrderCustomer_menu_total(String kd_orderdetail,boolean bayar_tagihan) {
+    public static int select_OrderCustomer_menu_total(String kd_orderdetail, boolean bayar_tagihan) {
         int totalnya = 0;
-        String query_select_sum_ordercustomer_menu="";
+        String query_select_sum_ordercustomer_menu = "";
         if (bayar_tagihan) {
             query_select_sum_ordercustomer_menu = "SELECT SUM((tdoc.qty * tmim.item_menu_harga)) AS total "
-                + "FROM tbl_detail_order_customer tdoc \n"
-                + "LEFT JOIN tbl_master_item_menu tmim ON tmim.id_item_menu = tdoc.item_menu_id \n"
-                + "WHERE tdoc.cetak='y' AND tdoc.kd_detail_order='" + kd_orderdetail + "'";
-        }else{
+                    + "FROM tbl_detail_order_customer tdoc \n"
+                    + "LEFT JOIN tbl_master_item_menu tmim ON tmim.id_item_menu = tdoc.item_menu_id \n"
+                    + "WHERE tdoc.cetak='y' AND tdoc.kd_detail_order='" + kd_orderdetail + "'";
+        } else {
             query_select_sum_ordercustomer_menu = "SELECT SUM((tdoc.qty * tmim.item_menu_harga)) AS total "
-                + "FROM tbl_detail_order_customer tdoc \n"
-                + "LEFT JOIN tbl_master_item_menu tmim ON tmim.id_item_menu = tdoc.item_menu_id \n"
-                + "WHERE tdoc.kd_detail_order='" + kd_orderdetail + "'";
+                    + "FROM tbl_detail_order_customer tdoc \n"
+                    + "LEFT JOIN tbl_master_item_menu tmim ON tmim.id_item_menu = tdoc.item_menu_id \n"
+                    + "WHERE tdoc.kd_detail_order='" + kd_orderdetail + "'";
         }
-        
+
         try {
             System.out.println(query_select_sum_ordercustomer_menu);
 
@@ -759,7 +814,7 @@ public class CrudModel extends ConfigDatabase {
 
     /* end of method untuk insert data transaksi */
 
- /*
+    /*
      * method untuk delete data ke table tbl_order_customer
      */
     public static void delete_OrderCustomer(String kd_order, String kd_orderdetail) {
@@ -822,7 +877,6 @@ public class CrudModel extends ConfigDatabase {
     }
 
     /* end of method delete data ke table tbl_order_customer */
-    
     /*
      * method untuk select data untuk daftar pesanan @Form_bayar_tagihan
      */
@@ -900,20 +954,21 @@ public class CrudModel extends ConfigDatabase {
      * method untuk select data untuk daftar transaksi @Form_laporan_penjualan
      * return void
      */
-    public static void select_DaftarTransaksi(boolean cari_data,String tgl_awal,String tgl_akhir) {
+
+    public static void select_DaftarTransaksi(boolean cari_data, String tgl_awal, String tgl_akhir) {
         String query_selectTransaksi = "";
         DefaultTableModel tabmode = getDatatabel(jTable_lap_penjualan);
         if (cari_data) {
             query_selectTransaksi = "SELECT * FROM tbl_transaksi_pesanan ttp "
-                + " LEFT JOIN tbl_master_payment_type mpt ON ttp.payment_type_id = mpt.id_payment_type "
-                + " LEFT JOIN tbl_master_pos_computer mpc ON ttp.pos_computer_id = mpc.id_pos_computer "
-                + " LEFT JOIN tbl_master_pegawai mp ON ttp.id_pegawai = mp.id_pegawai "
-                + " WHERE tgl_pembayaran BETWEEN '" + tgl_awal + "' AND '" + tgl_akhir + "' ";
-        }else{
-        query_selectTransaksi = "SELECT * FROM tbl_transaksi_pesanan ttp "
-                + " LEFT JOIN tbl_master_payment_type mpt ON ttp.payment_type_id = mpt.id_payment_type "
-                + " LEFT JOIN tbl_master_pos_computer mpc ON ttp.pos_computer_id = mpc.id_pos_computer "
-                + " LEFT JOIN tbl_master_pegawai mp ON ttp.id_pegawai = mp.id_pegawai ";
+                    + " LEFT JOIN tbl_master_payment_type mpt ON ttp.payment_type_id = mpt.id_payment_type "
+                    + " LEFT JOIN tbl_master_pos_computer mpc ON ttp.pos_computer_id = mpc.id_pos_computer "
+                    + " LEFT JOIN tbl_master_pegawai mp ON ttp.id_pegawai = mp.id_pegawai "
+                    + " WHERE tgl_pembayaran BETWEEN '" + tgl_awal + "' AND '" + tgl_akhir + "' ";
+        } else {
+            query_selectTransaksi = "SELECT * FROM tbl_transaksi_pesanan ttp "
+                    + " LEFT JOIN tbl_master_payment_type mpt ON ttp.payment_type_id = mpt.id_payment_type "
+                    + " LEFT JOIN tbl_master_pos_computer mpc ON ttp.pos_computer_id = mpc.id_pos_computer "
+                    + " LEFT JOIN tbl_master_pegawai mp ON ttp.id_pegawai = mp.id_pegawai ";
         }
         try {
             ResultSet hasil = SQLselectAll(query_selectTransaksi);
@@ -921,7 +976,7 @@ public class CrudModel extends ConfigDatabase {
             while (hasil.next()) {
                 String a = hasil.getString("order_kd");
                 int b = hasil.getInt("total_tagihan");
-                String c = hasil.getString("type_payment");                
+                String c = hasil.getString("type_payment");
                 String d = hasil.getString("lunas");
                 String e = hasil.getString("computer_hostname");
                 String f = hasil.getString("pegawai_nama");
@@ -966,11 +1021,11 @@ public class CrudModel extends ConfigDatabase {
             tabmode = new DefaultTableModel(null, baris);
             JTBL_form_order.setModel(tabmode);
 
-        }else if (tableName.equals(jTable_lap_penjualan)){
+        } else if (tableName.equals(jTable_lap_penjualan)) {
             Object[] baris = {"No", "kode order", "Total tagihan", "Tipe pembayaran", "Lunas", "Pc pos", "kasir", "Tgl Pembayaran"};
             tabmode = new DefaultTableModel(null, baris);
             jTable_lap_penjualan.setModel(tabmode);
-            
+
         }
 
         return tabmode;
