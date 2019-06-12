@@ -10,6 +10,7 @@ import javax.swing.table.DefaultTableModel;
 import static pointofsale_backend.Frame_control.tampil_NotAvailable;
 import static databases.CrudModel.getMenulistDB;
 import static databases.CrudModel.insert_OrderCustomer_menu;
+import static pointofsale_backend.SetGet.looksAndFeel;
 
 /**
  *
@@ -488,7 +489,7 @@ public class Form_list_menu extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Metal".equals(info.getName())) {
+                if (looksAndFeel.equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }

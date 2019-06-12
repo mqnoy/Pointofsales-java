@@ -12,13 +12,19 @@ import static databases.CrudModel.getUserapp_accessDB;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import static pointofsale_backend.Library.strTo_MD5;
 
 /**
  *
  * @author Rifky <qnoy.rifky@gmail.com>
  */
 public class SetGet {
+    public static ReadConfig readConf = new ReadConfig();
+    //looks and feel
+    public static final String looksAndFeel = readConf.get_config("looks_and_feel");    
+    public static final String pcIpAddreess = readConf.get_config("pc_ipaddress");
+
+
+
     //atribut untuk aktifitas order
     public static boolean notif_ins_order_customer;
     public static boolean notif_del_order_customer;
@@ -27,44 +33,38 @@ public class SetGet {
     public static boolean notif_cek_order_tdklunas;
     public static boolean notif_cek_order_mejakode;
     public static boolean notif_updt_transaksi_customer;
-    
 
-
-
-    
     public static String tanggalSkrg;
-    
+
     //atribut untuk notifikasi query
     public static boolean notif_ins_menulist;
     public static boolean notif_ins_found_menulist;
     public static boolean notif_updt_menulist;
     public static boolean notif_del_menulist;
-    
+
 
     /*atribut user access aplikasi*/
     public static String userApp_idaccess = null;
     public static String userApp_level = null;
     public static String userApp_blokir = null;
     public static boolean giveAccess = false;
-    public static String userApp_namaPegawai = null;    
-    public static int userApp_idPegawai = -1;       
-    public static String userApp_jabatanPegawai  = null;
-    
+    public static String userApp_namaPegawai = null;
+    public static int userApp_idPegawai = -1;
+    public static String userApp_jabatanPegawai = null;
+
     /*atribut untuk user aplikasi dan pegawai*/
     public static boolean notif_ins_userapp;
     public static boolean notif_del_userapp;
     public static boolean notif_upd_userapp;
-    
     //error definisi
     public static String strError_code = null;
 
     //constructor
-    public static void SetGet() {
-               
-        
+    public SetGet() {
+
     }
-    
-    public static String getKodeMeja(int idmeja){
+
+    public static String getKodeMeja(int idmeja) {
         String kdmeja = null;
         try {
             kdmeja = getMeja_kode(idmeja);
@@ -73,7 +73,8 @@ public class SetGet {
         }
         return kdmeja;
     }
-    public static boolean checkExists_kdorder(String kd_order){
+
+    public static boolean checkExists_kdorder(String kd_order) {
         boolean kodeorder_ada = false;
         try {
             kodeorder_ada = cek_Kode_orderanMeja(kd_order);
@@ -82,88 +83,89 @@ public class SetGet {
         }
         return kodeorder_ada;
     }
-   
-    public static void getStatusMejaorder(String kd_meja){
+
+    public static void getStatusMejaorder(String kd_meja) {
         try {
             cek_Status_orderanMeja(kd_meja);
         } catch (SQLException ex) {
             Logger.getLogger(SetGet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    
-    public static String get_existsRow_order(String kd_meja,String str_order){
+
+    public static String get_existsRow_order(String kd_meja, String str_order) {
         String getrow = null;
         try {
             Object[] cek_Status_orderanMeja = cek_Status_orderanMeja(kd_meja);
             if (str_order.equalsIgnoreCase("kode_order")) {
                 getrow = cek_Status_orderanMeja[0].toString();
-            }else if (str_order.equalsIgnoreCase("kode_orderdetail")) {
+            } else if (str_order.equalsIgnoreCase("kode_orderdetail")) {
                 getrow = cek_Status_orderanMeja[1].toString();
-            }else if (str_order.equalsIgnoreCase("rp_total")) {
+            } else if (str_order.equalsIgnoreCase("rp_total")) {
                 getrow = cek_Status_orderanMeja[2].toString();
             }
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(SetGet.class.getName()).log(Level.SEVERE, null, ex);
         }
         return getrow;
     }
-    
-     
+
     //
     public static String tgl_order;
-    public static void set_tanggalOrder(String val_tgl_order){
+
+    public static void set_tanggalOrder(String val_tgl_order) {
         SetGet.tgl_order = val_tgl_order;
     }
-    public static String get_tanggalOrder(){
+
+    public static String get_tanggalOrder() {
         return SetGet.tgl_order;
     }
-    
-    //
-    
-    
+
     //area login frame
-    
-    public static void set_loginApp(String account_idaccess,String account_Password){
+    public static void set_loginApp(String account_idaccess, String account_Password) {
         System.out.println("setter getter login app");
         System.out.println(account_idaccess);
         System.out.println(account_Password);
-        getUserapp_accessDB(account_idaccess,account_Password);
+        getUserapp_accessDB(account_idaccess, account_Password);
     }
-    
-    public static void set_infoAccount(String account_idaccess,String account_level,int idPegawai,String namaPegawai,String jabatanPegawai,boolean account_akses){
-        userApp_idaccess = account_idaccess;        
-        userApp_level = account_level;      
+
+    public static void set_infoAccount(String account_idaccess, String account_level, int idPegawai, String namaPegawai, String jabatanPegawai, boolean account_akses) {
+        userApp_idaccess = account_idaccess;
+        userApp_level = account_level;
         userApp_idPegawai = idPegawai;
-        userApp_namaPegawai = namaPegawai;        
+        userApp_namaPegawai = namaPegawai;
         userApp_jabatanPegawai = jabatanPegawai;
         giveAccess = account_akses;
     }
-    public static boolean get_accessApp(){
+
+    public static boolean get_accessApp() {
         return giveAccess;
     }
-    public static String get_levelaccessApp(){
+
+    public static String get_levelaccessApp() {
         return userApp_level;
     }
-    public static int get_idPegawai(){
+
+    public static int get_idPegawai() {
         return userApp_idPegawai;
     }
-    public static String get_nipPegawai(){
+
+    public static String get_nipPegawai() {
         return userApp_idaccess;
     }
-    public static String get_namaPegawai(){
+
+    public static String get_namaPegawai() {
         return userApp_namaPegawai;
     }
-    public static String get_jabatanPegawai(){
+
+    public static String get_jabatanPegawai() {
         return userApp_jabatanPegawai;
     }
-    
+
     /*
      * method setter atribut login frame
      * alias : logout
      */
-
     public static void setClean_sesi() {
         userApp_idaccess = null;
         userApp_level = null;
@@ -171,8 +173,6 @@ public class SetGet {
         giveAccess = false;
     }
     /*  end of method logout    */
-    
-    
-    
+
     /*  end of method set atribut    */
 }

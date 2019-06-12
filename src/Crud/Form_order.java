@@ -10,6 +10,8 @@ import static databases.CrudModel.delete_satuOrderCustomer_menu;
 import static databases.CrudModel.select_OrderCustomer_menu;
 import static databases.CrudModel.select_OrderCustomer_menu_total;
 import static databases.CrudModel.update_OrderCustomer_menu;
+import java.util.HashMap;
+import java.util.Map;
 import javax.swing.JOptionPane;
 import static pointofsale_backend.Frame_control.*;
 import static pointofsale_backend.Library.*;
@@ -436,14 +438,19 @@ public class Form_order extends javax.swing.JFrame {
         if (button_order) {
             tampil_form_list_menu(lbl_kodeOrder.getText(), lbl_kodeOrder_detail.getText());
         } else {
+            
+            Map JasperParams = new HashMap();
+            JasperParams.put("PARAM_KDMEJA",lbl_kodemeja.getText());            
+            JasperParams.put("PARAM_NUM_ORDER",lbl_kodeOrder.getText());
+
                 String reportPath = get_fullPath("src/receipt/Receipt_chef.jrxml");
-                String qery_select_forReceipt = "SELECT tmim.item_menu_nama,tdoc.qty FROM tbl_detail_order_customer tdoc \n"
+                String query_select_forReceipt = "SELECT tmim.item_menu_nama,tdoc.qty FROM tbl_detail_order_customer tdoc \n"
                         + "LEFT JOIN tbl_order_customer toc ON tdoc.kd_detail_order = toc.detail_order_kd\n"
                         + "LEFT JOIN tbl_master_item_menu tmim ON tdoc.item_menu_id = tmim.id_item_menu\n"
                         + "WHERE tdoc.cetak='n' AND tdoc.kd_detail_order = '" + lbl_kodeOrder_detail.getText() + "'";
-                System.out.println(qery_select_forReceipt);
-                set_CustomReportQuery(qery_select_forReceipt);
-                generate_CustomReport(reportPath, get_CustomReportQuery());
+                System.out.println(query_select_forReceipt);
+                set_CustomReportQuery(query_select_forReceipt);
+                generate_CustomReport(reportPath,JasperParams ,get_CustomReportQuery());
                 
             //cek state apakah jasper sudah selesai    
             if (get_stateAfterReport()) {
@@ -512,7 +519,7 @@ public class Form_order extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Metal".equals(info.getName())) {
+                if (looksAndFeel.equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }

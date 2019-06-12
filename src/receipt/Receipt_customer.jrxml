@@ -3,6 +3,12 @@
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
+	<parameter name="PARAM_NM_RESTO" class="java.lang.String"/>
+	<parameter name="PARAM_RESTO_INFO" class="java.lang.String"/>
+	<parameter name="PARAM_STRUK_TOT_RP" class="java.lang.String"/>
+	<parameter name="PARAM_STRUK_PJK_RP" class="java.lang.String"/>
+	<parameter name="PARAM_STRUK_NOMINAL_RP" class="java.lang.String"/>
+	<parameter name="PARAM_STRUK_KEMBALIAN_RP" class="java.lang.String"/>
 	<queryString language="SQL">
 		<![CDATA[SELECT kd_order, tmj.kd_meja,tmim.item_menu_nama,(tdoc.qty * tmim.item_menu_harga) as subtotal FROM tbl_order_customer toc
 RIGHT JOIN tbl_detail_order_customer tdoc ON toc.detail_order_kd = tdoc.kd_detail_order
@@ -30,18 +36,16 @@ WHERE toc.kd_order = "ODR20190504MJ0011"]]>
 	</background>
 	<title>
 		<band height="60" splitType="Stretch">
-			<staticText>
-				<reportElement x="174" y="0" width="232" height="40" uuid="ae728b62-5f74-4c40-9b88-2a70bd87e0aa"/>
-				<textElement textAlignment="Center">
-					<font size="28"/>
-				</textElement>
-				<text><![CDATA[Nama restoran]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="194" y="40" width="181" height="20" uuid="44d79800-b5b5-4b58-bcf5-e58d5ab93fed"/>
-				<textElement textAlignment="Center"/>
-				<text><![CDATA[jl.selalu lurus gk pernah belok]]></text>
-			</staticText>
+			<textField>
+				<reportElement x="194" y="0" width="181" height="40" uuid="2f087110-3de1-4277-8983-8d66f455dc2f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{PARAM_NM_RESTO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="194" y="40" width="181" height="20" uuid="10a8d1ff-4e73-4e60-91e5-da70453c7e20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{PARAM_RESTO_INFO}]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 	<pageHeader>
@@ -110,29 +114,29 @@ WHERE toc.kd_order = "ODR20190504MJ0011"]]>
 				<text><![CDATA[Pajak 10%]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="253" y="20" width="100" height="20" uuid="be70cc0c-72ca-44bf-b2a4-cebc6cf1fdd9"/>
-				<text><![CDATA[Static text]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="253" y="0" width="100" height="20" uuid="0aa5233c-5ddd-4190-ae5f-f92caaf6f3c0"/>
-				<text><![CDATA[Static text]]></text>
-			</staticText>
-			<staticText>
 				<reportElement x="197" y="40" width="56" height="20" uuid="859e0f98-d94d-4a23-86e7-fe9a7762cd7e"/>
 				<text><![CDATA[Bayar]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="253" y="40" width="100" height="20" uuid="d3fcf52e-ba42-40f4-b794-2be75ab6d76f"/>
-				<text><![CDATA[Static text]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="197" y="60" width="56" height="20" uuid="f0185a86-4fe8-40cb-a2cb-de52f0b71ac1"/>
 				<text><![CDATA[Kembalian]]></text>
 			</staticText>
-			<staticText>
-				<reportElement x="253" y="60" width="100" height="20" uuid="9984d99d-b4b1-4ff9-8e8d-a7d7a444f1dc"/>
-				<text><![CDATA[Static text]]></text>
-			</staticText>
+			<textField>
+				<reportElement x="253" y="0" width="153" height="20" uuid="183ab5da-eb66-4069-b153-e433786d1205"/>
+				<textFieldExpression><![CDATA[$P{PARAM_STRUK_TOT_RP}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="253" y="20" width="153" height="20" uuid="c53290d7-a66d-43d4-a15d-68fcd0af989c"/>
+				<textFieldExpression><![CDATA[$P{PARAM_STRUK_PJK_RP}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="253" y="40" width="153" height="20" uuid="2acf5bbe-1b2f-43da-92b2-fb04cb658e2a"/>
+				<textFieldExpression><![CDATA[$P{PARAM_STRUK_NOMINAL_RP}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="253" y="60" width="153" height="20" uuid="a6d11689-e16b-4464-a469-fd8f4bf628ff"/>
+				<textFieldExpression><![CDATA[$P{PARAM_STRUK_KEMBALIAN_RP}]]></textFieldExpression>
+			</textField>
 		</band>
 	</pageFooter>
 	<summary>

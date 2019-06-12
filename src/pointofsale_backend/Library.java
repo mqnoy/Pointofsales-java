@@ -6,15 +6,19 @@
  */
 package pointofsale_backend;
 
+import databases.CrudModel;
 import static databases.CrudModel.conn;
 import static databases.CrudModel.getMeja_kode;
+import static databases.CrudModel.select_kdPC_pos;
 import static databases.CrudModel.select_lastOrderId;
 import java.nio.file.Paths;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Map;
 import java.util.TimeZone;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -29,6 +33,7 @@ import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.view.JasperViewer;
 import org.apache.commons.codec.digest.DigestUtils;
+import static pointofsale_backend.SetGet.pcIpAddreess;
 
 /**
  *
@@ -103,11 +108,12 @@ public class Library {
      * thx for : https://www.youtube.com/watch?v=kB67jL8-DO0
      * https://stackoverflow.com/questions/24183129/dynamic-sql-query-for-jasper-report
      * error compailing : solved import http://www.java2s.com/example/jar/e/download-ecj431jar-file.html
+     * hashmap : https://community.jaspersoft.com/questions/524211/how-pass-parameters-jasper-report
      * @param reportPath
      * @param query
      */
     public static boolean state_after_report = false;
-     public static void generate_CustomReport(String reportPath,String query){
+     public static void generate_CustomReport(String reportPath,Map paramsJasper,String query){
             try{
                 JasperDesign jd = JRXmlLoader.load(reportPath);
                 JRDesignQuery newQuery = new JRDesignQuery();
@@ -115,7 +121,7 @@ public class Library {
                 jd.setQuery(newQuery);
                 
                 JasperReport jr = JasperCompileManager.compileReport(jd);
-                JasperPrint jp = JasperFillManager.fillReport(jr, null, conn);
+                JasperPrint jp = JasperFillManager.fillReport(jr, paramsJasper, conn);
                 JasperViewer.viewReport(jp,false);// false : mencegah agar tidak close application
                 set_stateAfterReport(true);;
             }catch(JRException ex){
@@ -208,7 +214,7 @@ public class Library {
 //        int itu = getUserapp_listDB("201643502058");
 //        String home = System.getProperty("user.home");
         String reportSource = System.getProperty("user.dir") + "/laporan/stok.jrxml";
-        System.out.println(reportSource);
+        
          System.out.println(get_fullPath("src/Reporting/report_penjualan.jrxml"));
         //    Date tanggalAwal_rpt = rpt_tanggal_awal.getDate();
 //        Date tanggalAkhir_rpt = rpt_tanggal_akhir.getDate();
@@ -218,7 +224,10 @@ public class Library {
 //         Date datetime = new Date();
 //        String rawformat = "yyyy-MM-dd 00:00:00";
 //        String anuan = parsing_Jdate(datetime,rawformat);
-//        System.out.println(lib_tanggalwaktu);
+//       ReadConfig rc = new ReadConfig();
+//        String _config = rc.get_config("pc_hostname");
+//        System.out.println(_config);
+        
     }
 
 }

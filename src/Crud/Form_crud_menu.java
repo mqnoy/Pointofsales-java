@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import static pointofsale_backend.SetGet.looksAndFeel;
 import static pointofsale_backend.SetGet.notif_del_menulist;
 import static pointofsale_backend.SetGet.notif_ins_found_menulist;
 import static pointofsale_backend.SetGet.notif_ins_menulist;
@@ -541,7 +542,7 @@ public class Form_crud_menu extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Metal".equals(info.getName())) {
+                if (looksAndFeel.equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }

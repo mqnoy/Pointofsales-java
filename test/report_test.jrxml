@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f6d74f0a-87fc-45b9-b23a-40ab325c5f8a">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="test_params1" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT * FROM tbl_master_meja;]]>
+	</queryString>
+	<field name="id_meja" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="kd_meja" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="kategori_meja" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<textField>
+				<reportElement x="224" y="30" width="100" height="22" uuid="066aedc6-df2b-4211-8f34-1e23602db1b0"/>
+				<textFieldExpression><![CDATA[$P{test_params1}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="50" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="24" splitType="Stretch">
+			<staticText>
+				<reportElement x="64" y="2" width="100" height="20" uuid="ecd948e8-e0c8-4c31-95c0-5cb6965ae2b7"/>
+				<text><![CDATA[id_meja]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="209" y="2" width="100" height="20" uuid="6626a405-9202-4345-8801-8ab930e64f63"/>
+				<text><![CDATA[kd_meja]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="398" y="2" width="100" height="20" uuid="26aa2272-a90d-4428-b184-f6f6d0558b87"/>
+				<text><![CDATA[kategori_meja]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="55" splitType="Stretch">
+			<textField>
+				<reportElement x="64" y="24" width="100" height="20" uuid="3788a78d-9bc7-46a5-b988-ceaf81aff003"/>
+				<textFieldExpression><![CDATA[$F{id_meja}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="209" y="34" width="100" height="20" uuid="5ad722cd-fef0-4ee3-8604-131bf2c01219"/>
+				<textFieldExpression><![CDATA[$F{kd_meja}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="398" y="35" width="100" height="20" uuid="cb7c73b0-c80a-46ac-8ee3-a807e7d7786c"/>
+				<textFieldExpression><![CDATA[$F{kategori_meja}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="16" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="18" splitType="Stretch"/>
+	</summary>
+</jasperReport>

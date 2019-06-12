@@ -517,7 +517,16 @@ public class CrudModel extends ConfigDatabase {
      * method untuk insert data transaksi ketika order
      */
     public static void insert_OrderCustomer(int mejaid) {
-        int computerPOS_id = 1;
+        int computerPOS_id = -1;
+        //select id computer pos
+        try {
+            ResultSet select_kdPC_pos = select_kdPC_pos(pcIpAddreess);
+            while (select_kdPC_pos.next()) {
+                computerPOS_id = select_kdPC_pos.getInt("id_pos_computer");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CrudModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
         int order_idDB = 0;
         int pegawai_id = get_idPegawai();
         String bungkus = "n";
@@ -572,15 +581,45 @@ public class CrudModel extends ConfigDatabase {
     }
 
     /* end of method untuk insert data transaksi ketika order*/
+    /**
+     * end of method untuk insert data transaksi ketika order
+     * select tbl_master_pos_computer 
+     * @param val_pcIpaddress
+     * @return object
+    */
+    public static ResultSet select_kdPC_pos(String val_pcIpaddress) {
+        String query_select_pcpos = "SELECT * FROM tbl_master_pos_computer WHERE computer_ip='" + val_pcIpaddress + "'";
+        ResultSet data = null;
+
+        try {
+            Statement stmt = conn.createStatement();
+            data = stmt.executeQuery(query_select_pcpos);
+            System.out.println("select_kdPC_pos("+query_select_pcpos+") =>"+val_pcIpaddress);
+        } catch (SQLException ex) {
+            Logger.getLogger(CrudModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return data;
+    }
     /*
      * method untuk update data transaksi ketika bayar
      */
+
     public static void update_TransCustomer(String kd_order, String kd_orderdetail) {
+        int computerPOS_id = -1;
+        //select id computer pos
+        try {
+            ResultSet select_kdPC_pos = select_kdPC_pos(pcIpAddreess);
+            while (select_kdPC_pos.next()) {
+                computerPOS_id = select_kdPC_pos.getInt("id_pos_computer");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CrudModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         int total_itemMenu_pn = 0;
         boolean delete_paksa_itemMenu = false;
         String bungkus = "n";
         String lunas = "y";
-        int computerPOS_id = 1;
         int pegawai_id = get_idPegawai();
         Timestamp tgl_sekarang_bayar = new Timestamp(new java.util.Date().getTime());
         int total_tagihan = Integer.parseInt(Form_bayar_tagihan.lbl_bt_rpTotal_tagihan.getText());
@@ -595,6 +634,7 @@ public class CrudModel extends ConfigDatabase {
 
         //cari jika masih ada menu yang belum di cetak di detail order ,maka akan di delete paksa 
         try {
+
             String cek_detailorder_cetak_n = "SELECT COUNT(*) AS total_item FROM tbl_detail_order_customer "
                     + "WHERE cetak = 'n' AND kd_detail_order = '" + kd_orderdetail + "'";
             ResultSet hasil_cek;
@@ -950,11 +990,55 @@ public class CrudModel extends ConfigDatabase {
         }
         return idorderDB;
     }
+    
+    /*
+     * method untuk select data total pendapatan dari daftar transaksi @Form_laporan_penjualan
+     * @return int
+     */
+    public static int select_SUMDaftarTransaksi(String tgl_awal, String tgl_akhir) {
+        int pendapatanTotal=0;
+        String query_sum = "SELECT SUM(total_tagihan) AS total_pendapatan FROM tbl_transaksi_pesanan "
+                + "WHERE tgl_pembayaran BETWEEN '" + tgl_awal + "' AND '" + tgl_akhir + "' ";
+        ResultSet rs = SQLselectAll(query_sum);
+        try {
+            while(rs.next()){
+                pendapatanTotal = rs.getInt("total_pendapatan");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CrudModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return pendapatanTotal;
+    }/*end*/
+    
+    /*
+     * method untuk select data total pendapatan dari daftar transaksi @Form_laporan_penjualan
+     * @return int
+     */
+    public static int select_COUNTDaftarTransaksi(boolean pickWhere,String tgl_awal, String tgl_akhir,String lunas) {
+        int transaksiTotal=0;
+        String query_sum ="";
+        if (pickWhere) {
+            query_sum = "SELECT COUNT(lunas) AS total_transaksi FROM tbl_transaksi_pesanan "
+                + "WHERE lunas='"+lunas+"' AND tgl_pembayaran BETWEEN '" + tgl_awal + "' AND '" + tgl_akhir + "' ";
+        }else{
+            query_sum = "SELECT COUNT(lunas) AS total_transaksi FROM tbl_transaksi_pesanan "; 
+        }
+        System.out.println(query_sum);
+        ResultSet rs = SQLselectAll(query_sum);
+        try {
+            while(rs.next()){
+                transaksiTotal = rs.getInt("total_transaksi");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CrudModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return transaksiTotal;
+    }/*end*/
+    
     /*
      * method untuk select data untuk daftar transaksi @Form_laporan_penjualan
-     * return void
+     * @return void
      */
-
     public static void select_DaftarTransaksi(boolean cari_data, String tgl_awal, String tgl_akhir) {
         String query_selectTransaksi = "";
         DefaultTableModel tabmode = getDatatabel(jTable_lap_penjualan);
@@ -978,7 +1062,7 @@ public class CrudModel extends ConfigDatabase {
                 int b = hasil.getInt("total_tagihan");
                 String c = hasil.getString("type_payment");
                 String d = hasil.getString("lunas");
-                String e = hasil.getString("computer_hostname");
+                String e = hasil.getString("kd_computer_pos");
                 String f = hasil.getString("pegawai_nama");
                 String g = hasil.getString("tgl_pembayaran");
 

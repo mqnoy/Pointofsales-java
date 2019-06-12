@@ -7,15 +7,11 @@ package Crud;
 
 import static databases.CrudModel.deleteUserapp_listDB;
 import static databases.CrudModel.getUserapp_listDB;
-import static databases.CrudModel.getUserapp_listDB;
 import static databases.CrudModel.insertUserapp_listDB;
 import static databases.CrudModel.update_Userapp_listDB;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-import pointofsale_backend.SetGet;
+import static pointofsale_backend.SetGet.looksAndFeel;
 import static pointofsale_backend.SetGet.notif_del_userapp;
 import static pointofsale_backend.SetGet.notif_ins_userapp;
 import static pointofsale_backend.SetGet.notif_upd_userapp;
@@ -543,7 +539,7 @@ public class Form_crud_userAplikasi extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Metal".equals(info.getName())) {
+                if (looksAndFeel.equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }

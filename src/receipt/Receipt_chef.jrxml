@@ -3,6 +3,8 @@
 	<property name="ireport.zoom" value="1.771561000000001"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
+	<parameter name="PARAM_KDMEJA" class="java.lang.String"/>
+	<parameter name="PARAM_NUM_ORDER" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT tmim.item_menu_nama,tdoc.qty FROM tbl_struk_for_koki tsfk 
 LEFT JOIN tbl_order_customer toc ON tsfk.order_kd = toc.kd_order
@@ -24,16 +26,6 @@ WHERE tsfk.order_kd = "ODR20190518MJ00133"]]>
 	</background>
 	<title>
 		<band height="65" splitType="Stretch">
-			<staticText>
-				<reportElement x="0" y="0" width="172" height="25" uuid="fbba6948-4767-4d6e-951c-f51a85cec22c"/>
-				<textElement textAlignment="Center"/>
-				<text><![CDATA[KD_MEJA]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="0" y="25" width="172" height="20" uuid="53e43e7d-32ff-4e3a-9a14-b1667c3275eb"/>
-				<textElement textAlignment="Center"/>
-				<text><![CDATA[NO_ORDER]]></text>
-			</staticText>
 			<textField pattern="dd/MM/yyyy">
 				<reportElement x="23" y="45" width="64" height="20" uuid="4a837d3c-0718-46f3-818c-5a6611e14c04"/>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
@@ -41,6 +33,16 @@ WHERE tsfk.order_kd = "ODR20190518MJ00133"]]>
 			<textField pattern="h.mm a">
 				<reportElement x="87" y="45" width="46" height="20" uuid="aecf7da1-c17e-4a4c-ba4f-139dc9829000"/>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="172" height="25" uuid="7c478e89-8b4c-4d45-8151-9d3baeefa555"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{PARAM_KDMEJA}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="25" width="172" height="20" uuid="7f88ebb0-7f13-4c78-b114-45d51bfde62c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{PARAM_NUM_ORDER}]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>
