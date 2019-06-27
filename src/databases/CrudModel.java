@@ -25,6 +25,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import static pointofsale.HalamanUtama.jTable_list_order;
 import static pointofsale_backend.Library.generateOrder;
 import static pointofsale_backend.Library.lib_tanggalwaktu;
 import static pointofsale_backend.Library.strTo_MD5;
@@ -478,7 +479,36 @@ public class CrudModel extends ConfigDatabase {
         }
         return str_kd_order;
     }
-
+    
+    public static void get_listOrder_menuUtama(){
+        System.out.println("executing => get_listOrder_menuUtama() ");
+         String query_selectListOrder_n = "SELECT c.kd_meja,b.kd_order,d.pegawai_nama,e.kd_computer_pos\n" +
+            "FROM tbl_transaksi_pesanan a \n" +
+            "LEFT JOIN tbl_order_customer b on a.order_kd = b.kd_order\n" +
+            "LEFT JOIN tbl_master_meja c ON b.meja_id = c.id_meja\n" +
+            "LEFT JOIN tbl_master_pegawai d on a.id_pegawai = d.id_pegawai\n" +
+            "LEFT JOIN tbl_master_pos_computer e on a.pos_computer_id = e.id_pos_computer\n" +
+            " WHERE a.lunas = 'n'";
+        DefaultTableModel tabmode = getDatatabel(jTable_list_order);
+        try {
+            ResultSet rs = SQLselectAll(query_selectListOrder_n);
+            int NUMBERS = 1;
+            while (rs.next()) {
+                String a = rs.getString("c.kd_meja");
+                String b = rs.getString("b.kd_order");
+                String c = rs.getString("d.pegawai_nama");
+                String d = rs.getString("e.kd_computer_pos");
+                
+                Object[] data = {NUMBERS, a, b, c, d};
+                tabmode.addRow(data);
+                NUMBERS++;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CrudModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+    
     //jika belum lunas dan kdmeja ditemukan akan tampil kd ordernya
     public static Object[] cek_Status_orderanMeja(String kd_meja) throws SQLException {
         String lunas = "n";
@@ -1109,6 +1139,11 @@ public class CrudModel extends ConfigDatabase {
             Object[] baris = {"No", "kode order", "Total tagihan", "Tipe pembayaran", "Lunas", "Pc pos", "kasir", "Tgl Pembayaran"};
             tabmode = new DefaultTableModel(null, baris);
             jTable_lap_penjualan.setModel(tabmode);
+
+        }else if (tableName.equals(jTable_list_order)) {
+            Object[] baris = {"no", "kode meja", "kode order", "Nama kasir", "Pc kasir"};
+            tabmode = new DefaultTableModel(null, baris);
+            jTable_list_order.setModel(tabmode);
 
         }
 
