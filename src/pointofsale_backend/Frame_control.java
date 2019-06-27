@@ -7,6 +7,7 @@ package pointofsale_backend;
 
 import Crud.*;
 import static databases.CrudModel.select_OrderCustomer_menu_total;
+import pointofsale.About_apps;
 import pointofsale.HalamanLogin;
 import pointofsale.HalamanUtama;
 import pointofsale.NotAvailable;
@@ -131,6 +132,13 @@ public class Frame_control extends SetGet{
         dialogNotAvailable.setLocationRelativeTo(null);
         //munculin framenya
         dialogNotAvailable.setVisible(true);
+    }
+    // method untuk tampil crud user aplikasi
+    public static void tampil_aboutApp(){
+        About_apps aa = new About_apps();
+        aa.pack();
+        aa.setLocationRelativeTo(null);
+        aa.setVisible(true);
     }
     
 }
