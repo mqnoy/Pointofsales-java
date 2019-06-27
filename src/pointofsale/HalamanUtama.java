@@ -5,6 +5,7 @@
  */
 package pointofsale;
 
+import static databases.CrudModel.get_listOrder_menuUtama;
 import static databases.CrudModel.insert_OrderCustomer;
 import javax.swing.JOptionPane;
 import static pointofsale_backend.Frame_control.*;
@@ -20,15 +21,19 @@ public class HalamanUtama extends javax.swing.JFrame {
      */
     public HalamanUtama() {
 //        giveAccess = true;//for testing set to true ,live pls comment with //
-        if (get_accessApp()) {
+        if (get_accessApp()) {//get_accessApp() for production
             initComponents();
+            hu_lbl_pchostname.setText(readConf.get_config("pc_hostname"));
+            hu_lbl_pcipaddress.setText(readConf.get_config("pc_ipaddress"));
+            get_listOrder_hu();
+            
             hu_lbl_userjabatan.setText(get_jabatanPegawai());
             hu_lbl_nip.setText(get_nipPegawai());
             if (get_levelaccessApp().equals("superadmin")) {
                 jMenuItem_mnj_userapp.setVisible(true);
                 hu_btn_mjnmeja.setVisible(true);
-                hu_lbl_pchostname.setText(readConf.get_config("pc_hostname"));
-                hu_lbl_pcipaddress.setText(readConf.get_config("pc_ipaddress"));
+                
+                
             }else{
                 jMenuItem_mnj_userapp.setVisible(false);
                 hu_btn_mjnmeja.setVisible(false);
@@ -44,7 +49,9 @@ public class HalamanUtama extends javax.swing.JFrame {
             }
         }
     }
-
+    public static void  get_listOrder_hu(){
+        get_listOrder_menuUtama();
+    }
     public static void mulaiOrder(int var_id_meja) {
         String val_kodemeja = getKodeMeja(var_id_meja);
         String val_kodeorder = null;
@@ -106,10 +113,11 @@ public class HalamanUtama extends javax.swing.JFrame {
         jButton12 = new javax.swing.JButton();
         hu_btn_mjnmeja = new javax.swing.JButton();
         hu_btn_mjmn_pcpos = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         layout_footer = new javax.swing.JSplitPane();
         jPanel_footer_kiri = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTable_list_order = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         hu_lbl_nip = new javax.swing.JLabel();
@@ -177,21 +185,41 @@ public class HalamanUtama extends javax.swing.JFrame {
         btn_meja3.setBackground(btn_meja1.getBackground());
         btn_meja3.setForeground(btn_meja1.getForeground());
         btn_meja3.setText("MEJA3");
+        btn_meja3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_meja3ActionPerformed(evt);
+            }
+        });
         jpanel_meja.add(btn_meja3);
 
         btn_meja4.setBackground(btn_meja1.getBackground());
         btn_meja4.setForeground(btn_meja1.getForeground());
         btn_meja4.setText("MEJA4");
+        btn_meja4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_meja4ActionPerformed(evt);
+            }
+        });
         jpanel_meja.add(btn_meja4);
 
         btn_meja5.setBackground(btn_meja1.getBackground());
         btn_meja5.setForeground(btn_meja1.getForeground());
         btn_meja5.setText("MEJA5");
+        btn_meja5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_meja5ActionPerformed(evt);
+            }
+        });
         jpanel_meja.add(btn_meja5);
 
         btn_meja6.setBackground(btn_meja1.getBackground());
         btn_meja6.setForeground(btn_meja1.getForeground());
         btn_meja6.setText("MEJA6");
+        btn_meja6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_meja6ActionPerformed(evt);
+            }
+        });
         jpanel_meja.add(btn_meja6);
 
         btn_meja7.setBackground(btn_meja1.getBackground());
@@ -207,6 +235,11 @@ public class HalamanUtama extends javax.swing.JFrame {
         btn_meja8.setBackground(btn_meja1.getBackground());
         btn_meja8.setForeground(btn_meja1.getForeground());
         btn_meja8.setText("MEJA8");
+        btn_meja8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_meja8ActionPerformed(evt);
+            }
+        });
         jpanel_meja.add(btn_meja8);
 
         btn_meja9.setBackground(btn_meja1.getBackground());
@@ -267,17 +300,28 @@ public class HalamanUtama extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setBackground(new java.awt.Color(54, 54, 54));
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setText("refresh daftar pesanan");
+        jButton1.setBorderPainted(false);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jpanel_menu_kananLayout = new javax.swing.GroupLayout(jpanel_menu_kanan);
         jpanel_menu_kanan.setLayout(jpanel_menu_kananLayout);
         jpanel_menu_kananLayout.setHorizontalGroup(
             jpanel_menu_kananLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpanel_menu_kananLayout.createSequentialGroup()
+            .addGroup(jpanel_menu_kananLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jpanel_menu_kananLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(hu_btn_mjmn_pcpos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton11, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(hu_btn_mjnmeja, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton12, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE))
+                .addGroup(jpanel_menu_kananLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(hu_btn_mjmn_pcpos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(hu_btn_mjnmeja, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton12, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jpanel_menu_kananLayout.setVerticalGroup(
@@ -289,7 +333,9 @@ public class HalamanUtama extends javax.swing.JFrame {
                 .addComponent(hu_btn_mjnmeja, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(hu_btn_mjmn_pcpos, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 244, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 210, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -319,9 +365,9 @@ public class HalamanUtama extends javax.swing.JFrame {
         jPanel_footer_kiri.setMinimumSize(new java.awt.Dimension(700, 100));
         jPanel_footer_kiri.setPreferredSize(new java.awt.Dimension(700, 174));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTable_list_order.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"MJ001", "ORD0001", "azmi", "kasir1"}
+
             },
             new String [] {
                 "Kode meja", "Kode order", "Pelayan", "Kasir"
@@ -335,7 +381,15 @@ public class HalamanUtama extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jTable_list_order.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jTable_list_orderMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jTable_list_orderMouseExited(evt);
+            }
+        });
+        jScrollPane1.setViewportView(jTable_list_order);
 
         javax.swing.GroupLayout jPanel_footer_kiriLayout = new javax.swing.GroupLayout(jPanel_footer_kiri);
         jPanel_footer_kiri.setLayout(jPanel_footer_kiriLayout);
@@ -345,7 +399,7 @@ public class HalamanUtama extends javax.swing.JFrame {
         );
         jPanel_footer_kiriLayout.setVerticalGroup(
             jPanel_footer_kiriLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE)
         );
 
         layout_footer.setLeftComponent(jPanel_footer_kiri);
@@ -403,7 +457,7 @@ public class HalamanUtama extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(hu_lbl_pchostname, javax.swing.GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE))
+                        .addComponent(hu_lbl_pchostname, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -435,7 +489,7 @@ public class HalamanUtama extends javax.swing.JFrame {
                     .addComponent(hu_lbl_pcipaddress, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 72, Short.MAX_VALUE))
+                .addContainerGap(73, Short.MAX_VALUE))
         );
 
         layout_footer.setRightComponent(jPanel3);
@@ -501,6 +555,11 @@ public class HalamanUtama extends javax.swing.JFrame {
         jMenu2.add(jMenuItem_mnj_userapp);
 
         jMenuItem1.setText("Tentang aplikasi");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
         jMenu2.add(jMenuItem1);
 
         jMenuItem3.setText("Logout");
@@ -556,10 +615,12 @@ public class HalamanUtama extends javax.swing.JFrame {
 
     private void btn_meja9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_meja9ActionPerformed
         // TODO add your handling code here:
+         mulaiOrder(9);
     }//GEN-LAST:event_btn_meja9ActionPerformed
 
     private void btn_meja7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_meja7ActionPerformed
         // TODO add your handling code here:
+         mulaiOrder(7);
     }//GEN-LAST:event_btn_meja7ActionPerformed
 
     private void btn_meja2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_meja2ActionPerformed
@@ -587,6 +648,50 @@ public class HalamanUtama extends javax.swing.JFrame {
         // TODO add your handling code here:
         tampil_NotAvailable();
     }//GEN-LAST:event_hu_btn_mjmn_pcposActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // TODO add your handling code here:
+        tampil_aboutApp();
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jTable_list_orderMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable_list_orderMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTable_list_orderMouseEntered
+
+    private void jTable_list_orderMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable_list_orderMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTable_list_orderMouseExited
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        get_listOrder_hu();
+
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void btn_meja3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_meja3ActionPerformed
+        // TODO add your handling code here:
+         mulaiOrder(3);
+    }//GEN-LAST:event_btn_meja3ActionPerformed
+
+    private void btn_meja4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_meja4ActionPerformed
+        // TODO add your handling code here:
+         mulaiOrder(4);
+    }//GEN-LAST:event_btn_meja4ActionPerformed
+
+    private void btn_meja5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_meja5ActionPerformed
+        // TODO add your handling code here:
+         mulaiOrder(5);
+    }//GEN-LAST:event_btn_meja5ActionPerformed
+
+    private void btn_meja6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_meja6ActionPerformed
+        // TODO add your handling code here:
+         mulaiOrder(6);
+    }//GEN-LAST:event_btn_meja6ActionPerformed
+
+    private void btn_meja8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_meja8ActionPerformed
+        // TODO add your handling code here:
+         mulaiOrder(8);
+    }//GEN-LAST:event_btn_meja8ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -643,6 +748,7 @@ public class HalamanUtama extends javax.swing.JFrame {
     public static javax.swing.JLabel hu_lbl_pchostname;
     public static javax.swing.JLabel hu_lbl_pcipaddress;
     public static javax.swing.JLabel hu_lbl_userjabatan;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
     private javax.swing.JLabel jLabel1;
@@ -665,7 +771,7 @@ public class HalamanUtama extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel_footer_kiri;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    public static javax.swing.JTable jTable_list_order;
     private javax.swing.JPanel jpanel_meja;
     private javax.swing.JPanel jpanel_menu_kanan;
     private javax.swing.JSplitPane layout_footer;
